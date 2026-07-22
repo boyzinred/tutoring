@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="latte">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive English grammar and IELTS typing practice quiz" />
+  <title>English Grammar & IELTS Typing Lab</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --rosewater: #dc8a78;
+      --flamingo: #dd7878;
+      --pink: #ea76cb;
+      --mauve: #8839ef;
+      --red: #d20f39;
+      --maroon: #e64553;
+      --peach: #fe640b;
+      --yellow: #df8e1d;
+      --green: #40a02b;
+      --teal: #179299;
+      --sky: #04a5e5;
+      --sapphire: #209fb5;
+      --blue: #1e66f5;
+      --lavender: #7287fd;
+      --text: #4c4f69;
+      --subtext1: #5c5f77;
+      --subtext0: #6c6f85;
+      --overlay2: #7c7f93;
+      --overlay1: #8c8fa1;
+      --overlay0: #9ca0b0;
+      --surface2: #acb0be;
+      --surface1: #bcc0cc;
+      --surface0: #ccd0da;
+      --base: #eff1f5;
+      --mantle: #e6e9ef;
+      --crust: #dce0e8;
+      --shadow: 0 12px 35px rgba(76, 79, 105, 0.12);
+    }
+
+    html[data-theme="mocha"] {
+      color-scheme: dark;
+      --rosewater: #f5e0dc;
+      --flamingo: #f2cdcd;
+      --pink: #f5c2e7;
+      --mauve: #cba6f7;
+      --red: #f38ba8;
+      --maroon: #eba0ac;
+      --peach: #fab387;
+      --yellow: #f9e2af;
+      --green: #a6e3a1;
+      --teal: #94e2d5;
+      --sky: #89dceb;
+      --sapphire: #74c7ec;
+      --blue: #89b4fa;
+      --lavender: #b4befe;
+      --text: #cdd6f4;
+      --subtext1: #bac2de;
+      --subtext0: #a6adc8;
+      --overlay2: #9399b2;
+      --overlay1: #7f849c;
+      --overlay0: #6c7086;
+      --surface2: #585b70;
+      --surface1: #45475a;
+      --surface0: #313244;
+      --base: #1e1e2e;
+      --mantle: #181825;
+      --crust: #11111b;
+      --shadow: 0 12px 35px rgba(0, 0, 0, 0.30);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--mauve) 12%, transparent), transparent 32rem),
+        radial-gradient(circle at 88% 16%, color-mix(in srgb, var(--sky) 10%, transparent), transparent 30rem),
+        var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--blue); }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--base) 84%, transparent);
+      border-bottom: 1px solid var(--surface0);
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: grid;
+      place-items: center;
+      border-radius: 0.9rem;
+      background: linear-gradient(135deg, var(--mauve), var(--blue));
+      color: var(--crust);
+      font-weight: 900;
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+    }
+
+    .brand-copy { min-width: 0; }
+    .brand-copy strong { display: block; line-height: 1.15; }
+    .brand-copy span { display: block; color: var(--subtext0); font-size: 0.82rem; }
+
+    .theme-toggle {
+      border: 1px solid var(--surface1);
+      background: var(--surface0);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1rem 6rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.55fr 0.8fr;
+      gap: 1.25rem;
+      align-items: stretch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-card, .toc-card, .section-card, .exercise-card {
+      border: 1px solid var(--surface0);
+      background: color-mix(in srgb, var(--mantle) 92%, transparent);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card { padding: clamp(1.4rem, 3vw, 2.4rem); }
+    .eyebrow {
+      display: inline-block;
+      color: var(--mauve);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h1, h2, h3 { line-height: 1.22; margin-top: 0; }
+    h1 { font-size: clamp(2rem, 5vw, 3.75rem); margin-bottom: 0.75rem; }
+    .hero p { color: var(--subtext1); max-width: 66ch; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.25rem; }
+    .chip {
+      border: 1px solid var(--surface1);
+      background: var(--surface0);
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      color: var(--subtext1);
+      font-size: 0.86rem;
+    }
+
+    .toc-card { padding: 1.25rem; }
+    .toc-card h2 { font-size: 1.15rem; margin-bottom: 0.8rem; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.55rem; }
+    .toc-list a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.75rem;
+      background: var(--base);
+      border: 1px solid var(--surface0);
+      color: var(--text);
+    }
+    .toc-list a:hover { border-color: var(--mauve); transform: translateY(-1px); }
+    .toc-number { color: var(--mauve); font-weight: 800; }
+
+    .section-card {
+      margin: 1.25rem 0;
+      overflow: clip;
+      scroll-margin-top: 5.5rem;
+    }
+
+    .section-header {
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--surface0);
+      background: color-mix(in srgb, var(--surface0) 70%, transparent);
+    }
+    .section-header h2 { margin: 0; font-size: clamp(1.25rem, 2.6vw, 1.8rem); }
+    .section-kicker { color: var(--mauve); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .collapse-btn {
+      flex: 0 0 auto;
+      border: 1px solid var(--surface1);
+      background: var(--base);
+      color: var(--text);
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .section-content { padding: 1.25rem; }
+    .section-content[hidden] { display: none; }
+    .explanation {
+      padding: 1rem;
+      border-left: 4px solid var(--mauve);
+      background: color-mix(in srgb, var(--mauve) 8%, var(--base));
+      border-radius: 0 0.85rem 0.85rem 0;
+      margin-bottom: 1.15rem;
+    }
+    .explanation strong { color: var(--mauve); }
+    .exercise-grid { display: grid; gap: 1rem; }
+
+    .exercise-card { padding: 1.1rem; }
+    .exercise-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .exercise-head h3 { margin-bottom: 0.25rem; font-size: 1.12rem; }
+    .exercise-head p { margin: 0; color: var(--subtext0); font-size: 0.9rem; }
+    .score-pill {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--surface0);
+      border: 1px solid var(--surface1);
+      padding: 0.35rem 0.65rem;
+      font-size: 0.85rem;
+      color: var(--subtext1);
+    }
+
+    .progress-track {
+      height: 0.45rem;
+      border-radius: 999px;
+      background: var(--surface0);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--mauve), var(--blue));
+      transition: width 180ms ease;
+    }
+
+    .question-box {
+      border: 1px solid var(--surface0);
+      background: var(--base);
+      border-radius: 0.95rem;
+      padding: 1rem;
+    }
+    .question-meta { color: var(--subtext0); font-size: 0.82rem; margin-bottom: 0.4rem; }
+    .question-text { font-size: 1.03rem; font-weight: 650; white-space: pre-line; margin-bottom: 0.8rem; }
+
+    .answer-input, .timed-answer {
+      width: 100%;
+      border: 1px solid var(--surface1);
+      border-radius: 0.75rem;
+      background: var(--mantle);
+      color: var(--text);
+      padding: 0.75rem 0.85rem;
+      outline: none;
+    }
+    .answer-input:focus, .timed-answer:focus { border-color: var(--blue); box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 20%, transparent); }
+    .timed-answer { min-height: 10rem; resize: vertical; }
+    .timed-answer:disabled { opacity: 0.78; cursor: not-allowed; }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.8rem; }
+    .btn {
+      border: 0;
+      border-radius: 0.75rem;
+      padding: 0.62rem 0.88rem;
+      font-weight: 750;
+    }
+    .btn-primary { background: var(--blue); color: var(--crust); }
+    .btn-secondary { background: var(--surface0); color: var(--text); border: 1px solid var(--surface1); }
+    .btn-accent { background: var(--mauve); color: var(--crust); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .feedback {
+      margin-top: 0.8rem;
+      border-radius: 0.8rem;
+      padding: 0.75rem 0.85rem;
+      white-space: pre-line;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.correct { background: color-mix(in srgb, var(--green) 15%, var(--base)); border: 1px solid color-mix(in srgb, var(--green) 55%, var(--surface0)); }
+    .feedback.incorrect { background: color-mix(in srgb, var(--red) 12%, var(--base)); border: 1px solid color-mix(in srgb, var(--red) 55%, var(--surface0)); }
+    .feedback.neutral { background: color-mix(in srgb, var(--sky) 10%, var(--base)); border: 1px solid color-mix(in srgb, var(--sky) 45%, var(--surface0)); }
+
+    .timer-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+    }
+    .timer-display {
+      min-width: 7rem;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: var(--surface0);
+      border: 1px solid var(--surface1);
+    }
+    .timer-display strong { display: block; font-size: 2.35rem; line-height: 1; color: var(--mauve); }
+    .timer-display span { color: var(--subtext0); font-size: 0.8rem; }
+    .timed-prompt {
+      font-size: 1.2rem;
+      font-weight: 800;
+      padding: 1rem;
+      border-radius: 0.9rem;
+      background: color-mix(in srgb, var(--mauve) 9%, var(--base));
+      border: 1px solid color-mix(in srgb, var(--mauve) 35%, var(--surface0));
+      margin-bottom: 0.8rem;
+    }
+    .timed-instructions { color: var(--subtext0); font-size: 0.92rem; }
+
+    .back-to-toc {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 30;
+      text-decoration: none;
+      border-radius: 999px;
+      background: var(--mauve);
+      color: var(--crust);
+      font-weight: 800;
+      padding: 0.7rem 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .source-note {
+      margin-top: 1.5rem;
+      color: var(--subtext0);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; }
+      .timer-panel { grid-template-columns: 1fr; }
+      .timer-display { min-width: 0; }
+    }
+
+    @media (max-width: 560px) {
+      .brand-copy span, .theme-name { display: none; }
+      .section-header { align-items: flex-start; }
+      .exercise-head { flex-direction: column; }
+      .score-pill { align-self: flex-start; }
+      .back-to-toc { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">A+</div>
+        <div class="brand-copy">
+          <strong>English Grammar & IELTS Typing Lab</strong>
+          <span>Immediate feedback, timed practice, and restartable exercises</span>
+        </div>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme">
+        <span id="themeIcon" aria-hidden="true">☾</span>
+        <span class="theme-name" id="themeName">Mocha dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="toc">
+      <div class="hero-card">
+        <span class="eyebrow">Typing-first practice</span>
+        <h1>Build accuracy, speed, and IELTS fluency.</h1>
+        <p>Work through one question at a time. Grammar exercises give immediate feedback and a running score. The IELTS fluency timer locks your response after 45 seconds so you can review what you produced under pressure.</p>
+        <div class="hero-chips" aria-label="Quiz features">
+          <span class="chip">100 typed questions</span>
+          <span class="chip">20 timed prompts</span>
+          <span class="chip">Instant feedback</span>
+          <span class="chip">Per-exercise restart</span>
+          <span class="chip">Catppuccin Latte / Mocha</span>
+        </div>
+      </div>
+
+      <nav class="toc-card" aria-labelledby="tocTitle">
+        <h2 id="tocTitle">Table of contents</h2>
+        <ol class="toc-list">
+          <li><a href="#possessive-nouns"><span><span class="toc-number">01</span> Possessive nouns</span><span>→</span></a></li>
+          <li><a href="#using-whose"><span><span class="toc-number">02</span> Using <em>whose</em></span><span>→</span></a></li>
+          <li><a href="#possessive-pronouns"><span><span class="toc-number">03</span> Pronouns & adjectives</span><span>→</span></a></li>
+          <li><a href="#timed-fluency"><span><span class="toc-number">04</span> Timed reason + example</span><span>→</span></a></li>
+          <li><a href="#error-correction"><span><span class="toc-number">05</span> Error correction</span><span>→</span></a></li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="section-card" id="possessive-nouns">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Possessive Nouns</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="possessiveNounsContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="possessiveNounsContent">
+        <div class="explanation"><strong>Rule:</strong> Add <strong>'s</strong> to a singular noun (<em>the student's name</em>) and to an irregular plural noun that does not end in <em>-s</em> (<em>children's books</em>). For a regular plural already ending in <em>-s</em>, add only an apostrophe (<em>students' names</em>). For joint ownership, add <em>'s</em> to the final owner: <em>Ella and Ned's grandson</em>.</div>
+        <div class="exercise-grid" id="possessive-nouns-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="using-whose">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Using <em>Whose</em></h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="whoseContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="whoseContent">
+        <div class="explanation"><strong>Whose</strong> asks about possession: <em>Whose book is this?</em> <strong>Who's</strong> is a contraction of <em>who is</em> or <em>who has</em>: <em>Who's taking the picture?</em> They sound the same, so use the sentence meaning to choose the correct spelling.</div>
+        <div class="exercise-grid" id="whose-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="possessive-pronouns">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Possessive Pronouns and Adjectives</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="pronounsContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="pronounsContent">
+        <div class="explanation"><strong>Possessive adjectives</strong> come before nouns: <em>my pen, her bag, their room</em>. <strong>Possessive pronouns</strong> stand alone: <em>mine, hers, theirs</em>. Remember: <em>its</em> shows possession, while <em>it's</em> means <em>it is</em>; <em>their</em> shows possession, <em>there</em> indicates place, and <em>they're</em> means <em>they are</em>.</div>
+        <div class="exercise-grid" id="pronoun-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="timed-fluency">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">IELTS</div>
+          <h2>45-Second Reason + Example</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="timedContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="timedContent">
+        <div class="explanation">Use a simple IELTS speaking shape: <strong>answer → reason → example/detail → final comment</strong>. Press <em>Start 45 seconds</em>, then type continuously. When the timer reaches zero, the box locks. There is no automatic grading; review whether your response contains a clear position, a reason, and a concrete example.</div>
+        <div class="exercise-card">
+          <div class="exercise-head">
+            <div>
+              <h3>Timed Fluency Round</h3>
+              <p>Prompts rotate without repeating until all 20 have been used.</p>
+            </div>
+            <div class="score-pill" id="promptCounter">Prompt 1 of 20</div>
+          </div>
+          <div class="timer-panel">
+            <div>
+              <div class="timed-prompt" id="timedPrompt"></div>
+              <p class="timed-instructions" id="timedStatus">Read the prompt, plan one quick reason, then start the timer.</p>
+              <label class="sr-only" for="timedAnswer">Your timed response</label>
+              <textarea id="timedAnswer" class="timed-answer" placeholder="Your answer box will unlock when you start." disabled></textarea>
+              <div class="button-row">
+                <button class="btn btn-accent" type="button" id="startTimer">Start 45 seconds</button>
+                <button class="btn btn-secondary" type="button" id="restartTimer">Restart with a different prompt</button>
+              </div>
+            </div>
+            <div class="timer-display" aria-live="polite">
+              <strong id="timerValue">45</strong>
+              <span>seconds remaining</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card" id="error-correction">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">IELTS</div>
+          <h2>Error Correction and Answer Upgrade</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="errorContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="errorContent">
+        <div class="explanation">Rewrite each weak sentence in correct, natural English. The checker accepts common valid variations, but language can have more than one correct answer. Feedback gives a model correction, the main grammar point, and an optional IELTS-style upgrade with stronger vocabulary or detail.</div>
+        <div class="exercise-grid" id="error-exercises"></div>
+      </div>
+    </section>
+
+    <p class="source-note">Practice content is adapted from the attached grammar and IELTS worksheets, with additional original questions for extended practice.</p>
+  </main>
+
+  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">↑ Back to TOC</a>
+
+  <script>
+    "use strict";
+
+    const quizData = {
+      possessiveNouns: [
+        {
+          id: "pn-1",
+          title: "Exercise 1: Form the possessive",
+          instructions: "Type only the missing possessive word.",
+          questions: [
+            { prompt: "The teacher answered the _____ questions. (student)", answers: ["student's"], model: "student's", note: "A singular noun takes apostrophe + s." },
+            { prompt: "The teacher answered the _____ questions. (students)", answers: ["students'"], model: "students'", note: "A regular plural ending in -s takes only an apostrophe." },
+            { prompt: "Our _____ bedroom is next to our room. (daughters)", answers: ["daughters'"], model: "daughters'", note: "The bedroom belongs to more than one daughter, so add an apostrophe after the plural -s." },
+            { prompt: "Our _____ room is downstairs. (son)", answers: ["son's"], model: "son's", note: "A singular noun takes apostrophe + s." },
+            { prompt: "_____ clothing is on sale at the department store. (men)", answers: ["men's"], model: "men's", note: "Men is an irregular plural, so add apostrophe + s." },
+            { prompt: "The _____ surface is about 70% water. (earth)", answers: ["earth's"], model: "earth's", note: "Earth is singular, so add apostrophe + s." },
+            { prompt: "An _____ skin is thick and wrinkled. (elephant)", answers: ["elephant's"], model: "elephant's", note: "Elephant is singular, so add apostrophe + s." },
+            { prompt: "Pat can be a _____ name. (man)", answers: ["man's"], model: "man's", note: "Man is singular here." },
+            { prompt: "The language area can be larger in _____ brains. (women)", answers: ["women's"], model: "women's", note: "Women is an irregular plural, so add apostrophe + s." },
+            { prompt: "_____ voices often change as they age. (people)", answers: ["people's"], model: "people's", note: "People is an irregular plural, so add apostrophe + s." }
+          ]
+        },
+        {
+          id: "pn-2",
+          title: "Exercise 2: Family and group ownership",
+          instructions: "Type only the missing possessive word or phrase.",
+          questions: [
+            { prompt: "_____ wife is Ella. (Ned)", answers: ["Ned's"], model: "Ned's", note: "Ned is one person, so use Ned's." },
+            { prompt: "_____ husband is Sam. (Lisa)", answers: ["Lisa's"], model: "Lisa's", note: "Lisa is singular." },
+            { prompt: "Howard is _____ brother. (Lisa)", answers: ["Lisa's"], model: "Lisa's", note: "Howard is the brother of Lisa." },
+            { prompt: "Howard is _____ husband. (Monica)", answers: ["Monica's"], model: "Monica's", note: "Howard is the husband of Monica." },
+            { prompt: "_____ grandmother is Ella. (William)", answers: ["William's"], model: "William's", note: "Ella is William's grandmother." },
+            { prompt: "_____ parents are Sam and Lisa. (William)", answers: ["William's"], model: "William's", note: "The parents belong in William's family relationship." },
+            { prompt: "Ella and _____ grandson is William. (Ned)", answers: ["Ned's"], model: "Ned's", note: "For joint ownership, only the last owner takes 's: Ella and Ned's." },
+            { prompt: "Howard and Monica are _____ aunt and uncle. (William)", answers: ["William's"], model: "William's", note: "They are William's relatives." },
+            { prompt: "The _____ toys are in the box. (children)", answers: ["children's"], model: "children's", note: "Children is an irregular plural, so add apostrophe + s." },
+            { prompt: "The two _____ lockers are beside the gym. (teachers)", answers: ["teachers'"], model: "teachers'", note: "Teachers is a regular plural ending in -s, so add only an apostrophe." }
+          ]
+        }
+      ],
+
+      whose: [
+        {
+          id: "whose-1",
+          title: "Exercise 1: Whose or Who's?",
+          instructions: "Type Whose or Who's.",
+          questions: [
+            { prompt: "_____ taking the picture?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ next to you?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ skis are those?", answers: ["whose"], model: "Whose", note: "The question asks who owns the skis." },
+            { prompt: "_____ standing at the end?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ the person in the hat?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ house did you stay at?", answers: ["whose"], model: "Whose", note: "The question asks who owns the house." },
+            { prompt: "_____ notebook is on the desk?", answers: ["whose"], model: "Whose", note: "The question asks about possession." },
+            { prompt: "_____ coming to practice today?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ phone keeps ringing?", answers: ["whose"], model: "Whose", note: "The question asks who owns the phone." },
+            { prompt: "_____ responsible for the group project?", answers: ["who's"], model: "Who's", note: "Who's = who is." }
+          ]
+        },
+        {
+          id: "whose-2",
+          title: "Exercise 2: Answer possession questions",
+          instructions: "Type a short possessive answer. Full short sentences are also accepted.",
+          questions: [
+            { prompt: "Whose book is this? It belongs to John.", answers: ["John's", "It's John's", "It is John's"], model: "It's John's.", note: "Use a possessive noun to show ownership." },
+            { prompt: "Whose books are those? They belong to me.", answers: ["mine", "They're mine", "They are mine"], model: "They're mine.", note: "Mine is a possessive pronoun and stands alone." },
+            { prompt: "Whose car did you borrow? It belongs to Karen.", answers: ["Karen's", "I borrowed Karen's", "I borrowed Karen's car"], model: "I borrowed Karen's.", note: "The noun car may be omitted when the meaning is clear." },
+            { prompt: "Whose bag is that? It belongs to Elise.", answers: ["Elise's", "It's Elise's", "It is Elise's"], model: "It's Elise's.", note: "Add 's to the singular name Elise." },
+            { prompt: "Whose apple is that? It belongs to Jason.", answers: ["Jason's", "It's Jason's", "It is Jason's"], model: "It's Jason's.", note: "Jason is singular." },
+            { prompt: "Whose car is it? It belongs to Roger.", answers: ["Roger's", "It's Roger's", "It is Roger's"], model: "It's Roger's.", note: "Use Roger's to show possession." },
+            { prompt: "Whose leash is this? It belongs to Buddy.", answers: ["Buddy's", "It's Buddy's", "It is Buddy's"], model: "It's Buddy's.", note: "Buddy is singular." },
+            { prompt: "Whose jacket is this? It belongs to her.", answers: ["hers", "It's hers", "It is hers"], model: "It's hers.", note: "Hers is a possessive pronoun; do not add a noun after it." },
+            { prompt: "Whose desks are by the window? They belong to the students.", answers: ["the students'", "students'", "They're the students'", "They are the students'"], model: "They're the students'.", note: "Students is a regular plural ending in -s, so add only an apostrophe." },
+            { prompt: "Whose idea won? Maria and Leo share the idea.", answers: ["Maria and Leo's", "It's Maria and Leo's", "It is Maria and Leo's"], model: "It's Maria and Leo's.", note: "For joint ownership, add 's only to the final person." }
+          ]
+        }
+      ],
+
+      pronouns: [
+        {
+          id: "pro-1",
+          title: "Exercise 1: Adjective or pronoun?",
+          instructions: "Type the missing word(s). When there are two blanks, separate your answers with a comma.",
+          questions: [
+            { prompt: "Alice called _____ friend. (her / hers)", answers: ["her"], model: "her", note: "Her is a possessive adjective because friend follows it." },
+            { prompt: "Hasan wrote a letter to _____ mother. (his / he's)", answers: ["his"], model: "his", note: "His shows possession; he's means he is or he has." },
+            { prompt: "_____ normal for a dog to chase _____ tail. (It's / Its)", answers: ["it's its", "it is its"], model: "It's, its", note: "It's = it is; its shows possession." },
+            { prompt: "The cat cleaned _____ fur with _____ tongue. (its / it's)", answers: ["its its"], model: "its, its", note: "Both words show possession, so neither takes an apostrophe." },
+            { prompt: "Paula drove my car to work. _____ had a flat tire. (Hers / Her)", answers: ["hers"], model: "Hers", note: "Hers stands alone; no noun follows it." },
+            { prompt: "Junko fell off her bike and broke _____ arm. (hers / her)", answers: ["her"], model: "her", note: "Her modifies the noun arm." },
+            { prompt: "Anastasia is a good friend of _____. (my / mine)", answers: ["mine"], model: "mine", note: "The expression is a friend of mine." },
+            { prompt: "I met a friend of _____ yesterday. (you / yours)", answers: ["yours"], model: "yours", note: "A friend of yours is the standard possessive expression." },
+            { prompt: "Is this _____ pen or _____? (my / mine; your / yours)", answers: ["my yours"], model: "my, yours", note: "My modifies pen; yours stands alone." },
+            { prompt: "This one is _____. _____ is on your desk. (my / mine; Your / Yours)", answers: ["mine yours"], model: "mine, Yours", note: "Both words stand alone, so use possessive pronouns." }
+          ]
+        },
+        {
+          id: "pro-2",
+          title: "Exercise 2: Its, their, there, and they're",
+          instructions: "Type the missing word(s). Separate multiple answers with commas.",
+          questions: [
+            { prompt: "Adam and Amanda are married. _____ apartment is on the fifth floor.", answers: ["their"], model: "Their", note: "Their is a possessive adjective modifying apartment." },
+            { prompt: "We live in the same building. _____ apartment has one bedroom, but _____ has two.", answers: ["our theirs"], model: "Our, theirs", note: "Our modifies apartment; theirs stands alone." },
+            { prompt: "_____ sitting over _____ now because _____ waiting for a visit from _____ son.", answers: ["they're there they're their", "they are there they are their"], model: "They're, there, they're, their", note: "They're = they are; there = place; their = possession." },
+            { prompt: "The puppy is wagging _____ tail.", answers: ["its"], model: "its", note: "Its is possessive and has no apostrophe." },
+            { prompt: "I found my keys, but Sara has not found _____.", answers: ["hers"], model: "hers", note: "Hers replaces her keys." },
+            { prompt: "These seats are _____. We reserved them.", answers: ["ours"], model: "ours", note: "Ours is a possessive pronoun and stands alone." },
+            { prompt: "Is that Liam's backpack? Yes, it is _____.", answers: ["his"], model: "his", note: "His can be a possessive pronoun or adjective; here it stands alone." },
+            { prompt: "That is not your coat. _____ is in the closet.", answers: ["yours"], model: "Yours", note: "Yours replaces your coat." },
+            { prompt: "The team finished _____ project early.", answers: ["its"], model: "its", note: "Team is treated as a singular unit here." },
+            { prompt: "Maya and I brought _____ laptops. The blue one belongs to me, so it is _____; the silver one belongs to Maya, so it is _____.", answers: ["our mine hers"], model: "our, mine, hers", note: "Our modifies laptops; mine and hers stand alone." }
+          ]
+        }
+      ],
+
+      errors: [
+        {
+          id: "err-1",
+          title: "Exercise 1: Core sentence structure",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "I like play soccer because fun.", patterns: ["^i like (playing|to play) soccer because (it is|it's) fun$"], model: "I like playing soccer because it is fun.", note: "Use like + gerund/to-infinitive, and include a subject and verb after because.", upgrade: "I enjoy playing soccer because it is energetic and helps me relax after school." },
+            { prompt: "English is good. I study English every day maybe.", patterns: ["^english is (good|useful|important)( and|, and|\.)? i study (english|it) (almost )?every day$", "^english is (good|useful|important) because i study (english|it) (almost )?every day$"], model: "English is useful, and I study it almost every day.", note: "Place frequency expressions naturally; 'almost every day' is clearer than ending with maybe.", upgrade: "English is extremely useful for my future, so I study it almost every day to improve my communication skills." },
+            { prompt: "I like food because delicious.", patterns: ["^i like (this |the )?food because it is delicious$", "^i like (this |the )?food because it's delicious$"], model: "I like this food because it is delicious.", note: "After because, use a complete clause: it is delicious.", upgrade: "I really enjoy this dish because it is flavorful, fresh, and different from what I usually eat." },
+            { prompt: "My home is comfortable because my family.", patterns: ["^my home is comfortable because (my family lives there|i live (there )?with my family|i am with my family there)$"], model: "My home is comfortable because I live there with my family.", note: "Because must be followed by a complete clause, not only a noun phrase.", upgrade: "My home feels comfortable because I live with my family, and we have a quiet space where we can relax together." },
+            { prompt: "Phone is important because many thing.", patterns: ["^(a |the |my )?phone is important because (it can do|i can do) many things$", "^phones are important because they can do many things$"], model: "A phone is important because it can do many things.", note: "Use an article with singular phone, add a complete clause, and make thing plural.", upgrade: "A smartphone is important because it lets me communicate, study online, and manage daily tasks efficiently." },
+            { prompt: "She go to school by bus every day.", patterns: ["^she goes to school by bus every day$"], model: "She goes to school by bus every day.", note: "Use -s with a third-person singular verb in the simple present." },
+            { prompt: "I am agree with this idea.", patterns: ["^i agree with this idea$"], model: "I agree with this idea.", note: "Agree is a verb, so do not use am before it." },
+            { prompt: "He don't like crowded places.", patterns: ["^he doesn't like crowded places$", "^he does not like crowded places$"], model: "He doesn't like crowded places.", note: "Use does not/doesn't with he, then use the base verb like." },
+            { prompt: "There have many reasons for this.", patterns: ["^there are many reasons for this$"], model: "There are many reasons for this.", note: "Use there are before a plural noun." },
+            { prompt: "My brother is engineer.", patterns: ["^my brother is an engineer$"], model: "My brother is an engineer.", note: "A singular countable job noun needs an article." }
+          ]
+        },
+        {
+          id: "err-2",
+          title: "Exercise 2: Tense, prepositions, and countability",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "Yesterday I go to library and study two hour.", patterns: ["^yesterday i went to the library and studied for two hours$"], model: "Yesterday, I went to the library and studied for two hours.", note: "Use past tense, the article the, for with duration, and plural hours." },
+            { prompt: "I have visited Kyoto last year.", patterns: ["^i visited kyoto last year$"], model: "I visited Kyoto last year.", note: "Use the simple past with a finished past-time expression such as last year." },
+            { prompt: "I am living here since 2022.", patterns: ["^i have lived here since 2022$", "^i have been living here since 2022$"], model: "I have lived here since 2022.", note: "Use the present perfect for a situation that began in the past and continues now." },
+            { prompt: "When I was child, I play outside every day.", patterns: ["^when i was a child i played outside every day$"], model: "When I was a child, I played outside every day.", note: "Use an article before child and the past tense played." },
+            { prompt: "I didn't went to class because I was sick.", patterns: ["^i didn't go to class because i was sick$", "^i did not go to class because i was sick$"], model: "I didn't go to class because I was sick.", note: "After did not, use the base form go." },
+            { prompt: "I look forward to meet my friends this weekend.", patterns: ["^i look forward to meeting my friends this weekend$"], model: "I look forward to meeting my friends this weekend.", note: "In look forward to, to is a preposition, so use a gerund." },
+            { prompt: "She is good in mathematics.", patterns: ["^she is good at mathematics$", "^she is good at math$", "^she is good at maths$"], model: "She is good at mathematics.", note: "The standard preposition is good at." },
+            { prompt: "We discussed about the problem yesterday.", patterns: ["^we discussed the problem yesterday$"], model: "We discussed the problem yesterday.", note: "Discuss is transitive; do not add about." },
+            { prompt: "I arrived to the station at 8.", patterns: ["^i arrived at the station at 8$", "^i arrived at the station at eight$"], model: "I arrived at the station at 8.", note: "Use arrive at for a specific place." },
+            { prompt: "He has many homeworks tonight.", patterns: ["^he has (a lot of|much|some) homework tonight$"], model: "He has a lot of homework tonight.", note: "Homework is uncountable, so do not add -s." }
+          ]
+        },
+        {
+          id: "err-3",
+          title: "Exercise 3: Agreement and word form",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "People is becoming more dependent on technology.", patterns: ["^people are becoming more dependent on technology$"], model: "People are becoming more dependent on technology.", note: "People is plural, so use are." },
+            { prompt: "The information are easy to understand.", patterns: ["^the information is easy to understand$"], model: "The information is easy to understand.", note: "Information is uncountable and takes a singular verb." },
+            { prompt: "One of my friend live in Seoul.", patterns: ["^one of my friends lives in seoul$"], model: "One of my friends lives in Seoul.", note: "Use a plural noun after one of, but a singular verb with one." },
+            { prompt: "Each student have a different opinion.", patterns: ["^each student has a different opinion$"], model: "Each student has a different opinion.", note: "Each is singular, so use has." },
+            { prompt: "The movie was very bored.", patterns: ["^the movie was very boring$"], model: "The movie was very boring.", note: "Use boring for the thing that causes the feeling." },
+            { prompt: "I was very exciting about the trip.", patterns: ["^i was very excited about the trip$"], model: "I was very excited about the trip.", note: "Use excited for a person's feeling." },
+            { prompt: "This method is more easier than the old one.", patterns: ["^this method is easier than the old one$"], model: "This method is easier than the old one.", note: "Do not use more with the comparative easier." },
+            { prompt: "The reason is because public transport is cheap.", patterns: ["^the reason is that public transport is cheap$", "^public transport is popular because it is cheap$"], model: "The reason is that public transport is cheap.", note: "Use the reason is that, not the reason is because." },
+            { prompt: "Students who studies regularly usually improve.", patterns: ["^students who study regularly usually improve$"], model: "Students who study regularly usually improve.", note: "The relative pronoun who refers to plural students, so use study." },
+            { prompt: "The teacher gave me many useful advices.", patterns: ["^the teacher gave me (a lot of|some|much) useful advice$"], model: "The teacher gave me a lot of useful advice.", note: "Advice is uncountable and has no plural -s." }
+          ]
+        },
+        {
+          id: "err-4",
+          title: "Exercise 4: IELTS-style cohesion and accuracy",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "In my opinion, I think school uniforms are useful.", patterns: ["^in my opinion school uniforms are useful$", "^i think school uniforms are useful$"], model: "In my opinion, school uniforms are useful.", note: "Avoid using both in my opinion and I think together." },
+            { prompt: "On the other hand, however, it can be expensive.", patterns: ["^however it can be expensive$", "^on the other hand it can be expensive$"], model: "However, it can be expensive.", note: "Use one contrast linker, not two with the same function." },
+            { prompt: "Firstly students can save time, second they can reduce stress.", patterns: ["^firstly students can save time secondly they can reduce stress$", "^first students can save time second they can reduce stress$"], model: "Firstly, students can save time; secondly, they can reduce stress.", note: "Use parallel sequencing words and clear punctuation." },
+            { prompt: "Technology give students access to information, which help them study.", patterns: ["^technology gives students access to information which helps them study$"], model: "Technology gives students access to information, which helps them study.", note: "Technology is singular, and which refers to the singular idea/access." },
+            { prompt: "Although exercise is tiring, but it is good for health.", patterns: ["^although exercise is tiring it is good for (your )?health$", "^exercise is tiring but it is good for (your )?health$"], model: "Although exercise is tiring, it is good for your health.", note: "Do not use although and but in the same clause structure." },
+            { prompt: "Because public transport is cheap. Many students use it.", patterns: ["^because public transport is cheap many students use it$", "^many students use public transport because it is cheap$"], model: "Because public transport is cheap, many students use it.", note: "Join the dependent because-clause to a complete main clause." },
+            { prompt: "This is a problem which many people are worried.", patterns: ["^this is a problem (which|that) many people are worried about$"], model: "This is a problem that many people are worried about.", note: "Worried requires the preposition about." },
+            { prompt: "The government should to invest more in education.", patterns: ["^the government should invest more in education$"], model: "The government should invest more in education.", note: "Use the base verb after should, without to." },
+            { prompt: "If people will recycle more, cities will become cleaner.", patterns: ["^if people recycle more cities will become cleaner$"], model: "If people recycle more, cities will become cleaner.", note: "In the first conditional, use present simple after if and will in the main clause." },
+            { prompt: "There are less cars on the road during holidays.", patterns: ["^there are fewer cars on the road during (the )?holidays$"], model: "There are fewer cars on the road during the holidays.", note: "Use fewer with countable plural nouns such as cars." }
+          ]
+        }
+      ]
+    };
+
+    const timedPrompts = [
+      "Do you like learning English? Give a reason and an example.",
+      "Do you like sports? Give a reason and an example.",
+      "Do you like your home? Give a reason and an example.",
+      "Do you often watch videos? Give a reason and an example.",
+      "Should high school students have part-time jobs?",
+      "What is one school subject that is useful for your future?",
+      "Do you prefer studying alone or with friends?",
+      "Should students be allowed to use phones during class?",
+      "What is a good way for teenagers to stay healthy?",
+      "Do social media platforms help or distract students?",
+      "Would you rather live in a big city or a small town?",
+      "What is one skill every high school student should learn?",
+      "Should schools give less homework on weekends?",
+      "Describe a teacher who helped you learn something important.",
+      "Is reading books still important for teenagers today?",
+      "What is one environmental problem your community should address?",
+      "Do school uniforms make student life easier?",
+      "What is a memorable trip or school event you experienced?",
+      "Should teenagers spend more time outdoors?",
+      "What technology has improved your daily life the most?"
+    ];
+
+    function normalizeText(value) {
+      return String(value || "")
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[’‘`]/g, "'")
+        .replace(/[“”]/g, '"')
+        .replace(/[.,!?;:()[\]{}\/\\|-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function evaluateQuestion(question, userAnswer) {
+      const normalized = normalizeText(userAnswer);
+      if (!normalized) return false;
+      if (question.patterns) {
+        return question.patterns.some(source => new RegExp(source, "i").test(normalized));
+      }
+      return question.answers.some(answer => normalizeText(answer) === normalized);
+    }
+
+    function createExerciseCard(exercise, mount) {
+      const card = document.createElement("article");
+      card.className = "exercise-card";
+      card.id = exercise.id;
+      card.innerHTML = `
+        <div class="exercise-head">
+          <div>
+            <h3>${exercise.title}</h3>
+            <p>${exercise.instructions}</p>
+          </div>
+          <div class="score-pill" data-score>Score: 0 / 0</div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-bar" data-progress></div></div>
+        <div class="question-box">
+          <div class="question-meta" data-meta></div>
+          <div class="question-text" data-question></div>
+          <label class="sr-only" for="input-${exercise.id}">Type your answer</label>
+          <input id="input-${exercise.id}" class="answer-input" data-input type="text" autocomplete="off" spellcheck="false" />
+          <div class="button-row">
+            <button class="btn btn-primary" type="button" data-check>Check answer</button>
+            <button class="btn btn-accent" type="button" data-next hidden>Next question</button>
+            <button class="btn btn-secondary" type="button" data-restart>Restart exercise</button>
+          </div>
+          <div class="feedback" data-feedback aria-live="polite"></div>
+        </div>
+      `;
+      mount.appendChild(card);
+
+      const state = { index: 0, score: 0, answered: 0, locked: false };
+      const input = card.querySelector("[data-input]");
+      const questionEl = card.querySelector("[data-question]");
+      const metaEl = card.querySelector("[data-meta]");
+      const scoreEl = card.querySelector("[data-score]");
+      const progressEl = card.querySelector("[data-progress]");
+      const feedbackEl = card.querySelector("[data-feedback]");
+      const checkBtn = card.querySelector("[data-check]");
+      const nextBtn = card.querySelector("[data-next]");
+      const restartBtn = card.querySelector("[data-restart]");
+
+      function renderQuestion() {
+        const q = exercise.questions[state.index];
+        metaEl.textContent = `Question ${state.index + 1} of ${exercise.questions.length}`;
+        questionEl.textContent = q.prompt;
+        input.value = "";
+        input.disabled = false;
+        input.placeholder = q.patterns ? "Rewrite the full sentence..." : "Type your answer...";
+        feedbackEl.className = "feedback";
+        feedbackEl.textContent = "";
+        checkBtn.hidden = false;
+        nextBtn.hidden = true;
+        nextBtn.textContent = state.index === exercise.questions.length - 1 ? "Finish exercise" : "Next question";
+        state.locked = false;
+        updateScore();
+        requestAnimationFrame(() => input.focus());
+      }
+
+      function updateScore() {
+        scoreEl.textContent = `Score: ${state.score} / ${state.answered}`;
+        const progress = (state.answered / exercise.questions.length) * 100;
+        progressEl.style.width = `${progress}%`;
+      }
+
+      function checkAnswer() {
+        if (state.locked) return;
+        if (!input.value.trim()) {
+          feedbackEl.className = "feedback neutral show";
+          feedbackEl.textContent = "Type an answer before checking.";
+          input.focus();
+          return;
+        }
+
+        const q = exercise.questions[state.index];
+        const correct = evaluateQuestion(q, input.value);
+        state.locked = true;
+        state.answered += 1;
+        if (correct) state.score += 1;
+        input.disabled = true;
+        checkBtn.hidden = true;
+        nextBtn.hidden = false;
+
+        if (q.upgrade) {
+          feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"} show`;
+          feedbackEl.textContent = `${correct ? "✓ Good correction." : "✗ Not quite."}\nModel correction: ${q.model}\nFocus: ${q.note}\nIELTS upgrade: ${q.upgrade}`;
+        } else {
+          feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"} show`;
+          feedbackEl.textContent = `${correct ? "✓ Correct." : "✗ Incorrect."}\nAnswer: ${q.model}\nWhy: ${q.note}`;
+        }
+        updateScore();
+      }
+
+      function nextQuestion() {
+        if (!state.locked) return;
+        if (state.index < exercise.questions.length - 1) {
+          state.index += 1;
+          renderQuestion();
+        } else {
+          questionEl.textContent = `Exercise complete — final score: ${state.score} / ${exercise.questions.length}`;
+          metaEl.textContent = "Completed";
+          input.hidden = true;
+          checkBtn.hidden = true;
+          nextBtn.hidden = true;
+          feedbackEl.className = "feedback neutral show";
+          feedbackEl.textContent = state.score === exercise.questions.length
+            ? "Perfect score. Restart the exercise to repeat it."
+            : "Review the model answers above, then restart the exercise for another attempt.";
+          progressEl.style.width = "100%";
+          scoreEl.textContent = `Final: ${state.score} / ${exercise.questions.length}`;
+        }
+      }
+
+      function restartExercise() {
+        state.index = 0;
+        state.score = 0;
+        state.answered = 0;
+        state.locked = false;
+        input.hidden = false;
+        renderQuestion();
+      }
+
+      checkBtn.addEventListener("click", checkAnswer);
+      nextBtn.addEventListener("click", nextQuestion);
+      restartBtn.addEventListener("click", restartExercise);
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          if (!state.locked) checkAnswer();
+          else nextQuestion();
+        }
+      });
+
+      renderQuestion();
+    }
+
+    function mountExercises() {
+      const groups = [
+        [quizData.possessiveNouns, document.getElementById("possessive-nouns-exercises")],
+        [quizData.whose, document.getElementById("whose-exercises")],
+        [quizData.pronouns, document.getElementById("pronoun-exercises")],
+        [quizData.errors, document.getElementById("error-exercises")]
+      ];
+      groups.forEach(([exercises, mount]) => exercises.forEach(exercise => createExerciseCard(exercise, mount)));
+    }
+
+    function setupCollapseButtons() {
+      document.querySelectorAll("[data-collapse]").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.collapse);
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.textContent = expanded ? "Expand" : "Collapse";
+          target.hidden = expanded;
+        });
+      });
+    }
+
+    function setupTheme() {
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const icon = document.getElementById("themeIcon");
+      const name = document.getElementById("themeName");
+      let stored = null;
+      try { stored = localStorage.getItem("quiz-theme"); } catch (error) { stored = null; }
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initial = stored || (prefersDark ? "mocha" : "latte");
+
+      function apply(theme) {
+        root.dataset.theme = theme;
+        const isMocha = theme === "mocha";
+        icon.textContent = isMocha ? "☀" : "☾";
+        name.textContent = isMocha ? "Latte light" : "Mocha dark";
+        toggle.setAttribute("aria-label", isMocha ? "Switch to Catppuccin Latte light theme" : "Switch to Catppuccin Mocha dark theme");
+      }
+
+      apply(initial);
+      toggle.addEventListener("click", () => {
+        const next = root.dataset.theme === "mocha" ? "latte" : "mocha";
+        try { localStorage.setItem("quiz-theme", next); } catch (error) { /* Theme still works without storage. */ }
+        apply(next);
+      });
+    }
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function setupTimer() {
+      const promptEl = document.getElementById("timedPrompt");
+      const answerEl = document.getElementById("timedAnswer");
+      const startBtn = document.getElementById("startTimer");
+      const restartBtn = document.getElementById("restartTimer");
+      const timerEl = document.getElementById("timerValue");
+      const statusEl = document.getElementById("timedStatus");
+      const counterEl = document.getElementById("promptCounter");
+
+      let queue = shuffle(timedPrompts.map((_, index) => index));
+      let currentIndex = queue.shift();
+      let usedCount = 1;
+      let timerId = null;
+      let remaining = 45;
+      let running = false;
+
+      function showPrompt() {
+        promptEl.textContent = timedPrompts[currentIndex];
+        counterEl.textContent = `Prompt ${usedCount} of 20`;
+      }
+
+      function stopTimer() {
+        if (timerId) clearInterval(timerId);
+        timerId = null;
+        running = false;
+      }
+
+      function startTimer() {
+        if (running) return;
+        remaining = 45;
+        timerEl.textContent = remaining;
+        answerEl.value = "";
+        answerEl.disabled = false;
+        answerEl.placeholder = "Type continuously: answer, reason, example/detail, final comment...";
+        answerEl.focus();
+        startBtn.disabled = true;
+        statusEl.textContent = "Keep typing. Do not edit for perfection while the timer is running.";
+        running = true;
+
+        timerId = setInterval(() => {
+          remaining -= 1;
+          timerEl.textContent = remaining;
+          if (remaining <= 0) {
+            stopTimer();
+            answerEl.disabled = true;
+            startBtn.disabled = true;
+            statusEl.textContent = "Time is up. Your response is locked. Review its structure, clarity, and examples.";
+          }
+        }, 1000);
+      }
+
+      function restartTimer() {
+        stopTimer();
+        if (queue.length === 0) {
+          queue = shuffle(timedPrompts.map((_, index) => index).filter(index => index !== currentIndex));
+          usedCount = 0;
+        }
+        currentIndex = queue.shift();
+        usedCount += 1;
+        remaining = 45;
+        timerEl.textContent = remaining;
+        answerEl.value = "";
+        answerEl.disabled = true;
+        answerEl.placeholder = "Your answer box will unlock when you start.";
+        startBtn.disabled = false;
+        statusEl.textContent = "Read the new prompt, plan one quick reason, then start the timer.";
+        showPrompt();
+      }
+
+      startBtn.addEventListener("click", startTimer);
+      restartBtn.addEventListener("click", restartTimer);
+      showPrompt();
+    }
+
+    mountExercises();
+    setupCollapseButtons();
+    setupTheme();
+    setupTimer();
+  </script>
+</body>
+</html>
