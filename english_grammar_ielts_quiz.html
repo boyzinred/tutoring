@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive English grammar and IELTS typing practice quiz" />
+  <title>English Grammar & IELTS Typing Lab</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --background:#FFFFFF;
+      --foreground:#111827;
+      --primary:#3B82F6;
+      --primary-hover:#2563EB;
+      --secondary:#10B981;
+      --secondary-soft:#D1FAE5;
+      --accent:#F59E0B;
+      --accent-soft:#FEF3C7;
+      --muted:#F3F4F6;
+      --muted-strong:#E5E7EB;
+      --blue-soft:#DBEAFE;
+      --border:#E5E7EB;
+      --radius-md:6px;
+      --radius-lg:8px;
+      --font:'Outfit',sans-serif;
+      --transition:all 200ms ease;
+
+      /* Compatibility aliases used by the existing quiz markup and scripts. */
+      --bg:var(--background);
+      --fg:var(--foreground);
+      --line:var(--border);
+      --field:var(--muted);
+      --subtle:#4B5563;
+      --correct-bg:var(--secondary);
+      --correct-fg:var(--foreground);
+      --text:var(--foreground);
+      --subtext1:#4B5563;
+      --subtext0:#4B5563;
+      --surface0:var(--muted);
+      --surface1:var(--muted-strong);
+      --surface2:var(--border);
+      --base:var(--background);
+      --mantle:var(--muted);
+      --crust:var(--foreground);
+      --blue:var(--primary);
+      --mauve:var(--primary);
+      --red:var(--accent);
+      --green:var(--secondary);
+      --peach:var(--accent);
+      --yellow:var(--accent);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    [hidden] { display:none !important; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--foreground);
+      background:var(--muted);
+      font-family:var(--font);
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    button,input,textarea,select { font:inherit; }
+    button { cursor:pointer; }
+    a { color:inherit; }
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2,h3 {
+      line-height:1;
+      letter-spacing:-.02em;
+    }
+
+    .site-header {
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:var(--background);
+    }
+
+    .header-inner {
+      width:min(1280px,calc(100% - 32px));
+      min-height:76px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:24px;
+    }
+
+    .brand {
+      min-width:0;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand-mark {
+      width:48px;
+      height:48px;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+      color:#FFFFFF;
+      background:var(--primary);
+      border-radius:var(--radius-lg);
+      font-weight:800;
+      letter-spacing:-.04em;
+    }
+
+    .brand-copy strong {
+      display:block;
+      font-size:clamp(.95rem,1.8vw,1.2rem);
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .brand-copy span {
+      display:block;
+      color:#6B7280;
+      font-size:.74rem;
+      font-weight:600;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .header-actions {
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .home-link,.system-badge {
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 16px;
+      border-radius:var(--radius-md);
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:var(--transition);
+      white-space:nowrap;
+    }
+
+    .home-link {
+      color:#FFFFFF;
+      background:var(--primary);
+    }
+
+    .home-link:hover {
+      background:var(--primary-hover);
+      transform:scale(1.05);
+    }
+
+    .system-badge {
+      color:var(--foreground);
+      background:var(--muted);
+    }
+
+    main {
+      width:min(1280px,calc(100% - 32px));
+      margin:0 auto 64px;
+      overflow:hidden;
+      background:var(--background);
+      border-radius:var(--radius-lg);
+    }
+
+    .hero {
+      position:relative;
+      display:grid;
+      grid-template-columns:7fr 5fr;
+      min-height:570px;
+      overflow:hidden;
+      background:var(--primary);
+    }
+
+    .hero::before,
+    .hero::after {
+      content:"";
+      position:absolute;
+      pointer-events:none;
+      opacity:.1;
+    }
+
+    .hero::before {
+      width:360px;
+      height:360px;
+      right:28%;
+      top:-150px;
+      border-radius:50%;
+      background:#FFFFFF;
+    }
+
+    .hero::after {
+      width:260px;
+      height:260px;
+      left:-90px;
+      bottom:-110px;
+      background:#FFFFFF;
+      transform:rotate(18deg);
+    }
+
+    .hero-card,.toc-card,.section-card,.exercise-card {
+      box-shadow:none;
+    }
+
+    .hero-card {
+      position:relative;
+      z-index:1;
+      min-height:570px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:clamp(36px,6vw,80px);
+      color:#FFFFFF;
+      background:transparent;
+    }
+
+    .eyebrow,.section-kicker {
+      display:block;
+      margin-bottom:18px;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .eyebrow { color:var(--accent-soft); }
+
+    h1 {
+      max-width:10ch;
+      margin:.15rem 0 1.6rem;
+      font-size:clamp(3.4rem,8vw,7.5rem);
+      font-weight:800;
+      line-height:.86;
+    }
+
+    .hero p {
+      max-width:58ch;
+      margin-bottom:0;
+      color:#EFF6FF;
+      font-size:clamp(1rem,1.5vw,1.22rem);
+    }
+
+    .hero-chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:30px;
+    }
+
+    .chip {
+      padding:9px 12px;
+      color:var(--foreground);
+      background:#FFFFFF;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .toc-card {
+      position:relative;
+      z-index:2;
+      align-self:center;
+      margin:clamp(24px,5vw,56px);
+      padding:clamp(26px,4vw,42px);
+      color:#FFFFFF;
+      background:var(--foreground);
+      border-radius:var(--radius-lg);
+    }
+
+    .toc-card h2 {
+      margin-bottom:24px;
+      color:var(--secondary);
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .toc-list {
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:8px;
+    }
+
+    .toc-list a {
+      min-height:52px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:11px 14px;
+      color:#FFFFFF;
+      background:#1F2937;
+      border-radius:var(--radius-md);
+      font-weight:600;
+      text-decoration:none;
+      transition:var(--transition);
+    }
+
+    .toc-list a:hover {
+      color:var(--foreground);
+      background:var(--secondary);
+      transform:translateX(6px);
+    }
+
+    .toc-number {
+      margin-right:8px;
+      color:var(--accent);
+      font-weight:800;
+    }
+
+    .toc-list a:hover .toc-number { color:var(--foreground); }
+
+    .section-card {
+      margin:0;
+      scroll-margin-top:90px;
+      background:var(--background);
+    }
+
+    .section-header {
+      min-height:150px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+      padding:clamp(30px,5vw,64px);
+      background:var(--muted);
+    }
+
+    .section-card:nth-of-type(3n+2) .section-header {
+      color:var(--foreground);
+      background:var(--secondary);
+    }
+
+    .section-card:nth-of-type(3n+3) .section-header {
+      color:var(--foreground);
+      background:var(--accent);
+    }
+
+    .section-card:nth-of-type(3n+4) .section-header {
+      color:#FFFFFF;
+      background:var(--primary);
+    }
+
+    .section-kicker {
+      margin-bottom:12px;
+      color:inherit;
+      opacity:.8;
+    }
+
+    .section-header h2 {
+      margin:.15rem 0 0;
+      max-width:18ch;
+      font-size:clamp(2.2rem,5vw,4.8rem);
+      font-weight:800;
+    }
+
+    .collapse-btn,.btn {
+      min-height:56px;
+      padding:0 20px;
+      border:0;
+      border-radius:var(--radius-md);
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      transition:var(--transition);
+    }
+
+    .collapse-btn {
+      color:var(--foreground);
+      background:#FFFFFF;
+      border:4px solid currentColor;
+    }
+
+    .collapse-btn:hover,.btn:hover:not(:disabled) {
+      transform:scale(1.05);
+    }
+
+    .collapse-btn:hover {
+      color:#FFFFFF;
+      background:var(--foreground);
+      border-color:var(--foreground);
+    }
+
+    .section-content {
+      padding:clamp(26px,5vw,64px);
+      background:var(--background);
+    }
+
+    .section-card:nth-of-type(even) .section-content {
+      background:var(--muted);
+    }
+
+    .explanation {
+      position:relative;
+      margin-bottom:28px;
+      padding:clamp(22px,3vw,32px);
+      color:var(--foreground);
+      background:var(--blue-soft);
+      border-radius:var(--radius-lg);
+    }
+
+    .explanation::before {
+      content:"RULE";
+      display:inline-block;
+      margin-bottom:12px;
+      padding:6px 9px;
+      color:#FFFFFF;
+      background:var(--primary);
+      border-radius:999px;
+      font-size:.68rem;
+      font-weight:700;
+      letter-spacing:.12em;
+    }
+
+    .exercise-grid {
+      display:grid;
+      gap:28px;
+    }
+
+    .exercise-card {
+      overflow:hidden;
+      background:#FFFFFF;
+      border-radius:var(--radius-lg);
+      transition:var(--transition);
+    }
+
+    .section-content:not([style]) .exercise-card:hover {
+      transform:scale(1.01);
+    }
+
+    .exercise-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:stretch;
+      gap:0;
+      color:#FFFFFF;
+      background:var(--foreground);
+    }
+
+    .exercise-head > div:first-child {
+      padding:26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom:8px;
+      font-size:clamp(1.45rem,3vw,2.3rem);
+      font-weight:800;
+    }
+
+    .exercise-head p {
+      margin:0;
+      color:#D1D5DB;
+      font-size:.95rem;
+    }
+
+    .score-pill,.set-pill {
+      min-width:158px;
+      display:grid;
+      place-items:center;
+      align-self:stretch;
+      padding:18px;
+      color:var(--foreground);
+      background:var(--accent);
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-align:center;
+      text-transform:uppercase;
+    }
+
+    .progress-track {
+      height:12px;
+      overflow:hidden;
+      background:var(--muted-strong);
+    }
+
+    .progress-bar,.progress-fill {
+      width:0;
+      height:100%;
+      background:var(--secondary);
+      transition:width 200ms ease;
+    }
+
+    .question-box,.timed-stage {
+      padding:clamp(24px,4vw,38px);
+    }
+
+    .question-meta {
+      margin-bottom:12px;
+      color:var(--primary);
+      font-size:.75rem;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .question-text,.timed-prompt {
+      margin:.1rem 0 24px;
+      color:var(--foreground);
+      font-size:clamp(1.25rem,2.5vw,2rem);
+      font-weight:700;
+      line-height:1.2;
+      white-space:pre-line;
+    }
+
+    .answer-input,.timed-answer,input,select,textarea {
+      width:100%;
+      color:var(--foreground);
+      background:var(--muted);
+      border:2px solid transparent;
+      border-radius:var(--radius-md);
+      outline:0;
+      transition:var(--transition);
+    }
+
+    .answer-input,input,select {
+      min-height:56px;
+      padding:0 16px;
+    }
+
+    .timed-answer,textarea {
+      min-height:160px;
+      padding:16px;
+      resize:vertical;
+    }
+
+    .answer-input:focus,.timed-answer:focus,input:focus,select:focus,textarea:focus {
+      background:#FFFFFF;
+      border-color:var(--primary);
+    }
+
+    .timed-answer:disabled,.answer-input:disabled {
+      opacity:1;
+      cursor:not-allowed;
+      color:#6B7280;
+      background:var(--muted-strong);
+    }
+
+    .option-list {
+      display:grid;
+      gap:10px;
+    }
+
+    .option-btn {
+      width:100%;
+      min-height:58px;
+      padding:14px 16px;
+      color:var(--foreground);
+      background:var(--muted);
+      border:0;
+      border-radius:var(--radius-md);
+      text-align:left;
+      font-weight:600;
+      transition:var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color:#FFFFFF;
+      background:var(--primary);
+      transform:translateX(5px);
+    }
+
+    .option-btn.selected {
+      color:#FFFFFF;
+      background:var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color:var(--foreground);
+      background:var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color:var(--foreground);
+      background:var(--accent);
+    }
+
+    .option-btn:disabled {
+      cursor:not-allowed;
+      opacity:1;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .btn-primary {
+      color:#FFFFFF;
+      background:var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) { background:var(--primary-hover); }
+
+    .btn-accent {
+      color:var(--foreground);
+      background:var(--secondary);
+    }
+
+    .btn-warning {
+      color:var(--foreground);
+      background:var(--accent);
+    }
+
+    .btn-secondary {
+      color:var(--foreground);
+      background:var(--muted);
+    }
+
+    .btn-secondary:hover:not(:disabled) { background:var(--muted-strong); }
+
+    .btn:disabled {
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .feedback,.practice-summary,.review-panel {
+      margin-top:20px;
+      padding:20px;
+      border:0;
+      border-radius:var(--radius-lg);
+      white-space:pre-line;
+    }
+
+    .feedback { display:none; }
+    .feedback.show { display:block; }
+    .feedback.correct {
+      color:var(--foreground);
+      background:var(--secondary-soft);
+      border-left:8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      color:var(--foreground);
+      background:var(--accent-soft);
+      border-left:8px solid var(--accent);
+    }
+
+    .feedback.neutral {
+      color:var(--foreground);
+      background:var(--muted);
+      border-left:8px solid var(--primary);
+    }
+
+    .practice-summary {
+      color:var(--foreground);
+      background:var(--blue-soft);
+    }
+
+    .practice-summary strong,.practice-summary h4 {
+      display:block;
+      margin:0 0 10px;
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .practice-summary ul {
+      margin:10px 0 0;
+      padding-left:22px;
+    }
+
+    .review-nav {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .review-panel {
+      background:var(--muted);
+    }
+
+    .review-answer-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .review-answer-grid > div {
+      padding:18px;
+      background:#FFFFFF;
+      border-radius:var(--radius-md);
+    }
+
+    .review-answer-grid span {
+      display:block;
+      margin-bottom:8px;
+      color:var(--primary);
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .timer-panel,.timer-shell {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 220px;
+      gap:0;
+      align-items:stretch;
+    }
+
+    .timer-panel > div:first-child,.timed-stage {
+      min-height:280px;
+      padding:clamp(24px,4vw,38px);
+      background:#FFFFFF;
+    }
+
+    .timer-display,.timer-box {
+      min-height:230px;
+      display:grid;
+      place-items:center;
+      padding:22px;
+      color:#FFFFFF;
+      background:var(--primary);
+      text-align:center;
+    }
+
+    .timer-display strong,.timer-box strong {
+      display:block;
+      color:#FFFFFF;
+      font-size:clamp(3rem,7vw,5.2rem);
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .timer-display span,.timer-box span,.timed-instructions {
+      color:inherit;
+      font-size:.8rem;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .timer-box.danger {
+      color:var(--foreground);
+      background:var(--accent);
+    }
+
+    .timer-box.danger strong,.timer-box.danger span {
+      color:var(--foreground);
+    }
+
+    .mode-row {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin:18px 0 0;
+      padding:14px 16px;
+      color:var(--foreground);
+      background:var(--muted);
+      border-radius:var(--radius-md);
+    }
+
+    .mode-option {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .mode-option input {
+      width:22px;
+      min-height:22px;
+      height:22px;
+      margin:0;
+      padding:0;
+      accent-color:var(--primary);
+    }
+
+    .round-summary {
+      padding:24px;
+      color:var(--foreground);
+      background:var(--secondary-soft);
+      border-radius:var(--radius-lg);
+    }
+
+    .round-summary h3 {
+      font-size:clamp(1.8rem,4vw,3rem);
+      font-weight:800;
+    }
+
+    .timed-placeholder { color:#6B7280; }
+
+    .source-note {
+      margin:0;
+      padding:24px clamp(24px,4vw,56px);
+      color:#6B7280;
+      background:var(--muted);
+      font-size:.8rem;
+      font-weight:500;
+    }
+
+    .back-to-toc {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:30;
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      padding:0 16px;
+      color:#FFFFFF;
+      background:var(--foreground);
+      border-radius:var(--radius-md);
+      font-size:.74rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:var(--transition);
+    }
+
+    .back-to-toc:hover {
+      background:var(--primary);
+      transform:scale(1.05);
+    }
+
+    .sr-only {
+      position:absolute !important;
+      width:1px !important;
+      height:1px !important;
+      padding:0 !important;
+      margin:-1px !important;
+      overflow:hidden !important;
+      clip:rect(0,0,0,0) !important;
+      white-space:nowrap !important;
+      border:0 !important;
+    }
+
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible {
+      outline:2px solid var(--primary);
+      outline-offset:3px;
+    }
+
+    @media (max-width:900px) {
+      .hero { grid-template-columns:1fr; }
+      .hero-card { min-height:500px; }
+      .toc-card { margin-top:0; }
+      .timer-panel,.timer-shell { grid-template-columns:1fr; }
+      .timer-display,.timer-box { min-height:150px; }
+    }
+
+    @media (max-width:680px) {
+      .header-inner {
+        width:min(100% - 24px,1280px);
+        grid-template-columns:1fr;
+        padding:12px 0;
+        gap:10px;
+      }
+
+      .header-actions { justify-content:space-between; }
+      .home-link,.system-badge { flex:1; }
+      main { width:100%; margin-bottom:0; border-radius:0; }
+      .hero-card,.toc-card,.section-header,.section-content { padding-left:22px; padding-right:22px; }
+      .toc-card { margin:0 22px 28px; }
+      .section-header {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .collapse-btn { width:100%; }
+      .exercise-head { flex-direction:column; }
+      .exercise-head > div:first-child { padding:22px; }
+      .score-pill,.set-pill {
+        min-width:0;
+        width:100%;
+        min-height:52px;
+      }
+
+      .button-row { display:grid; }
+      .btn { width:100%; }
+      .review-answer-grid { grid-template-columns:1fr; }
+      .brand-copy span { display:none; }
+      .back-to-toc { right:8px; bottom:8px; }
+      .mode-row { align-items:flex-start; flex-direction:column; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto !important;
+        transition:none !important;
+        transform:none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">01</div>
+        <div class="brand-copy">
+          <strong>English Grammar & IELTS Typing Lab</strong>
+          <span>Grammar / IELTS / Review system</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Index</a>
+        <span class="system-badge" aria-label="Design mode">Flat light</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="toc">
+      <div class="hero-card">
+        <span class="eyebrow">01. Grammar / IELTS</span>
+        <h1>Accuracy. Fluency. Review.</h1>
+        <p>Work through one question at a time. Grammar exercises give immediate feedback and a running score. The IELTS fluency section can run for 45 seconds or in untimed mode, and completed exercises include answer review and targeted practice notes.</p>
+        <div class="hero-chips" aria-label="Quiz features">
+          <span class="chip">100 typed questions</span>
+          <span class="chip">20 timed prompts</span>
+          <span class="chip">Instant feedback</span>
+          <span class="chip">Per-exercise restart</span>
+          <span class="chip">Flat light system</span>
+        </div>
+      </div>
+
+      <nav class="toc-card" aria-labelledby="tocTitle">
+        <h2 id="tocTitle">Table of contents</h2>
+        <ol class="toc-list">
+          <li><a href="#possessive-nouns"><span><span class="toc-number">01</span> Possessive nouns</span><span>→</span></a></li>
+          <li><a href="#using-whose"><span><span class="toc-number">02</span> Using <em>whose</em></span><span>→</span></a></li>
+          <li><a href="#possessive-pronouns"><span><span class="toc-number">03</span> Pronouns & adjectives</span><span>→</span></a></li>
+          <li><a href="#timed-fluency"><span><span class="toc-number">04</span> Timed reason + example</span><span>→</span></a></li>
+          <li><a href="#error-correction"><span><span class="toc-number">05</span> Error correction</span><span>→</span></a></li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="section-card" id="possessive-nouns">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Possessive Nouns</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="possessiveNounsContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="possessiveNounsContent">
+        <div class="explanation"><strong>Rule:</strong> Add <strong>'s</strong> to a singular noun (<em>the student's name</em>) and to an irregular plural noun that does not end in <em>-s</em> (<em>children's books</em>). For a regular plural already ending in <em>-s</em>, add only an apostrophe (<em>students' names</em>). For joint ownership, add <em>'s</em> to the final owner: <em>Ella and Ned's grandson</em>.</div>
+        <div class="exercise-grid" id="possessive-nouns-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="using-whose">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Using <em>Whose</em></h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="whoseContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="whoseContent">
+        <div class="explanation"><strong>Whose</strong> asks about possession: <em>Whose book is this?</em> <strong>Who's</strong> is a contraction of <em>who is</em> or <em>who has</em>: <em>Who's taking the picture?</em> They sound the same, so use the sentence meaning to choose the correct spelling.</div>
+        <div class="exercise-grid" id="whose-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="possessive-pronouns">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Fundamental grammar</div>
+          <h2>Possessive Pronouns and Adjectives</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="pronounsContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="pronounsContent">
+        <div class="explanation"><strong>Possessive adjectives</strong> come before nouns: <em>my pen, her bag, their room</em>. <strong>Possessive pronouns</strong> stand alone: <em>mine, hers, theirs</em>. Remember: <em>its</em> shows possession, while <em>it's</em> means <em>it is</em>; <em>their</em> shows possession, <em>there</em> indicates place, and <em>they're</em> means <em>they are</em>.</div>
+        <div class="exercise-grid" id="pronoun-exercises"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="timed-fluency">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">IELTS</div>
+          <h2>45-Second Reason + Example</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="timedContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="timedContent">
+        <div class="explanation">Use a simple IELTS speaking shape: <strong>answer → reason → example/detail → final comment</strong>. Choose the 45-second challenge or untimed mode. The response locks when time ends or when you select <em>Finish and lock</em>.</div>
+        <div class="exercise-card">
+          <div class="exercise-head">
+            <div>
+              <h3>Timed Fluency Round</h3>
+              <p>Prompts rotate without repeating until all 20 have been used.</p>
+            </div>
+            <div class="score-pill" id="promptCounter">Prompt 1 of 20</div>
+          </div>
+          <div class="timer-panel">
+            <div>
+              <div class="timed-prompt" id="timedPrompt"></div>
+              <p class="timed-instructions" id="timedStatus">Read the prompt, plan one quick reason, then start the timer.</p>
+              <label class="sr-only" for="timedAnswer">Your timed response</label>
+              <textarea id="timedAnswer" class="timed-answer" placeholder="Your answer box will unlock when you start." disabled></textarea>
+              <div class="mode-row">
+                <label class="mode-option" for="untimedFluency"><input id="untimedFluency" type="checkbox"> Untimed mode</label>
+                <span>Choose before starting</span>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-accent" type="button" id="startTimer">Start 45 seconds</button>
+                <button class="btn btn-primary" type="button" id="finishTimer" hidden>Finish and lock</button>
+                <button class="btn btn-secondary" type="button" id="restartTimer">Different prompt</button>
+              </div>
+            </div>
+            <div class="timer-display" aria-live="polite">
+              <strong id="timerValue">45</strong>
+              <span id="timerLabel">seconds remaining</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card" id="error-correction">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">IELTS</div>
+          <h2>Error Correction and Answer Upgrade</h2>
+        </div>
+        <button class="collapse-btn" type="button" data-collapse="errorContent" aria-expanded="true">Collapse</button>
+      </div>
+      <div class="section-content" id="errorContent">
+        <div class="explanation">Rewrite each weak sentence in correct, natural English. The checker accepts common valid variations, but language can have more than one correct answer. Feedback gives a model correction, the main grammar point, and an optional IELTS-style upgrade with stronger vocabulary or detail.</div>
+        <div class="exercise-grid" id="error-exercises"></div>
+      </div>
+    </section>
+
+    <p class="source-note">Practice content is adapted from the attached grammar and IELTS worksheets, with additional original questions for extended practice.</p>
+  </main>
+
+  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">↑ Back to TOC</a>
+
+  <script>
+    "use strict";
+
+    const quizData = {
+      possessiveNouns: [
+        {
+          id: "pn-1",
+          title: "Exercise 1: Form the possessive",
+          instructions: "Type only the missing possessive word.",
+          questions: [
+            { prompt: "The teacher answered the _____ questions. (student)", answers: ["student's"], model: "student's", note: "A singular noun takes apostrophe + s." },
+            { prompt: "The teacher answered the _____ questions. (students)", answers: ["students'"], model: "students'", note: "A regular plural ending in -s takes only an apostrophe." },
+            { prompt: "Our _____ bedroom is next to our room. (daughters)", answers: ["daughters'"], model: "daughters'", note: "The bedroom belongs to more than one daughter, so add an apostrophe after the plural -s." },
+            { prompt: "Our _____ room is downstairs. (son)", answers: ["son's"], model: "son's", note: "A singular noun takes apostrophe + s." },
+            { prompt: "_____ clothing is on sale at the department store. (men)", answers: ["men's"], model: "men's", note: "Men is an irregular plural, so add apostrophe + s." },
+            { prompt: "The _____ surface is about 70% water. (earth)", answers: ["earth's"], model: "earth's", note: "Earth is singular, so add apostrophe + s." },
+            { prompt: "An _____ skin is thick and wrinkled. (elephant)", answers: ["elephant's"], model: "elephant's", note: "Elephant is singular, so add apostrophe + s." },
+            { prompt: "Pat can be a _____ name. (man)", answers: ["man's"], model: "man's", note: "Man is singular here." },
+            { prompt: "The language area can be larger in _____ brains. (women)", answers: ["women's"], model: "women's", note: "Women is an irregular plural, so add apostrophe + s." },
+            { prompt: "_____ voices often change as they age. (people)", answers: ["people's"], model: "people's", note: "People is an irregular plural, so add apostrophe + s." }
+          ]
+        },
+        {
+          id: "pn-2",
+          title: "Exercise 2: Family and group ownership",
+          instructions: "Type only the missing possessive word or phrase.",
+          questions: [
+            { prompt: "_____ wife is Ella. (Ned)", answers: ["Ned's"], model: "Ned's", note: "Ned is one person, so use Ned's." },
+            { prompt: "_____ husband is Sam. (Lisa)", answers: ["Lisa's"], model: "Lisa's", note: "Lisa is singular." },
+            { prompt: "Howard is _____ brother. (Lisa)", answers: ["Lisa's"], model: "Lisa's", note: "Howard is the brother of Lisa." },
+            { prompt: "Howard is _____ husband. (Monica)", answers: ["Monica's"], model: "Monica's", note: "Howard is the husband of Monica." },
+            { prompt: "_____ grandmother is Ella. (William)", answers: ["William's"], model: "William's", note: "Ella is William's grandmother." },
+            { prompt: "_____ parents are Sam and Lisa. (William)", answers: ["William's"], model: "William's", note: "The parents belong in William's family relationship." },
+            { prompt: "Ella and _____ grandson is William. (Ned)", answers: ["Ned's"], model: "Ned's", note: "For joint ownership, only the last owner takes 's: Ella and Ned's." },
+            { prompt: "Howard and Monica are _____ aunt and uncle. (William)", answers: ["William's"], model: "William's", note: "They are William's relatives." },
+            { prompt: "The _____ toys are in the box. (children)", answers: ["children's"], model: "children's", note: "Children is an irregular plural, so add apostrophe + s." },
+            { prompt: "The two _____ lockers are beside the gym. (teachers)", answers: ["teachers'"], model: "teachers'", note: "Teachers is a regular plural ending in -s, so add only an apostrophe." }
+          ]
+        }
+      ],
+
+      whose: [
+        {
+          id: "whose-1",
+          title: "Exercise 1: Whose or Who's?",
+          instructions: "Type Whose or Who's.",
+          questions: [
+            { prompt: "_____ taking the picture?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ next to you?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ skis are those?", answers: ["whose"], model: "Whose", note: "The question asks who owns the skis." },
+            { prompt: "_____ standing at the end?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ the person in the hat?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ house did you stay at?", answers: ["whose"], model: "Whose", note: "The question asks who owns the house." },
+            { prompt: "_____ notebook is on the desk?", answers: ["whose"], model: "Whose", note: "The question asks about possession." },
+            { prompt: "_____ coming to practice today?", answers: ["who's"], model: "Who's", note: "Who's = who is." },
+            { prompt: "_____ phone keeps ringing?", answers: ["whose"], model: "Whose", note: "The question asks who owns the phone." },
+            { prompt: "_____ responsible for the group project?", answers: ["who's"], model: "Who's", note: "Who's = who is." }
+          ]
+        },
+        {
+          id: "whose-2",
+          title: "Exercise 2: Answer possession questions",
+          instructions: "Type a short possessive answer. Full short sentences are also accepted.",
+          questions: [
+            { prompt: "Whose book is this? It belongs to John.", answers: ["John's", "It's John's", "It is John's"], model: "It's John's.", note: "Use a possessive noun to show ownership." },
+            { prompt: "Whose books are those? They belong to me.", answers: ["mine", "They're mine", "They are mine"], model: "They're mine.", note: "Mine is a possessive pronoun and stands alone." },
+            { prompt: "Whose car did you borrow? It belongs to Karen.", answers: ["Karen's", "I borrowed Karen's", "I borrowed Karen's car"], model: "I borrowed Karen's.", note: "The noun car may be omitted when the meaning is clear." },
+            { prompt: "Whose bag is that? It belongs to Elise.", answers: ["Elise's", "It's Elise's", "It is Elise's"], model: "It's Elise's.", note: "Add 's to the singular name Elise." },
+            { prompt: "Whose apple is that? It belongs to Jason.", answers: ["Jason's", "It's Jason's", "It is Jason's"], model: "It's Jason's.", note: "Jason is singular." },
+            { prompt: "Whose car is it? It belongs to Roger.", answers: ["Roger's", "It's Roger's", "It is Roger's"], model: "It's Roger's.", note: "Use Roger's to show possession." },
+            { prompt: "Whose leash is this? It belongs to Buddy.", answers: ["Buddy's", "It's Buddy's", "It is Buddy's"], model: "It's Buddy's.", note: "Buddy is singular." },
+            { prompt: "Whose jacket is this? It belongs to her.", answers: ["hers", "It's hers", "It is hers"], model: "It's hers.", note: "Hers is a possessive pronoun; do not add a noun after it." },
+            { prompt: "Whose desks are by the window? They belong to the students.", answers: ["the students'", "students'", "They're the students'", "They are the students'"], model: "They're the students'.", note: "Students is a regular plural ending in -s, so add only an apostrophe." },
+            { prompt: "Whose idea won? Maria and Leo share the idea.", answers: ["Maria and Leo's", "It's Maria and Leo's", "It is Maria and Leo's"], model: "It's Maria and Leo's.", note: "For joint ownership, add 's only to the final person." }
+          ]
+        }
+      ],
+
+      pronouns: [
+        {
+          id: "pro-1",
+          title: "Exercise 1: Adjective or pronoun?",
+          instructions: "Type the missing word(s). When there are two blanks, separate your answers with a comma.",
+          questions: [
+            { prompt: "Alice called _____ friend. (her / hers)", answers: ["her"], model: "her", note: "Her is a possessive adjective because friend follows it." },
+            { prompt: "Hasan wrote a letter to _____ mother. (his / he's)", answers: ["his"], model: "his", note: "His shows possession; he's means he is or he has." },
+            { prompt: "_____ normal for a dog to chase _____ tail. (It's / Its)", answers: ["it's its", "it is its"], model: "It's, its", note: "It's = it is; its shows possession." },
+            { prompt: "The cat cleaned _____ fur with _____ tongue. (its / it's)", answers: ["its its"], model: "its, its", note: "Both words show possession, so neither takes an apostrophe." },
+            { prompt: "Paula drove my car to work. _____ had a flat tire. (Hers / Her)", answers: ["hers"], model: "Hers", note: "Hers stands alone; no noun follows it." },
+            { prompt: "Junko fell off her bike and broke _____ arm. (hers / her)", answers: ["her"], model: "her", note: "Her modifies the noun arm." },
+            { prompt: "Anastasia is a good friend of _____. (my / mine)", answers: ["mine"], model: "mine", note: "The expression is a friend of mine." },
+            { prompt: "I met a friend of _____ yesterday. (you / yours)", answers: ["yours"], model: "yours", note: "A friend of yours is the standard possessive expression." },
+            { prompt: "Is this _____ pen or _____? (my / mine; your / yours)", answers: ["my yours"], model: "my, yours", note: "My modifies pen; yours stands alone." },
+            { prompt: "This one is _____. _____ is on your desk. (my / mine; Your / Yours)", answers: ["mine yours"], model: "mine, Yours", note: "Both words stand alone, so use possessive pronouns." }
+          ]
+        },
+        {
+          id: "pro-2",
+          title: "Exercise 2: Its, their, there, and they're",
+          instructions: "Type the missing word(s). Separate multiple answers with commas.",
+          questions: [
+            { prompt: "Adam and Amanda are married. _____ apartment is on the fifth floor.", answers: ["their"], model: "Their", note: "Their is a possessive adjective modifying apartment." },
+            { prompt: "We live in the same building. _____ apartment has one bedroom, but _____ has two.", answers: ["our theirs"], model: "Our, theirs", note: "Our modifies apartment; theirs stands alone." },
+            { prompt: "_____ sitting over _____ now because _____ waiting for a visit from _____ son.", answers: ["they're there they're their", "they are there they are their"], model: "They're, there, they're, their", note: "They're = they are; there = place; their = possession." },
+            { prompt: "The puppy is wagging _____ tail.", answers: ["its"], model: "its", note: "Its is possessive and has no apostrophe." },
+            { prompt: "I found my keys, but Sara has not found _____.", answers: ["hers"], model: "hers", note: "Hers replaces her keys." },
+            { prompt: "These seats are _____. We reserved them.", answers: ["ours"], model: "ours", note: "Ours is a possessive pronoun and stands alone." },
+            { prompt: "Is that Liam's backpack? Yes, it is _____.", answers: ["his"], model: "his", note: "His can be a possessive pronoun or adjective; here it stands alone." },
+            { prompt: "That is not your coat. _____ is in the closet.", answers: ["yours"], model: "Yours", note: "Yours replaces your coat." },
+            { prompt: "The team finished _____ project early.", answers: ["its"], model: "its", note: "Team is treated as a singular unit here." },
+            { prompt: "Maya and I brought _____ laptops. The blue one belongs to me, so it is _____; the silver one belongs to Maya, so it is _____.", answers: ["our mine hers"], model: "our, mine, hers", note: "Our modifies laptops; mine and hers stand alone." }
+          ]
+        }
+      ],
+
+      errors: [
+        {
+          id: "err-1",
+          title: "Exercise 1: Core sentence structure",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "I like play soccer because fun.", patterns: ["^i like (playing|to play) soccer because (it is|it's) fun$"], model: "I like playing soccer because it is fun.", note: "Use like + gerund/to-infinitive, and include a subject and verb after because.", upgrade: "I enjoy playing soccer because it is energetic and helps me relax after school." },
+            { prompt: "English is good. I study English every day maybe.", patterns: ["^english is (good|useful|important)( and|, and|\.)? i study (english|it) (almost )?every day$", "^english is (good|useful|important) because i study (english|it) (almost )?every day$"], model: "English is useful, and I study it almost every day.", note: "Place frequency expressions naturally; 'almost every day' is clearer than ending with maybe.", upgrade: "English is extremely useful for my future, so I study it almost every day to improve my communication skills." },
+            { prompt: "I like food because delicious.", patterns: ["^i like (this |the )?food because it is delicious$", "^i like (this |the )?food because it's delicious$"], model: "I like this food because it is delicious.", note: "After because, use a complete clause: it is delicious.", upgrade: "I really enjoy this dish because it is flavorful, fresh, and different from what I usually eat." },
+            { prompt: "My home is comfortable because my family.", patterns: ["^my home is comfortable because (my family lives there|i live (there )?with my family|i am with my family there)$"], model: "My home is comfortable because I live there with my family.", note: "Because must be followed by a complete clause, not only a noun phrase.", upgrade: "My home feels comfortable because I live with my family, and we have a quiet space where we can relax together." },
+            { prompt: "Phone is important because many thing.", patterns: ["^(a |the |my )?phone is important because (it can do|i can do) many things$", "^phones are important because they can do many things$"], model: "A phone is important because it can do many things.", note: "Use an article with singular phone, add a complete clause, and make thing plural.", upgrade: "A smartphone is important because it lets me communicate, study online, and manage daily tasks efficiently." },
+            { prompt: "She go to school by bus every day.", patterns: ["^she goes to school by bus every day$"], model: "She goes to school by bus every day.", note: "Use -s with a third-person singular verb in the simple present." },
+            { prompt: "I am agree with this idea.", patterns: ["^i agree with this idea$"], model: "I agree with this idea.", note: "Agree is a verb, so do not use am before it." },
+            { prompt: "He don't like crowded places.", patterns: ["^he doesn't like crowded places$", "^he does not like crowded places$"], model: "He doesn't like crowded places.", note: "Use does not/doesn't with he, then use the base verb like." },
+            { prompt: "There have many reasons for this.", patterns: ["^there are many reasons for this$"], model: "There are many reasons for this.", note: "Use there are before a plural noun." },
+            { prompt: "My brother is engineer.", patterns: ["^my brother is an engineer$"], model: "My brother is an engineer.", note: "A singular countable job noun needs an article." }
+          ]
+        },
+        {
+          id: "err-2",
+          title: "Exercise 2: Tense, prepositions, and countability",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "Yesterday I go to library and study two hour.", patterns: ["^yesterday i went to the library and studied for two hours$"], model: "Yesterday, I went to the library and studied for two hours.", note: "Use past tense, the article the, for with duration, and plural hours." },
+            { prompt: "I have visited Kyoto last year.", patterns: ["^i visited kyoto last year$"], model: "I visited Kyoto last year.", note: "Use the simple past with a finished past-time expression such as last year." },
+            { prompt: "I am living here since 2022.", patterns: ["^i have lived here since 2022$", "^i have been living here since 2022$"], model: "I have lived here since 2022.", note: "Use the present perfect for a situation that began in the past and continues now." },
+            { prompt: "When I was child, I play outside every day.", patterns: ["^when i was a child i played outside every day$"], model: "When I was a child, I played outside every day.", note: "Use an article before child and the past tense played." },
+            { prompt: "I didn't went to class because I was sick.", patterns: ["^i didn't go to class because i was sick$", "^i did not go to class because i was sick$"], model: "I didn't go to class because I was sick.", note: "After did not, use the base form go." },
+            { prompt: "I look forward to meet my friends this weekend.", patterns: ["^i look forward to meeting my friends this weekend$"], model: "I look forward to meeting my friends this weekend.", note: "In look forward to, to is a preposition, so use a gerund." },
+            { prompt: "She is good in mathematics.", patterns: ["^she is good at mathematics$", "^she is good at math$", "^she is good at maths$"], model: "She is good at mathematics.", note: "The standard preposition is good at." },
+            { prompt: "We discussed about the problem yesterday.", patterns: ["^we discussed the problem yesterday$"], model: "We discussed the problem yesterday.", note: "Discuss is transitive; do not add about." },
+            { prompt: "I arrived to the station at 8.", patterns: ["^i arrived at the station at 8$", "^i arrived at the station at eight$"], model: "I arrived at the station at 8.", note: "Use arrive at for a specific place." },
+            { prompt: "He has many homeworks tonight.", patterns: ["^he has (a lot of|much|some) homework tonight$"], model: "He has a lot of homework tonight.", note: "Homework is uncountable, so do not add -s." }
+          ]
+        },
+        {
+          id: "err-3",
+          title: "Exercise 3: Agreement and word form",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "People is becoming more dependent on technology.", patterns: ["^people are becoming more dependent on technology$"], model: "People are becoming more dependent on technology.", note: "People is plural, so use are." },
+            { prompt: "The information are easy to understand.", patterns: ["^the information is easy to understand$"], model: "The information is easy to understand.", note: "Information is uncountable and takes a singular verb." },
+            { prompt: "One of my friend live in Seoul.", patterns: ["^one of my friends lives in seoul$"], model: "One of my friends lives in Seoul.", note: "Use a plural noun after one of, but a singular verb with one." },
+            { prompt: "Each student have a different opinion.", patterns: ["^each student has a different opinion$"], model: "Each student has a different opinion.", note: "Each is singular, so use has." },
+            { prompt: "The movie was very bored.", patterns: ["^the movie was very boring$"], model: "The movie was very boring.", note: "Use boring for the thing that causes the feeling." },
+            { prompt: "I was very exciting about the trip.", patterns: ["^i was very excited about the trip$"], model: "I was very excited about the trip.", note: "Use excited for a person's feeling." },
+            { prompt: "This method is more easier than the old one.", patterns: ["^this method is easier than the old one$"], model: "This method is easier than the old one.", note: "Do not use more with the comparative easier." },
+            { prompt: "The reason is because public transport is cheap.", patterns: ["^the reason is that public transport is cheap$", "^public transport is popular because it is cheap$"], model: "The reason is that public transport is cheap.", note: "Use the reason is that, not the reason is because." },
+            { prompt: "Students who studies regularly usually improve.", patterns: ["^students who study regularly usually improve$"], model: "Students who study regularly usually improve.", note: "The relative pronoun who refers to plural students, so use study." },
+            { prompt: "The teacher gave me many useful advices.", patterns: ["^the teacher gave me (a lot of|some|much) useful advice$"], model: "The teacher gave me a lot of useful advice.", note: "Advice is uncountable and has no plural -s." }
+          ]
+        },
+        {
+          id: "err-4",
+          title: "Exercise 4: IELTS-style cohesion and accuracy",
+          instructions: "Rewrite the complete sentence correctly.",
+          questions: [
+            { prompt: "In my opinion, I think school uniforms are useful.", patterns: ["^in my opinion school uniforms are useful$", "^i think school uniforms are useful$"], model: "In my opinion, school uniforms are useful.", note: "Avoid using both in my opinion and I think together." },
+            { prompt: "On the other hand, however, it can be expensive.", patterns: ["^however it can be expensive$", "^on the other hand it can be expensive$"], model: "However, it can be expensive.", note: "Use one contrast linker, not two with the same function." },
+            { prompt: "Firstly students can save time, second they can reduce stress.", patterns: ["^firstly students can save time secondly they can reduce stress$", "^first students can save time second they can reduce stress$"], model: "Firstly, students can save time; secondly, they can reduce stress.", note: "Use parallel sequencing words and clear punctuation." },
+            { prompt: "Technology give students access to information, which help them study.", patterns: ["^technology gives students access to information which helps them study$"], model: "Technology gives students access to information, which helps them study.", note: "Technology is singular, and which refers to the singular idea/access." },
+            { prompt: "Although exercise is tiring, but it is good for health.", patterns: ["^although exercise is tiring it is good for (your )?health$", "^exercise is tiring but it is good for (your )?health$"], model: "Although exercise is tiring, it is good for your health.", note: "Do not use although and but in the same clause structure." },
+            { prompt: "Because public transport is cheap. Many students use it.", patterns: ["^because public transport is cheap many students use it$", "^many students use public transport because it is cheap$"], model: "Because public transport is cheap, many students use it.", note: "Join the dependent because-clause to a complete main clause." },
+            { prompt: "This is a problem which many people are worried.", patterns: ["^this is a problem (which|that) many people are worried about$"], model: "This is a problem that many people are worried about.", note: "Worried requires the preposition about." },
+            { prompt: "The government should to invest more in education.", patterns: ["^the government should invest more in education$"], model: "The government should invest more in education.", note: "Use the base verb after should, without to." },
+            { prompt: "If people will recycle more, cities will become cleaner.", patterns: ["^if people recycle more cities will become cleaner$"], model: "If people recycle more, cities will become cleaner.", note: "In the first conditional, use present simple after if and will in the main clause." },
+            { prompt: "There are less cars on the road during holidays.", patterns: ["^there are fewer cars on the road during (the )?holidays$"], model: "There are fewer cars on the road during the holidays.", note: "Use fewer with countable plural nouns such as cars." }
+          ]
+        }
+      ]
+    };
+
+    const timedPrompts = [
+      "Do you like learning English? Give a reason and an example.",
+      "Do you like sports? Give a reason and an example.",
+      "Do you like your home? Give a reason and an example.",
+      "Do you often watch videos? Give a reason and an example.",
+      "Should high school students have part-time jobs?",
+      "What is one school subject that is useful for your future?",
+      "Do you prefer studying alone or with friends?",
+      "Should students be allowed to use phones during class?",
+      "What is a good way for teenagers to stay healthy?",
+      "Do social media platforms help or distract students?",
+      "Would you rather live in a big city or a small town?",
+      "What is one skill every high school student should learn?",
+      "Should schools give less homework on weekends?",
+      "Describe a teacher who helped you learn something important.",
+      "Is reading books still important for teenagers today?",
+      "What is one environmental problem your community should address?",
+      "Do school uniforms make student life easier?",
+      "What is a memorable trip or school event you experienced?",
+      "Should teenagers spend more time outdoors?",
+      "What technology has improved your daily life the most?"
+    ];
+
+    function normalizeText(value) {
+      return String(value || "")
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[’‘`]/g, "'")
+        .replace(/[“”]/g, '"')
+        .replace(/[.,!?;:()[\]{}\/\\|-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function evaluateQuestion(question, userAnswer) {
+      const normalized = normalizeText(userAnswer);
+      if (!normalized) return false;
+      if (question.patterns) {
+        return question.patterns.some(source => new RegExp(source, "i").test(normalized));
+      }
+      return question.answers.some(answer => normalizeText(answer) === normalized);
+    }
+
+
+    function createExerciseCard(exercise, mount) {
+      const card = document.createElement("article");
+      card.className = "exercise-card";
+      card.id = exercise.id;
+      card.innerHTML = `
+        <div class="exercise-head">
+          <div>
+            <h3>${exercise.title}</h3>
+            <p>${exercise.instructions}</p>
+          </div>
+          <div class="score-pill" data-score>Score: 0 / 0</div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-bar" data-progress></div></div>
+        <div class="question-box">
+          <div class="question-meta" data-meta></div>
+          <div class="question-text" data-question></div>
+          <label class="sr-only" for="input-${exercise.id}">Type your answer</label>
+          <input id="input-${exercise.id}" class="answer-input" data-input type="text" autocomplete="off" spellcheck="false" />
+          <div class="button-row">
+            <button class="btn btn-primary" type="button" data-check>Check answer</button>
+            <button class="btn btn-accent" type="button" data-next hidden>Next question</button>
+            <button class="btn btn-secondary" type="button" data-review-prev hidden>Previous answer</button>
+            <button class="btn btn-secondary" type="button" data-review-next hidden>Next answer</button>
+            <button class="btn btn-secondary" type="button" data-restart>Restart exercise</button>
+          </div>
+          <div class="practice-summary" data-practice hidden></div>
+          <div class="feedback" data-feedback aria-live="polite"></div>
+        </div>
+      `;
+      mount.appendChild(card);
+
+      const state = {
+        index: 0,
+        score: 0,
+        answered: 0,
+        locked: false,
+        reviewMode: false,
+        reviewIndex: 0,
+        responses: []
+      };
+      const input = card.querySelector("[data-input]");
+      const questionEl = card.querySelector("[data-question]");
+      const metaEl = card.querySelector("[data-meta]");
+      const scoreEl = card.querySelector("[data-score]");
+      const progressEl = card.querySelector("[data-progress]");
+      const feedbackEl = card.querySelector("[data-feedback]");
+      const practiceEl = card.querySelector("[data-practice]");
+      const checkBtn = card.querySelector("[data-check]");
+      const nextBtn = card.querySelector("[data-next]");
+      const reviewPrevBtn = card.querySelector("[data-review-prev]");
+      const reviewNextBtn = card.querySelector("[data-review-next]");
+      const restartBtn = card.querySelector("[data-restart]");
+
+      function updateScore() {
+        scoreEl.textContent = `Score: ${state.score} / ${state.answered}`;
+        progressEl.style.width = `${(state.answered / exercise.questions.length) * 100}%`;
+      }
+
+      function hideReviewControls() {
+        reviewPrevBtn.hidden = true;
+        reviewNextBtn.hidden = true;
+        practiceEl.hidden = true;
+        state.reviewMode = false;
+      }
+
+      function renderQuestion() {
+        const q = exercise.questions[state.index];
+        hideReviewControls();
+        metaEl.textContent = `Question ${state.index + 1} of ${exercise.questions.length}`;
+        questionEl.textContent = q.prompt;
+        input.hidden = false;
+        input.value = "";
+        input.disabled = false;
+        input.placeholder = q.patterns ? "Rewrite the full sentence..." : "Type your answer...";
+        feedbackEl.className = "feedback";
+        feedbackEl.textContent = "";
+        checkBtn.hidden = false;
+        nextBtn.hidden = true;
+        nextBtn.textContent = state.index === exercise.questions.length - 1 ? "Finish exercise" : "Next question";
+        state.locked = false;
+        updateScore();
+        requestAnimationFrame(() => input.focus());
+      }
+
+      function checkAnswer() {
+        if (state.locked || state.reviewMode) return;
+        const userAnswer = input.value.trim();
+        if (!userAnswer) {
+          feedbackEl.className = "feedback neutral show";
+          feedbackEl.textContent = "Type an answer before checking.";
+          input.focus();
+          return;
+        }
+
+        const q = exercise.questions[state.index];
+        const correct = evaluateQuestion(q, userAnswer);
+        state.locked = true;
+        state.answered += 1;
+        if (correct) state.score += 1;
+        state.responses[state.index] = { userAnswer, correct };
+        input.disabled = true;
+        checkBtn.hidden = true;
+        nextBtn.hidden = false;
+
+        if (q.upgrade) {
+          feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"} show`;
+          feedbackEl.textContent = `${correct ? "✓ Good correction." : "✗ Not quite."}
+Model correction: ${q.model}
+Focus: ${q.note}
+IELTS upgrade: ${q.upgrade}`;
+        } else {
+          feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"} show`;
+          feedbackEl.textContent = `${correct ? "✓ Correct." : "✗ Incorrect."}
+Answer: ${q.model}
+Why: ${q.note}`;
+        }
+        updateScore();
+      }
+
+      function practiceMarkup() {
+        const missed = state.responses
+          .map((response, index) => ({ response, question: exercise.questions[index] }))
+          .filter(item => item.response && !item.response.correct);
+        const notes = [...new Set(missed.map(item => item.question.note))];
+        if (notes.length === 0) {
+          return `<strong>Practice focus</strong><div>No missed questions. Review the answers below for speed and consistency.</div>`;
+        }
+        return `<strong>Practice focus from missed answers</strong><ul>${notes.map(note => `<li>${note}</li>`).join("")}</ul>`;
+      }
+
+      function renderReview() {
+        const q = exercise.questions[state.reviewIndex];
+        const response = state.responses[state.reviewIndex] || { userAnswer: "No answer", correct: false };
+        metaEl.textContent = `Answer review ${state.reviewIndex + 1} of ${exercise.questions.length}`;
+        questionEl.textContent = q.prompt;
+        input.hidden = false;
+        input.disabled = true;
+        input.value = response.userAnswer;
+        feedbackEl.className = `feedback ${response.correct ? "correct" : "incorrect"} show`;
+        const prefix = response.correct ? "✓ Correct on this attempt." : "✗ Review this item.";
+        feedbackEl.textContent = q.upgrade
+          ? `${prefix}
+Model correction: ${q.model}
+Focus: ${q.note}
+IELTS upgrade: ${q.upgrade}`
+          : `${prefix}
+Correct answer: ${q.model}
+Why: ${q.note}`;
+        reviewPrevBtn.disabled = state.reviewIndex === 0;
+        reviewNextBtn.disabled = state.reviewIndex === exercise.questions.length - 1;
+      }
+
+      function finishExercise() {
+        state.reviewMode = true;
+        state.reviewIndex = 0;
+        state.locked = true;
+        checkBtn.hidden = true;
+        nextBtn.hidden = true;
+        reviewPrevBtn.hidden = false;
+        reviewNextBtn.hidden = false;
+        practiceEl.hidden = false;
+        practiceEl.innerHTML = practiceMarkup();
+        progressEl.style.width = "100%";
+        scoreEl.textContent = `Final: ${state.score} / ${exercise.questions.length}`;
+        renderReview();
+      }
+
+      function nextQuestion() {
+        if (!state.locked || state.reviewMode) return;
+        if (state.index < exercise.questions.length - 1) {
+          state.index += 1;
+          renderQuestion();
+        } else {
+          finishExercise();
+        }
+      }
+
+      function restartExercise() {
+        Object.assign(state, {
+          index: 0,
+          score: 0,
+          answered: 0,
+          locked: false,
+          reviewMode: false,
+          reviewIndex: 0,
+          responses: []
+        });
+        renderQuestion();
+      }
+
+      checkBtn.addEventListener("click", checkAnswer);
+      nextBtn.addEventListener("click", nextQuestion);
+      reviewPrevBtn.addEventListener("click", () => {
+        if (state.reviewIndex > 0) {
+          state.reviewIndex -= 1;
+          renderReview();
+        }
+      });
+      reviewNextBtn.addEventListener("click", () => {
+        if (state.reviewIndex < exercise.questions.length - 1) {
+          state.reviewIndex += 1;
+          renderReview();
+        }
+      });
+      restartBtn.addEventListener("click", restartExercise);
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          if (state.reviewMode) return;
+          if (!state.locked) checkAnswer();
+          else nextQuestion();
+        }
+      });
+
+      renderQuestion();
+    }
+
+    function mountExercises() {
+      const groups = [
+        [quizData.possessiveNouns, document.getElementById("possessive-nouns-exercises")],
+        [quizData.whose, document.getElementById("whose-exercises")],
+        [quizData.pronouns, document.getElementById("pronoun-exercises")],
+        [quizData.errors, document.getElementById("error-exercises")]
+      ];
+      groups.forEach(([exercises, mount]) => exercises.forEach(exercise => createExerciseCard(exercise, mount)));
+    }
+
+    function setupCollapseButtons() {
+      document.querySelectorAll("[data-collapse]").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.collapse);
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.textContent = expanded ? "Expand" : "Collapse";
+          target.hidden = expanded;
+        });
+      });
+    }
+
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+
+    function setupTimer() {
+      const promptEl = document.getElementById("timedPrompt");
+      const answerEl = document.getElementById("timedAnswer");
+      const startBtn = document.getElementById("startTimer");
+      const finishBtn = document.getElementById("finishTimer");
+      const restartBtn = document.getElementById("restartTimer");
+      const untimedToggle = document.getElementById("untimedFluency");
+      const timerEl = document.getElementById("timerValue");
+      const timerLabel = document.getElementById("timerLabel");
+      const statusEl = document.getElementById("timedStatus");
+      const counterEl = document.getElementById("promptCounter");
+
+      let queue = shuffle(timedPrompts.map((_, index) => index));
+      let currentIndex = queue.shift();
+      let usedCount = 1;
+      let timerId = null;
+      let remaining = 45;
+      let running = false;
+
+      function showPrompt() {
+        promptEl.textContent = timedPrompts[currentIndex];
+        counterEl.textContent = `Prompt ${usedCount} of 20`;
+      }
+
+      function stopTimer() {
+        if (timerId) clearInterval(timerId);
+        timerId = null;
+        running = false;
+      }
+
+      function updateModeDisplay() {
+        const untimed = untimedToggle.checked;
+        timerEl.textContent = untimed ? "∞" : "45";
+        timerLabel.textContent = untimed ? "untimed mode" : "seconds remaining";
+        startBtn.textContent = untimed ? "Start untimed" : "Start 45 seconds";
+      }
+
+      function lockResponse(message) {
+        stopTimer();
+        answerEl.disabled = true;
+        startBtn.disabled = true;
+        finishBtn.hidden = true;
+        statusEl.textContent = message;
+      }
+
+      function startTimer() {
+        if (running) return;
+        const untimed = untimedToggle.checked;
+        remaining = 45;
+        answerEl.value = "";
+        answerEl.disabled = false;
+        answerEl.placeholder = "Type continuously: answer, reason, example/detail, final comment...";
+        answerEl.focus();
+        startBtn.disabled = true;
+        finishBtn.hidden = false;
+        untimedToggle.disabled = true;
+        running = true;
+
+        if (untimed) {
+          timerEl.textContent = "∞";
+          timerLabel.textContent = "untimed mode";
+          statusEl.textContent = "Untimed mode is active. Build a complete answer, then choose Finish and lock.";
+          return;
+        }
+
+        timerEl.textContent = remaining;
+        timerLabel.textContent = "seconds remaining";
+        statusEl.textContent = "Keep typing. Do not edit for perfection while the timer is running.";
+        timerId = setInterval(() => {
+          remaining -= 1;
+          timerEl.textContent = remaining;
+          if (remaining <= 0) {
+            timerEl.textContent = "0";
+            lockResponse("Time is up. Your response is locked. Review its structure, clarity, and examples.");
+            untimedToggle.disabled = false;
+          }
+        }, 1000);
+      }
+
+      function finishEarly() {
+        if (!running) return;
+        lockResponse(untimedToggle.checked
+          ? "Response locked. Review whether you included an answer, reason, specific detail, and final comment."
+          : `Response locked with ${remaining} seconds remaining. Review its structure and specificity.`);
+        untimedToggle.disabled = false;
+      }
+
+      function restartTimer() {
+        stopTimer();
+        if (queue.length === 0) {
+          queue = shuffle(timedPrompts.map((_, index) => index).filter(index => index !== currentIndex));
+          usedCount = 0;
+        }
+        currentIndex = queue.shift();
+        usedCount += 1;
+        remaining = 45;
+        answerEl.value = "";
+        answerEl.disabled = true;
+        answerEl.placeholder = "Your answer box will unlock when you start.";
+        startBtn.disabled = false;
+        finishBtn.hidden = true;
+        untimedToggle.disabled = false;
+        statusEl.textContent = "Read the new prompt, plan one quick reason, then start the round.";
+        updateModeDisplay();
+        showPrompt();
+      }
+
+      startBtn.addEventListener("click", startTimer);
+      finishBtn.addEventListener("click", finishEarly);
+      restartBtn.addEventListener("click", restartTimer);
+      untimedToggle.addEventListener("change", () => {
+        if (!running) updateModeDisplay();
+      });
+      updateModeDisplay();
+      showPrompt();
+    }
+
+
+    mountExercises();
+    setupCollapseButtons();
+        setupTimer();
+  </script>
+</body>
+</html>
