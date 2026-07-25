@@ -5,6 +5,6 @@
 
 # todo
 [DONE] add index.html
-[] check what is possible with github pages
+[DONE] check what is possible with github pages
 [] set up a live/collaboration environment (or at least savable and has teacher/student workflows)
 [DONE] remake pages with new design
