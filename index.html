@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script id="flat-theme-init">
+    (() => {
+      try {
+        const saved = localStorage.getItem("flatDesignTheme");
+        const theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (_) {}
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive English grammar and IELTS tutoring quizzes">
+  <title>English Tutoring Quiz Index</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme:light;
+      --background:#FFFFFF;
+      --foreground:#111827;
+      --primary:#3B82F6;
+      --primary-hover:#2563EB;
+      --secondary:#10B981;
+      --accent:#F59E0B;
+      --muted:#F3F4F6;
+      --border:#E5E7EB;
+      --radius-md:6px;
+      --radius-lg:8px;
+      --font:'Outfit',sans-serif;
+      --transition:all 200ms ease;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--foreground);
+      background:var(--muted);
+      font-family:var(--font);
+      line-height:1.55;
+    }
+
+    button,a { font:inherit; }
+
+    .shell {
+      width:min(1280px,calc(100% - 32px));
+      margin:0 auto 48px;
+      overflow:hidden;
+      background:var(--background);
+      border-radius:var(--radius-lg);
+    }
+
+    header {
+      min-height:76px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:20px;
+      padding:0 24px;
+      background:#FFFFFF;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .brand::before {
+      content:"ET";
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      color:#FFFFFF;
+      background:var(--primary);
+      border-radius:var(--radius-lg);
+      font-size:.86rem;
+      letter-spacing:-.02em;
+    }
+
+    .system-badge {
+      min-height:42px;
+      display:inline-flex;
+      align-items:center;
+      padding:0 14px;
+      color:var(--foreground);
+      background:var(--muted);
+      border-radius:var(--radius-md);
+      font-size:.74rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .hero {
+      position:relative;
+      display:grid;
+      grid-template-columns:7fr 5fr;
+      min-height:610px;
+      overflow:hidden;
+      color:#FFFFFF;
+      background:var(--primary);
+    }
+
+    .hero::before {
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      left:-160px;
+      bottom:-180px;
+      background:#FFFFFF;
+      opacity:.1;
+      transform:rotate(18deg);
+    }
+
+    .hero-copy {
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:clamp(38px,7vw,88px);
+    }
+
+    .label {
+      color:inherit;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .hero .label { color:#DBEAFE; }
+
+    .hero h1 {
+      max-width:8ch;
+      margin:20px 0 32px;
+      font-size:clamp(4rem,11vw,9rem);
+      font-weight:800;
+      line-height:.78;
+      letter-spacing:-.04em;
+    }
+
+    .hero p {
+      max-width:54ch;
+      margin:0;
+      color:#EFF6FF;
+      font-size:clamp(1rem,1.5vw,1.25rem);
+    }
+
+    .hero-art {
+      position:relative;
+      overflow:hidden;
+      background:var(--foreground);
+    }
+
+    .circle {
+      position:absolute;
+      top:10%;
+      left:12%;
+      width:58%;
+      aspect-ratio:1;
+      border-radius:50%;
+      background:var(--secondary);
+    }
+
+    .square {
+      position:absolute;
+      right:8%;
+      bottom:11%;
+      width:51%;
+      aspect-ratio:1;
+      background:var(--accent);
+      transform:rotate(8deg);
+    }
+
+    .line {
+      position:absolute;
+      left:8%;
+      bottom:28%;
+      width:84%;
+      height:16px;
+      background:#FFFFFF;
+      transform:rotate(-18deg);
+    }
+
+    .section-title {
+      display:grid;
+      grid-template-columns:4fr 8fr;
+      align-items:stretch;
+      background:var(--accent);
+    }
+
+    .section-title>* {
+      padding:clamp(28px,5vw,60px);
+    }
+
+    .section-title .label {
+      display:flex;
+      align-items:flex-start;
+      color:var(--foreground);
+    }
+
+    .section-title h2 {
+      margin:0;
+      font-size:clamp(2.6rem,7vw,6.2rem);
+      font-weight:800;
+      line-height:.86;
+      letter-spacing:-.03em;
+    }
+
+    .quiz-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+    }
+
+    .quiz-card {
+      min-height:500px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:clamp(30px,5vw,58px);
+      color:var(--foreground);
+      background:#FFFFFF;
+      transition:var(--transition);
+    }
+
+    .quiz-card:nth-child(2) { background:var(--muted); }
+
+    .quiz-card:hover {
+      background:#DBEAFE;
+      transform:scale(.99);
+    }
+
+    .number {
+      color:var(--primary);
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.16em;
+    }
+
+    .quiz-card h2 {
+      max-width:11ch;
+      margin:62px 0 22px;
+      font-size:clamp(2.6rem,6vw,5.3rem);
+      font-weight:800;
+      line-height:.88;
+      letter-spacing:-.03em;
+    }
+
+    .quiz-card p {
+      max-width:44ch;
+      color:#4B5563;
+    }
+
+    .quiz-card a {
+      min-height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:34px;
+      padding:0 18px;
+      color:#FFFFFF;
+      background:var(--primary);
+      border-radius:var(--radius-md);
+      font-weight:700;
+      letter-spacing:.1em;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:var(--transition);
+    }
+
+    .quiz-card a:hover {
+      background:var(--primary-hover);
+      transform:scale(1.03);
+    }
+
+    .meta {
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      min-height:100px;
+      background:var(--foreground);
+    }
+
+    .meta>* { padding:22px 26px; }
+
+    .url {
+      color:#FFFFFF;
+      font-weight:700;
+    }
+
+    .note {
+      color:var(--secondary);
+      font-size:.74rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    a:focus-visible {
+      outline:2px solid var(--primary);
+      outline-offset:3px;
+    }
+
+    @media(max-width:760px) {
+      .shell { width:100%; margin:0; border-radius:0; }
+      header,.hero,.section-title { grid-template-columns:1fr; }
+      header { padding:14px 20px; }
+      .system-badge { justify-self:start; }
+      .hero-copy { min-height:520px; padding:40px 24px; }
+      .hero-art { min-height:410px; }
+      .quiz-grid { grid-template-columns:1fr; }
+      .quiz-card { min-height:430px; }
+      .meta { grid-template-columns:1fr; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * { transition:none!important; transform:none!important; }
+    }
+  </style>
+  <style id="flat-dark-mode">
+    .theme-toggle {
+      min-height: 44px;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 0;
+      border-radius: var(--radius-md);
+      font: inherit;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      color: #FFFFFF;
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .theme-toggle__icon {
+      width: 1.2em;
+      display: inline-grid;
+      place-items: center;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --accent: #FBBF24;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --border: #374151;
+      --blue-soft: #172554;
+      --green-soft: #052E2B;
+      --amber-soft: #451A03;
+      --secondary-soft: #052E2B;
+      --accent-soft: #451A03;
+      --bg: var(--background);
+      --fg: var(--foreground);
+      --line: var(--border);
+      --field: var(--muted);
+      --subtle: #CBD5E1;
+      --correct-bg: var(--secondary);
+      --correct-fg: #052E2B;
+      --text: var(--foreground);
+      --subtext1: #CBD5E1;
+      --subtext0: #94A3B8;
+      --surface0: var(--muted);
+      --surface1: var(--muted-strong);
+      --surface2: var(--border);
+      --base: var(--background);
+      --mantle: #0F172A;
+      --crust: #020617;
+      --blue: var(--primary);
+      --mauve: var(--primary);
+      --red: #FB7185;
+      --green: var(--secondary);
+      --peach: #FB923C;
+      --yellow: var(--accent);
+    }
+
+    html[data-theme="dark"] body { background: #0B1220; }
+
+    html[data-theme="dark"] .site-header,
+    html[data-theme="dark"] body > .shell > header,
+    html[data-theme="dark"] main,
+    html[data-theme="dark"] .shell,
+    html[data-theme="dark"] .section,
+    html[data-theme="dark"] .section-card,
+    html[data-theme="dark"] .block,
+    html[data-theme="dark"] .quiz-section,
+    html[data-theme="dark"] .section-content,
+    html[data-theme="dark"] .block-inner,
+    html[data-theme="dark"] .quiz-body,
+    html[data-theme="dark"] .card-grid,
+    html[data-theme="dark"] .guide-card,
+    html[data-theme="dark"] .note-card,
+    html[data-theme="dark"] .control-card,
+    html[data-theme="dark"] .quiz-card,
+    html[data-theme="dark"] .exercise-card,
+    html[data-theme="dark"] .ref-section,
+    html[data-theme="dark"] .review-answer-grid > div,
+    html[data-theme="dark"] .timer-panel > div:first-child,
+    html[data-theme="dark"] .timed-stage {
+      color: var(--foreground);
+      background: var(--background);
+    }
+
+    html[data-theme="dark"] .panel,
+    html[data-theme="dark"] #toc,
+    html[data-theme="dark"] .toc-card,
+    html[data-theme="dark"] .exercise-head,
+    html[data-theme="dark"] .meta,
+    html[data-theme="dark"] .ref-section summary,
+    html[data-theme="dark"] details.edit-help {
+      color: #F9FAFB;
+      background: #0F172A;
+    }
+
+    html[data-theme="dark"] .toc-link,
+    html[data-theme="dark"] .toc-list a {
+      color: #F9FAFB;
+      background: #1E293B;
+    }
+
+    html[data-theme="dark"] .toc-link:hover,
+    html[data-theme="dark"] .toc-list a:hover {
+      color: #052E2B;
+      background: var(--secondary);
+    }
+
+    html[data-theme="dark"] .hero-art { background: #0F172A; }
+
+    html[data-theme="dark"] .card,
+    html[data-theme="dark"] .quiz-card:nth-child(1) { background: var(--background); }
+
+    html[data-theme="dark"] .card:nth-child(3n+2) { background: var(--blue-soft); }
+    html[data-theme="dark"] .card:nth-child(3n+3) { background: var(--green-soft); }
+    html[data-theme="dark"] .card:hover,
+    html[data-theme="dark"] .quiz-card:hover { background: var(--amber-soft); }
+
+    html[data-theme="dark"] .answer-input,
+    html[data-theme="dark"] .timed-answer,
+    html[data-theme="dark"] input,
+    html[data-theme="dark"] select,
+    html[data-theme="dark"] textarea,
+    html[data-theme="dark"] .option-btn,
+    html[data-theme="dark"] .mode-row,
+    html[data-theme="dark"] .review-panel,
+    html[data-theme="dark"] .review-row,
+    html[data-theme="dark"] .empty,
+    html[data-theme="dark"] .mode-btn,
+    html[data-theme="dark"] .restart-top-btn {
+      color: var(--foreground);
+      background: var(--muted);
+    }
+
+    html[data-theme="dark"] .answer-input:focus,
+    html[data-theme="dark"] .timed-answer:focus,
+    html[data-theme="dark"] input:focus,
+    html[data-theme="dark"] select:focus,
+    html[data-theme="dark"] textarea:focus {
+      color: var(--foreground);
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    html[data-theme="dark"] .answer-input:disabled,
+    html[data-theme="dark"] .timed-answer:disabled {
+      color: #94A3B8;
+      background: var(--muted-strong);
+    }
+
+    html[data-theme="dark"] .small,
+    html[data-theme="dark"] .brand-copy span,
+    html[data-theme="dark"] .card p,
+    html[data-theme="dark"] .quiz-card p,
+    html[data-theme="dark"] .guide-card p,
+    html[data-theme="dark"] .note-card p,
+    html[data-theme="dark"] .note-card li,
+    html[data-theme="dark"] .mini-list,
+    html[data-theme="dark"] .section-meta,
+    html[data-theme="dark"] .status-row,
+    html[data-theme="dark"] td,
+    html[data-theme="dark"] .source-note,
+    html[data-theme="dark"] .timed-placeholder,
+    html[data-theme="dark"] .control-label {
+      color: #CBD5E1;
+    }
+
+    html[data-theme="dark"] .section-title,
+    html[data-theme="dark"] details.block > summary,
+    html[data-theme="dark"] #quizSections > details:nth-child(3n+1) > summary,
+    html[data-theme="dark"] #quizSections > details:nth-child(3n+3) > summary,
+    html[data-theme="dark"] .section-card:nth-of-type(3n+2) .section-header,
+    html[data-theme="dark"] .section-card:nth-of-type(3n+3) .section-header,
+    html[data-theme="dark"] #sections .section:nth-child(3n+1) .section-header,
+    html[data-theme="dark"] #sections .section:nth-child(3n+2) .section-header {
+      color: #111827;
+    }
+
+    html[data-theme="dark"] #quizSections > details:nth-child(3n+2) > summary,
+    html[data-theme="dark"] .section-card:nth-of-type(3n+4) .section-header,
+    html[data-theme="dark"] #sections .section:nth-child(3n+3) .section-header {
+      color: #FFFFFF;
+    }
+
+    html[data-theme="dark"] .score-pill,
+    html[data-theme="dark"] .set-pill,
+    html[data-theme="dark"] .btn-accent,
+    html[data-theme="dark"] .btn-warning,
+    html[data-theme="dark"] .secondary-btn,
+    html[data-theme="dark"] .timer-box.danger,
+    html[data-theme="dark"] .option-btn.correct-choice,
+    html[data-theme="dark"] .option-btn.wrong-choice {
+      color: #111827;
+    }
+
+    html[data-theme="dark"] .system-badge,
+    html[data-theme="dark"] .theme-toggle { background: var(--muted); }
+
+    html[data-theme="dark"] .button-link:hover,
+    html[data-theme="dark"] .home-link:hover,
+    html[data-theme="dark"] .back-top:hover,
+    html[data-theme="dark"] .back-toc:hover {
+      color: #FFFFFF;
+      background: #0F172A;
+    }
+
+    html[data-theme="dark"] th {
+      color: #F9FAFB;
+      background: var(--amber-soft);
+    }
+
+    html[data-theme="dark"] pre {
+      color: #F9FAFB;
+      background: var(--amber-soft);
+    }
+
+    html[data-theme="dark"] .collapse-btn,
+    html[data-theme="dark"] .pill,
+    html[data-theme="dark"] .chip,
+    html[data-theme="dark"] .count-badge,
+    html[data-theme="dark"] details.block > summary::after,
+    html[data-theme="dark"] details.quiz-section > summary::after,
+    html[data-theme="dark"] details.edit-help > summary::after {
+      color: #111827;
+      background: #F9FAFB;
+    }
+
+    html[data-theme="dark"] .progress,
+    html[data-theme="dark"] .progress-track { background: var(--border); }
+
+    @media (max-width: 680px) {
+      .theme-toggle { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">English Tutoring / Interactive Systems</div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"><span class="theme-toggle__icon" aria-hidden="true">◐</span><span class="theme-toggle__label">Dark mode</span></button>
+      <span class="system-badge">Flat light system</span>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div><div class="label">Index / 00</div><h1>Quiz<br>Systems</h1></div>
+          <p>Two interactive English grammar and IELTS practice systems with immediate feedback, targeted review, timed or untimed rounds, and navigable answer histories.</p>
+        </div>
+        <div class="hero-art" aria-label="Flat geometric composition"><div class="circle"></div><div class="square"></div><div class="line"></div></div>
+      </section>
+      <section>
+        <header class="section-title"><div class="label">Select / Course</div><h2>Begin<br>Practice</h2></header>
+        <div class="quiz-grid">
+          <article class="quiz-card">
+            <div><div class="number">01 / FOUNDATIONS</div><h2>Grammar & IELTS Typing Lab</h2><p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p></div>
+            <a href="./english_grammar_ielts_quiz.html"><span>Open Quiz 01</span><span>↗</span></a>
+          </article>
+          <article class="quiz-card">
+            <div><div class="number">02 / REVIEW</div><h2>Grammar Review & IELTS Sprint</h2><p>Previous-point review, reflexive pronouns, forms of other, five correction sets, and reason/detail matching with balanced choices.</p></div>
+            <a href="./grammar_review_ielts_sprint_quiz.html"><span>Open Quiz 02</span><span>↗</span></a>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="meta"><div class="url">boyzinred.github.io/tutoring/</div><div class="note">Flat Design / Outfit / Light</div></footer>
+  </div>
+  <script id="flat-theme-controller">
+    (() => {
+      const STORAGE_KEY = "flatDesignTheme";
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function savedTheme() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (_) { return null; }
+      }
+
+      function applyTheme(theme, persist = false) {
+        const next = theme === "dark" ? "dark" : "light";
+        root.dataset.theme = next;
+        root.style.colorScheme = next;
+        if (persist) {
+          try { localStorage.setItem(STORAGE_KEY, next); } catch (_) {}
+        }
+
+        if (toggle) {
+          const dark = next === "dark";
+          toggle.setAttribute("aria-pressed", String(dark));
+          toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+          toggle.querySelector(".theme-toggle__icon").textContent = dark ? "☀" : "◐";
+          toggle.querySelector(".theme-toggle__label").textContent = dark ? "Light mode" : "Dark mode";
+        }
+
+        document.querySelectorAll(".system-badge").forEach(badge => {
+          badge.textContent = next === "dark" ? "Flat dark" : "Flat light";
+        });
+        document.querySelectorAll(".note").forEach(note => {
+          if (/Flat Design/i.test(note.textContent)) {
+            note.textContent = `Flat Design / Outfit / ${next === "dark" ? "Dark" : "Light"}`;
+          }
+        });
+      }
+
+      applyTheme(savedTheme() || (media.matches ? "dark" : "light"));
+
+      toggle?.addEventListener("click", () => {
+        applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+      });
+
+      const followSystem = event => {
+        if (!savedTheme()) applyTheme(event.matches ? "dark" : "light");
+      };
+      media.addEventListener?.("change", followSystem);
+    })();
+  </script>
+</body>
+</html>

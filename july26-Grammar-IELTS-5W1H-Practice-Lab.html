@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Offline interactive grammar and IELTS 5Ws and 1H practice quiz">
+  <title>Grammar & IELTS 5W1H Practice Lab</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('grammar-ielts-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #FFFFFF;
+      --foreground: #111827;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #E5E7EB;
+      --surface: #FFFFFF;
+      --surface-inverse: #111827;
+      --blue-soft: #DBEAFE;
+      --text-muted: #4B5563;
+      --hero-text: #EFF6FF;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #0B1220;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #374151;
+      --surface: #111827;
+      --surface-inverse: #F9FAFB;
+      --blue-soft: #172554;
+      --text-muted: #CBD5E1;
+      --hero-text: #DBEAFE;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--background);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1, h2, h3, h4 { line-height: 1; letter-spacing: -0.02em; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: var(--surface);
+      border-bottom: 4px solid var(--primary);
+    }
+
+    .header-inner {
+      width: min(1280px, calc(100% - 32px));
+      min-height: 76px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+      font-weight: 800;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 800;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-toggle,
+    .header-link,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .back-to-toc {
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .theme-toggle,
+    .header-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      font-size: .76rem;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .header-link { color: #FFFFFF; background: var(--primary); }
+    .theme-toggle { color: var(--foreground); background: var(--muted-strong); }
+    .theme-toggle:hover, .header-link:hover { transform: scale(1.04); }
+    .header-link:hover { background: var(--primary-hover); }
+
+    .page-shell {
+      width: min(1280px, calc(100% - 32px));
+      margin: 24px auto 72px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 570px;
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      overflow: hidden;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 340px;
+      height: 340px;
+      left: -130px;
+      bottom: -150px;
+      background: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    .hero::after {
+      width: 310px;
+      height: 310px;
+      left: 45%;
+      top: -170px;
+      border-radius: 50%;
+      background: var(--secondary);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(38px, 7vw, 82px);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .question-meta,
+    .config-label {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { color: #FEF3C7; }
+
+    h1 {
+      max-width: 9ch;
+      margin: 20px 0 28px;
+      font-size: clamp(3.6rem, 9vw, 8rem);
+      font-weight: 800;
+      line-height: .82;
+      letter-spacing: -.045em;
+    }
+
+    .hero-copy p {
+      max-width: 60ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-guide {
+      position: relative;
+      z-index: 3;
+      align-self: center;
+      margin: clamp(24px, 5vw, 54px);
+      padding: clamp(26px, 4vw, 40px);
+      color: var(--foreground);
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero-guide h2 {
+      margin-bottom: 22px;
+      color: var(--secondary);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .w-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .w-item {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .w-item strong { display: block; color: var(--primary); }
+    .w-item span { color: var(--text-muted); font-size: .86rem; }
+
+    .toc-panel {
+      margin-top: 24px;
+      padding: clamp(26px, 4vw, 42px);
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 100px;
+    }
+
+    html[data-theme="dark"] .toc-panel { background: #030712; }
+
+    .toc-panel h2 {
+      margin-bottom: 20px;
+      color: var(--secondary);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+
+    .toc-link {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 15px;
+      color: #FFFFFF;
+      background: #1F2937;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      color: #111827;
+      background: var(--secondary);
+      transform: translateX(5px);
+    }
+
+    .toc-link small { color: var(--accent); font-weight: 800; }
+    .toc-link:hover small { color: #111827; }
+
+    .section-card {
+      margin-top: 24px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 96px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 62px);
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .section-card:nth-of-type(3n+2) .section-header { background: var(--secondary); }
+    .section-card:nth-of-type(3n+3) .section-header { color: #FFFFFF; background: var(--primary); }
+
+    .section-kicker { margin-bottom: 12px; opacity: .78; }
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 54px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid #111827;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover { color: #FFFFFF; background: #111827; transform: scale(1.04); }
+
+    .section-body {
+      padding: clamp(24px, 4vw, 48px);
+      background: var(--muted);
+    }
+
+    .section-explanation {
+      margin-bottom: 24px;
+      padding: 24px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .section-explanation strong { color: var(--primary); }
+
+    .exercise-list { display: grid; gap: 24px; }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 104px;
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    html[data-theme="dark"] .exercise-head { background: #030712; }
+
+    .exercise-head-copy { padding: 26px; }
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 800;
+    }
+    .exercise-head p { margin: 0; color: #D1D5DB; }
+
+    .score-block {
+      min-width: 170px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .exercise-config {
+      padding: 18px 24px;
+      background: var(--muted-strong);
+    }
+
+    .exercise-config summary {
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 800;
+      list-style: none;
+    }
+    .exercise-config summary::-webkit-details-marker { display: none; }
+    .exercise-config summary::after { content: " +"; }
+    .exercise-config[open] summary::after { content: " -"; }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .config-item {
+      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+    .config-label { display: block; margin-bottom: 4px; color: var(--primary); }
+    .config-value { color: var(--text-muted); font-size: .88rem; }
+
+    .progress-track { height: 12px; background: var(--border); }
+    .progress-fill { width: 0; height: 100%; background: var(--secondary); transition: width 200ms ease; }
+
+    .question-stage { padding: clamp(24px, 4vw, 38px); }
+    .question-meta { margin-bottom: 12px; color: var(--primary); }
+    .question-text {
+      margin: 0 0 24px;
+      color: var(--foreground);
+      font-size: clamp(1.3rem, 2.8vw, 2.05rem);
+      font-weight: 800;
+      line-height: 1.24;
+      white-space: pre-line;
+    }
+
+    .answer-input,
+    .writing-field,
+    .final-response {
+      width: 100%;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: 0;
+      transition: var(--transition);
+    }
+
+    .answer-input { min-height: 58px; padding: 0 16px; font-size: 1.05rem; }
+    .writing-field { min-height: 48px; padding: 10px 12px; }
+    .final-response { min-height: 150px; padding: 14px; resize: vertical; }
+
+    .answer-input:focus,
+    .writing-field:focus,
+    .final-response:focus {
+      background: var(--surface);
+      border-color: var(--primary);
+    }
+
+    .answer-input:disabled,
+    .writing-field:disabled,
+    .final-response:disabled {
+      opacity: 1;
+      color: var(--text-muted);
+      background: var(--muted-strong);
+      cursor: not-allowed;
+    }
+
+    .option-list { display: grid; gap: 10px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 0;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) { color: #FFFFFF; background: var(--primary); transform: translateX(5px); }
+    .option-btn.correct-choice { color: #052E16; background: #86EFAC; }
+    .option-btn.wrong-choice { color: #450A0A; background: #FCA5A5; }
+    .option-btn:disabled { cursor: not-allowed; }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 18px;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .btn:hover:not(:disabled) { transform: scale(1.04); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { color: #FFFFFF; background: var(--primary); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .btn-secondary { color: var(--foreground); background: var(--muted-strong); }
+    .btn-accent { color: #111827; background: var(--accent); }
+    .btn-success { color: #052E16; background: var(--secondary); }
+    .btn-danger { color: #FFFFFF; background: var(--danger); }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      white-space: pre-line;
+    }
+    .feedback.correct { color: var(--foreground); background: var(--secondary-soft); border-left: 8px solid var(--secondary); }
+    .feedback.incorrect { color: var(--foreground); background: var(--danger-soft); border-left: 8px solid var(--danger); }
+    .feedback.neutral { color: var(--foreground); background: var(--blue-soft); border-left: 8px solid var(--primary); }
+
+    .finish-panel {
+      padding: 28px;
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+    .finish-panel h4 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .metric { padding: 16px; background: var(--surface); border-radius: var(--radius-md); }
+    .metric strong { display: block; color: var(--primary); font-size: 1.6rem; }
+    .metric span { color: var(--text-muted); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .review-box { margin-top: 20px; padding: 18px; background: var(--surface); border-radius: var(--radius-lg); }
+    .review-label { color: var(--primary); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .review-answer { margin-top: 8px; color: var(--text-muted); }
+    .review-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+    .review-topics { margin: 18px 0 0; padding-left: 22px; }
+    .review-topics li { margin: 6px 0; color: var(--text-muted); }
+
+    .ielts-intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .excerpt-card,
+    .timer-control-card,
+    .writing-guide-card {
+      padding: 22px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .excerpt-card h3,
+    .writing-guide-card h3 { font-size: 1.4rem; font-weight: 800; }
+    .excerpt-card p { margin-bottom: 0; color: var(--text-muted); white-space: pre-line; }
+
+    .timer-control-card { display: grid; gap: 14px; align-content: start; }
+    .timer-display {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #FFFFFF;
+      background: var(--primary);
+      text-align: center;
+      border-radius: var(--radius-lg);
+    }
+    .timer-display strong { display: block; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; letter-spacing: -.05em; }
+    .timer-display span { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .timer-display.warning { color: #111827; background: var(--accent); }
+
+    .untimed-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+    }
+    .untimed-row input { width: 22px; height: 22px; accent-color: var(--primary); }
+
+    .sprint-toolbar {
+      position: sticky;
+      top: 80px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 14px;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+    }
+    html[data-theme="dark"] .sprint-toolbar { background: #030712; }
+    .sprint-toolbar strong { color: var(--secondary); }
+
+    .sprint-question {
+      margin-top: 12px;
+      padding: 20px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+    .sprint-question h4 { margin-bottom: 14px; font-size: 1.05rem; line-height: 1.35; }
+    .dimension-badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 8px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 12px;
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+    .radio-option input { margin-top: 4px; accent-color: var(--primary); }
+    .radio-option.correct { border-color: var(--secondary); background: var(--secondary-soft); }
+    .radio-option.incorrect { border-color: var(--danger); background: var(--danger-soft); }
+    .radio-option.unanswered { border-color: var(--accent); }
+
+    .question-explanation {
+      margin-top: 10px;
+      padding: 12px;
+      color: var(--text-muted);
+      background: var(--blue-soft);
+      border-radius: var(--radius-md);
+    }
+
+    .writing-prompt {
+      padding: 22px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+    }
+    .writing-prompt h3 { margin-bottom: 10px; font-size: clamp(1.7rem, 4vw, 2.8rem); font-weight: 800; }
+    .writing-prompt p { margin: 0; color: var(--hero-text); }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .writing-cell { padding: 14px; background: var(--surface); border-radius: var(--radius-md); }
+    .writing-cell label { display: block; margin-bottom: 7px; color: var(--primary); font-weight: 800; }
+    .writing-cell small { display: block; margin-bottom: 8px; color: var(--text-muted); }
+
+    .final-answer-block { margin-top: 14px; padding: 18px; background: var(--surface); border-radius: var(--radius-lg); }
+    .final-answer-block label { display: block; margin-bottom: 8px; font-weight: 800; }
+    .word-count { margin-top: 8px; color: var(--text-muted); font-size: .8rem; font-weight: 700; }
+
+    .source-note {
+      margin-top: 24px;
+      padding: 24px;
+      color: var(--text-muted);
+      background: var(--muted);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .back-to-toc {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #111827;
+      background: var(--accent);
+      text-decoration: none;
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .back-to-toc:hover { color: #FFFFFF; background: #111827; transform: scale(1.05); }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy { min-height: 500px; }
+      .hero-guide { margin-top: 0; }
+      .ielts-intro-grid { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner { width: calc(100% - 24px); grid-template-columns: 1fr; gap: 10px; padding: 12px 0; }
+      .header-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .page-shell { width: 100%; margin-top: 0; }
+      .hero, .toc-panel, .section-card { border-radius: 0; margin-top: 0; }
+      .hero-copy { min-height: 520px; padding: 42px 24px; }
+      .hero-guide { margin: 0; border-radius: 0; }
+      .w-grid { grid-template-columns: 1fr; }
+      .section-header { align-items: flex-start; flex-direction: column; padding-left: 22px; padding-right: 22px; }
+      .collapse-btn { width: 100%; }
+      .section-body { padding-left: 16px; padding-right: 16px; }
+      .exercise-head { grid-template-columns: 1fr; }
+      .score-block { min-width: 0; min-height: 52px; }
+      .button-row { display: grid; }
+      .btn { width: 100%; }
+      .writing-grid { grid-template-columns: 1fr; }
+      .sprint-toolbar { top: 136px; grid-template-columns: 1fr; }
+      .back-to-toc { right: 8px; bottom: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">5W</div>
+        <div class="brand-copy">
+          <strong>Grammar & IELTS 5W1H Practice Lab</strong>
+          <span>Offline grammar review / answer development</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="header-link" href="#toc">Contents</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <span class="eyebrow">Grammar / IELTS / Detail Building</span>
+        <h1>Answer With Meaning.</h1>
+        <p>Review core noun and pronoun grammar, repair common sentence errors, identify strong supporting details, and build original IELTS-style answers with Who, What, When, Where, Why, and How.</p>
+        <div class="hero-chips" aria-label="Quiz features">
+          <span class="chip">80 grammar questions</span>
+          <span class="chip">5 reading sets</span>
+          <span class="chip">10 writing prompts</span>
+          <span class="chip">Timed or untimed</span>
+          <span class="chip">Offline</span>
+        </div>
+      </div>
+      <aside class="hero-guide" aria-labelledby="detailGuideTitle">
+        <h2 id="detailGuideTitle">The 5W1H Detail Bank</h2>
+        <div class="w-grid">
+          <div class="w-item"><strong>Who</strong><span>People involved</span></div>
+          <div class="w-item"><strong>What</strong><span>Specific action or thing</span></div>
+          <div class="w-item"><strong>When</strong><span>Time, frequency, or stage</span></div>
+          <div class="w-item"><strong>Where</strong><span>Place or setting</span></div>
+          <div class="w-item"><strong>Why</strong><span>Reason or purpose</span></div>
+          <div class="w-item"><strong>How</strong><span>Method, process, or result</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="toc-panel" id="toc" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Table of Contents</h2>
+      <div class="toc-grid" id="tocGrid"></div>
+    </nav>
+
+    <main id="mainContent"></main>
+
+    <p class="source-note">This practice lab adapts selected grammar principles from the attached materials on reflexive pronouns and forms of <em>other</em>. The IELTS passages, questions, and prompts are original and use the source writing tip of asking Who, What, When, Where, Why, and How to develop specific details.</p>
+  </div>
+
+  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">↑ Back to TOC</a>
+
+  <script>
+  (() => {
+    "use strict";
+
+    const grammarSections = [
+      {
+        id: "previous-grammar",
+        title: "Previous Grammar",
+        kicker: "Review and retrieval",
+        explanation: "Review reflexive pronouns and the core forms <strong>another</strong>, <strong>the other</strong>, <strong>other</strong>, <strong>others</strong>, and <strong>the others</strong>. Focus on whether the noun is singular or plural, whether the group is specific, and whether a noun follows the grammar word.",
+        exercises: [
+          {
+            id: "reflexive-pronouns",
+            title: "Reflexive Pronouns",
+            instructions: "Type only the missing reflexive pronoun or phrase.",
+            type: "typed",
+            config: {
+              questionType: "Typed answer",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Not applicable",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "Leo taught _____ to play the piano because he never had a teacher.", answers: ["himself"], model: "himself", explanation: "Leo is both the subject and the person who receives the action, so use himself.", topic: "reflexive form for he" },
+              { prompt: "Mina looked at _____ in the mirror before the interview.", answers: ["herself"], model: "herself", explanation: "Mina = she, so the reflexive pronoun is herself.", topic: "reflexive form for she" },
+              { prompt: "We need to believe in _____ when a task feels difficult.", answers: ["ourselves"], model: "ourselves", explanation: "The subject we refers back to ourselves.", topic: "reflexive form for we" },
+              { prompt: "Please help _____ to the sandwiches, Kazu.", answers: ["yourself"], model: "yourself", explanation: "Help yourself is a common expression used when offering food to one person.", topic: "common reflexive expression" },
+              { prompt: "The children made the decorations by _____.", answers: ["themselves"], model: "themselves", explanation: "By themselves means without help, and children is plural.", topic: "by + reflexive" },
+              { prompt: "I had to pinch _____ to make sure I was not dreaming.", answers: ["myself"], model: "myself", explanation: "The subject I and the object refer to the same person.", topic: "reflexive form for I" },
+              { prompt: "The automatic door closes by _____ after thirty seconds.", answers: ["itself"], model: "itself", explanation: "A thing refers back to itself.", topic: "reflexive form for it" },
+              { prompt: "You and Hana should be proud of _____ for finishing the project.", answers: ["yourselves"], model: "yourselves", explanation: "You refers to more than one person here, so use yourselves.", topic: "plural you reflexive" },
+              { prompt: "Did you enjoy _____ at the school festival?", answers: ["yourself"], model: "yourself", explanation: "Enjoy yourself is a common expression for one person.", topic: "common reflexive expression" },
+              { prompt: "My brother lives by _____ in a small studio.", answers: ["himself"], model: "himself", explanation: "By himself means alone.", topic: "by + reflexive" }
+            ]
+          },
+          {
+            id: "another-the-other",
+            title: "Another vs. The Other",
+            instructions: "Choose the form that matches the number and meaning.",
+            type: "mc",
+            config: {
+              questionType: "Multiple choice",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Shuffled",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "I have two notebooks. One is for science, and _____ is for history.", options: ["another", "the other", "others", "the others"], correct: "the other", explanation: "There are exactly two notebooks, so the remaining one is the other.", topic: "the other for one of two" },
+              { prompt: "This example is confusing. Could you give me _____ example?", options: ["another", "the other", "others", "the others"], correct: "another", explanation: "Another means one more from a larger or unspecified group.", topic: "another for one more" },
+              { prompt: "There are two doors. One leads outside; _____ leads to the office.", options: ["another", "the other", "other", "others"], correct: "the other", explanation: "The sentence identifies the remaining door of two.", topic: "the other for one of two" },
+              { prompt: "I finished one chapter and then read _____ chapter before bed.", options: ["another", "the other", "the others", "others"], correct: "another", explanation: "The speaker read one additional chapter, not the final member of a pair.", topic: "another for an additional item" },
+              { prompt: "My phone has two cameras. One is on the front, and _____ is on the back.", options: ["another", "the other", "other", "others"], correct: "the other", explanation: "The two cameras form a complete pair.", topic: "the other for one of two" },
+              { prompt: "The first bus was full, so we waited for _____ one.", options: ["another", "the other", "the others", "other"], correct: "another", explanation: "The speaker waited for one more bus from many possible buses.", topic: "another for one more" },
+              { prompt: "I bought two jackets. One is black; _____ is gray.", options: ["another", "the other", "others", "other"], correct: "the other", explanation: "The second jacket is the remaining one of two.", topic: "the other for one of two" },
+              { prompt: "Would you like _____ piece of cake?", options: ["another", "the other", "others", "the others"], correct: "another", explanation: "Another means one additional piece.", topic: "another for an additional item" },
+              { prompt: "There are two routes to the museum. This road is crowded, so let's take _____.", options: ["another", "the other", "others", "other"], correct: "the other", explanation: "Only two routes are available, so the remaining route is the other.", topic: "the other for one of two" },
+              { prompt: "She wants to learn _____ language after she finishes Korean.", options: ["another", "the other", "the others", "others"], correct: "another", explanation: "Another means one additional language from many possibilities.", topic: "another for one more" }
+            ]
+          },
+          {
+            id: "plural-forms-other",
+            title: "Other, Others, The Other, and The Others",
+            instructions: "Type the best missing form. Include <em>the</em> when it is required.",
+            type: "typed",
+            config: {
+              questionType: "Typed answer",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Not applicable",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "Some students studied in the library; _____ worked at home.", answers: ["others"], model: "others", explanation: "Others is a plural pronoun and does not have a noun after it.", topic: "others as a pronoun" },
+              { prompt: "Do you have any _____ questions before we finish?", answers: ["other"], model: "other", explanation: "Other is an adjective before the plural noun questions.", topic: "other before a plural noun" },
+              { prompt: "There are five cookies. I ate one, and Ken ate _____.", answers: ["the others"], model: "the others", explanation: "The others means all the remaining cookies in a known group.", topic: "the others for a specific remainder" },
+              { prompt: "Some rooms face the street; _____ rooms face the garden.", answers: ["other"], model: "other", explanation: "Other modifies the plural noun rooms.", topic: "other before a plural noun" },
+              { prompt: "Four teams entered the final. One won; _____ received participation medals.", answers: ["the others"], model: "the others", explanation: "The others refers to all remaining teams in the specific group of four.", topic: "the others for a specific remainder" },
+              { prompt: "Some people prefer tea; _____ prefer coffee.", answers: ["others"], model: "others", explanation: "Others replaces the plural noun people.", topic: "others as a pronoun" },
+              { prompt: "I have two shoes. One is wet, but _____ is dry.", answers: ["the other"], model: "the other", explanation: "The other is the remaining singular item of two.", topic: "the other for a pair" },
+              { prompt: "Of the three books, one is mine and _____ belong to Sara.", answers: ["the others"], model: "the others", explanation: "The others means the two remaining books in a specific set.", topic: "the others for a specific remainder" },
+              { prompt: "We should consider _____ possible causes before deciding.", answers: ["other"], model: "other", explanation: "Other is used before the plural noun causes.", topic: "other before a plural noun" },
+              { prompt: "One side of the paper is blank; _____ side has notes.", answers: ["the other"], model: "the other", explanation: "A sheet of paper has two sides, so use the other.", topic: "the other for a pair" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "new-grammar",
+        title: "New Grammar",
+        kicker: "Integrated forms and meaning",
+        explanation: "Use the complete system of <strong>another / other / others / the other / the others</strong> in longer contexts. Pay attention to the difference between an adjective followed by a noun and a pronoun that stands alone.",
+        exercises: [
+          {
+            id: "integrated-other-forms",
+            title: "Integrated Forms of Other",
+            instructions: "Correct the complete sentence. Preserve the original meaning.",
+            type: "typed",
+            config: {
+              questionType: "Sentence correction",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Not applicable",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "Correct: There are two pools at the park. One is for children, and another is for adults.", answers: ["There are two pools at the park. One is for children, and the other is for adults.", "There are two pools at the park one is for children and the other is for adults"], model: "There are two pools at the park. One is for children, and the other is for adults.", explanation: "With exactly two pools, use the other for the remaining one.", topic: "another vs. the other" },
+              { prompt: "Correct: Some students joined the music club. Other joined the art club.", answers: ["Some students joined the music club. Others joined the art club.", "Some students joined the music club others joined the art club"], model: "Some students joined the music club. Others joined the art club.", explanation: "Use others as a pronoun when no noun follows.", topic: "others as a pronoun" },
+              { prompt: "Correct: I have two keys. One opens the front door; other opens the garage.", answers: ["I have two keys. One opens the front door; the other opens the garage.", "I have two keys one opens the front door the other opens the garage"], model: "I have two keys. One opens the front door; the other opens the garage.", explanation: "The other is the remaining one of two.", topic: "the other for a pair" },
+              { prompt: "Correct: We visited one museum in the morning and the other museum after lunch. (There were many museums available.)", answers: ["We visited one museum in the morning and another museum after lunch.", "We visited one museum in the morning and another after lunch"], model: "We visited one museum in the morning and another museum after lunch.", explanation: "Because many museums were available, another means one additional museum.", topic: "another for one more" },
+              { prompt: "Correct: Four runners finished. Mina was first, and others three crossed together.", answers: ["Four runners finished. Mina was first, and the other three crossed together.", "Four runners finished Mina was first and the other three crossed together"], model: "Four runners finished. Mina was first, and the other three crossed together.", explanation: "Use the other + number + plural noun for the specific remainder.", topic: "the other + plural noun" },
+              { prompt: "Correct: Do you have others ideas for the class project?", answers: ["Do you have other ideas for the class project?"], model: "Do you have other ideas for the class project?", explanation: "Use other before a plural noun; others cannot be followed by a noun.", topic: "other before a plural noun" },
+              { prompt: "Correct: Some of the chairs are broken. The other are safe to use.", answers: ["Some of the chairs are broken. The others are safe to use.", "Some of the chairs are broken the others are safe to use"], model: "Some of the chairs are broken. The others are safe to use.", explanation: "The others is a plural pronoun referring to all remaining chairs.", topic: "the others as a pronoun" },
+              { prompt: "Correct: I do not like this pen. Please give me other one.", answers: ["I do not like this pen. Please give me another one.", "I don't like this pen please give me another one"], model: "I do not like this pen. Please give me another one.", explanation: "Another one means one additional alternative.", topic: "another one" },
+              { prompt: "Correct: One twin likes science; another twin prefers art. (There are only two twins.)", answers: ["One twin likes science; the other twin prefers art.", "One twin likes science the other twin prefers art"], model: "One twin likes science; the other twin prefers art.", explanation: "Use the other for the remaining member of a pair.", topic: "the other for a pair" },
+              { prompt: "Correct: Some apps are free, and the others apps require payment.", answers: ["Some apps are free, and the other apps require payment.", "Some apps are free and the other apps require payment"], model: "Some apps are free, and the other apps require payment.", explanation: "The other is an adjective here because the plural noun apps follows.", topic: "the other before a plural noun" }
+            ]
+          },
+          {
+            id: "grammar-in-context",
+            title: "Grammar in Context: Calm Yourself",
+            instructions: "Choose the most accurate and natural completion.",
+            type: "mc",
+            config: {
+              questionType: "Contextual multiple choice",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Shuffled",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "Before a speech, I remind _____ to breathe slowly.", options: ["myself", "me", "mine", "by myself"], correct: "myself", explanation: "The subject I and the object are the same person.", topic: "reflexive pronoun" },
+              { prompt: "One way to relax is deep breathing. _____ is taking a short walk.", options: ["Another", "The other", "Others", "Other"], correct: "Another", explanation: "Another introduces one more method from several possibilities.", topic: "another for an additional method" },
+              { prompt: "Some students imagine a quiet beach; _____ listen to soft music.", options: ["others", "other", "the other", "another"], correct: "others", explanation: "Others is a plural pronoun replacing other students.", topic: "others as a pronoun" },
+              { prompt: "The twins use two different techniques. One counts slowly; _____ closes her eyes.", options: ["the other", "another", "others", "other"], correct: "the other", explanation: "The twins form a pair, so use the other.", topic: "the other for a pair" },
+              { prompt: "After running, the athletes give _____ time to cool down.", options: ["themselves", "theirselves", "themself", "their"], correct: "themselves", explanation: "Athletes is plural, so the reflexive form is themselves.", topic: "plural reflexive pronoun" },
+              { prompt: "A student can calm _____ by imagining a peaceful place.", options: ["himself or herself", "him or her", "his or hers", "themselves only"], correct: "himself or herself", explanation: "The reflexive pronoun refers back to the singular subject a student.", topic: "singular reflexive pronoun" },
+              { prompt: "Of the four breathing steps, the first is inhaling and _____ are slow exhaling steps.", options: ["the others", "others", "other", "another"], correct: "the others", explanation: "The others means all remaining steps in the specific group of four.", topic: "the others for a specific remainder" },
+              { prompt: "If this technique does not work, try _____ technique.", options: ["another", "the other", "others", "the others"], correct: "another", explanation: "The advice suggests one more technique from several options.", topic: "another for one more" },
+              { prompt: "People should not blame _____ for feeling nervous.", options: ["themselves", "them", "their", "theirs"], correct: "themselves", explanation: "The subject people and the object refer to the same people.", topic: "reflexive pronoun" },
+              { prompt: "Some relaxation methods use the mind; _____ methods use physical movement.", options: ["other", "others", "the others", "another"], correct: "other", explanation: "Other is an adjective before the plural noun methods.", topic: "other before a plural noun" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "grammar-revisit",
+        title: "Grammar to Revisit",
+        kicker: "Accuracy repair",
+        explanation: "Repair three recurring problems: <strong>subject-verb agreement</strong>, <strong>verb-object word order</strong>, and <strong>singular/plural noun and verb forms</strong>. Type complete corrected sentences when requested.",
+        exercises: [
+          {
+            id: "subject-verb-agreement",
+            title: "Subject-Verb Agreement",
+            instructions: "Rewrite the complete sentence correctly.",
+            type: "typed",
+            config: {
+              questionType: "Sentence correction",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Not applicable",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "The windows in our classroom is dirty.", answers: ["The windows in our classroom are dirty."], model: "The windows in our classroom are dirty.", explanation: "Windows is plural, so use are.", topic: "plural subject + are" },
+              { prompt: "People in Brazil speaks Portuguese.", answers: ["People in Brazil speak Portuguese."], model: "People in Brazil speak Portuguese.", explanation: "People is plural, so use the base verb speak.", topic: "plural subject + base verb" },
+              { prompt: "My mother and father works at a hospital.", answers: ["My mother and father work at a hospital."], model: "My mother and father work at a hospital.", explanation: "Two subjects joined by and take a plural verb.", topic: "compound subject" },
+              { prompt: "Each student have a different opinion.", answers: ["Each student has a different opinion."], model: "Each student has a different opinion.", explanation: "Each is singular, so use has.", topic: "each + singular verb" },
+              { prompt: "One of my friends live near the station.", answers: ["One of my friends lives near the station."], model: "One of my friends lives near the station.", explanation: "The subject is one, so the verb is singular lives.", topic: "one of + singular verb" },
+              { prompt: "The information are easy to understand.", answers: ["The information is easy to understand."], model: "The information is easy to understand.", explanation: "Information is uncountable and takes a singular verb.", topic: "uncountable noun agreement" },
+              { prompt: "My brother and his friend studies together on Fridays.", answers: ["My brother and his friend study together on Fridays."], model: "My brother and his friend study together on Fridays.", explanation: "The compound subject is plural, so use study.", topic: "compound subject" },
+              { prompt: "There is many reasons to practice every day.", answers: ["There are many reasons to practice every day."], model: "There are many reasons to practice every day.", explanation: "Reasons is plural, so use there are.", topic: "there are + plural noun" },
+              { prompt: "The number of students are increasing.", answers: ["The number of students is increasing."], model: "The number of students is increasing.", explanation: "The subject is the singular phrase the number.", topic: "the number of + singular verb" },
+              { prompt: "A number of students is absent today.", answers: ["A number of students are absent today."], model: "A number of students are absent today.", explanation: "A number of means several and takes a plural verb.", topic: "a number of + plural verb" }
+            ]
+          },
+          {
+            id: "verb-object-order",
+            title: "Word Order: Object After the Verb",
+            instructions: "Rewrite the complete sentence in natural English word order.",
+            type: "typed",
+            config: {
+              questionType: "Sentence correction",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Not applicable",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "I every morning drink coffee.", answers: ["I drink coffee every morning."], model: "I drink coffee every morning.", explanation: "Place the object coffee after the verb drink; the time phrase can come at the end.", topic: "verb + object + time" },
+              { prompt: "She to school takes the bus.", answers: ["She takes the bus to school."], model: "She takes the bus to school.", explanation: "Use subject + verb + object + destination.", topic: "verb + object + destination" },
+              { prompt: "We at the library study English after class.", answers: ["We study English at the library after class."], model: "We study English at the library after class.", explanation: "Put the object English directly after the verb study.", topic: "verb + object + place" },
+              { prompt: "My friend very much likes this movie.", answers: ["My friend likes this movie very much."], model: "My friend likes this movie very much.", explanation: "The object this movie normally follows likes; very much comes later.", topic: "verb + object + degree" },
+              { prompt: "I yesterday my homework finished.", answers: ["I finished my homework yesterday."], model: "I finished my homework yesterday.", explanation: "Use subject + verb + object, then the time expression.", topic: "verb + object + time" },
+              { prompt: "The teacher us explained the rule.", answers: ["The teacher explained the rule to us."], model: "The teacher explained the rule to us.", explanation: "Explain takes the thing first, then to + person.", topic: "explain + object + to person" },
+              { prompt: "He carefully the instructions read.", answers: ["He read the instructions carefully."], model: "He read the instructions carefully.", explanation: "The object follows the verb; the manner adverb can come at the end.", topic: "verb + object + manner" },
+              { prompt: "They every weekend soccer play in the park.", answers: ["They play soccer in the park every weekend."], model: "They play soccer in the park every weekend.", explanation: "Use verb + object, then place and time.", topic: "verb + object + place + time" },
+              { prompt: "I my teacher asked a question.", answers: ["I asked my teacher a question."], model: "I asked my teacher a question.", explanation: "Ask can take a person followed by the thing asked.", topic: "ask + person + object" },
+              { prompt: "She at night watches videos often.", answers: ["She often watches videos at night.", "She watches videos often at night."], model: "She often watches videos at night.", explanation: "Frequency usually comes before the main verb; the object follows the verb.", topic: "frequency + verb + object" }
+            ]
+          },
+          {
+            id: "singular-nouns-verbs",
+            title: "Singular Nouns and Verbs",
+            instructions: "Choose the sentence with correct singular or plural forms.",
+            type: "mc",
+            config: {
+              questionType: "Multiple choice",
+              questionsPerAttempt: 10,
+              bankSize: 10,
+              timeLimit: "None",
+              sets: "One reshuffled bank",
+              feedback: "Immediate",
+              scoring: "Running and final score",
+              questionOrder: "Shuffled",
+              choiceOrder: "Shuffled",
+              previous: "Review after completion",
+              changes: "No after submission",
+              restart: "Same bank, new order",
+              correctAnswer: "Shown",
+              explanation: "Shown"
+            },
+            questions: [
+              { prompt: "Choose the correct sentence.", options: ["Jimmy had three wishes for his birthday.", "Jimmy had three wish for his birthday.", "Jimmy have three wishes for his birthday.", "Jimmy had three wishs for his birthday."], correct: "Jimmy had three wishes for his birthday.", explanation: "After three, use the plural noun wishes.", topic: "plural noun spelling" },
+              { prompt: "Choose the correct sentence.", options: ["There is a new student in our class.", "There are a new student in our class.", "There is new students in our class.", "There have a new student in our class."], correct: "There is a new student in our class.", explanation: "A new student is singular, so use there is and the article a.", topic: "there is + singular noun" },
+              { prompt: "Choose the correct sentence.", options: ["My brother is an engineer.", "My brother is engineer.", "My brother are an engineer.", "My brother is engineers."], correct: "My brother is an engineer.", explanation: "A singular countable job noun needs an article.", topic: "article + singular job noun" },
+              { prompt: "Choose the correct sentence.", options: ["The child plays outside every day.", "The child play outside every day.", "The childs plays outside every day.", "The child playing outside every day."], correct: "The child plays outside every day.", explanation: "A singular third-person subject takes plays.", topic: "third-person singular verb" },
+              { prompt: "Choose the correct sentence.", options: ["The children play outside every day.", "The children plays outside every day.", "The childrens play outside every day.", "The children is playing outside every day."], correct: "The children play outside every day.", explanation: "Children is an irregular plural, so use the base verb play.", topic: "irregular plural + base verb" },
+              { prompt: "Choose the correct sentence.", options: ["She has a useful idea.", "She have an useful idea.", "She has useful idea.", "She have a useful ideas."], correct: "She has a useful idea.", explanation: "She takes has, and useful begins with a consonant sound, so use a.", topic: "has + article + singular noun" },
+              { prompt: "Choose the correct sentence.", options: ["The highway in my country is excellent.", "The highway in my country are excellent.", "The highways in my country is excellent.", "The highway in my country is excellents."], correct: "The highway in my country is excellent.", explanation: "The singular subject highway takes is; adjectives do not become plural.", topic: "singular subject and adjective" },
+              { prompt: "Choose the correct sentence.", options: ["There are two pools at the park.", "There is two pools at the park.", "There are two pool at the park.", "There have two pools at the park."], correct: "There are two pools at the park.", explanation: "Two pools is plural, so use there are and the plural noun pools.", topic: "there are + plural noun" },
+              { prompt: "Choose the correct sentence.", options: ["One student needs extra help.", "One students need extra help.", "One student need extra helps.", "One student needing extra help."], correct: "One student needs extra help.", explanation: "One student is singular, so use needs; help is uncountable here.", topic: "singular subject and uncountable noun" },
+              { prompt: "Choose the correct sentence.", options: ["This information is useful.", "These information are useful.", "This informations is useful.", "This information are useful."], correct: "This information is useful.", explanation: "Information is uncountable and singular in grammar.", topic: "uncountable singular noun" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const readingSets = [
+      {
+        id: "set-1",
+        title: "Set 1: A Part-Time Job",
+        prompt: "IELTS-style prompt: Should high-school students have part-time jobs?",
+        excerpt: "Last spring, I decided that high-school students can benefit from part-time jobs if their hours are limited. My aunt introduced me to the owner of a small bakery near the central bus station. I worked there every Saturday from 8:00 a.m. until 1:00 p.m. My main tasks were arranging bread, serving customers, and cleaning the counter. At first, I was nervous because I had never spoken to so many strangers. However, the owner showed me how to greet customers and solve simple problems. After several weeks, I became more confident and learned to plan my homework before the weekend. I also saved part of my pay for a new laptop. The job did not hurt my grades because I worked only five hours a week and stopped during exam periods. For me, a carefully chosen part-time job teaches responsibility, communication, and time management in a practical way.",
+        questions: [
+          { dimension: "Who", stem: "Who helped the speaker find the bakery job?", options: ["The speaker's aunt", "A school counselor", "A classmate", "The bus driver"], correct: "The speaker's aunt", explanation: "The aunt introduced the speaker to the bakery owner." },
+          { dimension: "What", stem: "What was one of the speaker's main tasks?", options: ["Serving customers", "Designing advertisements", "Driving deliveries", "Baking wedding cakes"], correct: "Serving customers", explanation: "The excerpt specifically lists arranging bread, serving customers, and cleaning the counter." },
+          { dimension: "When", stem: "When did the speaker usually work?", options: ["Saturday mornings", "Weekday evenings", "Sunday afternoons", "Every night"], correct: "Saturday mornings", explanation: "The schedule was every Saturday from 8:00 a.m. to 1:00 p.m." },
+          { dimension: "Where", stem: "Where was the bakery located?", options: ["Near the central bus station", "Inside the speaker's school", "Beside a sports stadium", "In a suburban shopping mall"], correct: "Near the central bus station", explanation: "The location makes the answer specific and easy to picture." },
+          { dimension: "Why", stem: "Why did the job not damage the speaker's grades?", options: ["The hours were limited and stopped during exams", "The bakery completed the homework", "The speaker did not attend school", "The job lasted only one day"], correct: "The hours were limited and stopped during exams", explanation: "The speaker gives a clear condition that explains the result." },
+          { dimension: "How", stem: "How did the owner help the speaker become more confident?", options: ["By teaching greetings and simple problem-solving", "By allowing the speaker to avoid customers", "By giving the speaker a management title", "By asking the aunt to do the work"], correct: "By teaching greetings and simple problem-solving", explanation: "This is a concrete method, not a vague claim." },
+          { dimension: "Result", stem: "Which result shows improved time management?", options: ["The speaker planned homework before the weekend", "The speaker bought bread after work", "The bakery opened earlier", "The aunt changed jobs"], correct: "The speaker planned homework before the weekend", explanation: "Planning homework is direct evidence of time-management growth." },
+          { dimension: "Specificity", stem: "Which detail makes the answer most specific?", options: ["The five-hour Saturday schedule", "The idea that work can be useful", "The statement that jobs exist", "The opinion that students are busy"], correct: "The five-hour Saturday schedule", explanation: "A precise schedule is more meaningful than a general statement." },
+          { dimension: "Relevance", stem: "Which detail most directly supports the claim that part-time jobs teach communication?", options: ["The speaker served and greeted customers", "The bakery sold many types of bread", "The bus station was nearby", "The speaker wanted a laptop"], correct: "The speaker served and greeted customers", explanation: "Speaking with customers directly develops communication skills." },
+          { dimension: "Summary", stem: "Which summary best captures the speaker's position?", options: ["Limited, well-managed work can build useful skills", "All students should work every evening", "School is less important than earning money", "Bakery work is the only useful student job"], correct: "Limited, well-managed work can build useful skills", explanation: "This summary includes the speaker's condition and main benefit without exaggeration." }
+        ]
+      },
+      {
+        id: "set-2",
+        title: "Set 2: A Healthy Routine",
+        prompt: "IELTS-style prompt: What is a good way for teenagers to stay healthy?",
+        excerpt: "A simple habit that has improved my health is walking after dinner. I started the routine in September when I noticed that I was spending nearly the whole evening at my desk. My younger brother usually joins me, and we walk for about thirty minutes around the riverside park near our apartment. We do not exercise at a very intense level; instead, we keep a steady pace and talk about school or family plans. I like this routine because it is easy to continue and does not require special equipment. On rainy days, we walk inside the community sports center. After two months, I began sleeping more easily and felt less tired during morning classes. The walk also gives me a clear break between studying and resting. In my opinion, teenagers do not always need an expensive gym membership. A regular activity that fits naturally into daily life can be more effective because people are more likely to continue it.",
+        questions: [
+          { dimension: "Who", stem: "Who usually walks with the speaker?", options: ["The speaker's younger brother", "A physical education teacher", "The apartment manager", "A school nurse"], correct: "The speaker's younger brother", explanation: "The companion is clearly identified, adding a personal detail." },
+          { dimension: "What", stem: "What healthy habit did the speaker begin?", options: ["Walking after dinner", "Swimming before school", "Cycling to another city", "Lifting weights at midnight"], correct: "Walking after dinner", explanation: "This is the main habit discussed throughout the answer." },
+          { dimension: "When", stem: "When did the speaker start the routine?", options: ["In September", "During winter vacation", "Two years ago", "After graduation"], correct: "In September", explanation: "The month is a specific time marker." },
+          { dimension: "Where", stem: "Where do they normally walk?", options: ["Around the riverside park", "Inside a shopping mall", "On the school track", "Along a mountain trail"], correct: "Around the riverside park", explanation: "The location makes the example concrete." },
+          { dimension: "Why", stem: "Why does the speaker think the habit is easy to maintain?", options: ["It needs no special equipment", "It is required by the school", "It produces immediate competition", "It takes the entire evening"], correct: "It needs no special equipment", explanation: "The speaker explains why the routine is practical." },
+          { dimension: "How", stem: "How do they adapt the routine on rainy days?", options: ["They walk inside the community sports center", "They cancel exercise for the week", "They run through the rain", "They use a private gym in another town"], correct: "They walk inside the community sports center", explanation: "This describes a specific adjustment that supports consistency." },
+          { dimension: "Result", stem: "What change did the speaker notice after two months?", options: ["Better sleep and more morning energy", "Faster exam completion", "A new sports scholarship", "Less interest in family conversations"], correct: "Better sleep and more morning energy", explanation: "These are observable outcomes of the routine." },
+          { dimension: "Specificity", stem: "Which detail best shows the routine is realistic?", options: ["The walks last about thirty minutes", "Health is important", "Teenagers should exercise", "Parks are pleasant"], correct: "The walks last about thirty minutes", explanation: "A clear duration helps the listener understand the routine." },
+          { dimension: "Relevance", stem: "Which statement most directly explains why regularity matters?", options: ["People continue activities that fit daily life", "The park has a river", "The brother likes talking", "The sports center has a roof"], correct: "People continue activities that fit daily life", explanation: "This connects the example to the general recommendation." },
+          { dimension: "Summary", stem: "Which summary best reflects the answer?", options: ["A simple, repeatable routine can improve health", "Only intense exercise produces results", "Teenagers must buy gym memberships", "Exercise should replace all study time"], correct: "A simple, repeatable routine can improve health", explanation: "The answer emphasizes consistency and practicality rather than intensity." }
+        ]
+      },
+      {
+        id: "set-3",
+        title: "Set 3: Studying With Friends",
+        prompt: "IELTS-style prompt: Do you prefer studying alone or with other people?",
+        excerpt: "I usually prefer studying alone when I need to memorize information, but I study with two classmates when we prepare for science tests. We meet in the public library on Tuesday and Thursday afternoons because it has a large table and a quiet discussion room. Before each meeting, every person chooses one chapter and prepares three questions. During the session, we explain difficult ideas to one another and compare our answers. This method helps me because teaching a concept forces me to organize it clearly. For example, I once believed that electrical current became weaker after passing through every component. My classmate used a simple water-flow comparison to show why my explanation was incomplete. After our discussion, I corrected my notes and answered a similar test question correctly. Group study can become distracting, so we set a forty-five-minute study period before taking a short break. This structure gives me the benefits of discussion without wasting time.",
+        questions: [
+          { dimension: "Who", stem: "Who joins the speaker for science study sessions?", options: ["Two classmates", "The science teacher", "A younger sibling", "Four library workers"], correct: "Two classmates", explanation: "The group size is specific and relevant." },
+          { dimension: "What", stem: "What does each person prepare before meeting?", options: ["One chapter and three questions", "A complete practice exam", "A science experiment", "A forty-page report"], correct: "One chapter and three questions", explanation: "This concrete preparation method makes the answer useful." },
+          { dimension: "When", stem: "When does the group meet?", options: ["Tuesday and Thursday afternoons", "Every morning before school", "Only on exam day", "Friday nights and Sundays"], correct: "Tuesday and Thursday afternoons", explanation: "The schedule is clearly stated." },
+          { dimension: "Where", stem: "Where do the students study together?", options: ["In the public library", "In a noisy cafe", "On a city bus", "In the school gym"], correct: "In the public library", explanation: "The library provides a large table and a discussion room." },
+          { dimension: "Why", stem: "Why does explaining a concept help the speaker?", options: ["It forces the speaker to organize the idea clearly", "It removes the need to read", "It guarantees an easy exam", "It allows the speaker to copy answers"], correct: "It forces the speaker to organize the idea clearly", explanation: "The reason directly connects the method to learning." },
+          { dimension: "How", stem: "How did a classmate correct the speaker's misunderstanding?", options: ["By using a water-flow comparison", "By giving the final answer without explanation", "By asking the librarian to teach", "By changing the test topic"], correct: "By using a water-flow comparison", explanation: "A specific comparison shows how the help worked." },
+          { dimension: "Result", stem: "What happened after the discussion about electrical current?", options: ["The speaker corrected notes and answered a similar question", "The group stopped studying science", "The classmate changed schools", "The library closed the room"], correct: "The speaker corrected notes and answered a similar question", explanation: "This result shows that the discussion improved understanding." },
+          { dimension: "Specificity", stem: "Which detail gives the study routine clear structure?", options: ["A forty-five-minute study period", "The idea that tests are difficult", "The statement that friends can help", "The fact that libraries have books"], correct: "A forty-five-minute study period", explanation: "A precise time block shows how distraction is controlled." },
+          { dimension: "Relevance", stem: "Which detail best supports the benefit of group study?", options: ["A classmate identified and explained a misconception", "The library had a large table", "The meetings happened twice a week", "The students took short breaks"], correct: "A classmate identified and explained a misconception", explanation: "This directly shows a learning benefit created by another person." },
+          { dimension: "Summary", stem: "Which summary best matches the speaker's view?", options: ["Structured group study is useful for discussion-based learning", "Studying alone is always ineffective", "Libraries are the only places where learning occurs", "Friends should complete each other's homework"], correct: "Structured group study is useful for discussion-based learning", explanation: "The speaker values group work for specific tasks and controls distraction with structure." }
+        ]
+      },
+      {
+        id: "set-4",
+        title: "Set 4: Public Transportation",
+        prompt: "IELTS-style prompt: Is public transportation useful in your daily life?",
+        excerpt: "Public transportation is essential in my daily life because I travel across the city to attend school. I leave home at 7:10 each morning and walk five minutes to the Green Line subway station. The train ride takes about twenty-five minutes, and then I transfer to a bus for the final three stops. Driving the same route during rush hour can take more than an hour, so the subway makes my schedule much more predictable. I also use the travel time to review vocabulary on my phone or listen to short English podcasts. Last month, a signal problem delayed the train, but the transit app showed an alternative bus route and I arrived only ten minutes late. The system is not perfect, especially when trains are crowded, but it is affordable and allows my family to manage with one car. For students in large cities, reliable public transportation can save time, reduce costs, and create useful study time.",
+        questions: [
+          { dimension: "Who", stem: "Who benefits directly from the transportation routine described?", options: ["A student traveling across the city", "A delivery driver working at night", "A tourist visiting for one day", "A farmer transporting equipment"], correct: "A student traveling across the city", explanation: "The speaker is a student commuting to school." },
+          { dimension: "What", stem: "What two forms of transportation does the speaker normally use?", options: ["Subway and bus", "Train and bicycle", "Taxi and ferry", "Car and airplane"], correct: "Subway and bus", explanation: "The route includes a subway ride followed by a bus transfer." },
+          { dimension: "When", stem: "When does the speaker leave home?", options: ["At 7:10 each morning", "At 8:30 every evening", "At noon on weekends", "At 6:00 only on Fridays"], correct: "At 7:10 each morning", explanation: "The exact departure time adds useful detail." },
+          { dimension: "Where", stem: "Where does the speaker first enter the transit system?", options: ["At the Green Line subway station", "At the central airport", "At a school parking lot", "At a ferry terminal"], correct: "At the Green Line subway station", explanation: "The station name creates a clear setting." },
+          { dimension: "Why", stem: "Why is the subway more predictable than driving?", options: ["Rush-hour driving can take more than an hour", "The subway always has empty seats", "The family owns several cars", "School begins at different times daily"], correct: "Rush-hour driving can take more than an hour", explanation: "The comparison explains the practical benefit." },
+          { dimension: "How", stem: "How does the speaker use travel time productively?", options: ["By reviewing vocabulary or listening to podcasts", "By completing laboratory experiments", "By calling every classmate", "By sleeping through every transfer"], correct: "By reviewing vocabulary or listening to podcasts", explanation: "This shows exactly how commuting becomes study time." },
+          { dimension: "Problem-solving", stem: "How did the speaker respond to a signal delay?", options: ["Used a transit app to find another bus route", "Returned home and skipped school", "Waited without checking alternatives", "Asked the family to buy another car"], correct: "Used a transit app to find another bus route", explanation: "The example shows a concrete response to a realistic problem." },
+          { dimension: "Specificity", stem: "Which detail most clearly describes the full route?", options: ["A twenty-five-minute train ride plus three bus stops", "The city has public transportation", "The speaker attends school", "The trains can be crowded"], correct: "A twenty-five-minute train ride plus three bus stops", explanation: "Duration and transfer details make the route specific." },
+          { dimension: "Relevance", stem: "Which detail best supports the claim that transit reduces family costs?", options: ["The family can manage with one car", "The train uses the Green Line", "The speaker owns a phone", "The bus travels three stops"], correct: "The family can manage with one car", explanation: "Needing fewer cars directly reduces household transportation costs." },
+          { dimension: "Summary", stem: "Which summary best represents the answer?", options: ["Transit is useful because it is predictable, affordable, and productive", "Transit is perfect and never delayed", "Cars are impossible to use in cities", "Students should avoid traveling across a city"], correct: "Transit is useful because it is predictable, affordable, and productive", explanation: "The summary captures the main benefits while avoiding exaggeration." }
+        ]
+      },
+      {
+        id: "set-5",
+        title: "Set 5: Technology for Studying",
+        prompt: "IELTS-style prompt: What technology has improved your studies the most?",
+        excerpt: "The technology that has improved my studies most is a small tablet with a digital note application. I began using it at the start of this school year because carrying six heavy notebooks was uncomfortable. During class, I write short notes by hand with a stylus and place diagrams beside the relevant explanation. At home, I reorganize the notes into topic folders and add two or three practice questions. The application also lets me search for a key word, so I can find an old example in seconds. Before a biology test in November, I created a folder for cell division and reviewed it on the bus for ten minutes each morning. I still use paper when I need to solve long mathematics problems, but the tablet is better for organizing information from several subjects. It has not made studying automatic; I still need to concentrate and review regularly. However, it reduces clutter and makes my study materials easier to use anywhere.",
+        questions: [
+          { dimension: "Who", stem: "Who is using the tablet in the excerpt?", options: ["A student managing several subjects", "A teacher grading final exams", "A designer working for a company", "A parent shopping online"], correct: "A student managing several subjects", explanation: "The context is a student's school-year study routine." },
+          { dimension: "What", stem: "What technology is most useful to the speaker?", options: ["A small tablet with a note application", "A gaming computer", "A smart television", "A voice-controlled speaker"], correct: "A small tablet with a note application", explanation: "The answer names both the device and its main tool." },
+          { dimension: "When", stem: "When did the speaker begin using the tablet?", options: ["At the start of the school year", "After the biology test", "During summer vacation", "At the end of university"], correct: "At the start of the school year", explanation: "This time marker places the example clearly." },
+          { dimension: "Where", stem: "Where did the speaker review the cell-division folder?", options: ["On the bus", "In a laboratory", "At a sports stadium", "Inside a bookstore"], correct: "On the bus", explanation: "The setting demonstrates portability." },
+          { dimension: "Why", stem: "Why did the speaker first choose a tablet?", options: ["Carrying six notebooks was uncomfortable", "The school prohibited handwriting", "The tablet completed homework automatically", "The speaker wanted to play games"], correct: "Carrying six notebooks was uncomfortable", explanation: "This is the practical reason for adopting the device." },
+          { dimension: "How", stem: "How does the speaker improve class notes at home?", options: ["Organizes folders and adds practice questions", "Deletes every diagram", "Prints six new notebooks", "Sends all notes to classmates"], correct: "Organizes folders and adds practice questions", explanation: "The answer explains a method, not just a feature." },
+          { dimension: "Result", stem: "What benefit does keyword search provide?", options: ["It finds old examples quickly", "It writes complete essays", "It guarantees correct answers", "It replaces regular review"], correct: "It finds old examples quickly", explanation: "The result is specific and realistic." },
+          { dimension: "Balance", stem: "Which detail makes the answer balanced rather than exaggerated?", options: ["The speaker still uses paper for long math problems", "The tablet has a small screen", "The test occurred in November", "The speaker has six subjects"], correct: "The speaker still uses paper for long math problems", explanation: "Acknowledging a limitation makes the opinion more credible." },
+          { dimension: "Relevance", stem: "Which detail best supports the claim that the tablet works anywhere?", options: ["The speaker reviewed notes during a bus ride", "The notes include diagrams", "The device uses a stylus", "The school year has begun"], correct: "The speaker reviewed notes during a bus ride", explanation: "Using the materials on a bus directly demonstrates portability." },
+          { dimension: "Summary", stem: "Which summary best matches the speaker's view?", options: ["The tablet improves organization but still requires active study", "Technology makes concentration unnecessary", "Paper should never be used again", "Digital notes are useful only for biology"], correct: "The tablet improves organization but still requires active study", explanation: "The speaker presents a benefit while clearly stating that effort is still necessary." }
+        ]
+      }
+    ];
+
+    const writingPrompts = [
+      { title: "A Sport You Enjoy", prompt: "Describe a sport or physical activity you enjoy. Explain why you like it and give a specific example.", hints: { who: "Who do you do it with?", what: "What exactly do you do?", when: "When or how often?", where: "Where does it happen?", why: "Why is it meaningful or enjoyable?", how: "How does it affect you?" } },
+      { title: "A Useful School Subject", prompt: "Describe a school subject that will be useful for your future.", hints: { who: "Who teaches or uses this subject?", what: "What skill or knowledge do you learn?", when: "When have you used it?", where: "Where could it help in the future?", why: "Why is it useful to you?", how: "How will you apply it?" } },
+      { title: "A Healthy Habit", prompt: "Describe one habit that helps teenagers stay healthy.", hints: { who: "Who can do the habit with you?", what: "What is the habit?", when: "When and how often?", where: "Where can it be done?", why: "Why does it improve health?", how: "How can a beginner start?" } },
+      { title: "Helpful Technology", prompt: "Describe a piece of technology that has improved your daily life or studies.", hints: { who: "Who uses it?", what: "What device or tool is it?", when: "When do you use it?", where: "Where is it most useful?", why: "Why is it better than the alternative?", how: "How does it save time or improve results?" } },
+      { title: "A Place in Your Community", prompt: "Describe a place in your community that you often visit and explain why it is useful.", hints: { who: "Who goes there with you?", what: "What do you do there?", when: "When do you visit?", where: "Where is it located?", why: "Why do you return?", how: "How does the place help you?" } },
+      { title: "A Good Study Method", prompt: "Describe a study method that works well for you.", hints: { who: "Who helps or studies with you?", what: "What steps do you follow?", when: "When do you use it?", where: "Where do you study?", why: "Why is the method effective?", how: "How did it improve a real result?" } },
+      { title: "Student Part-Time Jobs", prompt: "Do you think high-school students should have part-time jobs? Give a clear reason and example.", hints: { who: "Who would benefit or be affected?", what: "What kind of job or rule?", when: "When should students work?", where: "Where could they work safely?", why: "Why is it beneficial or harmful?", how: "How can students balance work and school?" } },
+      { title: "Transportation Choice", prompt: "Describe the best way to travel around your city or town.", hints: { who: "Who commonly uses it?", what: "What form of transport?", when: "When is it most useful?", where: "Where does it take you?", why: "Why is it better than another option?", how: "How long or how much does it cost?" } },
+      { title: "A Local Environmental Problem", prompt: "Describe one environmental problem your community should address.", hints: { who: "Who causes or experiences it?", what: "What exactly is the problem?", when: "When is it worst?", where: "Where does it occur?", why: "Why does it matter?", how: "How could the community respond?" } },
+      { title: "A Memorable School Event", prompt: "Describe a memorable school event and explain why you remember it.", hints: { who: "Who participated?", what: "What happened?", when: "When did it occur?", where: "Where was it held?", why: "Why was it memorable?", how: "How did you feel or change afterward?" } }
+    ];
+
+    const exerciseStates = new Map();
+    const timedState = {
+      reading: { setIndex: 0, started: false, submitted: false, interval: null, seconds: 180, choiceOrders: [] },
+      writing: { promptIndex: 0, started: false, locked: false, interval: null, seconds: 120 }
+    };
+
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+    function esc(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(value) {
+      return String(value ?? "")
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[’‘`]/g, "'")
+        .replace(/\bdo not\b/g, "don't")
+        .replace(/\bis not\b/g, "isn't")
+        .replace(/[.,!?;:()[\]{}"/\\|-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function formatTime(totalSeconds) {
+      const min = Math.floor(totalSeconds / 60);
+      const sec = totalSeconds % 60;
+      return `${min}:${String(sec).padStart(2, "0")}`;
+    }
+
+    function stopInterval(state) {
+      if (state.interval) {
+        clearInterval(state.interval);
+        state.interval = null;
+      }
+    }
+
+    function setThemeButton() {
+      const theme = document.documentElement.dataset.theme;
+      const button = $("#themeToggle");
+      button.textContent = theme === "dark" ? "☀ Light" : "☾ Dark";
+      button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    }
+
+    function setupTheme() {
+      setThemeButton();
+      $("#themeToggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("grammar-ielts-theme", next); } catch (error) {}
+        setThemeButton();
+      });
+    }
+
+    function configMarkup(config) {
+      const rows = [
+        ["Question type", config.questionType],
+        ["Questions / attempt", config.questionsPerAttempt],
+        ["Question bank", config.bankSize],
+        ["Time limit", config.timeLimit],
+        ["Sets / reshuffles", config.sets],
+        ["Feedback", config.feedback],
+        ["Scoring", config.scoring],
+        ["Question order", config.questionOrder],
+        ["Choice order", config.choiceOrder],
+        ["Previous navigation", config.previous],
+        ["Answer changes", config.changes],
+        ["Restart behavior", config.restart],
+        ["Correct answer", config.correctAnswer],
+        ["Explanation", config.explanation]
+      ];
+      return rows.map(([label, value]) => `<div class="config-item"><span class="config-label">${esc(label)}</span><span class="config-value">${esc(value)}</span></div>`).join("");
+    }
+
+    function renderTOC() {
+      const links = [];
+      grammarSections.forEach(section => {
+        links.push(`<a class="toc-link" href="#${section.id}"><span>${esc(section.title)}</span><small>Section</small></a>`);
+        section.exercises.forEach(ex => links.push(`<a class="toc-link" href="#${ex.id}"><span>${esc(ex.title)}</span><small>10 questions</small></a>`));
+      });
+      links.push(`<a class="toc-link" href="#ielts-identify"><span>IELTS: Identifying Good Answers</span><small>Section</small></a>`);
+      links.push(`<a class="toc-link" href="#reading-sprint"><span>5W1H Answer Analysis Sprint</span><small>5 sets</small></a>`);
+      links.push(`<a class="toc-link" href="#ielts-build"><span>IELTS: Making Your Own Answers</span><small>Section</small></a>`);
+      links.push(`<a class="toc-link" href="#writing-builder"><span>2-Minute 5W1H Answer Builder</span><small>10 prompts</small></a>`);
+      $("#tocGrid").innerHTML = links.join("");
+    }
+
+    function sectionMarkup(section, index) {
+      return `
+        <section class="section-card" id="${esc(section.id)}">
+          <div class="section-header">
+            <div><div class="section-kicker">${esc(section.kicker)}</div><h2>${esc(section.title)}</h2></div>
+            <button class="collapse-btn" type="button" data-collapse="body-${esc(section.id)}" aria-expanded="true">Collapse</button>
+          </div>
+          <div class="section-body" id="body-${esc(section.id)}">
+            <div class="section-explanation">${section.explanation}</div>
+            <div class="exercise-list" id="list-${esc(section.id)}"></div>
+          </div>
+        </section>`;
+    }
+
+    function exerciseMarkup(exercise) {
+      return `
+        <article class="exercise-card" id="${esc(exercise.id)}">
+          <div class="exercise-head">
+            <div class="exercise-head-copy"><h3>${esc(exercise.title)}</h3><p>${exercise.instructions}</p></div>
+            <div class="score-block" data-score>Score: 0 / 0</div>
+          </div>
+          <details class="exercise-config">
+            <summary>Exercise setup</summary>
+            <div class="config-grid">${configMarkup(exercise.config)}</div>
+          </details>
+          <div class="progress-track" aria-hidden="true"><div class="progress-fill" data-progress></div></div>
+          <div class="question-stage">
+            <div data-live-stage>
+              <div class="question-meta" data-meta></div>
+              <div class="question-text" data-question></div>
+              <div data-answer-area></div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-check hidden>Check answer</button>
+                <button class="btn btn-success" type="button" data-next hidden>Next question</button>
+                <button class="btn btn-secondary" type="button" data-restart>Restart exercise</button>
+              </div>
+              <div class="feedback" data-feedback hidden aria-live="polite"></div>
+            </div>
+            <div class="finish-panel" data-finish hidden></div>
+          </div>
+        </article>`;
+    }
+
+    function createExercise(exercise, mount) {
+      mount.insertAdjacentHTML("beforeend", exerciseMarkup(exercise));
+      const card = $(`#${exercise.id}`);
+      const state = {
+        exercise,
+        order: shuffle(exercise.questions),
+        index: 0,
+        score: 0,
+        responses: [],
+        answered: false,
+        reviewIndex: 0
+      };
+      exerciseStates.set(exercise.id, state);
+
+      const scoreEl = $("[data-score]", card);
+      const progressEl = $("[data-progress]", card);
+      const metaEl = $("[data-meta]", card);
+      const questionEl = $("[data-question]", card);
+      const answerArea = $("[data-answer-area]", card);
+      const checkBtn = $("[data-check]", card);
+      const nextBtn = $("[data-next]", card);
+      const restartBtn = $("[data-restart]", card);
+      const feedbackEl = $("[data-feedback]", card);
+      const liveStage = $("[data-live-stage]", card);
+      const finishEl = $("[data-finish]", card);
+
+      function updateHeader() {
+        scoreEl.textContent = `Score: ${state.score} / ${state.responses.length}`;
+        progressEl.style.width = `${(state.responses.length / state.order.length) * 100}%`;
+      }
+
+      function renderQuestion() {
+        state.answered = false;
+        liveStage.hidden = false;
+        finishEl.hidden = true;
+        feedbackEl.hidden = true;
+        feedbackEl.className = "feedback";
+        nextBtn.hidden = true;
+        const question = state.order[state.index];
+        metaEl.textContent = `Question ${state.index + 1} of ${state.order.length}`;
+        questionEl.textContent = question.prompt;
+        answerArea.innerHTML = "";
+
+        if (exercise.type === "typed") {
+          const form = document.createElement("form");
+          form.innerHTML = `<label class="sr-only" for="input-${esc(exercise.id)}">Type your answer</label><input class="answer-input" id="input-${esc(exercise.id)}" type="text" autocomplete="off" spellcheck="false" placeholder="Type your answer">`;
+          answerArea.appendChild(form);
+          checkBtn.hidden = false;
+          const input = $("input", form);
+          form.addEventListener("submit", event => { event.preventDefault(); gradeTyped(input.value); });
+          checkBtn.onclick = () => gradeTyped(input.value);
+          requestAnimationFrame(() => input.focus());
+        } else {
+          checkBtn.hidden = true;
+          const list = document.createElement("div");
+          list.className = "option-list";
+          shuffle(question.options).forEach(option => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "option-btn";
+            button.textContent = option;
+            button.addEventListener("click", () => gradeMC(option, button, list));
+            list.appendChild(button);
+          });
+          answerArea.appendChild(list);
+        }
+        updateHeader();
+      }
+
+      function saveResponse(question, userAnswer, correct) {
+        state.responses.push({ question, userAnswer, correct, model: question.model || question.correct, explanation: question.explanation, topic: question.topic });
+        if (correct) state.score += 1;
+        state.answered = true;
+        updateHeader();
+      }
+
+      function showFeedback(correct, question) {
+        feedbackEl.hidden = false;
+        feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"}`;
+        feedbackEl.innerHTML = `${correct ? "✓ Correct" : `✕ Incorrect<br><strong>Expected:</strong> ${esc(question.model || question.correct)}`}<br><span>${esc(question.explanation)}</span>`;
+        nextBtn.hidden = false;
+        nextBtn.textContent = state.index === state.order.length - 1 ? "Finish exercise" : "Next question";
+        nextBtn.focus();
+      }
+
+      function gradeTyped(value) {
+        if (state.answered) return;
+        const question = state.order[state.index];
+        if (!value.trim()) {
+          feedbackEl.hidden = false;
+          feedbackEl.className = "feedback neutral";
+          feedbackEl.textContent = "Type an answer before checking.";
+          return;
+        }
+        const correct = question.answers.some(answer => normalize(answer) === normalize(value));
+        $("input", answerArea).disabled = true;
+        checkBtn.disabled = true;
+        saveResponse(question, value.trim(), correct);
+        showFeedback(correct, question);
+      }
+
+      function gradeMC(option, selectedButton, list) {
+        if (state.answered) return;
+        const question = state.order[state.index];
+        const correct = option === question.correct;
+        $$(".option-btn", list).forEach(button => {
+          button.disabled = true;
+          if (button.textContent === question.correct) button.classList.add("correct-choice");
+        });
+        if (!correct) selectedButton.classList.add("wrong-choice");
+        saveResponse(question, option, correct);
+        showFeedback(correct, question);
+      }
+
+      function renderReview() {
+        const response = state.responses[state.reviewIndex];
+        const review = $("[data-review-box]", finishEl);
+        review.innerHTML = `
+          <div class="review-label">Answer ${state.reviewIndex + 1} of ${state.responses.length}</div>
+          <h4 style="font-size:1.2rem;line-height:1.35;margin:10px 0;">${esc(response.question.prompt)}</h4>
+          <div class="review-answer"><strong>Your answer:</strong> ${esc(response.userAnswer || "(blank)")}<br><strong>Expected:</strong> ${esc(response.model)}<br>${response.correct ? "✓ Correct" : "✕ Incorrect"}<br>${esc(response.explanation)}</div>`;
+        $("[data-review-prev]", finishEl).disabled = state.reviewIndex === 0;
+        $("[data-review-next]", finishEl).disabled = state.reviewIndex === state.responses.length - 1;
+      }
+
+      function finishExercise() {
+        liveStage.hidden = true;
+        finishEl.hidden = false;
+        const correct = state.score;
+        const total = state.responses.length;
+        const incorrect = total - correct;
+        const percent = Math.round((correct / total) * 100);
+        const topics = [...new Set(state.responses.filter(r => !r.correct).map(r => r.topic))];
+        finishEl.innerHTML = `
+          <h4>Exercise Complete</h4>
+          <div class="metric-grid">
+            <div class="metric"><strong>${correct}/${total}</strong><span>Total score</span></div>
+            <div class="metric"><strong>${percent}%</strong><span>Percentage</span></div>
+            <div class="metric"><strong>${correct}</strong><span>Correct</span></div>
+            <div class="metric"><strong>${incorrect}</strong><span>Incorrect</span></div>
+          </div>
+          <div><strong>Topics to review</strong>${topics.length ? `<ul class="review-topics">${topics.map(topic => `<li>${esc(topic)}</li>`).join("")}</ul>` : `<p>No priority topics. You answered everything correctly.</p>`}</div>
+          <div class="review-box" data-review-box></div>
+          <div class="review-nav">
+            <button class="btn btn-secondary" type="button" data-review-prev>Previous answer</button>
+            <button class="btn btn-secondary" type="button" data-review-next>Next answer</button>
+            <button class="btn btn-accent" type="button" data-finish-restart>Restart exercise</button>
+          </div>`;
+        state.reviewIndex = 0;
+        $("[data-review-prev]", finishEl).addEventListener("click", () => { if (state.reviewIndex > 0) { state.reviewIndex -= 1; renderReview(); } });
+        $("[data-review-next]", finishEl).addEventListener("click", () => { if (state.reviewIndex < state.responses.length - 1) { state.reviewIndex += 1; renderReview(); } });
+        $("[data-finish-restart]", finishEl).addEventListener("click", restart);
+        renderReview();
+      }
+
+      function next() {
+        if (!state.answered) return;
+        if (state.index < state.order.length - 1) {
+          state.index += 1;
+          checkBtn.disabled = false;
+          renderQuestion();
+        } else {
+          progressEl.style.width = "100%";
+          finishExercise();
+        }
+      }
+
+      function restart() {
+        state.order = shuffle(exercise.questions);
+        state.index = 0;
+        state.score = 0;
+        state.responses = [];
+        state.answered = false;
+        state.reviewIndex = 0;
+        checkBtn.disabled = false;
+        renderQuestion();
+      }
+
+      nextBtn.addEventListener("click", next);
+      restartBtn.addEventListener("click", restart);
+      renderQuestion();
+    }
+
+    function renderGrammar() {
+      const main = $("#mainContent");
+      grammarSections.forEach((section, index) => {
+        main.insertAdjacentHTML("beforeend", sectionMarkup(section, index));
+        const mount = $(`#list-${section.id}`);
+        section.exercises.forEach(exercise => createExercise(exercise, mount));
+      });
+    }
+
+    function readingSectionMarkup() {
+      return `
+        <section class="section-card" id="ielts-identify">
+          <div class="section-header">
+            <div><div class="section-kicker">IELTS / Reading for detail</div><h2>Identifying Good Answers</h2></div>
+            <button class="collapse-btn" type="button" data-collapse="body-ielts-identify" aria-expanded="true">Collapse</button>
+          </div>
+          <div class="section-body" id="body-ielts-identify">
+            <div class="section-explanation">Read an original IELTS-style answer and identify meaningful <strong>Who, What, When, Where, Why, and How</strong> details. Each set has ten multiple-choice questions. Choose a three-minute sprint or untimed mode. Answers remain hidden until submission.</div>
+            <article class="exercise-card" id="reading-sprint">
+              <div class="exercise-head">
+                <div class="exercise-head-copy"><h3>5W1H Answer Analysis Sprint</h3><p>Five unique sets. Restart the current set or move to the next set.</p></div>
+                <div class="score-block" id="readingSetBadge">Set 1 of 5</div>
+              </div>
+              <details class="exercise-config">
+                <summary>Exercise setup</summary>
+                <div class="config-grid">${configMarkup({ questionType: "Timed multiple choice", questionsPerAttempt: 10, bankSize: 50, timeLimit: "3 minutes or untimed", sets: "5 unique sets", feedback: "After submission", scoring: "Final score", questionOrder: "Fixed by 5W1H purpose", choiceOrder: "Shuffled", previous: "All questions visible", changes: "Yes, before submission", restart: "Same set; next-set button advances", correctAnswer: "After submission", explanation: "After submission" })}</div>
+              </details>
+              <div class="question-stage">
+                <div class="ielts-intro-grid">
+                  <div class="excerpt-card"><h3 id="readingTitle"></h3><strong id="readingPrompt"></strong><p id="readingExcerpt"></p></div>
+                  <div class="timer-control-card">
+                    <div class="timer-display" id="readingTimerDisplay"><div><strong id="readingTimer">3:00</strong><span id="readingTimerLabel">Ready</span></div></div>
+                    <label class="untimed-row"><input type="checkbox" id="readingUntimed"> Untimed mode</label>
+                    <button class="btn btn-success" id="startReading" type="button">Start set</button>
+                    <button class="btn btn-secondary" id="restartReading" type="button">Restart current set</button>
+                    <button class="btn btn-accent" id="nextReadingSet" type="button">Next unique set</button>
+                  </div>
+                </div>
+                <div id="readingQuestions" hidden></div>
+                <div id="readingResult" hidden></div>
+              </div>
+            </article>
+          </div>
+        </section>`;
+    }
+
+    function writingSectionMarkup() {
+      return `
+        <section class="section-card" id="ielts-build">
+          <div class="section-header">
+            <div><div class="section-kicker">IELTS / Original answer building</div><h2>Making Your Own Good Answers</h2></div>
+            <button class="collapse-btn" type="button" data-collapse="body-ielts-build" aria-expanded="true">Collapse</button>
+          </div>
+          <div class="section-body" id="body-ielts-build">
+            <div class="section-explanation">Use six short fields to create a personal detail bank, then combine the strongest details into a short IELTS-style answer. This exercise is for fluency and specificity, so it is not automatically graded.</div>
+            <article class="exercise-card" id="writing-builder">
+              <div class="exercise-head">
+                <div class="exercise-head-copy"><h3>2-Minute 5W1H Answer Builder</h3><p>Ten prompts. Restart the current prompt or move forward through the full bank.</p></div>
+                <div class="score-block" id="writingPromptBadge">Prompt 1 of 10</div>
+              </div>
+              <details class="exercise-config">
+                <summary>Exercise setup</summary>
+                <div class="config-grid">${configMarkup({ questionType: "Timed short answer / writing", questionsPerAttempt: "One prompt with 7 fields", bankSize: 10, timeLimit: "2 minutes or untimed", sets: "10 prompts, sequential cycle", feedback: "Self-review", scoring: "No score", questionOrder: "Sequential", choiceOrder: "Not applicable", previous: "Current response remains visible when locked", changes: "Yes until locked", restart: "Clear current prompt; next button advances", correctAnswer: "Not applicable", explanation: "5W1H guidance shown" })}</div>
+              </details>
+              <div class="question-stage">
+                <div class="ielts-intro-grid">
+                  <div>
+                    <div class="writing-prompt"><h3 id="writingTitle"></h3><p id="writingPrompt"></p></div>
+                    <div class="writing-grid" id="writingFields"></div>
+                    <div class="final-answer-block">
+                      <label for="finalResponse">Build your short answer</label>
+                      <textarea class="final-response" id="finalResponse" placeholder="Combine your strongest details into 3-5 sentences." disabled></textarea>
+                      <div class="word-count" id="wordCount">0 words</div>
+                    </div>
+                    <div class="feedback neutral" id="writingStatus">Review the prompt and choose timed or untimed mode. The fields unlock after Start.</div>
+                  </div>
+                  <div class="timer-control-card">
+                    <div class="timer-display" id="writingTimerDisplay"><div><strong id="writingTimer">2:00</strong><span id="writingTimerLabel">Ready</span></div></div>
+                    <label class="untimed-row"><input type="checkbox" id="writingUntimed"> Untimed mode</label>
+                    <button class="btn btn-success" id="startWriting" type="button">Start prompt</button>
+                    <button class="btn btn-primary" id="finishWriting" type="button" hidden>Finish and lock</button>
+                    <button class="btn btn-secondary" id="restartWriting" type="button">Restart current prompt</button>
+                    <button class="btn btn-accent" id="nextWritingPrompt" type="button">Next prompt</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>`;
+    }
+
+    function renderTimedSections() {
+      const main = $("#mainContent");
+      main.insertAdjacentHTML("beforeend", readingSectionMarkup());
+      main.insertAdjacentHTML("beforeend", writingSectionMarkup());
+      setupReadingSprint();
+      setupWritingBuilder();
+    }
+
+    function setupReadingSprint() {
+      const state = timedState.reading;
+      const setBadge = $("#readingSetBadge");
+      const title = $("#readingTitle");
+      const prompt = $("#readingPrompt");
+      const excerpt = $("#readingExcerpt");
+      const timer = $("#readingTimer");
+      const timerLabel = $("#readingTimerLabel");
+      const timerDisplay = $("#readingTimerDisplay");
+      const untimed = $("#readingUntimed");
+      const startBtn = $("#startReading");
+      const restartBtn = $("#restartReading");
+      const nextSetBtn = $("#nextReadingSet");
+      const questionsEl = $("#readingQuestions");
+      const resultEl = $("#readingResult");
+
+      function loadSet() {
+        stopInterval(state);
+        state.started = false;
+        state.submitted = false;
+        state.seconds = 180;
+        const set = readingSets[state.setIndex];
+        state.choiceOrders = set.questions.map(question => shuffle(question.options));
+        setBadge.textContent = `Set ${state.setIndex + 1} of ${readingSets.length}`;
+        title.textContent = set.title;
+        prompt.textContent = set.prompt;
+        excerpt.textContent = set.excerpt;
+        timer.textContent = "3:00";
+        timerLabel.textContent = "Ready";
+        timerDisplay.classList.remove("warning");
+        untimed.disabled = false;
+        startBtn.disabled = false;
+        startBtn.textContent = "Start set";
+        questionsEl.hidden = true;
+        questionsEl.innerHTML = "";
+        resultEl.hidden = true;
+        resultEl.innerHTML = "";
+      }
+
+      function renderQuestions() {
+        const set = readingSets[state.setIndex];
+        questionsEl.innerHTML = `
+          <div class="sprint-toolbar"><div><strong>${esc(set.title)}</strong><br><span>Answer all 10 questions, then submit.</span></div><div><strong id="readingStickyTimer">${untimed.checked ? "∞" : formatTime(state.seconds)}</strong><br><span>Timer</span></div><div id="readingAnswered">0 / 10 answered</div><button class="btn btn-primary" type="button" id="submitReading">Submit early</button></div>
+          ${set.questions.map((question, index) => `
+            <fieldset class="sprint-question" data-reading-question="${index}">
+              <legend class="sr-only">Question ${index + 1}</legend>
+              <span class="dimension-badge">${esc(question.dimension)}</span>
+              <h4>${index + 1}. ${esc(question.stem)}</h4>
+              ${state.choiceOrders[index].map((option, optionIndex) => `
+                <label class="radio-option"><input type="radio" name="reading-q-${index}" value="${esc(option)}"><span>${esc(option)}</span></label>
+              `).join("")}
+              <div class="question-explanation" hidden></div>
+            </fieldset>`).join("")}`;
+        questionsEl.hidden = false;
+        $("#submitReading").addEventListener("click", () => submitSet("Submitted early"));
+        $$('input[type="radio"]', questionsEl).forEach(input => input.addEventListener("change", updateAnswered));
+        updateAnswered();
+      }
+
+      function updateAnswered() {
+        const answered = readingSets[state.setIndex].questions.filter((q, index) => $(`input[name="reading-q-${index}"]:checked`, questionsEl)).length;
+        const el = $("#readingAnswered");
+        if (el) el.textContent = `${answered} / 10 answered`;
+      }
+
+      function startSet() {
+        if (state.started) return;
+        state.started = true;
+        state.submitted = false;
+        untimed.disabled = true;
+        startBtn.disabled = true;
+        renderQuestions();
+        if (untimed.checked) {
+          timer.textContent = "∞";
+          const sticky = $("#readingStickyTimer");
+          if (sticky) sticky.textContent = "∞";
+          timerLabel.textContent = "Untimed";
+          return;
+        }
+        timerLabel.textContent = "Remaining";
+        state.interval = setInterval(() => {
+          state.seconds -= 1;
+          timer.textContent = formatTime(state.seconds);
+          const sticky = $("#readingStickyTimer");
+          if (sticky) sticky.textContent = formatTime(state.seconds);
+          timerDisplay.classList.toggle("warning", state.seconds <= 30);
+          if (state.seconds <= 0) submitSet("Time expired");
+        }, 1000);
+      }
+
+      function submitSet(reason) {
+        if (!state.started || state.submitted) return;
+        state.submitted = true;
+        stopInterval(state);
+        timerLabel.textContent = reason;
+        const set = readingSets[state.setIndex];
+        let score = 0;
+        let unanswered = 0;
+        const missedDimensions = [];
+
+        set.questions.forEach((question, index) => {
+          const fieldset = $(`[data-reading-question="${index}"]`, questionsEl);
+          const selected = $(`input[name="reading-q-${index}"]:checked`, fieldset);
+          const labels = $$(".radio-option", fieldset);
+          labels.forEach(label => {
+            const input = $("input", label);
+            input.disabled = true;
+            if (input.value === question.correct) label.classList.add("correct");
+          });
+          if (!selected) {
+            unanswered += 1;
+            fieldset.classList.add("unanswered");
+            labels.forEach(label => label.classList.add("unanswered"));
+            missedDimensions.push(question.dimension);
+          } else if (selected.value === question.correct) {
+            score += 1;
+          } else {
+            selected.closest("label").classList.add("incorrect");
+            missedDimensions.push(question.dimension);
+          }
+          const explanation = $(".question-explanation", fieldset);
+          explanation.hidden = false;
+          explanation.innerHTML = `<strong>Correct answer:</strong> ${esc(question.correct)}<br>${esc(question.explanation)}`;
+        });
+
+        const percent = score * 10;
+        resultEl.hidden = false;
+        resultEl.className = "finish-panel";
+        resultEl.innerHTML = `
+          <h4>Set Complete</h4>
+          <div class="metric-grid">
+            <div class="metric"><strong>${score}/10</strong><span>Score</span></div>
+            <div class="metric"><strong>${percent}%</strong><span>Percentage</span></div>
+            <div class="metric"><strong>${10 - score - unanswered}</strong><span>Incorrect</span></div>
+            <div class="metric"><strong>${unanswered}</strong><span>Unanswered</span></div>
+          </div>
+          <strong>5W1H areas to review</strong>
+          ${missedDimensions.length ? `<ul class="review-topics">${[...new Set(missedDimensions)].map(item => `<li>${esc(item)}</li>`).join("")}</ul>` : `<p>You identified every detail correctly.</p>`}`;
+        resultEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function restartSet() {
+        loadSet();
+      }
+
+      function nextSet() {
+        if (state.started && !state.submitted) submitSet("Set changed");
+        state.setIndex = (state.setIndex + 1) % readingSets.length;
+        loadSet();
+      }
+
+      startBtn.addEventListener("click", startSet);
+      restartBtn.addEventListener("click", restartSet);
+      nextSetBtn.addEventListener("click", nextSet);
+      state.submit = submitSet;
+      loadSet();
+    }
+
+    function setupWritingBuilder() {
+      const state = timedState.writing;
+      const badge = $("#writingPromptBadge");
+      const title = $("#writingTitle");
+      const prompt = $("#writingPrompt");
+      const fields = $("#writingFields");
+      const finalResponse = $("#finalResponse");
+      const wordCount = $("#wordCount");
+      const status = $("#writingStatus");
+      const timer = $("#writingTimer");
+      const timerLabel = $("#writingTimerLabel");
+      const timerDisplay = $("#writingTimerDisplay");
+      const untimed = $("#writingUntimed");
+      const startBtn = $("#startWriting");
+      const finishBtn = $("#finishWriting");
+      const restartBtn = $("#restartWriting");
+      const nextBtn = $("#nextWritingPrompt");
+      const labels = ["who", "what", "when", "where", "why", "how"];
+
+      function countWords() {
+        const count = finalResponse.value.trim() ? finalResponse.value.trim().split(/\s+/).length : 0;
+        wordCount.textContent = `${count} word${count === 1 ? "" : "s"}`;
+      }
+
+      function loadPrompt() {
+        stopInterval(state);
+        state.started = false;
+        state.locked = false;
+        state.seconds = 120;
+        const item = writingPrompts[state.promptIndex];
+        badge.textContent = `Prompt ${state.promptIndex + 1} of ${writingPrompts.length}`;
+        title.textContent = item.title;
+        prompt.textContent = item.prompt;
+        fields.innerHTML = labels.map(label => `
+          <div class="writing-cell">
+            <label for="field-${label}">${label[0].toUpperCase() + label.slice(1)}</label>
+            <small>${esc(item.hints[label])}</small>
+            <input class="writing-field" id="field-${label}" data-writing-field="${label}" type="text" disabled>
+          </div>`).join("");
+        finalResponse.value = "";
+        finalResponse.disabled = true;
+        countWords();
+        timer.textContent = "2:00";
+        timerLabel.textContent = "Ready";
+        timerDisplay.classList.remove("warning");
+        untimed.disabled = false;
+        startBtn.disabled = false;
+        finishBtn.hidden = true;
+        status.className = "feedback neutral";
+        status.textContent = "Review the prompt and choose timed or untimed mode. The fields unlock after Start.";
+      }
+
+      function setFieldsDisabled(disabled) {
+        $$('[data-writing-field]', fields).forEach(input => { input.disabled = disabled; });
+        finalResponse.disabled = disabled;
+      }
+
+      function startPrompt() {
+        if (state.started) return;
+        state.started = true;
+        state.locked = false;
+        setFieldsDisabled(false);
+        untimed.disabled = true;
+        startBtn.disabled = true;
+        finishBtn.hidden = false;
+        status.className = "feedback neutral";
+        status.textContent = "Build quick notes first, then combine the strongest details into your answer.";
+        const first = $('[data-writing-field="who"]', fields);
+        if (first) first.focus();
+        if (untimed.checked) {
+          timer.textContent = "∞";
+          timerLabel.textContent = "Untimed";
+          return;
+        }
+        timerLabel.textContent = "Remaining";
+        state.interval = setInterval(() => {
+          state.seconds -= 1;
+          timer.textContent = formatTime(state.seconds);
+          timerDisplay.classList.toggle("warning", state.seconds <= 20);
+          if (state.seconds <= 0) lockPrompt("Time expired. Your response is locked for self-review.");
+        }, 1000);
+      }
+
+      function lockPrompt(message) {
+        if (!state.started || state.locked) return;
+        state.locked = true;
+        stopInterval(state);
+        setFieldsDisabled(true);
+        finishBtn.hidden = true;
+        timerLabel.textContent = untimed.checked ? "Completed" : "Locked";
+        status.className = "feedback correct";
+        status.textContent = `✓ ${message}`;
+      }
+
+      function restartPrompt() {
+        loadPrompt();
+      }
+
+      function nextPrompt() {
+        if (state.started && !state.locked) lockPrompt("Prompt changed. Your completed text remains visible until the next prompt loads.");
+        state.promptIndex = (state.promptIndex + 1) % writingPrompts.length;
+        loadPrompt();
+      }
+
+      finalResponse.addEventListener("input", countWords);
+      startBtn.addEventListener("click", startPrompt);
+      finishBtn.addEventListener("click", () => lockPrompt("Response completed and locked for self-review."));
+      restartBtn.addEventListener("click", restartPrompt);
+      nextBtn.addEventListener("click", nextPrompt);
+      state.lock = lockPrompt;
+      loadPrompt();
+    }
+
+    function setupCollapseButtons() {
+      $$('[data-collapse]').forEach(button => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.collapse);
+          const willCollapse = !target.hidden;
+          target.hidden = willCollapse;
+          button.textContent = willCollapse ? "Expand" : "Collapse";
+          button.setAttribute("aria-expanded", String(!willCollapse));
+          if (willCollapse && button.dataset.collapse === "body-ielts-identify" && timedState.reading.started && !timedState.reading.submitted) {
+            timedState.reading.submit("Section collapsed");
+          }
+          if (willCollapse && button.dataset.collapse === "body-ielts-build" && timedState.writing.started && !timedState.writing.locked) {
+            timedState.writing.lock("Section collapsed. Your response is locked for self-review.");
+          }
+        });
+      });
+    }
+
+    function init() {
+      setupTheme();
+      renderTOC();
+      renderGrammar();
+      renderTimedSections();
+      setupCollapseButtons();
+    }
+
+    init();
+  })();
+  </script>
+</body>
+</html>
