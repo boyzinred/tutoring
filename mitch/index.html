@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="English tutoring quizzes and practice resources for Mitch.">
+  <title>Mitch — English Tutoring Resources</title>
+
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("theme");
+      const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
+    } catch (_) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --page: #e5e7eb;
+      --surface: #ffffff;
+      --surface-alt: #f3f4f6;
+      --text: #111827;
+      --subtle: #4b5563;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --radius: 8px;
+      --font: "Outfit", system-ui, sans-serif;
+      color-scheme: light;
+    }
+
+    :root[data-theme="dark"] {
+      --page: #0b1220;
+      --surface: #111827;
+      --surface-alt: #1f2937;
+      --text: #f9fafb;
+      --subtle: #cbd5e1;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --accent: #f59e0b;
+      --accent-hover: #fbbf24;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 48px 24px;
+      background: var(--page);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    button, a { font: inherit; }
+
+    .site {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius);
+    }
+
+    .topbar {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 28px;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .theme-toggle {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--text);
+      background: var(--surface-alt);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover { background: var(--page); }
+
+    .theme-toggle:focus-visible,
+    .quiz-link:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    .hero {
+      min-height: 620px;
+      display: flex;
+      align-items: flex-start;
+      padding: 126px 88px;
+      color: #ffffff;
+      background: var(--primary);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(76px, 9vw, 126px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.055em;
+    }
+
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quiz-card {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 44px;
+      padding: 48px 34px 42px;
+      background: var(--surface);
+    }
+
+    .quiz-card:nth-child(4n + 2),
+    .quiz-card:nth-child(4n + 3) {
+      background: var(--surface-alt);
+    }
+
+    .quiz-card h2 {
+      margin: 0 0 44px;
+      font-size: clamp(42px, 4.2vw, 58px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .quiz-card p {
+      max-width: 560px;
+      margin: 0;
+      color: var(--subtle);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .quiz-link {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 24px;
+      border-radius: 6px;
+      color: #ffffff;
+      background: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .quiz-link:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 0; }
+      .site { border-radius: 0; }
+      .topbar { padding: 12px 18px; }
+      .brand { font-size: 14px; }
+      .theme-toggle { padding: 0 12px; }
+      .theme-label { display: none; }
+
+      .hero {
+        min-height: 470px;
+        padding: 96px 28px;
+      }
+
+      .hero h1 { font-size: clamp(68px, 23vw, 96px); }
+
+      .quiz-grid { grid-template-columns: 1fr; }
+
+      .quiz-card,
+      .quiz-card:nth-child(4n + 2),
+      .quiz-card:nth-child(4n + 3) {
+        min-height: 360px;
+        padding: 38px 24px 30px;
+      }
+
+      .quiz-card:nth-child(even) { background: var(--surface-alt); }
+      .quiz-card h2 { margin-bottom: 30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="site">
+    <header class="topbar">
+      <p class="brand">Mitch - English Tutoring Resources</p>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        <span class="theme-label">Dark mode</span>
+      </button>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">English Tutoring for</p>
+        <h1 id="page-title">Mitch</h1>
+      </div>
+    </section>
+
+    <section class="quiz-grid" aria-label="Available quizzes">
+      <article class="quiz-card">
+        <div>
+          <h2>July 22, 2026</h2>
+          <p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p>
+        </div>
+        <a class="quiz-link" href="./mitch/july22-English-Grammar-IELTS-Typing-Lab.html">
+          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <article class="quiz-card">
+        <div>
+          <h2>July 24, 2026</h2>
+          <p>Previous-point review, reflexive pronouns, forms of other, five correction sets, and reason/detail matching with balanced choices.</p>
+        </div>
+        <a class="quiz-link" href="./mitch/july24-Grammar-Review-IELTS-Sprint-Lab.html">
+          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <article class="quiz-card">
+        <div>
+          <h2>July 26, 2026</h2>
+          <p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p>
+        </div>
+        <a class="quiz-link" href="./mitch/july26-Grammar-IELTS-5W1H-Practice-Lab.html">
+          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <article class="quiz-card">
+        <div>
+          <h2>July 31, 2026</h2>
+          <p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p>
+        </div>
+        <a class="quiz-link" href="./english_grammar_ielts_quiz.html">
+          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    const root = document.documentElement;
+    const label = toggle.querySelector(".theme-label");
+
+    function setTheme(theme, save = false) {
+      root.dataset.theme = theme;
+      const dark = theme === "dark";
+      toggle.setAttribute("aria-pressed", String(dark));
+      toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+      label.textContent = dark ? "Light mode" : "Dark mode";
+      if (save) localStorage.setItem("theme", theme);
+    }
+
+    setTheme(root.dataset.theme || "light");
+    toggle.addEventListener("click", () => {
+      setTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+    });
+  </script>
+</body>
+</html>
