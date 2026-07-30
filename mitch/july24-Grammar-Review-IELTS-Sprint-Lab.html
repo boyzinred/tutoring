@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Interactive English grammar review and timed IELTS multiple-choice practice" />
-  <title>Grammar Review & IELTS Sprint Lab</title>
+  <title>July 24 · Grammar Review / IELTS</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 
@@ -1171,51 +1171,288 @@
       .theme-toggle { flex: 1; }
     }
   </style>
+
+  <style id="simple-page-chrome">
+    /* Simplified page chrome. Quiz cards and interactions retain their original styling. */
+    .site-header {
+      position: static;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: .86rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      transform: none;
+    }
+
+    .home-link {
+      color: var(--foreground);
+      background: var(--background);
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      color: var(--foreground);
+      background: var(--muted);
+      border-color: var(--border);
+      transform: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      display: block;
+      min-height: 0;
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .hero::before,
+    .hero::after {
+      display: none;
+    }
+
+    .hero-card {
+      min-height: 0;
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    .eyebrow {
+      margin-bottom: 16px;
+      color: #DBEAFE;
+      font-size: .76rem;
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: .92;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      color: #EFF6FF;
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-card {
+      margin: 0;
+      padding: 18px 22px;
+      color: var(--foreground);
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+    }
+
+    .toc-card h2 {
+      margin: 0 0 12px;
+      color: var(--subtle);
+      font-size: .72rem;
+      letter-spacing: .12em;
+    }
+
+    .toc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-list a {
+      min-height: 40px;
+      padding: 8px 12px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+    }
+
+    .toc-list a:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: none;
+    }
+
+    .toc-number,
+    .toc-list a:hover .toc-number {
+      margin-right: 6px;
+      color: var(--primary);
+    }
+
+    .back-to-toc {
+      width: 46px;
+      min-height: 46px;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      color: #FFFFFF;
+      background: var(--foreground);
+      font-size: 0;
+      border-radius: 50%;
+    }
+
+    .back-to-toc::before {
+      content: "↑";
+      font-size: 1rem;
+    }
+
+    html[data-theme="dark"] .site-header,
+    html[data-theme="dark"] .toc-card {
+      color: var(--foreground);
+      background: var(--background);
+    }
+
+    html[data-theme="dark"] .home-link,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .toc-list a {
+      color: var(--foreground);
+      background: var(--muted);
+      border-color: var(--border);
+    }
+
+    html[data-theme="dark"] .home-link:hover,
+    html[data-theme="dark"] .theme-toggle:hover,
+    html[data-theme="dark"] .toc-list a:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: calc(100% - 28px);
+        min-height: 60px;
+        display: flex;
+        padding: 0;
+      }
+
+      .brand {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .header-actions {
+        flex: 0 0 auto;
+      }
+
+      .home-link,
+      .theme-toggle {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 0 10px;
+      }
+
+      .theme-toggle__label {
+        display: none;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero-card {
+        padding: 48px 22px;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+      }
+
+      .toc-card {
+        padding: 16px 22px 18px;
+        overflow: hidden;
+      }
+
+      .toc-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: thin;
+      }
+
+      .toc-list li {
+        flex: 0 0 auto;
+      }
+
+      .toc-list a {
+        white-space: nowrap;
+      }
+    }
+  </style>
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true">02</div>
-      <div class="brand-copy">
-        <strong>Grammar Review & IELTS Sprint Lab</strong>
-        <span>Grammar / IELTS / Sprint system</span>
-      </div>
+    <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
+    <div class="header-actions">
+      <a class="home-link" href="./index.html">Home</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch color theme">
+        <span class="theme-toggle__icon" aria-hidden="true">◐</span>
+        <span class="theme-toggle__label">Dark mode</span>
+      </button>
     </div>
-      <div class="header-actions">
-        <a class="home-link" href="./index.html">Index</a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false"><span class="theme-toggle__icon" aria-hidden="true">◐</span><span class="theme-toggle__label">Dark mode</span></button>
-        <span class="system-badge" aria-label="Design mode">Flat light</span>
-      </div>
   </div>
 </header>
 
 <main>
   <section class="hero" id="toc">
     <div class="hero-card">
-      <span class="eyebrow">02. Review / Sprint</span>
-      <h1>Review. Correct. Support.</h1>
-      <p>Grammar exercises give immediate feedback, targeted practice notes, and answer review. IELTS rounds can be completed under a two-minute limit or in untimed mode.</p>
-      <div class="hero-chips">
-        <span class="chip">3 review exercises</span>
-        <span class="chip">6 new grammar exercises</span>
-        <span class="chip">5 unique correction sets</span>
-        <span class="chip">Timed reason/detail matching</span>
-        <span class="chip">Light / dark system</span>
-      </div>
+      <h1>July 24 · Grammar Review / IELTS</h1>
+      <p>Previous grammar, reflexive pronouns, forms of other, error correction, and reason + detail matching.</p>
     </div>
-    <nav class="toc-card" aria-labelledby="tocTitle">
-      <h2 id="tocTitle">Table of contents</h2>
-      <ol class="toc-list">
-        <li><a href="#review"><span><span class="toc-number">01</span> Review: previous grammar</span><span>→</span></a></li>
-        <li><a href="#reflexive"><span><span class="toc-number">02</span> Reflexive pronouns</span><span>→</span></a></li>
-        <li><a href="#another-other"><span><span class="toc-number">03</span> Another vs. the other</span><span>→</span></a></li>
-        <li><a href="#plural-other"><span><span class="toc-number">04</span> Other / others / the others</span><span>→</span></a></li>
-        <li><a href="#ielts-errors"><span><span class="toc-number">05</span> IELTS error sprint</span><span>→</span></a></li>
-        <li><a href="#ielts-reasons"><span><span class="toc-number">06</span> IELTS reason/detail match</span><span>→</span></a></li>
-      </ol>
-    </nav>
   </section>
+
+  <nav class="toc-card" aria-labelledby="tocTitle">
+    <h2 id="tocTitle">Jump to a section</h2>
+    <ol class="toc-list">
+      <li><a href="#review"><span><span class="toc-number">01</span>Previous grammar</span></a></li>
+      <li><a href="#reflexive"><span><span class="toc-number">02</span>Reflexive pronouns</span></a></li>
+      <li><a href="#another-other"><span><span class="toc-number">03</span>Another vs. the other</span></a></li>
+      <li><a href="#plural-other"><span><span class="toc-number">04</span>Other forms</span></a></li>
+      <li><a href="#ielts-errors"><span><span class="toc-number">05</span>Error sprint</span></a></li>
+      <li><a href="#ielts-reasons"><span><span class="toc-number">06</span>Reason + detail</span></a></li>
+    </ol>
+  </nav>
 
   <section class="section-card" id="review">
     <div class="section-header">
@@ -1378,7 +1615,7 @@
   <p class="source-note">The grammar explanations follow the attached review pages on reflexive pronouns and forms of <em>other</em>. All IELTS multiple-choice items are newly written for this practice file.</p>
 </main>
 
-<a class="back-to-toc" href="#toc" aria-label="Back to table of contents">↑ Back to TOC</a>
+<a class="back-to-toc" href="#toc" aria-label="Back to table of contents">Back to top</a>
 
 <script>
 "use strict";
