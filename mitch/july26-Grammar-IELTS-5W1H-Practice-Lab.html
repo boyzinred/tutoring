@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Offline interactive grammar and IELTS 5Ws and 1H practice quiz">
-  <title>Grammar & IELTS 5W1H Practice Lab</title>
+  <title>July 26 · Grammar / IELTS 5W1H</title>
   <script>
     (() => {
       try {
@@ -17,6 +17,7 @@
     })();
   </script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
     :root {
       color-scheme: light;
       --background: #FFFFFF;
@@ -814,19 +815,296 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; transform: none !important; }
     }
   </style>
+
+  <style id="simple-page-chrome">
+    /* Shared simplified layout from the finalized July 22 page. */
+    :root { --font: 'Outfit', sans-serif; }
+
+    body {
+      background: var(--muted);
+      font-family: var(--font);
+    }
+
+    .site-header {
+      position: static;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: .86rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-decoration: none;
+      text-transform: none;
+      transition: var(--transition);
+      transform: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      color: var(--foreground);
+      background: var(--muted-strong);
+      border-color: var(--border);
+      transform: none;
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      display: block;
+      min-height: 0;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 0;
+    }
+
+    .hero::before,
+    .hero::after { display: none; }
+
+    .hero-copy {
+      min-height: 0;
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 15ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: #EFF6FF;
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      margin: 0;
+      padding: 18px 22px;
+      color: var(--foreground);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      scroll-margin-top: 20px;
+    }
+
+    html[data-theme="dark"] .toc-panel {
+      color: var(--foreground);
+      background: var(--surface);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: .72rem;
+      letter-spacing: .12em;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 8px 12px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      font-size: .88rem;
+      letter-spacing: 0;
+      text-transform: none;
+      transform: none;
+    }
+
+    .toc-link:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: none;
+    }
+
+    .toc-link small,
+    .toc-link:hover small {
+      color: var(--primary);
+      font-size: .68rem;
+    }
+
+    #mainContent { background: var(--surface); }
+
+    .section-card {
+      margin-top: 0;
+      border-radius: 0;
+      scroll-margin-top: 20px;
+    }
+
+    .section-card:nth-of-type(3n+1) .section-header {
+      color: #111827;
+      background: var(--secondary);
+    }
+
+    .section-card:nth-of-type(3n+2) .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .section-card:nth-of-type(3n+3) .section-header {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .section-body { border-radius: 0; }
+
+    .back-to-toc {
+      width: 46px;
+      min-height: 46px;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      color: #FFFFFF;
+      background: var(--surface-inverse);
+      font-size: 0;
+      border-radius: 50%;
+    }
+
+    .back-to-toc::before {
+      content: "↑";
+      font-size: 1rem;
+    }
+
+    .back-to-toc:hover {
+      color: #FFFFFF;
+      background: var(--primary);
+      transform: none;
+    }
+
+    html[data-theme="dark"] .home-link,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .toc-link {
+      color: var(--foreground);
+      background: var(--muted-strong);
+      border-color: var(--border);
+    }
+
+    html[data-theme="dark"] .home-link:hover,
+    html[data-theme="dark"] .theme-toggle:hover,
+    html[data-theme="dark"] .toc-link:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: calc(100% - 28px);
+        min-height: 60px;
+        display: flex;
+        padding: 0;
+      }
+
+      .brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .header-actions { flex: 0 0 auto; }
+
+      .home-link,
+      .theme-toggle {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 0 10px;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero-copy {
+        min-height: 0;
+        padding: 48px 22px;
+      }
+
+      h1 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+
+      .toc-panel {
+        padding: 16px 22px 18px;
+        overflow: hidden;
+      }
+
+      .toc-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: thin;
+      }
+
+      .toc-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .section-card { border-radius: 0; }
+      .sprint-toolbar { top: 8px; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">5W</div>
-        <div class="brand-copy">
-          <strong>Grammar & IELTS 5W1H Practice Lab</strong>
-          <span>Offline grammar review / answer development</span>
-        </div>
-      </div>
+      <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
       <div class="header-actions">
-        <a class="header-link" href="#toc">Contents</a>
+        <a class="home-link" href="./index.html">Home</a>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Theme</button>
       </div>
     </div>
@@ -835,32 +1113,13 @@
   <div class="page-shell">
     <section class="hero" id="top">
       <div class="hero-copy">
-        <span class="eyebrow">Grammar / IELTS / Detail Building</span>
-        <h1>Answer With Meaning.</h1>
-        <p>Review core noun and pronoun grammar, repair common sentence errors, identify strong supporting details, and build original IELTS-style answers with Who, What, When, Where, Why, and How.</p>
-        <div class="hero-chips" aria-label="Quiz features">
-          <span class="chip">80 grammar questions</span>
-          <span class="chip">5 reading sets</span>
-          <span class="chip">10 writing prompts</span>
-          <span class="chip">Timed or untimed</span>
-          <span class="chip">Offline</span>
-        </div>
+        <h1>July 26 · Grammar / IELTS 5W1H</h1>
+        <p>Grammar review, sentence repair, reading details, and original answers using Who, What, When, Where, Why, and How.</p>
       </div>
-      <aside class="hero-guide" aria-labelledby="detailGuideTitle">
-        <h2 id="detailGuideTitle">The 5W1H Detail Bank</h2>
-        <div class="w-grid">
-          <div class="w-item"><strong>Who</strong><span>People involved</span></div>
-          <div class="w-item"><strong>What</strong><span>Specific action or thing</span></div>
-          <div class="w-item"><strong>When</strong><span>Time, frequency, or stage</span></div>
-          <div class="w-item"><strong>Where</strong><span>Place or setting</span></div>
-          <div class="w-item"><strong>Why</strong><span>Reason or purpose</span></div>
-          <div class="w-item"><strong>How</strong><span>Method, process, or result</span></div>
-        </div>
-      </aside>
     </section>
 
     <nav class="toc-panel" id="toc" aria-labelledby="tocTitle">
-      <h2 id="tocTitle">Table of Contents</h2>
+      <h2 id="tocTitle">Jump to a section</h2>
       <div class="toc-grid" id="tocGrid"></div>
     </nav>
 
@@ -869,7 +1128,7 @@
     <p class="source-note">This practice lab adapts selected grammar principles from the attached materials on reflexive pronouns and forms of <em>other</em>. The IELTS passages, questions, and prompts are original and use the source writing tip of asking Who, What, When, Where, Why, and How to develop specific details.</p>
   </div>
 
-  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">↑ Back to TOC</a>
+  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">Back to top</a>
 
   <script>
   (() => {
