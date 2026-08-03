@@ -1130,6 +1130,158 @@
     .live-toolbar { position: static; grid-template-columns: 1fr; }
     .mini-timer { width: 100%; }
   }
+
+
+  /* Collapsible vocabulary bank */
+  .vocab-bank {
+    margin-bottom: 24px;
+    padding: clamp(20px, 3vw, 30px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .vocab-bank-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 16px;
+  }
+
+  .vocab-bank-header h3 {
+    margin: 0 0 7px;
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    font-weight: 800;
+  }
+
+  .vocab-bank-header p {
+    max-width: 68ch;
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .vocab-bank-count {
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    color: #111827;
+    background: var(--accent);
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .vocab-bank-groups {
+    display: grid;
+    gap: 10px;
+  }
+
+  .vocab-group {
+    overflow: hidden;
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .vocab-group summary {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 17px;
+    color: var(--foreground);
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+    user-select: none;
+  }
+
+  .vocab-group summary::-webkit-details-marker { display: none; }
+
+  .vocab-group summary::after {
+    content: "+";
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    color: #FFFFFF;
+    background: var(--primary);
+    border-radius: 50%;
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .vocab-group[open] summary::after { content: "−"; }
+  .vocab-group[open] summary { background: var(--blue-soft); }
+
+  .vocab-group-title {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+  }
+
+  .vocab-group-title small {
+    color: var(--text-muted);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .vocab-entry-list {
+    display: grid;
+    gap: 1px;
+    padding: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+  }
+
+  .vocab-entry {
+    display: grid;
+    grid-template-columns: minmax(130px, .32fr) minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px;
+    background: var(--surface);
+  }
+
+  .vocab-term strong {
+    display: block;
+    color: var(--primary);
+    font-size: 1.12rem;
+    line-height: 1.2;
+  }
+
+  .vocab-term span {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .vocab-definition {
+    color: var(--foreground);
+    font-weight: 700;
+  }
+
+  .vocab-example {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: .92rem;
+  }
+
+  @media (max-width: 680px) {
+    .vocab-bank-header { display: block; }
+    .vocab-bank-count { display: inline-block; margin-top: 12px; }
+    .vocab-entry { grid-template-columns: 1fr; gap: 8px; }
+  }
+
 </style>
 
 </head>
@@ -1147,19 +1299,18 @@
   <div class="page-shell">
     <section class="hero" id="top">
       <div class="hero-copy">
-        <h1>August 3 · Vocabulary / Grammar / IELTS Storyline</h1>
+        <h1>August 3</h1>
         <p>Build stronger IELTS language, repair modifier placement, review simple past forms, and turn basic ideas into specific, coherent storylines.</p>
       </div>
     </section>
 
     <nav class="toc-panel" id="toc" aria-labelledby="tocTitle">
-      <h2 id="tocTitle">Agenda</h2>
+      <h2 id="tocTitle">Jump To Section</h2>
       <div class="toc-grid" id="tocGrid"></div>
     </nav>
 
     <main id="mainContent"></main>
 
-    <p class="source-note">The page layout and interaction style follow the provided July 26 practice lab. The Past Tense section adapts the attached Chapter 2 material on regular simple-past forms, irregular verbs, <em>was/were</em>, negatives and questions with <em>did</em>, and short answers. All quiz wording and IELTS practice items on this page are newly written for digital practice.</p>
   </div>
 
   <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">Back to top</a>
@@ -1221,9 +1372,9 @@
       {
         sectionId: "vocabulary",
         id: "ielts-vocabulary",
-        title: "30 Common IELTS Nouns, Verbs, and Adjectives",
-        instructions: "Choose the meaning that best matches each word. Distractors are regenerated every time a word appears.",
-        description: "The bank contains 10 nouns, 10 verbs, and 10 adjectives. Questions and answer choices are shuffled on every attempt.",
+        title: "30 IELTS Nouns, Verbs, and Adjectives",
+        instructions: "Choose the meaning that best matches each word.",
+        description: "Select the number of questions to answer and a timer setting.",
         defaultCount: 10,
         sourceOptions: [{ key: "all", label: "All 30 words" }],
         getQuestions: () => DATA.vocab.map(item => ({
@@ -1249,7 +1400,7 @@
       {
         sectionId: "grammar",
         id: "past-tense",
-        title: "Past Tense: Chapter 2 Digital Practice",
+        title: "Past Tense Part 1",
         instructions: "Choose the form that correctly expresses a finished past action, past form of be, negative, question, or short answer.",
         description: "Three 10-question sets adapt the attached material: regular verbs, irregular verbs, was/were, and questions or negatives with did.",
         defaultCount: 10,
@@ -1292,11 +1443,43 @@
       const links = [];
       sections.forEach(section => {
         links.push(`<a class="toc-link" href="#${section.id}"><span>${esc(section.title)}</span><small>Section</small></a>`);
+        if (section.id === "vocabulary") links.push(`<a class="toc-link" href="#vocab-bank"><span>Vocabulary Bank</span><small>30 words</small></a>`);
         exercises.filter(ex => ex.sectionId === section.id).forEach(ex => {
           links.push(`<a class="toc-link" href="#${ex.id}"><span>${esc(ex.title)}</span><small>Exercise</small></a>`);
         });
       });
       $("#tocGrid").innerHTML = links.join("");
+    }
+
+
+
+    function vocabBankMarkup() {
+      const groups = [
+        { key: "noun", label: "Nouns" },
+        { key: "verb", label: "Verbs" },
+        { key: "adjective", label: "Adjectives" }
+      ];
+      const groupMarkup = groups.map(group => {
+        const words = DATA.vocab.filter(item => item.pos === group.key);
+        return `<details class="vocab-group">
+          <summary>
+            <span class="vocab-group-title"><span>${esc(group.label)}</span><small>${words.length} words</small></span>
+          </summary>
+          <div class="vocab-entry-list">
+            ${words.map(item => `<div class="vocab-entry">
+              <div class="vocab-term"><strong>${esc(item.word)}</strong><span>${esc(item.pos)}</span></div>
+              <div><div class="vocab-definition">${esc(item.definition)}</div><div class="vocab-example"><strong>Example:</strong> ${esc(item.example)}</div></div>
+            </div>`).join("")}
+          </div>
+        </details>`;
+      }).join("");
+      return `<aside class="vocab-bank" id="vocab-bank" aria-labelledby="vocabBankTitle">
+        <div class="vocab-bank-header">
+          <div><h3 id="vocabBankTitle">Vocabulary Bank</h3><p>Review all 30 IELTS words before starting the exercise.</p></div>
+          <span class="vocab-bank-count">30 words</span>
+        </div>
+        <div class="vocab-bank-groups">${groupMarkup}</div>
+      </aside>`;
     }
 
     function sectionMarkup(section) {
@@ -1306,7 +1489,7 @@
           <button class="collapse-btn" type="button" data-collapse="body-${esc(section.id)}" aria-expanded="true">Collapse</button>
         </div>
         <div class="section-body" id="body-${esc(section.id)}">
-          <div class="section-explanation">${esc(section.explanation)}</div>
+          ${section.id === "vocabulary" ? vocabBankMarkup() : ""}
           <div class="exercise-list" id="list-${esc(section.id)}"></div>
         </div>
       </section>`;
@@ -1346,7 +1529,7 @@
               </select>
             </div>
           </div>
-          <div class="menu-note">Default: 10 questions, untimed. Feedback is immediate. The summary includes missed topics and specific improvement advice.</div>
+          <div class="menu-note">Default: 10 questions</div>
           <div class="button-row"><button class="btn btn-primary" type="button" data-start>Start exercise</button></div>
         </div>
         <div class="question-stage" data-live hidden>
