@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive IELTS vocabulary, grammar, past tense, and storyline practice lab">
+  <title>August 3 · Vocabulary / Grammar / IELTS Storyline</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('grammar-ielts-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+    :root {
+      color-scheme: light;
+      --background: #FFFFFF;
+      --foreground: #111827;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #E5E7EB;
+      --surface: #FFFFFF;
+      --surface-inverse: #111827;
+      --blue-soft: #DBEAFE;
+      --text-muted: #4B5563;
+      --hero-text: #EFF6FF;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #0B1220;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #374151;
+      --surface: #111827;
+      --surface-inverse: #F9FAFB;
+      --blue-soft: #172554;
+      --text-muted: #CBD5E1;
+      --hero-text: #DBEAFE;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--background);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1, h2, h3, h4 { line-height: 1; letter-spacing: -0.02em; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: var(--surface);
+      border-bottom: 4px solid var(--primary);
+    }
+
+    .header-inner {
+      width: min(1280px, calc(100% - 32px));
+      min-height: 76px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+      font-weight: 800;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 800;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-toggle,
+    .header-link,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .back-to-toc {
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .theme-toggle,
+    .header-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      font-size: .76rem;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .header-link { color: #FFFFFF; background: var(--primary); }
+    .theme-toggle { color: var(--foreground); background: var(--muted-strong); }
+    .theme-toggle:hover, .header-link:hover { transform: scale(1.04); }
+    .header-link:hover { background: var(--primary-hover); }
+
+    .page-shell {
+      width: min(1280px, calc(100% - 32px));
+      margin: 24px auto 72px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 570px;
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      overflow: hidden;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 340px;
+      height: 340px;
+      left: -130px;
+      bottom: -150px;
+      background: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    .hero::after {
+      width: 310px;
+      height: 310px;
+      left: 45%;
+      top: -170px;
+      border-radius: 50%;
+      background: var(--secondary);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(38px, 7vw, 82px);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .question-meta,
+    .config-label {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { color: #FEF3C7; }
+
+    h1 {
+      max-width: 9ch;
+      margin: 20px 0 28px;
+      font-size: clamp(3.6rem, 9vw, 8rem);
+      font-weight: 800;
+      line-height: .82;
+      letter-spacing: -.045em;
+    }
+
+    .hero-copy p {
+      max-width: 60ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-guide {
+      position: relative;
+      z-index: 3;
+      align-self: center;
+      margin: clamp(24px, 5vw, 54px);
+      padding: clamp(26px, 4vw, 40px);
+      color: var(--foreground);
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero-guide h2 {
+      margin-bottom: 22px;
+      color: var(--secondary);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .w-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .w-item {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .w-item strong { display: block; color: var(--primary); }
+    .w-item span { color: var(--text-muted); font-size: .86rem; }
+
+    .toc-panel {
+      margin-top: 24px;
+      padding: clamp(26px, 4vw, 42px);
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 100px;
+    }
+
+    html[data-theme="dark"] .toc-panel { background: #030712; }
+
+    .toc-panel h2 {
+      margin-bottom: 20px;
+      color: var(--secondary);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+
+    .toc-link {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 15px;
+      color: #FFFFFF;
+      background: #1F2937;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      color: #111827;
+      background: var(--secondary);
+      transform: translateX(5px);
+    }
+
+    .toc-link small { color: var(--accent); font-weight: 800; }
+    .toc-link:hover small { color: #111827; }
+
+    .section-card {
+      margin-top: 24px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 96px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 62px);
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .section-card:nth-of-type(3n+2) .section-header { background: var(--secondary); }
+    .section-card:nth-of-type(3n+3) .section-header { color: #FFFFFF; background: var(--primary); }
+
+    .section-kicker { margin-bottom: 12px; opacity: .78; }
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 54px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid #111827;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover { color: #FFFFFF; background: #111827; transform: scale(1.04); }
+
+    .section-body {
+      padding: clamp(24px, 4vw, 48px);
+      background: var(--muted);
+    }
+
+    .section-explanation {
+      margin-bottom: 24px;
+      padding: 24px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .section-explanation strong { color: var(--primary); }
+
+    .exercise-list { display: grid; gap: 24px; }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 104px;
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    html[data-theme="dark"] .exercise-head { background: #030712; }
+
+    .exercise-head-copy { padding: 26px; }
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 800;
+    }
+    .exercise-head p { margin: 0; color: #D1D5DB; }
+
+    .score-block {
+      min-width: 170px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .exercise-config {
+      padding: 18px 24px;
+      background: var(--muted-strong);
+    }
+
+    .exercise-config summary {
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 800;
+      list-style: none;
+    }
+    .exercise-config summary::-webkit-details-marker { display: none; }
+    .exercise-config summary::after { content: " +"; }
+    .exercise-config[open] summary::after { content: " -"; }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .config-item {
+      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+    .config-label { display: block; margin-bottom: 4px; color: var(--primary); }
+    .config-value { color: var(--text-muted); font-size: .88rem; }
+
+    .progress-track { height: 12px; background: var(--border); }
+    .progress-fill { width: 0; height: 100%; background: var(--secondary); transition: width 200ms ease; }
+
+    .question-stage { padding: clamp(24px, 4vw, 38px); }
+    .question-meta { margin-bottom: 12px; color: var(--primary); }
+    .question-text {
+      margin: 0 0 24px;
+      color: var(--foreground);
+      font-size: clamp(1.3rem, 2.8vw, 2.05rem);
+      font-weight: 800;
+      line-height: 1.24;
+      white-space: pre-line;
+    }
+
+    .answer-input,
+    .writing-field,
+    .final-response {
+      width: 100%;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: 0;
+      transition: var(--transition);
+    }
+
+    .answer-input { min-height: 58px; padding: 0 16px; font-size: 1.05rem; }
+    .writing-field { min-height: 48px; padding: 10px 12px; }
+    .final-response { min-height: 150px; padding: 14px; resize: vertical; }
+
+    .answer-input:focus,
+    .writing-field:focus,
+    .final-response:focus {
+      background: var(--surface);
+      border-color: var(--primary);
+    }
+
+    .answer-input:disabled,
+    .writing-field:disabled,
+    .final-response:disabled {
+      opacity: 1;
+      color: var(--text-muted);
+      background: var(--muted-strong);
+      cursor: not-allowed;
+    }
+
+    .option-list { display: grid; gap: 10px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 0;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) { color: #FFFFFF; background: var(--primary); transform: translateX(5px); }
+    .option-btn.correct-choice { color: #052E16; background: #86EFAC; }
+    .option-btn.wrong-choice { color: #450A0A; background: #FCA5A5; }
+    .option-btn:disabled { cursor: not-allowed; }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 18px;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .btn:hover:not(:disabled) { transform: scale(1.04); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { color: #FFFFFF; background: var(--primary); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .btn-secondary { color: var(--foreground); background: var(--muted-strong); }
+    .btn-accent { color: #111827; background: var(--accent); }
+    .btn-success { color: #052E16; background: var(--secondary); }
+    .btn-danger { color: #FFFFFF; background: var(--danger); }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      white-space: pre-line;
+    }
+    .feedback.correct { color: var(--foreground); background: var(--secondary-soft); border-left: 8px solid var(--secondary); }
+    .feedback.incorrect { color: var(--foreground); background: var(--danger-soft); border-left: 8px solid var(--danger); }
+    .feedback.neutral { color: var(--foreground); background: var(--blue-soft); border-left: 8px solid var(--primary); }
+
+    .finish-panel {
+      padding: 28px;
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+    .finish-panel h4 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .metric { padding: 16px; background: var(--surface); border-radius: var(--radius-md); }
+    .metric strong { display: block; color: var(--primary); font-size: 1.6rem; }
+    .metric span { color: var(--text-muted); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .review-box { margin-top: 20px; padding: 18px; background: var(--surface); border-radius: var(--radius-lg); }
+    .review-label { color: var(--primary); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .review-answer { margin-top: 8px; color: var(--text-muted); }
+    .review-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+    .review-topics { margin: 18px 0 0; padding-left: 22px; }
+    .review-topics li { margin: 6px 0; color: var(--text-muted); }
+
+    .ielts-intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .excerpt-card,
+    .timer-control-card,
+    .writing-guide-card {
+      padding: 22px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .excerpt-card h3,
+    .writing-guide-card h3 { font-size: 1.4rem; font-weight: 800; }
+    .excerpt-card p { margin-bottom: 0; color: var(--text-muted); white-space: pre-line; }
+
+    .timer-control-card { display: grid; gap: 14px; align-content: start; }
+    .timer-display {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #FFFFFF;
+      background: var(--primary);
+      text-align: center;
+      border-radius: var(--radius-lg);
+    }
+    .timer-display strong { display: block; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; letter-spacing: -.05em; }
+    .timer-display span { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .timer-display.warning { color: #111827; background: var(--accent); }
+
+    .untimed-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+    }
+    .untimed-row input { width: 22px; height: 22px; accent-color: var(--primary); }
+
+    .sprint-toolbar {
+      position: sticky;
+      top: 80px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 14px;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+    }
+    html[data-theme="dark"] .sprint-toolbar { background: #030712; }
+    .sprint-toolbar strong { color: var(--secondary); }
+
+    .sprint-question {
+      margin-top: 12px;
+      padding: 20px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+    .sprint-question h4 { margin-bottom: 14px; font-size: 1.05rem; line-height: 1.35; }
+    .dimension-badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 8px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 12px;
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+    .radio-option input { margin-top: 4px; accent-color: var(--primary); }
+    .radio-option.correct { border-color: var(--secondary); background: var(--secondary-soft); }
+    .radio-option.incorrect { border-color: var(--danger); background: var(--danger-soft); }
+    .radio-option.unanswered { border-color: var(--accent); }
+
+    .question-explanation {
+      margin-top: 10px;
+      padding: 12px;
+      color: var(--text-muted);
+      background: var(--blue-soft);
+      border-radius: var(--radius-md);
+    }
+
+    .writing-prompt {
+      padding: 22px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+    }
+    .writing-prompt h3 { margin-bottom: 10px; font-size: clamp(1.7rem, 4vw, 2.8rem); font-weight: 800; }
+    .writing-prompt p { margin: 0; color: var(--hero-text); }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .writing-cell { padding: 14px; background: var(--surface); border-radius: var(--radius-md); }
+    .writing-cell label { display: block; margin-bottom: 7px; color: var(--primary); font-weight: 800; }
+    .writing-cell small { display: block; margin-bottom: 8px; color: var(--text-muted); }
+
+    .final-answer-block { margin-top: 14px; padding: 18px; background: var(--surface); border-radius: var(--radius-lg); }
+    .final-answer-block label { display: block; margin-bottom: 8px; font-weight: 800; }
+    .word-count { margin-top: 8px; color: var(--text-muted); font-size: .8rem; font-weight: 700; }
+
+    .source-note {
+      margin-top: 24px;
+      padding: 24px;
+      color: var(--text-muted);
+      background: var(--muted);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .back-to-toc {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #111827;
+      background: var(--accent);
+      text-decoration: none;
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .back-to-toc:hover { color: #FFFFFF; background: #111827; transform: scale(1.05); }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy { min-height: 500px; }
+      .hero-guide { margin-top: 0; }
+      .ielts-intro-grid { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner { width: calc(100% - 24px); grid-template-columns: 1fr; gap: 10px; padding: 12px 0; }
+      .header-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .page-shell { width: 100%; margin-top: 0; }
+      .hero, .toc-panel, .section-card { border-radius: 0; margin-top: 0; }
+      .hero-copy { min-height: 520px; padding: 42px 24px; }
+      .hero-guide { margin: 0; border-radius: 0; }
+      .w-grid { grid-template-columns: 1fr; }
+      .section-header { align-items: flex-start; flex-direction: column; padding-left: 22px; padding-right: 22px; }
+      .collapse-btn { width: 100%; }
+      .section-body { padding-left: 16px; padding-right: 16px; }
+      .exercise-head { grid-template-columns: 1fr; }
+      .score-block { min-width: 0; min-height: 52px; }
+      .button-row { display: grid; }
+      .btn { width: 100%; }
+      .writing-grid { grid-template-columns: 1fr; }
+      .sprint-toolbar { top: 136px; grid-template-columns: 1fr; }
+      .back-to-toc { right: 8px; bottom: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; transform: none !important; }
+    }
+  </style>
+<style id="simple-page-chrome">
+    /* Shared simplified layout from the finalized July 22 page. */
+    :root { --font: 'Outfit', sans-serif; }
+
+    body {
+      background: var(--muted);
+      font-family: var(--font);
+    }
+
+    .site-header {
+      position: static;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: .86rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-decoration: none;
+      text-transform: none;
+      transition: var(--transition);
+      transform: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      color: var(--foreground);
+      background: var(--muted-strong);
+      border-color: var(--border);
+      transform: none;
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      display: block;
+      min-height: 0;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 0;
+    }
+
+    .hero::before,
+    .hero::after { display: none; }
+
+    .hero-copy {
+      min-height: 0;
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 15ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      color: #EFF6FF;
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      margin: 0;
+      padding: 18px 22px;
+      color: var(--foreground);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      scroll-margin-top: 20px;
+    }
+
+    html[data-theme="dark"] .toc-panel {
+      color: var(--foreground);
+      background: var(--surface);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: .72rem;
+      letter-spacing: .12em;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 8px 12px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      font-size: .88rem;
+      letter-spacing: 0;
+      text-transform: none;
+      transform: none;
+    }
+
+    .toc-link:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: none;
+    }
+
+    .toc-link small,
+    .toc-link:hover small {
+      color: var(--primary);
+      font-size: .68rem;
+    }
+
+    #mainContent { background: var(--surface); }
+
+    .section-card {
+      margin-top: 0;
+      border-radius: 0;
+      scroll-margin-top: 20px;
+    }
+
+    .section-card:nth-of-type(3n+1) .section-header {
+      color: #111827;
+      background: var(--secondary);
+    }
+
+    .section-card:nth-of-type(3n+2) .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .section-card:nth-of-type(3n+3) .section-header {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .section-body { border-radius: 0; }
+
+    .back-to-toc {
+      width: 46px;
+      min-height: 46px;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      color: #FFFFFF;
+      background: var(--surface-inverse);
+      font-size: 0;
+      border-radius: 50%;
+    }
+
+    .back-to-toc::before {
+      content: "↑";
+      font-size: 1rem;
+    }
+
+    .back-to-toc:hover {
+      color: #FFFFFF;
+      background: var(--primary);
+      transform: none;
+    }
+
+    html[data-theme="dark"] .home-link,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .toc-link {
+      color: var(--foreground);
+      background: var(--muted-strong);
+      border-color: var(--border);
+    }
+
+    html[data-theme="dark"] .home-link:hover,
+    html[data-theme="dark"] .theme-toggle:hover,
+    html[data-theme="dark"] .toc-link:hover {
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: calc(100% - 28px);
+        min-height: 60px;
+        display: flex;
+        padding: 0;
+      }
+
+      .brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .header-actions { flex: 0 0 auto; }
+
+      .home-link,
+      .theme-toggle {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 0 10px;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero-copy {
+        min-height: 0;
+        padding: 48px 22px;
+      }
+
+      h1 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+
+      .toc-panel {
+        padding: 16px 22px 18px;
+        overflow: hidden;
+      }
+
+      .toc-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: thin;
+      }
+
+      .toc-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .section-card { border-radius: 0; }
+      .sprint-toolbar { top: 8px; }
+    }
+  </style>
+  
+<style id="exercise-menu-extension">
+  .exercise-menu { padding: clamp(24px, 4vw, 38px); }
+  .menu-intro { margin-bottom: 20px; color: var(--text-muted); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .menu-field { display: grid; gap: 7px; padding: 14px; background: var(--muted); border-radius: var(--radius-md); }
+  .menu-field label { color: var(--primary); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .menu-field input, .menu-field select { width: 100%; min-height: 46px; padding: 8px 10px; color: var(--foreground); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); outline: none; }
+  .menu-field input:focus, .menu-field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+  .menu-note { margin-top: 16px; padding: 14px; color: var(--text-muted); background: var(--blue-soft); border-radius: var(--radius-md); }
+  .live-toolbar { position: sticky; top: 8px; z-index: 35; display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; margin: 0 0 18px; padding: 12px 14px; color: #fff; background: #111827; border-radius: var(--radius-lg); }
+  html[data-theme="dark"] .live-toolbar { background: #030712; }
+  .live-status strong { display: block; color: var(--secondary); font-size: 1.05rem; }
+  .live-status span { color: #D1D5DB; font-size: .78rem; }
+  .mini-timer { min-width: 92px; padding: 8px 12px; color: #111827; background: var(--accent); border-radius: var(--radius-md); font-weight: 800; text-align: center; }
+  .mini-timer.warning { color: #fff; background: var(--danger); }
+  .question-context { margin: 0 0 18px; padding: 18px; color: var(--text-muted); background: var(--muted); border-radius: var(--radius-lg); }
+  .question-context strong { display: block; margin-bottom: 8px; color: var(--primary); }
+  .target-sentence { margin: 0 0 18px; padding: 18px; color: var(--foreground); background: var(--accent-soft); border-left: 8px solid var(--accent); border-radius: var(--radius-lg); font-size: 1.08rem; font-weight: 700; }
+  .word-card { display: grid; gap: 8px; margin-bottom: 18px; padding: 22px; color: #fff; background: var(--primary); border-radius: var(--radius-lg); }
+  .word-card strong { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1; }
+  .word-card span { color: var(--hero-text); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; }
+  .summary-reason { margin-bottom: 16px; color: var(--text-muted); }
+  .improve-grid { display: grid; gap: 10px; margin-top: 14px; }
+  .improve-item { padding: 14px; background: var(--surface); border-radius: var(--radius-md); }
+  .improve-item strong { color: var(--primary); }
+  .improve-item p { margin: 5px 0 0; color: var(--text-muted); }
+  .review-context { margin-top: 10px; padding: 12px; color: var(--text-muted); background: var(--muted); border-radius: var(--radius-md); }
+  .exercise-head-copy p { max-width: 70ch; }
+  @media (max-width: 680px) {
+    .live-toolbar { position: static; grid-template-columns: 1fr; }
+    .mini-timer { width: 100%; }
+  }
+</style>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <h1>August 3 · Vocabulary / Grammar / IELTS Storyline</h1>
+        <p>Build stronger IELTS language, repair modifier placement, review simple past forms, and turn basic ideas into specific, coherent storylines.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" id="toc" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Agenda</h2>
+      <div class="toc-grid" id="tocGrid"></div>
+    </nav>
+
+    <main id="mainContent"></main>
+
+    <p class="source-note">The page layout and interaction style follow the provided July 26 practice lab. The Past Tense section adapts the attached Chapter 2 material on regular simple-past forms, irregular verbs, <em>was/were</em>, negatives and questions with <em>did</em>, and short answers. All quiz wording and IELTS practice items on this page are newly written for digital practice.</p>
+  </div>
+
+  <a class="back-to-toc" href="#toc" aria-label="Back to table of contents">Back to top</a>
+
+  <script>
+  (() => {
+    "use strict";
+    const DATA = {"vocab":[{"word":"approach","pos":"noun","definition":"a method or way of dealing with a problem","example":"The school adopted a new approach to language teaching.","topic":"noun meaning"},{"word":"benefit","pos":"noun","definition":"a helpful result or advantage","example":"One benefit of public transport is lower travel cost.","topic":"noun meaning"},{"word":"consequence","pos":"noun","definition":"a result that follows an action or decision","example":"Traffic congestion is one consequence of rapid urban growth.","topic":"noun meaning"},{"word":"evidence","pos":"noun","definition":"information that supports a claim or conclusion","example":"The report provides evidence that sleep affects memory.","topic":"noun meaning"},{"word":"factor","pos":"noun","definition":"one element that influences a result","example":"Cost is an important factor when students choose a university.","topic":"noun meaning"},{"word":"issue","pos":"noun","definition":"an important problem or subject for discussion","example":"Air pollution is a serious issue in many large cities.","topic":"noun meaning"},{"word":"method","pos":"noun","definition":"a planned way of doing something","example":"This study method helps me remember new vocabulary.","topic":"noun meaning"},{"word":"policy","pos":"noun","definition":"an official plan or rule used by an organization","example":"The city introduced a policy to reduce plastic waste.","topic":"noun meaning"},{"word":"resource","pos":"noun","definition":"something useful that can be used to achieve a goal","example":"Public libraries are valuable learning resources.","topic":"noun meaning"},{"word":"trend","pos":"noun","definition":"a general direction in which something is changing","example":"The graph shows a downward trend in car ownership.","topic":"noun meaning"},{"word":"achieve","pos":"verb","definition":"to successfully reach a goal or result","example":"Students need consistent practice to achieve a high score.","topic":"verb meaning"},{"word":"affect","pos":"verb","definition":"to cause a change in someone or something","example":"Long working hours can affect family life.","topic":"verb meaning"},{"word":"assess","pos":"verb","definition":"to judge the quality, importance, or condition of something","example":"Teachers assess both accuracy and fluency.","topic":"verb meaning"},{"word":"contribute","pos":"verb","definition":"to help cause a result or provide something useful","example":"Regular exercise can contribute to better mental health.","topic":"verb meaning"},{"word":"decline","pos":"verb","definition":"to become smaller, weaker, or less frequent","example":"The number of visitors declined during the winter.","topic":"verb meaning"},{"word":"establish","pos":"verb","definition":"to create or set up something intended to last","example":"The university established a new research center.","topic":"verb meaning"},{"word":"indicate","pos":"verb","definition":"to show, suggest, or point to something","example":"The results indicate that the program was effective.","topic":"verb meaning"},{"word":"maintain","pos":"verb","definition":"to keep something at the same level or in good condition","example":"It is difficult to maintain motivation without a clear routine.","topic":"verb meaning"},{"word":"require","pos":"verb","definition":"to need something or make it necessary","example":"Most professional jobs require clear communication skills.","topic":"verb meaning"},{"word":"respond","pos":"verb","definition":"to react or give an answer to something","example":"Local governments must respond quickly to emergencies.","topic":"verb meaning"},{"word":"available","pos":"adjective","definition":"ready to be used, obtained, or accessed","example":"Online lessons are available to students in remote areas.","topic":"adjective meaning"},{"word":"beneficial","pos":"adjective","definition":"producing a helpful or positive effect","example":"Part-time work can be beneficial when the hours are limited.","topic":"adjective meaning"},{"word":"complex","pos":"adjective","definition":"made of many connected parts and difficult to understand","example":"Climate change is a complex global problem.","topic":"adjective meaning"},{"word":"efficient","pos":"adjective","definition":"working well without wasting time, energy, or money","example":"The new bus route is more efficient than the old one.","topic":"adjective meaning"},{"word":"essential","pos":"adjective","definition":"completely necessary or extremely important","example":"Reliable internet access is essential for many students.","topic":"adjective meaning"},{"word":"harmful","pos":"adjective","definition":"causing damage or negative effects","example":"Excessive screen time may be harmful to sleep quality.","topic":"adjective meaning"},{"word":"relevant","pos":"adjective","definition":"directly connected to the topic or situation","example":"Use examples that are relevant to the IELTS question.","topic":"adjective meaning"},{"word":"reliable","pos":"adjective","definition":"consistently dependable or likely to be correct","example":"Students should use reliable sources in academic writing.","topic":"adjective meaning"},{"word":"significant","pos":"adjective","definition":"important or large enough to be noticed","example":"The policy produced a significant reduction in waste.","topic":"adjective meaning"},{"word":"sustainable","pos":"adjective","definition":"able to continue for a long time without serious harm","example":"Cities need sustainable forms of transportation.","topic":"adjective meaning"}],"modifierSets":[{"key":"set-1","label":"Set 1 - Limiting modifiers","questions":[{"prompt":"Meaning: Maya was the only person who borrowed the laptop after class. Choose the clearest sentence.","options":["Only Maya borrowed the laptop after class.","Maya only borrowed the laptop after class.","Maya borrowed only the laptop after class.","Maya borrowed the laptop only after class."],"correct":"Only Maya borrowed the laptop after class.","explanation":"Placing only before Maya shows that nobody else borrowed it.","topic":"placement of only"},{"prompt":"Meaning: Daniel submitted one report, not several reports. Choose the clearest sentence.","options":["Daniel submitted only one report on Monday.","Only Daniel submitted one report on Monday.","Daniel only submitted one report on Monday.","Daniel submitted one report only on Monday."],"correct":"Daniel submitted only one report on Monday.","explanation":"Only directly modifies one report, so the limit applies to the number of reports.","topic":"placement of only"},{"prompt":"Meaning: We met the new teacher on Friday, not on another day. Choose the clearest sentence.","options":["We met the new teacher only on Friday.","Only we met the new teacher on Friday.","We only met the new teacher on Friday.","We met only the new teacher on Friday."],"correct":"We met the new teacher only on Friday.","explanation":"Only belongs next to on Friday because the time is being limited.","topic":"modifier next to time phrase"},{"prompt":"Meaning: Lena read the introduction and no other part of the article. Choose the clearest sentence.","options":["Lena read only the introduction before lunch.","Only Lena read the introduction before lunch.","Lena only read the introduction before lunch.","Lena read the introduction only before lunch."],"correct":"Lena read only the introduction before lunch.","explanation":"Only directly modifies the introduction, the limited object.","topic":"modifier next to object"},{"prompt":"Meaning: The coach spoke to Amir and to nobody else. Choose the clearest sentence.","options":["The coach spoke only to Amir after practice.","Only the coach spoke to Amir after practice.","The coach only spoke to Amir after practice.","The coach spoke to Amir only after practice."],"correct":"The coach spoke only to Amir after practice.","explanation":"Only should sit beside to Amir because the person is being limited.","topic":"modifier next to prepositional phrase"},{"prompt":"Meaning: Sara nearly completed the entire assignment, but did not finish it. Choose the clearest sentence.","options":["Sara almost completed the entire assignment.","Almost Sara completed the entire assignment.","Sara completed almost the entire assignment.","Sara completed the entire assignment almost."],"correct":"Sara almost completed the entire assignment.","explanation":"Almost before completed means the action nearly happened but was not completed.","topic":"placement of almost"},{"prompt":"Meaning: Sara completed most of the assignment, but a small part remained. Choose the clearest sentence.","options":["Sara completed almost the entire assignment.","Sara almost completed the entire assignment.","Almost Sara completed the entire assignment.","Sara completed the entire assignment almost."],"correct":"Sara completed almost the entire assignment.","explanation":"Almost modifies the entire assignment, so it means nearly all of the work was done.","topic":"scope of almost"},{"prompt":"Meaning: I spoke with the director a moment ago. Choose the most natural sentence.","options":["I just spoke with the director outside.","Just I spoke with the director outside.","I spoke just with the director outside.","I spoke with just the director outside."],"correct":"I just spoke with the director outside.","explanation":"Just before spoke naturally means a very short time ago.","topic":"placement of just"},{"prompt":"Meaning: The museum charges children two dollars and no more. Choose the clearest sentence.","options":["The museum charges children just two dollars.","Just the museum charges children two dollars.","The museum just charges children two dollars.","The museum charges just children two dollars."],"correct":"The museum charges children just two dollars.","explanation":"Just directly modifies the amount two dollars.","topic":"modifier next to amount"},{"prompt":"Meaning: Nearly every student completed the survey. Choose the clearest sentence.","options":["Almost every student completed the survey.","Every student almost completed the survey.","Almost completed every student the survey.","Every student completed almost the survey."],"correct":"Almost every student completed the survey.","explanation":"Almost modifies every student, meaning nearly all students.","topic":"modifier next to quantity"}]},{"key":"set-2","label":"Set 2 - Opening phrases","questions":[{"prompt":"Choose the sentence in which the opening phrase clearly modifies the correct person.","options":["After reading the article, Lina understood the main argument.","After reading the article, the main argument became clear to Lina.","After reading the article, the notes seemed easier to Lina.","After reading the article, there was a clearer main argument."],"correct":"After reading the article, Lina understood the main argument.","explanation":"Lina is the person who read the article, so Lina must follow the opening phrase.","topic":"dangling introductory phrase"},{"prompt":"Choose the sentence in which the person walking into the room is unambiguous.","options":["Walking into the room, I noticed the lights were off.","Walking into the room, the lights appeared to be off.","Walking into the room, there were no lights turned on.","Walking into the room, the darkness surprised everyone."],"correct":"Walking into the room, I noticed the lights were off.","explanation":"I is the person performing the action walking.","topic":"dangling participial phrase"},{"prompt":"Choose the sentence in which the person finishing the homework is clear.","options":["Having finished her homework, Mina watched a short film.","Having finished her homework, a short film was watched by Mina.","Having finished her homework, the television seemed more relaxing.","Having finished her homework, it was time for Mina to relax."],"correct":"Having finished her homework, Mina watched a short film.","explanation":"Mina must immediately follow the phrase because she finished the homework.","topic":"logical subject after modifier"},{"prompt":"Choose the sentence in which the bicycle is clearly the thing covered in mud.","options":["Covered in mud, the bicycle needed a thorough cleaning.","Covered in mud, Tomas decided to clean the bicycle.","Covered in mud, the garage floor looked even dirtier.","Covered in mud, there was a bicycle beside the garage."],"correct":"Covered in mud, the bicycle needed a thorough cleaning.","explanation":"The noun directly after the modifier should be the thing covered in mud.","topic":"modifier attached to noun"},{"prompt":"Choose the sentence in which the person waiting for the bus is clear.","options":["While waiting for the bus, Priya reviewed her vocabulary notes.","While waiting for the bus, the vocabulary notes helped Priya review.","While waiting for the bus, the rain began to fall around Priya.","While waiting for the bus, there was time for Priya to review."],"correct":"While waiting for the bus, Priya reviewed her vocabulary notes.","explanation":"Priya is the person who was waiting, so she should follow the phrase.","topic":"dangling while-clause"},{"prompt":"Choose the sentence in which the researchers are clearly using the new method.","options":["Using the new method, the researchers collected more accurate data.","Using the new method, more accurate data were collected by the researchers.","Using the new method, the results appeared more accurate to the researchers.","Using the new method, there were more accurate data in the report."],"correct":"Using the new method, the researchers collected more accurate data.","explanation":"The researchers performed the action using, so they must follow the modifier.","topic":"agent after introductory phrase"},{"prompt":"Choose the sentence in which the person driving along the coast is clear.","options":["Driving along the coast, we saw several small fishing villages.","Driving along the coast, several small fishing villages appeared nearby.","Driving along the coast, the ocean looked especially calm to us.","Driving along the coast, there were several villages beside the road."],"correct":"Driving along the coast, we saw several small fishing villages.","explanation":"We are the people driving, so we should immediately follow the opening phrase.","topic":"dangling participial phrase"},{"prompt":"Choose the sentence in which the laptop is clearly the item bought last month.","options":["Bought last month, the laptop already needs a repair.","Bought last month, Jonah already needs to repair the laptop.","Bought last month, the repair shop examined the laptop.","Bought last month, there is already a problem with the laptop."],"correct":"Bought last month, the laptop already needs a repair.","explanation":"The noun after the phrase must be the thing that was bought.","topic":"past-participle modifier"},{"prompt":"Choose the sentence in which the person preparing for the interview is clear.","options":["To prepare for the interview, Elena practiced answering questions aloud.","To prepare for the interview, several questions were practiced aloud.","To prepare for the interview, the mirror helped Elena practice aloud.","To prepare for the interview, there were questions for Elena to practice."],"correct":"To prepare for the interview, Elena practiced answering questions aloud.","explanation":"Elena is the person who wants to prepare, so Elena must be the subject.","topic":"dangling infinitive phrase"},{"prompt":"Choose the sentence in which the person returning from school is clear.","options":["When returning from school, Leo stopped at the library.","When returning from school, the library was visited by Leo.","When returning from school, the rain started near the library.","When returning from school, there was a stop at the library."],"correct":"When returning from school, Leo stopped at the library.","explanation":"Leo is the person returning from school, so the clause must modify Leo.","topic":"logical subject after modifier"}]},{"key":"set-3","label":"Set 3 - Adverbs and phrase placement","questions":[{"prompt":"Meaning: She drove her children to school on most days, but not every day. Choose the clearest sentence.","options":["She drove her children to school almost every day.","She almost drove her children to school every day.","Almost she drove her children to school every day.","She drove almost her children to school every day."],"correct":"She drove her children to school almost every day.","explanation":"Almost modifies every day, so the sentence means on nearly all days.","topic":"frequency phrase placement"},{"prompt":"Meaning: I answered every question, and I did so carefully. Choose the most natural sentence.","options":["I answered every question carefully.","I carefully every question answered.","I answered carefully every question.","Carefully I every question answered."],"correct":"I answered every question carefully.","explanation":"The object normally follows the verb, and the manner adverb can come at the end.","topic":"verb-object-adverb order"},{"prompt":"Meaning: The class meets in the library on Tuesday afternoons. Choose the most natural sentence.","options":["The class meets in the library on Tuesday afternoons.","The class on Tuesday afternoons meets in the library.","In the library on Tuesday afternoons the class meets.","The class meets on Tuesday afternoons in the library always."],"correct":"The class meets in the library on Tuesday afternoons.","explanation":"A common neutral order is verb, place, then time.","topic":"place before time"},{"prompt":"Meaning: Noah regularly reviews vocabulary before breakfast. Choose the most natural sentence.","options":["Noah usually reviews vocabulary before breakfast.","Noah reviews usually vocabulary before breakfast.","Usually Noah vocabulary reviews before breakfast.","Noah reviews vocabulary before usually breakfast."],"correct":"Noah usually reviews vocabulary before breakfast.","explanation":"Frequency adverbs normally come before the main verb.","topic":"frequency adverb placement"},{"prompt":"Meaning: The speaker explained the result clearly to the audience. Choose the most natural sentence.","options":["The speaker explained the result clearly to the audience.","The speaker explained clearly the result to the audience.","The speaker clearly the result explained to the audience.","Clearly the speaker the result to the audience explained."],"correct":"The speaker explained the result clearly to the audience.","explanation":"Keep the verb and object together; place the manner adverb after the object.","topic":"keep verb and object together"},{"prompt":"Meaning: We completed the survey at school yesterday. Choose the most natural sentence.","options":["We completed the survey at school yesterday.","We yesterday completed at school the survey.","At school we yesterday the survey completed.","We completed yesterday the survey at school."],"correct":"We completed the survey at school yesterday.","explanation":"The neutral pattern is subject, verb, object, place, time.","topic":"object-place-time order"},{"prompt":"Meaning: The manager personally checked every application. Choose the clearest sentence.","options":["The manager personally checked every application.","Personally the manager every application checked.","The manager checked personally every application.","The manager checked every personally application."],"correct":"The manager personally checked every application.","explanation":"Personally naturally appears before the main verb when it emphasizes who performed the action.","topic":"emphasis adverb placement"},{"prompt":"Meaning: We saw a man carrying a red umbrella. Choose the sentence without a misplaced modifier.","options":["We saw a man carrying a red umbrella.","Carrying a red umbrella, we saw a man.","We carrying a red umbrella saw a man.","We saw carrying a red umbrella a man."],"correct":"We saw a man carrying a red umbrella.","explanation":"The phrase carrying a red umbrella should sit beside the noun man that it modifies.","topic":"modifier next to noun"},{"prompt":"Meaning: The report says the program reduced costs by nearly 20 percent. Choose the clearest sentence.","options":["The program reduced costs by nearly 20 percent.","The program nearly reduced costs by 20 percent.","Nearly the program reduced costs by 20 percent.","The program reduced nearly costs by 20 percent."],"correct":"The program reduced costs by nearly 20 percent.","explanation":"Nearly modifies the amount 20 percent, not the action reduced.","topic":"modifier next to amount"},{"prompt":"Meaning: I met the professor briefly after the lecture. Choose the most natural sentence.","options":["I briefly met the professor after the lecture.","I met briefly the professor after the lecture.","Briefly I the professor met after the lecture.","I met the professor after briefly the lecture."],"correct":"I briefly met the professor after the lecture.","explanation":"Briefly can naturally appear before the main verb while the object remains directly after the verb.","topic":"adverb before main verb"}]}],"pastSets":[{"key":"set-1","label":"Set 1 - Regular verbs and did","questions":[{"prompt":"Yesterday, Hana _____ a password for the new account.","options":["created","create","creates","creating"],"correct":"created","explanation":"A finished action yesterday uses the simple past form created.","topic":"regular past -ed"},{"prompt":"The technician _____ the software last night.","options":["installed","install","installs","installing"],"correct":"installed","explanation":"Installed is the regular simple past form used with last night.","topic":"regular past -ed"},{"prompt":"They did not _____ the files before lunch.","options":["download","downloaded","downloads","downloading"],"correct":"download","explanation":"After did not, use the base form of the verb.","topic":"did not + base verb"},{"prompt":"_____ you check the receipt yesterday?","options":["Did","Do","Were","Are"],"correct":"Did","explanation":"Past-tense yes/no questions use Did + subject + base verb.","topic":"questions with did"},{"prompt":"Mina _____ for three hours on Saturday.","options":["studied","studyed","study","studies"],"correct":"studied","explanation":"For verbs ending in consonant + y, change y to i and add -ed.","topic":"regular past spelling -ied"},{"prompt":"The bus _____ near the station because of traffic.","options":["stopped","stoped","stop","stops"],"correct":"stopped","explanation":"A short stressed vowel plus final consonant often doubles the consonant before -ed.","topic":"regular past spelling doubled consonant"},{"prompt":"We _____ our trip carefully last week.","options":["planned","planed","plan","planning"],"correct":"planned","explanation":"Plan doubles the final n before -ed: planned.","topic":"regular past spelling doubled consonant"},{"prompt":"Sara _____ the boxes into the storeroom yesterday.","options":["carried","carryed","carries","carry"],"correct":"carried","explanation":"Carry changes y to i before -ed.","topic":"regular past spelling -ied"},{"prompt":"He _____ in Seoul in 2024.","options":["lived","liveed","lives","living"],"correct":"lived","explanation":"For verbs already ending in e, add only -d.","topic":"regular past spelling -d"},{"prompt":"Choose the grammatically correct past-tense question.","options":["Did Leo open the window?","Did Leo opened the window?","Was Leo open the window?","Does Leo opened the window?"],"correct":"Did Leo open the window?","explanation":"Did carries the past tense, so the main verb remains in the base form open.","topic":"did + base verb"}]},{"key":"set-2","label":"Set 2 - Irregular verbs and be","questions":[{"prompt":"We _____ to the museum last Saturday.","options":["went","goed","go","gone"],"correct":"went","explanation":"The simple past of go is went.","topic":"irregular past form"},{"prompt":"I _____ breakfast at 7:00 this morning.","options":["ate","eated","eat","eaten"],"correct":"ate","explanation":"The simple past of eat is ate.","topic":"irregular past form"},{"prompt":"My aunt _____ a new laptop last month.","options":["bought","buyed","buy","brought"],"correct":"bought","explanation":"The simple past of buy is bought.","topic":"irregular past form"},{"prompt":"Nora _____ an email to the school yesterday.","options":["wrote","writed","written","write"],"correct":"wrote","explanation":"The simple past of write is wrote.","topic":"irregular past form"},{"prompt":"The students _____ tired after the long trip.","options":["were","was","be","did"],"correct":"were","explanation":"A plural subject takes were in the simple past of be.","topic":"past of be - were"},{"prompt":"The classroom _____ empty when I arrived.","options":["was","were","is","did"],"correct":"was","explanation":"The singular subject classroom takes was.","topic":"past of be - was"},{"prompt":"I did not _____ the message until this morning.","options":["see","saw","seen","seeing"],"correct":"see","explanation":"After did not, use the base form see, not the past form saw.","topic":"did not + irregular base form"},{"prompt":"Did you _____ the bus to school yesterday?","options":["take","took","taken","taking"],"correct":"take","explanation":"After Did, use the base form take.","topic":"did + irregular base form"},{"prompt":"Leo _____ his missing keys under the sofa.","options":["found","finded","find","founded"],"correct":"found","explanation":"The simple past of find is found.","topic":"irregular past form"},{"prompt":"The train _____ the station at 6:45 p.m.","options":["left","leaved","leave","leaves"],"correct":"left","explanation":"The simple past of leave is left.","topic":"irregular past form"}]},{"key":"set-3","label":"Set 3 - Mixed past-time communication","questions":[{"prompt":"Were Nina and Omar at home last night?","options":["Yes, they were.","Yes, they did.","Yes, they was.","Yes, they are."],"correct":"Yes, they were.","explanation":"A question with were is answered with were, not did.","topic":"short answers with were"},{"prompt":"Did Alex drive to work yesterday?","options":["No, he didn't.","No, he wasn't.","No, he doesn't.","No, he not drove."],"correct":"No, he didn't.","explanation":"A Did question takes a short answer with did or didn't.","topic":"short answers with did"},{"prompt":"Choose the correct sentence.","options":["She didn't hear the alarm.","She didn't heard the alarm.","She wasn't hear the alarm.","She not heard the alarm."],"correct":"She didn't hear the alarm.","explanation":"After didn't, use the base form hear.","topic":"negative with did"},{"prompt":"At 8:00 yesterday morning, we _____ breakfast together.","options":["ate","eat","eaten","eated"],"correct":"ate","explanation":"A finished action at a stated past time uses the simple past ate.","topic":"past time marker"},{"prompt":"When _____ your plane arrive yesterday?","options":["did","was","does","were"],"correct":"did","explanation":"Past questions with an action verb use did.","topic":"wh-question with did"},{"prompt":"I _____ a wallet on the bus and _____ it to the driver.","options":["found / gave","find / give","found / give","finded / gived"],"correct":"found / gave","explanation":"Both completed actions need irregular simple past forms.","topic":"sequence of irregular past actions"},{"prompt":"They _____ not busy, so they helped us move the table.","options":["were","did","was","are"],"correct":"were","explanation":"The plural subject they takes were; be does not use did in this statement.","topic":"past of be"},{"prompt":"Sam _____ for twelve hours because he was exhausted.","options":["slept","sleeped","sleep","sleeping"],"correct":"slept","explanation":"The simple past of sleep is slept.","topic":"irregular past form"},{"prompt":"Did you _____ the email that I sent last night?","options":["read","readed","reads","reading"],"correct":"read","explanation":"After Did, use the base form read; its spelling is unchanged, though pronunciation differs.","topic":"did + base form"},{"prompt":"A: Did Maya finish the report? B: _____","options":["Yes, she did.","Yes, she finished.","Yes, she was.","Yes, she does."],"correct":"Yes, she did.","explanation":"The standard short answer to a Did question is Yes, subject + did.","topic":"short answers with did"}]}],"storyline":[{"prompt":"IELTS prompt: Describe a sport you enjoy.\nWeak idea: “I like volleyball because it is fun.”\nWhich self-question would most effectively begin a storyline?","options":["When did one volleyball match teach me something about teamwork?","How many sports are played professionally in different countries?","Why do many people watch major sports events on television?","What are all the official rules used in competitive volleyball?"],"correct":"When did one volleyball match teach me something about teamwork?","explanation":"A specific event creates a time, action, and result that can grow into a personal story.","topic":"anchor event"},{"prompt":"IELTS prompt: Should high-school students have part-time jobs?\nWhich planning sequence creates the clearest storyline?","options":["Position → specific job → challenge → response → result → lesson","Definition → global history → statistics → opposite topic → summary","Opinion → three unrelated examples → new opinion → general ending","Job list → salary list → company list → repeated main opinion"],"correct":"Position → specific job → challenge → response → result → lesson","explanation":"This sequence develops one coherent example and links it back to the opinion.","topic":"storyline structure"},{"prompt":"IELTS prompt: Describe technology that improved your studies.\nWhich question gives the strongest anchor event?","options":["When did the device solve a real study problem for me?","Which technology companies are the largest in the world today?","How many devices do students generally own in my country?","Why has technology changed throughout human history?"],"correct":"When did the device solve a real study problem for me?","explanation":"An anchor event gives the answer a concrete before-and-after structure.","topic":"anchor event"},{"prompt":"IELTS prompt: Is public transportation useful?\nWhich question will create a meaningful comparison?","options":["How did one real trip differ from driving the same route?","What colors are commonly used on buses and trains?","Which cities have the oldest transportation systems worldwide?","How many transport words can I include in the answer?"],"correct":"How did one real trip differ from driving the same route?","explanation":"A real comparison produces specific evidence for the speaker's opinion.","topic":"comparison"},{"prompt":"IELTS prompt: Describe a healthy habit.\nWhich question will produce a measurable result?","options":["What changed after I followed the habit for several weeks?","Why is health generally important for people of every age?","What are many different habits that other people might try?","How do doctors study health in hospitals and universities?"],"correct":"What changed after I followed the habit for several weeks?","explanation":"A measured change gives the example a result instead of a vague claim.","topic":"result"},{"prompt":"IELTS prompt: Describe a teacher who influenced you.\nWhich question adds a useful person-role detail?","options":["What exactly did the teacher say or do when I struggled?","How many teachers work in schools throughout my city?","Which school subjects are usually considered the most difficult?","Why do all students need teachers during their education?"],"correct":"What exactly did the teacher say or do when I struggled?","explanation":"It identifies the teacher's concrete role in the story.","topic":"person and action"},{"prompt":"IELTS prompt: Describe a difficult trip.\nWhich plan creates a clear problem-action-result sequence?","options":["Missed train → checked app → changed route → arrived slightly late","Train types → ticket colors → station sizes → travel definition","Travel opinion → favorite food → school memory → general advice","Weather list → city list → transport list → repeated conclusion"],"correct":"Missed train → checked app → changed route → arrived slightly late","explanation":"The sequence has a specific obstacle, response, and outcome.","topic":"problem-action-result"},{"prompt":"IELTS prompt: Should students use phones in class?\nWhich question helps create a balanced position?","options":["Under what rule could phones be useful without becoming distracting?","Why are phones the most important inventions in all of history?","How many phone models are currently sold around the world?","Which applications do famous people use most often each day?"],"correct":"Under what rule could phones be useful without becoming distracting?","explanation":"A condition or limit makes the opinion more precise and defensible.","topic":"condition and balance"},{"prompt":"IELTS prompt: Describe a useful place in your community.\nWhich question gives the answer a clear setting?","options":["Where is it located, and what do I notice when I arrive?","How many communities contain useful buildings around the country?","Why do governments construct different types of public facilities?","What is the dictionary definition of a community place?"],"correct":"Where is it located, and what do I notice when I arrive?","explanation":"A precise location and observable detail help the listener picture the scene.","topic":"setting"},{"prompt":"IELTS prompt: Describe a skill you learned.\nWhich question creates a before-and-after change?","options":["What could I not do before, and what can I do now?","Which skills are commonly taught in schools and workplaces?","How many hours do experts need to master every possible skill?","Why do people in general enjoy learning new things?"],"correct":"What could I not do before, and what can I do now?","explanation":"The contrast shows development and gives the story a clear result.","topic":"before-and-after"},{"prompt":"IELTS prompt: Describe a study method that works for you.\nWhich question leads to a concrete action?","options":["What steps did I follow during one real study session?","Why are examinations stressful for students around the world?","How many study methods have researchers discussed in books?","Which school subjects require the greatest amount of homework?"],"correct":"What steps did I follow during one real study session?","explanation":"Specific steps explain how the method works in practice.","topic":"specific action"},{"prompt":"IELTS prompt: Describe an environmental problem in your area.\nWhich question creates a local incident?","options":["When did I personally notice the problem affecting one place?","What environmental problems exist on every continent today?","Why has the environment been discussed for many decades?","How many scientific terms can describe environmental damage?"],"correct":"When did I personally notice the problem affecting one place?","explanation":"A local incident prevents the answer from becoming a broad lecture.","topic":"local example"},{"prompt":"IELTS prompt: Should older people learn new technology?\nWhich question keeps the example relevant?","options":["How did one older relative use a device to solve a daily problem?","Which technology brands are most popular among young consumers?","How rapidly has the electronics market grown in recent years?","Why is technology an interesting subject for many researchers?"],"correct":"How did one older relative use a device to solve a daily problem?","explanation":"The question directly connects the age group, technology, and a practical benefit.","topic":"relevance"},{"prompt":"IELTS prompt: Is online learning better than classroom learning?\nWhich question adds a credible counterpoint?","options":["What did online study help me do, and what was still difficult?","Why is online learning completely perfect for every student?","How many websites can students open during one online lesson?","Which countries first introduced computers into their classrooms?"],"correct":"What did online study help me do, and what was still difficult?","explanation":"A benefit plus a limitation makes the answer balanced and believable.","topic":"balanced reflection"},{"prompt":"IELTS prompt: Describe a challenge you overcame.\nWhich order is easiest for a listener to follow?","options":["Situation → difficulty → action → turning point → outcome","Outcome → unrelated memory → situation → definition → new topic","General opinion → several causes → statistics → situation → title","Advice → outcome → background → different challenge → repetition"],"correct":"Situation → difficulty → action → turning point → outcome","explanation":"Chronological order helps the listener understand how the change happened.","topic":"chronological order"},{"prompt":"IELTS prompt: Describe a helpful friend.\nWhich question produces evidence rather than praise?","options":["What did my friend do during one difficult moment?","Why are good friends generally wonderful and important?","How many friends should an average person try to have?","Which personality words can describe friendly people?"],"correct":"What did my friend do during one difficult moment?","explanation":"An observable action proves helpfulness more effectively than general adjectives.","topic":"evidence"},{"prompt":"IELTS prompt: Describe an important purchase.\nWhich question avoids a generic reason?","options":["What exact problem did the purchase solve in my routine?","Why do people often enjoy buying useful new things?","How much money is spent on shopping around the world?","Which stores sell the greatest number of popular products?"],"correct":"What exact problem did the purchase solve in my routine?","explanation":"A specific problem gives the purchase personal meaning.","topic":"specific reason"},{"prompt":"IELTS prompt: Describe a course you enjoyed.\nWhich closing question creates reflection?","options":["How did the course change what I did afterward?","How many courses are offered by different schools each year?","Which classroom contained the largest number of students?","Why do course titles often contain several different words?"],"correct":"How did the course change what I did afterward?","explanation":"Reflection explains why the experience still matters.","topic":"reflection"}],"detailSets":[{"key":"passage-1","label":"Passage 1 - Part-time job","contextTitle":"Should high-school students have part-time jobs?","context":"Last spring, I decided that high-school students can benefit from part-time jobs if their hours are limited. My aunt introduced me to the owner of a small bakery near the central bus station. I worked there every Saturday from 8:00 a.m. until 1:00 p.m. My main tasks were arranging bread, serving customers, and cleaning the counter. At first, I was nervous because I had never spoken to so many strangers. However, the owner showed me how to greet customers and solve simple problems. After several weeks, I became more confident and learned to plan my homework before the weekend. I also saved part of my pay for a new laptop. The job did not hurt my grades because I worked only five hours a week and stopped during exam periods. For me, a carefully chosen part-time job teaches responsibility, communication, and time management in a practical way.","questions":[{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"Last spring, I decided that high-school students can benefit from part-time jobs if their hours are limited.","options":["What is my position, and what condition limits it?","Where do most teenagers usually spend their free time?","How many job types are available to students in general?","Why do employers advertise jobs during the spring season?"],"correct":"What is my position, and what condition limits it?","topic":"position and condition","explanation":"The sentence states the opinion and adds the important condition that work hours must be limited."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"My aunt introduced me to the owner of a small bakery near the central bus station.","options":["Who helped me find the job, and where was it?","What products do bakeries usually sell to their customers?","When do bus stations become busiest during the day?","Why do family members often discuss work with teenagers?"],"correct":"Who helped me find the job, and where was it?","topic":"who and where","explanation":"The sentence identifies the helper, the employer, and a precise location."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I worked there every Saturday from 8:00 a.m. until 1:00 p.m.","options":["When did I work, and how long was each shift?","What time do most bakeries open in different cities?","Why do students sometimes prefer weekend activities?","Who usually decides the weekly schedule for employees?"],"correct":"When did I work, and how long was each shift?","topic":"time and duration","explanation":"The sentence gives the day, start time, end time, and therefore the length of the shift."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"My main tasks were arranging bread, serving customers, and cleaning the counter.","options":["What specific duties did I perform during the shift?","How many employees normally work inside a small bakery?","Why do customers choose one bakery instead of another?","When are counters replaced or repaired in food shops?"],"correct":"What specific duties did I perform during the shift?","topic":"specific actions","explanation":"The sentence lists concrete actions rather than saying only that the speaker worked."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"At first, I was nervous because I had never spoken to so many strangers.","options":["What challenge did I face at the beginning, and why?","Where did the customers travel after leaving the bakery?","How often do strangers buy bread at a bus station?","Who was responsible for opening the shop each morning?"],"correct":"What challenge did I face at the beginning, and why?","topic":"initial challenge","explanation":"The sentence introduces an emotion and explains its cause."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"However, the owner showed me how to greet customers and solve simple problems.","options":["Who helped me, and what practical guidance did I receive?","Why do bakery owners choose different kinds of bread?","When did the shop begin selling food near the station?","How many customer problems occur in a normal workday?"],"correct":"Who helped me, and what practical guidance did I receive?","topic":"support and response","explanation":"The sentence shows how another person helped the speaker respond to the challenge."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"After several weeks, I became more confident and learned to plan my homework before the weekend.","options":["How did I change after gaining some experience?","What homework subjects are assigned most often at school?","Where do confident employees usually work in the future?","Why are weekends popular times for social activities?"],"correct":"How did I change after gaining some experience?","topic":"development and result","explanation":"The sentence gives a time transition and two clear improvements."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I also saved part of my pay for a new laptop.","options":["What additional concrete benefit did I gain from the job?","How many laptop brands are sold in electronics stores?","Why do bakeries pay different wages to their employees?","When do students usually replace old computer equipment?"],"correct":"What additional concrete benefit did I gain from the job?","topic":"additional benefit","explanation":"Saving for a named purchase is a specific secondary benefit."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"The job did not hurt my grades because I worked only five hours a week and stopped during exam periods.","options":["Why did the job not interfere with my school performance?","What grades do students need to enter a good university?","Who creates exam schedules for high-school students?","Where do teenagers normally study before final examinations?"],"correct":"Why did the job not interfere with my school performance?","topic":"cause and condition","explanation":"The sentence explains the result using limited hours and an exam-period rule."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"For me, a carefully chosen part-time job teaches responsibility, communication, and time management in a practical way.","options":["What broader lesson does my example support?","What other businesses can offer jobs to high-school students?","How do bakeries organize bread before customers arrive?","When should students begin searching for full-time careers?"],"correct":"What broader lesson does my example support?","topic":"reflection and relevance","explanation":"The final sentence connects the personal story back to the IELTS opinion."}]},{"key":"passage-2","label":"Passage 2 - Healthy routine","contextTitle":"What is a good way for teenagers to stay healthy?","context":"A simple habit that improved my health was taking a thirty-minute walk after dinner. I began last September after noticing that I spent nearly the whole evening at my desk. My younger brother usually joined me because he also wanted a break from studying. We walked around the riverside park near our apartment at a steady pace. On rainy days, we used the indoor track at the community sports center. At first, I often wanted to skip the walk when I felt tired. To stay consistent, we agreed to leave home immediately after washing the dinner dishes. After two months, I fell asleep more easily and felt more alert in morning classes. The routine also gave us time to discuss school and family plans. This experience showed me that a simple activity is effective when it fits naturally into daily life.","questions":[{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"A simple habit that improved my health was taking a thirty-minute walk after dinner.","options":["What habit am I recommending, and how long does it take?","Why do doctors discuss exercise with teenage patients?","Where are the largest public parks in my city located?","Who usually prepares dinner for families on weekdays?"],"correct":"What habit am I recommending, and how long does it take?","topic":"main idea and duration","explanation":"The sentence names the habit and gives a precise duration."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I began last September after noticing that I spent nearly the whole evening at my desk.","options":["When did I start, and what problem made me change?","How many hours do students study during the school year?","Where do families place desks inside small apartments?","Why is September an important month in many countries?"],"correct":"When did I start, and what problem made me change?","topic":"time and motivation","explanation":"The sentence provides both a starting time and the problem that motivated the habit."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"My younger brother usually joined me because he also wanted a break from studying.","options":["Who joined me, and why did that person participate?","What subjects do younger students find most difficult?","When do brothers and sisters usually finish their homework?","Where do families spend time together on public holidays?"],"correct":"Who joined me, and why did that person participate?","topic":"person and reason","explanation":"The sentence gives a companion and that person's motivation."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"We walked around the riverside park near our apartment at a steady pace.","options":["Where did we walk, and how intense was the activity?","Why do cities build paths beside rivers and lakes?","Who maintains the trees and benches in public parks?","When are apartment buildings busiest during the week?"],"correct":"Where did we walk, and how intense was the activity?","topic":"setting and manner","explanation":"The sentence gives a specific location and describes the pace."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"On rainy days, we used the indoor track at the community sports center.","options":["How did we adapt the routine when the weather changed?","What sports are usually played at community centers?","Why do some people prefer rain to hot weather?","Who checks the weather forecast before school?"],"correct":"How did we adapt the routine when the weather changed?","topic":"adaptation","explanation":"The sentence shows a practical alternative that keeps the routine consistent."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"At first, I often wanted to skip the walk when I felt tired.","options":["What obstacle made the new habit difficult at first?","How far can a healthy teenager walk without stopping?","Where do people rest after completing intense exercise?","Why do schools schedule physical education classes?"],"correct":"What obstacle made the new habit difficult at first?","topic":"initial obstacle","explanation":"The sentence identifies the temptation that threatened the routine."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"To stay consistent, we agreed to leave home immediately after washing the dinner dishes.","options":["What rule helped us follow the routine consistently?","Who usually washes dishes in families with children?","When do community sports centers close each evening?","Why are household routines different across cultures?"],"correct":"What rule helped us follow the routine consistently?","topic":"specific strategy","explanation":"The sentence gives a concrete trigger that made the habit easier to repeat."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"After two months, I fell asleep more easily and felt more alert in morning classes.","options":["What changes did I notice after following the habit?","How many classes do teenagers attend on a normal day?","Where do students sleep during long school holidays?","Why do some people prefer morning exercise to evening exercise?"],"correct":"What changes did I notice after following the habit?","topic":"measurable result","explanation":"The sentence reports two observable outcomes after a clear period of time."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"The routine also gave us time to discuss school and family plans.","options":["What additional social benefit came from the routine?","How are school plans announced to students each term?","Who organizes major events for families in the community?","When do teenagers usually make plans with their friends?"],"correct":"What additional social benefit came from the routine?","topic":"additional benefit","explanation":"The sentence adds a relationship benefit beyond physical health."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"This experience showed me that a simple activity is effective when it fits naturally into daily life.","options":["What general lesson can I draw from this example?","What equipment is required for professional walking competitions?","Where are health programs advertised to local residents?","Why do parks contain different types of walking surfaces?"],"correct":"What general lesson can I draw from this example?","topic":"reflection and relevance","explanation":"The conclusion explains why the example supports a broader recommendation."}]},{"key":"passage-3","label":"Passage 3 - Study technology","contextTitle":"What technology has improved your studies the most?","context":"The technology that improved my studies most was a small tablet with a digital note application. I began using it at the start of this school year because carrying six notebooks was uncomfortable. During class, I wrote short notes with a stylus and placed diagrams beside the relevant explanation. At home, I reorganized the notes into topic folders and added two or three practice questions. Before a biology test in November, I created a folder specifically for cell division. I reviewed that folder for ten minutes on the bus each morning. At first, I copied too much information and my pages became difficult to scan. I solved that problem by limiting each page to one main idea and three supporting points. My test preparation became faster because I could search key words and find old examples in seconds. The tablet did not replace effort, but it made my materials easier to organize and use anywhere.","questions":[{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"The technology that improved my studies most was a small tablet with a digital note application.","options":["What exact technology am I discussing?","Why do technology companies release new products each year?","Where can students compare prices for electronic devices?","Who invented the earliest forms of digital communication?"],"correct":"What exact technology am I discussing?","topic":"specific main idea","explanation":"The sentence names both the device and the application that matters."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I began using it at the start of this school year because carrying six notebooks was uncomfortable.","options":["When did I start using it, and what problem did it solve?","How many notebooks do schools sell during the academic year?","Where do students store heavy bags during sports lessons?","Why do some people prefer handwriting to typing?"],"correct":"When did I start using it, and what problem did it solve?","topic":"time and reason","explanation":"The sentence gives a start point and a practical motivation."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"During class, I wrote short notes with a stylus and placed diagrams beside the relevant explanation.","options":["How did I use the device during lessons?","Who decides which diagrams appear in science textbooks?","When do students replace a damaged digital stylus?","Why are classroom explanations sometimes difficult to understand?"],"correct":"How did I use the device during lessons?","topic":"specific method","explanation":"The sentence describes two concrete actions during class."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"At home, I reorganized the notes into topic folders and added two or three practice questions.","options":["What follow-up steps did I take after class?","Where do families usually keep computer chargers at home?","Why do teachers assign questions at the end of a chapter?","Who creates the folder names in commercial note applications?"],"correct":"What follow-up steps did I take after class?","topic":"follow-up actions","explanation":"The sentence explains how raw notes became structured study material."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"Before a biology test in November, I created a folder specifically for cell division.","options":["What specific test situation can I use as an example?","How many biology topics are included in the school curriculum?","Where do scientists observe cells in professional laboratories?","Why is November a busy month for many schools?"],"correct":"What specific test situation can I use as an example?","topic":"anchor event","explanation":"The sentence introduces a named subject, month, and topic for a concrete example."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I reviewed that folder for ten minutes on the bus each morning.","options":["When, where, and for how long did I review?","Who drove the bus during the speaker's morning journey?","Why do some students dislike traveling before school?","What types of folders are available in different applications?"],"correct":"When, where, and for how long did I review?","topic":"time place duration","explanation":"The sentence combines three precise details that make the routine easy to picture."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"At first, I copied too much information and my pages became difficult to scan.","options":["What problem appeared when I first used the method?","How many pages can a tablet store in its memory?","Where do students copy information during examinations?","Why do applications use different fonts and page colors?"],"correct":"What problem appeared when I first used the method?","topic":"initial problem","explanation":"The sentence creates a realistic weakness rather than claiming the tool worked perfectly."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"I solved that problem by limiting each page to one main idea and three supporting points.","options":["How did I respond to the organization problem?","Who taught the class how to write supporting paragraphs?","When do digital pages automatically save their content?","Why do students choose one subject instead of another?"],"correct":"How did I respond to the organization problem?","topic":"response and method","explanation":"The sentence gives a clear rule that solved the earlier problem."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"My test preparation became faster because I could search key words and find old examples in seconds.","options":["What result improved, and what feature caused it?","How many key words appear in an average biology textbook?","Where do old school examples get stored after graduation?","Who creates the search functions used by software companies?"],"correct":"What result improved, and what feature caused it?","topic":"result and cause","explanation":"The sentence connects a faster process to a specific digital feature."},{"prompt":"Which planning question most directly produces the highlighted sentence?","target":"The tablet did not replace effort, but it made my materials easier to organize and use anywhere.","options":["What balanced conclusion does the example support?","What other devices could completely replace studying in the future?","Why do students enjoy buying attractive electronic accessories?","Where are tablets manufactured before they reach consumers?"],"correct":"What balanced conclusion does the example support?","topic":"balanced reflection","explanation":"The conclusion states the benefit while rejecting the exaggerated idea that technology removes effort."}]}],"improvementAdvice":{"noun meaning":"Review the difference between abstract IELTS nouns and learn each word in one complete sentence.","verb meaning":"Practice using IELTS verbs with the correct subject and object rather than memorizing isolated translations.","adjective meaning":"Notice which nouns each adjective commonly describes and whether the meaning is positive, negative, or neutral.","placement of only":"Put only immediately before the word or phrase it limits.","modifier next to time phrase":"Place the limiting modifier directly beside the time expression it changes.","modifier next to object":"Keep a limiting word beside the object it limits.","modifier next to prepositional phrase":"Place only or just immediately before the prepositional phrase being limited.","placement of almost":"Decide whether almost modifies the action or the amount, then place it directly before that element.","scope of almost":"Check whether you mean that an action nearly happened or that nearly all of something was completed.","placement of just":"Use just before the main verb for recent time and before a number or noun phrase for limitation.","modifier next to amount":"Put nearly, almost, or just immediately before the amount.","modifier next to quantity":"Place the modifier directly before words such as every, all, or ten.","dangling introductory phrase":"The noun immediately after an opening phrase must be the person or thing performing that action.","dangling participial phrase":"After an -ing opening phrase, name the actual doer immediately.","logical subject after modifier":"Check who performed the opening action and make that person the main-clause subject.","modifier attached to noun":"Keep descriptive phrases directly beside the noun they describe.","dangling while-clause":"Make the subject after while + -ing the person performing both actions.","agent after introductory phrase":"Use an active subject after the opening phrase so the actor is clear.","past-participle modifier":"A past-participle phrase should be followed by the noun receiving that description.","dangling infinitive phrase":"The subject after to + verb must be the person intending to perform that action.","frequency phrase placement":"Place expressions such as almost every day at the end when they describe frequency.","verb-object-adverb order":"Keep the verb and object together, then place a manner adverb after them when natural.","place before time":"Use place before time in neutral sentence order.","frequency adverb placement":"Put usually, often, and rarely before a main verb but after be.","keep verb and object together":"Do not insert a long modifier between a transitive verb and its object.","object-place-time order":"A useful default order is subject + verb + object + place + time.","emphasis adverb placement":"Place emphasis adverbs close to the verb or subject they emphasize.","modifier next to noun":"Move the descriptive phrase directly next to its noun.","adverb before main verb":"Short adverbs can often appear before the main verb while the object remains after it.","regular past -ed":"Review how regular verbs form the simple past with -ed.","did not + base verb":"After did not or didn't, always return the main verb to its base form.","questions with did":"Build past questions with Did + subject + base verb.","regular past spelling -ied":"For consonant + y verbs, change y to i and add -ed.","regular past spelling doubled consonant":"Review when short verbs double the final consonant before -ed.","regular past spelling -d":"For verbs ending in e, add only -d.","did + base verb":"Did already marks the past, so use the base form after it.","irregular past form":"Study irregular verbs in base/past pairs and practice them in short sentences.","past of be - were":"Use were with you, we, they, and plural subjects.","past of be - was":"Use was with I, he, she, it, and singular subjects.","did not + irregular base form":"Even irregular verbs return to the base form after didn't.","did + irregular base form":"Use the base form, not the irregular past form, after Did.","short answers with were":"Match was/were questions with was/were short answers.","short answers with did":"Answer Did questions with did or didn't.","negative with did":"Use didn't + base verb for negative past actions.","past time marker":"Use the simple past for completed actions linked to a finished past time.","wh-question with did":"Use question word + did + subject + base verb.","sequence of irregular past actions":"Use the correct irregular past form for every completed action in a sequence.","past of be":"Do not add did to simple past statements with was or were.","anchor event":"Choose one real event with a clear time and place instead of discussing the whole topic generally.","storyline structure":"Build one chain: position, event, challenge, response, result, and lesson.","comparison":"Use a concrete comparison that directly supports your opinion.","result":"Include an observable change, outcome, or measurement.","person and action":"Name who was involved and what that person actually did.","problem-action-result":"State the obstacle, the action taken, and the result in that order.","condition and balance":"Add a realistic condition or limitation to avoid an extreme answer.","setting":"Give a precise time or place that helps the listener picture the event.","before-and-after":"Show what changed from before the experience to after it.","specific action":"Describe the steps you personally took, not only the general idea.","local example":"Use one nearby incident rather than giving a broad global lecture.","relevance":"Make every detail directly support the IELTS prompt.","balanced reflection":"State the benefit without claiming that the method removes all effort.","chronological order":"Arrange events in a clear time order.","evidence":"Prove a description with an observable action or result.","specific reason":"Replace generic reasons such as fun or useful with the exact problem solved.","reflection":"End by explaining why the experience still matters or what it changed.","position and condition":"State a clear opinion and add the condition under which it is true.","who and where":"Identify the person involved and a precise location.","time and duration":"Use an exact day, time, frequency, or length.","specific actions":"List concrete actions rather than broad activity labels.","initial challenge":"Include what was difficult at the beginning and why.","support and response":"Explain who helped and how the problem was handled.","development and result":"Show a change that happened after time or practice.","additional benefit":"Add a secondary benefit that is concrete and relevant.","cause and condition":"Explain why the result occurred and what rule made it possible.","reflection and relevance":"Connect the personal example back to the main IELTS idea.","main idea and duration":"Name the exact habit and add a realistic duration.","time and motivation":"Give the starting point and the reason for beginning.","person and reason":"State who joined or helped and why.","setting and manner":"Describe where the action happened and how it was performed.","adaptation":"Show how the plan changed when a practical problem appeared.","initial obstacle":"Name the behavior or feeling that made consistency difficult.","specific strategy":"Give one repeatable rule or trigger that solved the problem.","measurable result":"Include a result that could be observed after a stated period.","additional social benefit":"Add a meaningful benefit beyond the main claim.","specific main idea":"Name the exact object, tool, person, or activity instead of a broad category.","specific method":"Explain precisely how the tool or method was used.","follow-up actions":"Describe what you did after the first step to improve the result.","time place duration":"Combine when, where, and how long to make the example concrete.","initial problem":"Include a realistic weakness or mistake at the beginning.","response and method":"Explain the exact rule or action used to solve the problem.","result and cause":"Connect the improvement to the feature or action that caused it."}};
+    const exerciseStates = new Map();
+    const vocabOptionHistory = new Map();
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+    function esc(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function sample(array, count) { return shuffle(array).slice(0, Math.min(count, array.length)); }
+
+    function formatTime(totalSeconds) {
+      if (totalSeconds === 0) return "0:00";
+      const min = Math.floor(totalSeconds / 60);
+      const sec = totalSeconds % 60;
+      return `${min}:${String(sec).padStart(2, "0")}`;
+    }
+
+    function setThemeButton() {
+      const theme = document.documentElement.dataset.theme;
+      const button = $("#themeToggle");
+      button.textContent = theme === "dark" ? "☀ Light" : "☾ Dark";
+      button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    }
+
+    function setupTheme() {
+      setThemeButton();
+      $("#themeToggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("grammar-ielts-theme", next); } catch (error) {}
+        setThemeButton();
+      });
+    }
+
+    const exercises = [
+      {
+        sectionId: "vocabulary",
+        id: "ielts-vocabulary",
+        title: "30 Common IELTS Nouns, Verbs, and Adjectives",
+        instructions: "Choose the meaning that best matches each word. Distractors are regenerated every time a word appears.",
+        description: "The bank contains 10 nouns, 10 verbs, and 10 adjectives. Questions and answer choices are shuffled on every attempt.",
+        defaultCount: 10,
+        sourceOptions: [{ key: "all", label: "All 30 words" }],
+        getQuestions: () => DATA.vocab.map(item => ({
+          prompt: `Which meaning best matches the word “${item.word}”?`,
+          word: item.word,
+          pos: item.pos,
+          correct: item.definition,
+          topic: item.topic,
+          explanation: `${item.word} (${item.pos}): ${item.definition}\nExample: ${item.example}`,
+          dynamicVocab: true
+        }))
+      },
+      {
+        sectionId: "grammar",
+        id: "misplaced-modifiers",
+        title: "Word Order With Misplaced Modifiers",
+        instructions: "Choose the sentence whose modifier clearly describes the intended word, phrase, person, time, or amount.",
+        description: "Three 10-question sets cover limiting modifiers, dangling opening phrases, and natural adverb/phrase placement.",
+        defaultCount: 10,
+        sourceOptions: [{ key: "mixed", label: "Mixed - all 3 sets" }, ...DATA.modifierSets.map(s => ({ key: s.key, label: s.label }))],
+        getQuestions: key => key === "mixed" ? DATA.modifierSets.flatMap(s => s.questions) : DATA.modifierSets.find(s => s.key === key).questions
+      },
+      {
+        sectionId: "grammar",
+        id: "past-tense",
+        title: "Past Tense: Chapter 2 Digital Practice",
+        instructions: "Choose the form that correctly expresses a finished past action, past form of be, negative, question, or short answer.",
+        description: "Three 10-question sets adapt the attached material: regular verbs, irregular verbs, was/were, and questions or negatives with did.",
+        defaultCount: 10,
+        sourceOptions: [{ key: "mixed", label: "Mixed - all 3 sets" }, ...DATA.pastSets.map(s => ({ key: s.key, label: s.label }))],
+        getQuestions: key => key === "mixed" ? DATA.pastSets.flatMap(s => s.questions) : DATA.pastSets.find(s => s.key === key).questions
+      },
+      {
+        sectionId: "ielts",
+        id: "storyline-thinking",
+        title: "Thinking Questions That Create a Storyline",
+        instructions: "Choose the self-question or planning sequence that turns a basic opinion into a focused IELTS story.",
+        description: "Practice choosing an anchor event, setting, obstacle, action, result, comparison, condition, and reflection.",
+        defaultCount: 10,
+        sourceOptions: [{ key: "all", label: "All storyline questions" }],
+        getQuestions: () => DATA.storyline
+      },
+      {
+        sectionId: "ielts",
+        id: "sentence-detail-questions",
+        title: "Creating Detailed Questions From Each Sentence",
+        instructions: "Read the paragraph and highlighted sentence. Choose the planning question that most directly generated that detail.",
+        description: "Use the part-time-job example or two additional IELTS-style paragraphs. Select one passage or mix all 30 sentence questions.",
+        defaultCount: 10,
+        sourceOptions: [{ key: "mixed", label: "Mixed - all 3 passages" }, ...DATA.detailSets.map(s => ({ key: s.key, label: s.label }))],
+        getQuestions: key => {
+          if (key === "mixed") return DATA.detailSets.flatMap(set => set.questions.map(q => ({ ...q, context: set.context, contextTitle: set.contextTitle })));
+          const set = DATA.detailSets.find(s => s.key === key);
+          return set.questions.map(q => ({ ...q, context: set.context, contextTitle: set.contextTitle }));
+        }
+      }
+    ];
+
+    const sections = [
+      { id: "vocabulary", title: "Vocabulary", kicker: "Section 1", explanation: "Build a working IELTS vocabulary by connecting common academic words to precise meanings and examples." },
+      { id: "grammar", title: "Grammar", kicker: "Section 2", explanation: "Repair modifier placement and review the simple past system from statements to negatives, questions, and short answers." },
+      { id: "ielts", title: "IELTS", kicker: "Section 3", explanation: "Use self-questions to create a coherent storyline, then identify the detailed question behind every sentence in an IELTS-style paragraph." }
+    ];
+
+    function renderTOC() {
+      const links = [];
+      sections.forEach(section => {
+        links.push(`<a class="toc-link" href="#${section.id}"><span>${esc(section.title)}</span><small>Section</small></a>`);
+        exercises.filter(ex => ex.sectionId === section.id).forEach(ex => {
+          links.push(`<a class="toc-link" href="#${ex.id}"><span>${esc(ex.title)}</span><small>Exercise</small></a>`);
+        });
+      });
+      $("#tocGrid").innerHTML = links.join("");
+    }
+
+    function sectionMarkup(section) {
+      return `<section class="section-card" id="${esc(section.id)}">
+        <div class="section-header">
+          <div><div class="section-kicker">${esc(section.kicker)}</div><h2>${esc(section.title)}</h2></div>
+          <button class="collapse-btn" type="button" data-collapse="body-${esc(section.id)}" aria-expanded="true">Collapse</button>
+        </div>
+        <div class="section-body" id="body-${esc(section.id)}">
+          <div class="section-explanation">${esc(section.explanation)}</div>
+          <div class="exercise-list" id="list-${esc(section.id)}"></div>
+        </div>
+      </section>`;
+    }
+
+    function exerciseMarkup(exercise) {
+      const sourceSelect = exercise.sourceOptions.length > 1 ? `
+        <div class="menu-field">
+          <label for="source-${exercise.id}">Question set</label>
+          <select id="source-${exercise.id}" data-source>
+            ${exercise.sourceOptions.map(opt => `<option value="${esc(opt.key)}">${esc(opt.label)}</option>`).join("")}
+          </select>
+        </div>` : "";
+      return `<article class="exercise-card" id="${esc(exercise.id)}">
+        <div class="exercise-head">
+          <div class="exercise-head-copy"><h3>${esc(exercise.title)}</h3><p>${esc(exercise.instructions)}</p></div>
+          <div class="score-block" data-score>Ready</div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" data-progress></div></div>
+        <div class="exercise-menu" data-menu>
+          <p class="menu-intro">${esc(exercise.description)}</p>
+          <div class="menu-grid">
+            ${sourceSelect}
+            <div class="menu-field">
+              <label for="count-${exercise.id}">Number of questions</label>
+              <input id="count-${exercise.id}" data-count type="number" min="1" value="${exercise.defaultCount}" inputmode="numeric">
+            </div>
+            <div class="menu-field">
+              <label for="timer-${exercise.id}">Timer</label>
+              <select id="timer-${exercise.id}" data-timer>
+                <option value="0" selected>Untimed</option>
+                <option value="60">1 minute</option>
+                <option value="180">3 minutes</option>
+                <option value="300">5 minutes</option>
+                <option value="600">10 minutes</option>
+                <option value="900">15 minutes</option>
+              </select>
+            </div>
+          </div>
+          <div class="menu-note">Default: 10 questions, untimed. Feedback is immediate. The summary includes missed topics and specific improvement advice.</div>
+          <div class="button-row"><button class="btn btn-primary" type="button" data-start>Start exercise</button></div>
+        </div>
+        <div class="question-stage" data-live hidden>
+          <div class="live-toolbar">
+            <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1</span></div>
+            <div class="mini-timer" data-live-timer>∞ Untimed</div>
+            <button class="btn btn-danger" type="button" data-end>End exercise early</button>
+          </div>
+          <div data-context></div>
+          <div class="question-meta" data-meta></div>
+          <div class="question-text" data-question></div>
+          <div data-answer-area></div>
+          <div class="button-row"><button class="btn btn-success" type="button" data-next hidden>Next question</button></div>
+          <div class="feedback" data-feedback hidden aria-live="polite"></div>
+        </div>
+        <div class="question-stage" data-finish hidden></div>
+      </article>`;
+    }
+
+    function buildVocabOptions(question) {
+      const samePos = DATA.vocab.filter(item => item.pos === question.pos && item.word !== question.word).map(item => item.definition);
+      let distractors = [];
+      let signature = "";
+      const previous = vocabOptionHistory.get(question.word);
+      for (let attempt = 0; attempt < 20; attempt++) {
+        distractors = sample(samePos, 3);
+        signature = [...distractors].sort().join("||");
+        if (signature !== previous) break;
+      }
+      vocabOptionHistory.set(question.word, signature);
+      return shuffle([question.correct, ...distractors]);
+    }
+
+    function createExercise(exercise, mount) {
+      mount.insertAdjacentHTML("beforeend", exerciseMarkup(exercise));
+      const card = document.getElementById(exercise.id);
+      const menu = $("[data-menu]", card);
+      const live = $("[data-live]", card);
+      const finish = $("[data-finish]", card);
+      const sourceSelect = $("[data-source]", card);
+      const countInput = $("[data-count]", card);
+      const timerSelect = $("[data-timer]", card);
+      const startBtn = $("[data-start]", card);
+      const endBtn = $("[data-end]", card);
+      const scoreBlock = $("[data-score]", card);
+      const progressFill = $("[data-progress]", card);
+      const liveScore = $("[data-live-score]", card);
+      const liveProgress = $("[data-live-progress]", card);
+      const liveTimer = $("[data-live-timer]", card);
+      const contextEl = $("[data-context]", card);
+      const metaEl = $("[data-meta]", card);
+      const questionEl = $("[data-question]", card);
+      const answerArea = $("[data-answer-area]", card);
+      const nextBtn = $("[data-next]", card);
+      const feedbackEl = $("[data-feedback]", card);
+
+      const state = {
+        exercise, sourceKey: sourceSelect ? sourceSelect.value : "all", selected: [], index: 0,
+        score: 0, responses: [], answered: false, interval: null, seconds: 0, totalSeconds: 0,
+        startedAt: 0, endReason: "", reviewIndex: 0, active: false
+      };
+      exerciseStates.set(exercise.id, state);
+
+      function sourceQuestions() {
+        const key = sourceSelect ? sourceSelect.value : "all";
+        return exercise.getQuestions(key);
+      }
+
+      function syncCountLimit() {
+        const max = sourceQuestions().length;
+        countInput.max = String(max);
+        let value = Number.parseInt(countInput.value, 10);
+        if (!Number.isFinite(value) || value < 1) value = Math.min(exercise.defaultCount, max);
+        if (value > max) value = max;
+        countInput.value = String(value);
+      }
+
+      function stopTimer() {
+        if (state.interval) clearInterval(state.interval);
+        state.interval = null;
+      }
+
+      function elapsedSeconds() {
+        if (!state.startedAt) return 0;
+        return Math.max(0, Math.round((Date.now() - state.startedAt) / 1000));
+      }
+
+      function updateHeader() {
+        scoreBlock.textContent = state.active ? `Score: ${state.score} / ${state.responses.length}` : "Ready";
+        liveScore.textContent = `Score: ${state.score} / ${state.responses.length}`;
+        liveProgress.textContent = `Question ${Math.min(state.index + 1, state.selected.length)} of ${state.selected.length}`;
+        progressFill.style.width = state.selected.length ? `${(state.responses.length / state.selected.length) * 100}%` : "0%";
+      }
+
+      function updateTimer() {
+        if (state.totalSeconds === 0) {
+          liveTimer.textContent = "∞ Untimed";
+          liveTimer.classList.remove("warning");
+          return;
+        }
+        liveTimer.textContent = formatTime(Math.max(0, state.seconds));
+        liveTimer.classList.toggle("warning", state.seconds <= 30);
+      }
+
+      function prepareQuestion(raw) {
+        const question = { ...raw };
+        question.options = raw.dynamicVocab ? buildVocabOptions(raw) : shuffle(raw.options);
+        return question;
+      }
+
+      function startExercise() {
+        syncCountLimit();
+        stopTimer();
+        const count = Number.parseInt(countInput.value, 10);
+        state.sourceKey = sourceSelect ? sourceSelect.value : "all";
+        state.selected = sample(sourceQuestions(), count).map(prepareQuestion);
+        state.index = 0;
+        state.score = 0;
+        state.responses = [];
+        state.answered = false;
+        state.totalSeconds = Number.parseInt(timerSelect.value, 10) || 0;
+        state.seconds = state.totalSeconds;
+        state.startedAt = Date.now();
+        state.endReason = "";
+        state.reviewIndex = 0;
+        state.active = true;
+        menu.hidden = true;
+        finish.hidden = true;
+        live.hidden = false;
+        updateHeader();
+        updateTimer();
+        renderQuestion();
+        if (state.totalSeconds > 0) {
+          state.interval = setInterval(() => {
+            state.seconds -= 1;
+            updateTimer();
+            if (state.seconds <= 0) finishExercise("Time expired");
+          }, 1000);
+        }
+      }
+
+      function renderQuestion() {
+        state.answered = false;
+        feedbackEl.hidden = true;
+        feedbackEl.className = "feedback";
+        nextBtn.hidden = true;
+        const q = state.selected[state.index];
+        metaEl.textContent = `Question ${state.index + 1} of ${state.selected.length}`;
+        questionEl.textContent = q.prompt;
+        contextEl.innerHTML = "";
+        if (q.word) {
+          contextEl.innerHTML = `<div class="word-card"><span>${esc(q.pos)}</span><strong>${esc(q.word)}</strong></div>`;
+        } else if (q.context) {
+          contextEl.innerHTML = `<div class="question-context"><strong>${esc(q.contextTitle || "IELTS-style paragraph")}</strong>${esc(q.context)}</div>${q.target ? `<div class="target-sentence">Highlighted sentence: ${esc(q.target)}</div>` : ""}`;
+        } else if (q.target) {
+          contextEl.innerHTML = `<div class="target-sentence">Highlighted sentence: ${esc(q.target)}</div>`;
+        }
+        const list = document.createElement("div");
+        list.className = "option-list";
+        q.options.forEach(option => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "option-btn";
+          button.textContent = option;
+          button.addEventListener("click", () => grade(option, button, list));
+          list.appendChild(button);
+        });
+        answerArea.innerHTML = "";
+        answerArea.appendChild(list);
+        updateHeader();
+      }
+
+      function grade(option, selectedButton, list) {
+        if (state.answered || !state.active) return;
+        state.answered = true;
+        const q = state.selected[state.index];
+        const correct = option === q.correct;
+        $$(".option-btn", list).forEach(button => {
+          button.disabled = true;
+          if (button.textContent === q.correct) button.classList.add("correct-choice");
+        });
+        if (!correct) selectedButton.classList.add("wrong-choice");
+        if (correct) state.score += 1;
+        state.responses.push({ question: q, userAnswer: option, correct, elapsed: elapsedSeconds() });
+        feedbackEl.hidden = false;
+        feedbackEl.className = `feedback ${correct ? "correct" : "incorrect"}`;
+        feedbackEl.innerHTML = `${correct ? "✓ Correct" : `✕ Incorrect<br><strong>Correct answer:</strong> ${esc(q.correct)}`}<br>${esc(q.explanation).replaceAll("\n", "<br>")}`;
+        nextBtn.hidden = false;
+        nextBtn.textContent = state.index === state.selected.length - 1 ? "Finish exercise" : "Next question";
+        updateHeader();
+        nextBtn.focus();
+      }
+
+      function nextQuestion() {
+        if (!state.answered) return;
+        if (state.index >= state.selected.length - 1) finishExercise("Completed all selected questions");
+        else {
+          state.index += 1;
+          renderQuestion();
+          live.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function improvementMarkup() {
+        const misses = state.responses.filter(r => !r.correct);
+        const counts = new Map();
+        misses.forEach(r => counts.set(r.question.topic, (counts.get(r.question.topic) || 0) + 1));
+        if (counts.size === 0) {
+          if (state.responses.length === 0) return `<div class="improve-item"><strong>Start with one question</strong><p>No answers were submitted, so there is not enough evidence for a skill diagnosis yet.</p></div>`;
+          if (state.responses.length < state.selected.length) return `<div class="improve-item"><strong>Accuracy is strong so far</strong><p>You answered the attempted questions correctly. Complete a larger sample to check whether the skill remains consistent.</p></div>`;
+          return `<div class="improve-item"><strong>No priority weakness detected</strong><p>Explain why each wrong option is wrong to deepen control instead of relying only on recognition.</p></div>`;
+        }
+        return [...counts.entries()].sort((a,b) => b[1]-a[1]).slice(0, 5).map(([topic, count]) => {
+          const advice = DATA.improvementAdvice[topic] || "Review this pattern and write one new example before restarting.";
+          return `<div class="improve-item"><strong>${esc(topic)} · ${count} missed</strong><p>${esc(advice)}</p></div>`;
+        }).join("");
+      }
+
+      function renderReview() {
+        const box = $("[data-review-box]", finish);
+        if (!box || state.responses.length === 0) return;
+        const response = state.responses[state.reviewIndex];
+        const q = response.question;
+        box.innerHTML = `<div class="review-label">Answer ${state.reviewIndex + 1} of ${state.responses.length}</div>
+          <h4 style="font-size:1.2rem;line-height:1.35;margin:10px 0;">${esc(q.prompt)}</h4>
+          ${q.target ? `<div class="review-context"><strong>Target sentence:</strong><br>${esc(q.target)}</div>` : ""}
+          <div class="review-answer"><strong>Your answer:</strong> ${esc(response.userAnswer)}<br><strong>Correct answer:</strong> ${esc(q.correct)}<br>${response.correct ? "✓ Correct" : "✕ Incorrect"}<br>${esc(q.explanation).replaceAll("\n", "<br>")}</div>`;
+        $("[data-review-prev]", finish).disabled = state.reviewIndex === 0;
+        $("[data-review-next]", finish).disabled = state.reviewIndex === state.responses.length - 1;
+      }
+
+      function finishExercise(reason) {
+        if (!state.active) return;
+        stopTimer();
+        state.active = false;
+        state.endReason = reason;
+        live.hidden = true;
+        finish.hidden = false;
+        const answered = state.responses.length;
+        const correct = state.score;
+        const incorrect = answered - correct;
+        const unattempted = state.selected.length - answered;
+        const percent = answered ? Math.round(correct / answered * 100) : 0;
+        const timeUsed = elapsedSeconds();
+        finish.innerHTML = `<div class="finish-panel">
+          <h4>Exercise Summary</h4>
+          <p class="summary-reason">${esc(reason)}. The score below uses the ${answered} question${answered === 1 ? "" : "s"} you answered.</p>
+          <div class="metric-grid">
+            <div class="metric"><strong>${correct}/${answered}</strong><span>Answered score</span></div>
+            <div class="metric"><strong>${percent}%</strong><span>Accuracy</span></div>
+            <div class="metric"><strong>${incorrect}</strong><span>Incorrect</span></div>
+            <div class="metric"><strong>${unattempted}</strong><span>Not attempted</span></div>
+          </div>
+          <div class="metric-grid" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+            <div class="metric"><strong>${formatTime(timeUsed)}</strong><span>Time used</span></div>
+            <div class="metric"><strong>${state.totalSeconds ? formatTime(Math.max(0, state.seconds)) : "Untimed"}</strong><span>Time remaining</span></div>
+          </div>
+          <h4 style="font-size:1.35rem;line-height:1.2;margin-top:24px;">What to improve</h4>
+          <div class="improve-grid">${improvementMarkup()}</div>
+          ${answered ? `<div class="review-box" data-review-box></div>
+          <div class="review-nav"><button class="btn btn-secondary" type="button" data-review-prev>Previous answer</button><button class="btn btn-secondary" type="button" data-review-next>Next answer</button></div>` : ""}
+          <div class="button-row"><button class="btn btn-accent" type="button" data-retry>Retry same setup</button><button class="btn btn-secondary" type="button" data-back-menu>Back to menu</button></div>
+        </div>`;
+        scoreBlock.textContent = `Final: ${correct} / ${answered}`;
+        progressFill.style.width = state.selected.length ? `${(answered / state.selected.length) * 100}%` : "0%";
+        if (answered) {
+          $("[data-review-prev]", finish).addEventListener("click", () => { if (state.reviewIndex > 0) { state.reviewIndex -= 1; renderReview(); } });
+          $("[data-review-next]", finish).addEventListener("click", () => { if (state.reviewIndex < state.responses.length - 1) { state.reviewIndex += 1; renderReview(); } });
+          renderReview();
+        }
+        $("[data-retry]", finish).addEventListener("click", startExercise);
+        $("[data-back-menu]", finish).addEventListener("click", () => {
+          finish.hidden = true;
+          live.hidden = true;
+          menu.hidden = false;
+          scoreBlock.textContent = "Ready";
+          progressFill.style.width = "0%";
+          menu.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+        finish.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      if (sourceSelect) sourceSelect.addEventListener("change", syncCountLimit);
+      countInput.addEventListener("change", syncCountLimit);
+      startBtn.addEventListener("click", startExercise);
+      nextBtn.addEventListener("click", nextQuestion);
+      endBtn.addEventListener("click", () => finishExercise("Exercise ended early"));
+      syncCountLimit();
+    }
+
+    function renderPage() {
+      const main = $("#mainContent");
+      sections.forEach(section => {
+        main.insertAdjacentHTML("beforeend", sectionMarkup(section));
+        const mount = document.getElementById(`list-${section.id}`);
+        exercises.filter(ex => ex.sectionId === section.id).forEach(ex => createExercise(ex, mount));
+      });
+    }
+
+    function setupCollapseButtons() {
+      $$("[data-collapse]").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.collapse);
+          const collapsing = !target.hidden;
+          if (collapsing) {
+            $$('[data-live]:not([hidden])', target).forEach(liveEl => {
+              const card = liveEl.closest('.exercise-card');
+              const state = exerciseStates.get(card.id);
+              if (state && state.active) {
+                const endButton = $('[data-end]', card);
+                if (endButton) endButton.click();
+              }
+            });
+          }
+          target.hidden = collapsing;
+          button.textContent = collapsing ? "Expand" : "Collapse";
+          button.setAttribute("aria-expanded", String(!collapsing));
+        });
+      });
+    }
+
+    function init() {
+      setupTheme();
+      renderTOC();
+      renderPage();
+      setupCollapseButtons();
+    }
+    init();
+  })();
+  </script>
+</body>
+</html>
