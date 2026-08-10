@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Interactive semantics and paraphrasing practice for understanding meaning instead of matching words"
+  >
+  <title>August 11 · Semantics &amp; Paraphrasing</title>
+
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("semantics-paraphrasing-theme");
+        const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.dataset.theme = savedTheme || preferredTheme;
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+    /* ======================================================================
+       1. THEME TOKENS
+       ====================================================================== */
+    :root {
+      color-scheme: light;
+      --background: #FFFFFF;
+      --foreground: #111827;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #D1D5DB;
+      --surface: #FFFFFF;
+      --surface-inverse: #111827;
+      --blue-soft: #DBEAFE;
+      --text-muted: #4B5563;
+      --hero-text: #EFF6FF;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: "Outfit", sans-serif;
+      --transition: all 180ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #0B1220;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #4B5563;
+      --surface: #111827;
+      --surface-inverse: #F9FAFB;
+      --blue-soft: #172554;
+      --text-muted: #CBD5E1;
+      --hero-text: #DBEAFE;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1, h2, h3, h4 { line-height: 1; letter-spacing: -.02em; }
+
+    /* ======================================================================
+       2. PAGE SHELL + HEADER + HERO
+       ====================================================================== */
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link, .theme-toggle, .btn, .toc-link, .back-to-toc {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link, .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover, .theme-toggle:hover { background: var(--muted-strong); }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .hero-copy { padding: clamp(48px, 7vw, 82px); }
+
+    h1 {
+      max-width: 15ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: .92;
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .hero-copy p {
+      max-width: 65ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .hero-tag {
+      padding: 8px 11px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* ======================================================================
+       3. TABLE OF CONTENTS
+       ====================================================================== */
+    .toc-panel {
+      padding: 18px 22px;
+      color: var(--foreground);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: .88rem;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    /* ======================================================================
+       4. LESSON / GUIDE
+       ====================================================================== */
+    .lesson-section {
+      padding: clamp(28px, 5vw, 54px);
+      background: var(--muted);
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .lesson-section > h2,
+    .exercise-section > h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      font-weight: 800;
+    }
+
+    .section-lead {
+      max-width: 74ch;
+      margin-bottom: 24px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .guide-card {
+      padding: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .guide-card h3 {
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .guide-card p { margin: 0; color: var(--text-muted); }
+
+    .meaning-check {
+      margin-top: 12px;
+      padding: 14px;
+      color: var(--foreground);
+      background: var(--accent-soft);
+      border-left: 6px solid var(--accent);
+      border-radius: var(--radius-md);
+      font-weight: 700;
+    }
+
+    /* ======================================================================
+       5. EXERCISE SHELL + START MENU
+       ====================================================================== */
+    .exercise-section {
+      padding: clamp(28px, 5vw, 54px);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    html[data-theme="dark"] .exercise-head { background: #030712; }
+
+    .exercise-head-copy { padding: 28px; }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 74ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 180px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .8rem;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track { height: 12px; background: var(--border); }
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 180ms ease;
+    }
+
+    .exercise-menu {
+      padding: clamp(26px, 4vw, 40px);
+      text-align: center;
+    }
+
+    .fixed-format {
+      max-width: 560px;
+      margin: 0 auto 22px;
+      padding: 20px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .fixed-format strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 20px;
+      border: 0;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) { transform: scale(1.03); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { color: #FFFFFF; background: var(--primary); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .btn-success { color: #052E16; background: var(--secondary); }
+    .btn-secondary { color: var(--foreground); background: var(--muted-strong); }
+    .btn-danger { color: #FFFFFF; background: var(--danger); }
+
+    /* ======================================================================
+       6. LIVE EXERCISE TOOLBAR + QUESTION CONTEXT
+       ====================================================================== */
+    .question-stage { padding: clamp(24px, 4vw, 40px); }
+
+    .live-toolbar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+    }
+
+    html[data-theme="dark"] .live-toolbar { background: #030712; }
+
+    .live-status strong {
+      display: block;
+      color: var(--secondary);
+      font-size: 1.05rem;
+    }
+
+    .live-status span { color: #D1D5DB; font-size: .78rem; }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 8px 12px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning { color: #FFFFFF; background: var(--danger); }
+
+    .question-meta {
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .context-block,
+    .question-text {
+      margin: 0 0 18px;
+      font-size: clamp(1.35rem, 2.8vw, 2.05rem);
+      font-weight: 800;
+      line-height: 1.28;
+    }
+
+    .context-block {
+      padding: 22px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-left: 8px solid var(--primary);
+      border-radius: var(--radius-lg);
+    }
+
+    .context-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--primary);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .chunk {
+      padding: 0 .12em;
+      background: var(--accent-soft);
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--accent);
+    }
+
+    /* ======================================================================
+       7. MULTIPLE-CHOICE ANSWERS
+       ====================================================================== */
+    .option-list { display: grid; gap: 10px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 62px;
+      padding: 15px 17px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+      line-height: 1.45;
+      transition: var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .option-btn.correct-choice {
+      color: #052E16;
+      background: #DCFCE7;
+      border-color: #16A34A;
+    }
+
+    .option-btn.wrong-choice {
+      color: #450A0A;
+      background: #FEE2E2;
+      border-color: #DC2626;
+    }
+
+    html[data-theme="dark"] .option-btn.correct-choice {
+      color: #D1FAE5;
+      background: #052E2B;
+    }
+
+    html[data-theme="dark"] .option-btn.wrong-choice {
+      color: #FEE2E2;
+      background: #450A0A;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--danger-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback strong { color: var(--primary); }
+
+    /* ======================================================================
+       8. SUMMARY + EMAIL STATUS
+       ====================================================================== */
+    .finish-panel {
+      padding: 28px;
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .finish-panel h4 {
+      margin-bottom: 12px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .metric span {
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .review-box {
+      margin-top: 18px;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-answer { color: var(--text-muted); }
+
+    .email-status {
+      margin: 0 0 26px;
+      padding: 18px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .email-status.sending { border-left: 8px solid var(--accent); }
+    .email-status.sent { border-left: 8px solid var(--secondary); background: var(--secondary-soft); }
+    .email-status.failed { border-left: 8px solid var(--danger); background: var(--danger-soft); }
+
+    .email-status strong { display: block; margin-bottom: 4px; }
+
+    /* ======================================================================
+       9. BACK TO TOP + ACCESSIBILITY + RESPONSIVE
+       ====================================================================== */
+    .back-to-toc {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      width: 46px;
+      min-height: 46px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      background: #111827;
+      border: 0;
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    .back-to-toc:hover { background: var(--primary); }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 760px) {
+      .page-shell { width: 100%; margin: 0; border-radius: 0; }
+      .header-inner { width: calc(100% - 28px); }
+      .guide-grid { grid-template-columns: 1fr; }
+      .exercise-head { grid-template-columns: 1fr; }
+      .score-block { min-width: 0; min-height: 54px; }
+      .live-toolbar { position: static; grid-template-columns: 1fr; }
+      .mini-timer { width: 100%; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .button-row { display: grid; }
+      .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <h1>August 11</h1>
+        <p>
+          Practice reading for meaning instead of matching the same words. Learn to spot word-match traps and replace small chunks with your own words without changing the idea.
+        </p>
+        <div class="hero-tags">
+          <span class="hero-tag">Meaning first</span>
+          <span class="hero-tag">Paraphrasing</span>
+          <span class="hero-tag">3rd grade reading level</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="toc-panel" id="toc" aria-label="Page sections">
+      <h2>Jump to section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#guide">Meaning Guide</a>
+        <a class="toc-link" href="#word-match">Exercise 1</a>
+        <a class="toc-link" href="#chunking">Exercise 2</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="lesson-section" id="guide">
+        <div class="section-kicker">Before you start</div>
+        <h2>Read for meaning, not matching words</h2>
+        <p class="section-lead">
+          Two sentences can use very different words and still mean the same thing. Two sentences can also use many of the same words but mean different things. Your job is to follow the idea.
+        </p>
+
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>1 · Make a tiny movie</h3>
+            <p>Read the sentence and picture what is happening. Who is doing something? What happens? Why or when does it happen?</p>
+            <div class="meaning-check">If two sentences create the same little movie in your mind, they probably have the same meaning.</div>
+          </article>
+
+          <article class="guide-card">
+            <h3>2 · Watch the logic words</h3>
+            <p>Small words can flip the meaning. Pay attention to words like <strong>not, never, only, before, after, because, but, more, less</strong>, and <strong>must</strong>.</p>
+            <div class="meaning-check">Same nouns + different logic = different meaning.</div>
+          </article>
+
+          <article class="guide-card">
+            <h3>3 · Cover the original words</h3>
+            <p>After you understand a sentence, pretend you cannot see it. Ask yourself, “How would I tell this idea to a friend?”</p>
+            <div class="meaning-check">Good paraphrasing changes the words but keeps the facts.</div>
+          </article>
+
+          <article class="guide-card">
+            <h3>4 · Change one chunk at a time</h3>
+            <p>You do not need to rewrite a whole sentence at once. Replace one phrase first, then check whether the sentence still means the same thing.</p>
+            <div class="meaning-check">Meaning must stay. Words can change.</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="exercise-section" id="word-match">
+        <div class="section-kicker">Exercise 1</div>
+        <h2>The Word-Match Trap</h2>
+        <p class="section-lead">
+          Pick the sentence with the same meaning. Be careful: one wrong answer often copies many words from the original.
+        </p>
+        <div id="exercise1Mount"></div>
+      </section>
+
+      <section class="exercise-section" id="chunking">
+        <div class="section-kicker">Exercise 2</div>
+        <h2>Chunking Substitution</h2>
+        <p class="section-lead">
+          Replace only the highlighted chunk. Choose the phrase that keeps the whole sentence's meaning the same.
+        </p>
+        <div id="exercise2Mount"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <a class="back-to-toc" href="#toc" aria-label="Back to top">↑</a>
+
+  <!-- Reusable email submission helper. Keep this file beside the HTML file. -->
+  <script src="./email-results.js"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      /* ====================================================================
+         1. WORKSHEET SETTINGS
+         ==================================================================== */
+      const WEB3FORMS_ACCESS_KEY = "17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
+      const WORKSHEET_TITLE = "August 11 · Semantics & Paraphrasing";
+      const QUESTION_COUNT = 10;
+      const TIME_LIMIT_SECONDS = 10 * 60;
+
+      /* ====================================================================
+         2. EXERCISE DATA
+         Grade-3-level language; answer lengths are intentionally balanced.
+         ==================================================================== */
+      const WORD_MATCH_QUESTIONS = [
+        {
+          original: "Mia did not take the bus because her dad drove her to school.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Mia took the bus after her dad drove to school.",
+            "Mia rode with her dad instead of taking the bus.",
+            "Mia's dad took the bus while she walked to school."
+          ],
+          correct: "Mia rode with her dad instead of taking the bus.",
+          explanation: "The key idea is that Mia did not use the bus. Her dad gave her a ride."
+        },
+        {
+          original: "The class stayed inside because the playground was too wet.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "The children played outside because the ground was wet.",
+            "The children remained indoors since the playground was soggy.",
+            "The class cleaned the wet playground before going inside."
+          ],
+          correct: "The children remained indoors since the playground was soggy.",
+          explanation: "Stayed inside = remained indoors. Too wet = soggy. The reason stays the same."
+        },
+        {
+          original: "Leo finished his homework before he turned on the TV.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Leo watched TV first and completed his homework later.",
+            "Leo completed his schoolwork before watching television.",
+            "Leo turned off the TV while he was doing his homework."
+          ],
+          correct: "Leo completed his schoolwork before watching television.",
+          explanation: "The order matters: homework happened first, then TV."
+        },
+        {
+          original: "Only Ava brought a red umbrella to the park.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Ava was the one person who carried a red umbrella.",
+            "Ava brought only one umbrella, and it was red.",
+            "Everyone at the park brought an umbrella except Ava."
+          ],
+          correct: "Ava was the one person who carried a red umbrella.",
+          explanation: "Only Ava means no other person brought a red umbrella."
+        },
+        {
+          original: "Ben was hungry, but he saved his sandwich for lunch.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Ben ate his sandwich early because he felt hungry.",
+            "Ben felt hungry, yet he waited until lunch to eat.",
+            "Ben saved lunch because he did not want a sandwich."
+          ],
+          correct: "Ben felt hungry, yet he waited until lunch to eat.",
+          explanation: "But and yet both show a contrast: he was hungry, but he waited."
+        },
+        {
+          original: "The puppy slept under the table while the family ate dinner.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "The dog rested below the table during the family's meal.",
+            "The family slept under the table after eating dinner.",
+            "The puppy ate dinner while the family sat at the table."
+          ],
+          correct: "The dog rested below the table during the family's meal.",
+          explanation: "Puppy/dog, slept/rested, under/below, and while/during keep the same scene."
+        },
+        {
+          original: "Nora must wear her helmet when she rides her bike.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Nora is required to use a helmet while riding her bicycle.",
+            "Nora may take off her helmet whenever she rides her bicycle.",
+            "Nora wears her bicycle helmet only when she is not riding."
+          ],
+          correct: "Nora is required to use a helmet while riding her bicycle.",
+          explanation: "Must means it is required. The rule applies while she rides."
+        },
+        {
+          original: "Sam has fewer marbles than his sister.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Sam's sister has more marbles than Sam does.",
+            "Sam and his sister have the same number of marbles.",
+            "Sam has more marbles because his sister gave him some."
+          ],
+          correct: "Sam's sister has more marbles than Sam does.",
+          explanation: "If Sam has fewer, his sister has more. The comparison stays the same."
+        },
+        {
+          original: "The library closes after the last class ends.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "The library shuts once the final class is over.",
+            "The library closes before the final class has finished.",
+            "The last class ends because the library is closing."
+          ],
+          correct: "The library shuts once the final class is over.",
+          explanation: "After the last class ends = once the final class is over."
+        },
+        {
+          original: "Ella whispered so she would not wake the baby.",
+          prompt: "Which sentence means the same thing?",
+          options: [
+            "Ella spoke softly because she wanted the baby to keep sleeping.",
+            "Ella woke the baby because she whispered very close to the crib.",
+            "Ella spoke loudly so the sleeping baby could hear her clearly."
+          ],
+          correct: "Ella spoke softly because she wanted the baby to keep sleeping.",
+          explanation: "Whispered = spoke softly. Her goal was to avoid waking the baby."
+        }
+      ];
+
+      const CHUNKING_QUESTIONS = [
+        {
+          before: "Jake ",
+          chunk: "hurried to the door",
+          after: " when he heard the bell.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "moved quickly toward the door",
+            "waited quietly beside the door",
+            "looked slowly away from the door"
+          ],
+          correct: "moved quickly toward the door",
+          explanation: "Hurried means moved quickly. The direction toward the door stays the same."
+        },
+        {
+          before: "The small plant ",
+          chunk: "grew very fast",
+          after: " near the sunny window.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "became bigger very quickly",
+            "stayed the same for weeks",
+            "became smaller very slowly"
+          ],
+          correct: "became bigger very quickly",
+          explanation: "Grew means became bigger. Very fast means very quickly."
+        },
+        {
+          before: "Lily ",
+          chunk: "gave the book back",
+          after: " to her teacher on Friday.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "returned the book",
+            "borrowed the book",
+            "lost the book"
+          ],
+          correct: "returned the book",
+          explanation: "To give something back means to return it."
+        },
+        {
+          before: "We ",
+          chunk: "had to wait",
+          after: " until the rain stopped.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "were required to stay",
+            "were allowed to leave",
+            "decided to run away"
+          ],
+          correct: "were required to stay",
+          explanation: "Had to means there was no choice. They needed to wait."
+        },
+        {
+          before: "The movie ",
+          chunk: "made Noah laugh",
+          after: " many times.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "caused Noah to laugh",
+            "asked Noah to leave",
+            "helped Noah fall asleep"
+          ],
+          correct: "caused Noah to laugh",
+          explanation: "Made Noah laugh means caused him to laugh."
+        },
+        {
+          before: "The blue box is ",
+          chunk: "heavier than",
+          after: " the green box.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "not as light as",
+            "the same weight as",
+            "much lighter than"
+          ],
+          correct: "not as light as",
+          explanation: "If the blue box is heavier, it is not as light as the green box."
+        },
+        {
+          before: "Maya ",
+          chunk: "looked after",
+          after: " her little brother after school.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "took care of",
+            "ran away from",
+            "played a trick on"
+          ],
+          correct: "took care of",
+          explanation: "Looked after means took care of."
+        },
+        {
+          before: "Our team ",
+          chunk: "won by one point",
+          after: " at the end of the game.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "finished one point ahead",
+            "finished one point behind",
+            "ended with the same score"
+          ],
+          correct: "finished one point ahead",
+          explanation: "Winning by one point means ending one point ahead of the other team."
+        },
+        {
+          before: "The teacher ",
+          chunk: "spoke in a quiet voice",
+          after: " during reading time.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "talked softly",
+            "shouted loudly",
+            "stopped speaking"
+          ],
+          correct: "talked softly",
+          explanation: "A quiet voice means speaking softly."
+        },
+        {
+          before: "Owen ",
+          chunk: "did not remember",
+          after: " where he put his keys.",
+          prompt: "Which phrase can replace the highlighted words?",
+          options: [
+            "forgot",
+            "noticed",
+            "explained"
+          ],
+          correct: "forgot",
+          explanation: "Did not remember means forgot."
+        }
+      ];
+
+      /* ====================================================================
+         3. GENERAL UTILITIES
+         ==================================================================== */
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+        }
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const safeSeconds = Math.max(0, totalSeconds);
+        const minutes = Math.floor(safeSeconds / 60);
+        const seconds = safeSeconds % 60;
+        return `${minutes}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      /* ====================================================================
+         4. THEME
+         ==================================================================== */
+      function setupTheme() {
+        const button = document.getElementById("themeToggle");
+
+        function updateLabel() {
+          const dark = document.documentElement.dataset.theme === "dark";
+          button.textContent = dark ? "☀ Light" : "☾ Dark";
+          button.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+        }
+
+        updateLabel();
+
+        button.addEventListener("click", () => {
+          const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = nextTheme;
+          try {
+            localStorage.setItem("semantics-paraphrasing-theme", nextTheme);
+          } catch (error) {
+            // The worksheet still works if localStorage is blocked.
+          }
+          updateLabel();
+        });
+      }
+
+      /* ====================================================================
+         5. EXERCISE ENGINE
+         ==================================================================== */
+
+      function createExercise({ id, title, instructions, questions, mountId, contextRenderer }) {
+        const mount = document.getElementById(mountId);
+
+        mount.innerHTML = `
+          <article class="exercise-card" id="${escapeHtml(id)}">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>${escapeHtml(title)}</h3>
+                <p>${escapeHtml(instructions)}</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <div class="fixed-format">
+                <strong>10 questions · 10 minutes</strong>
+                The timer starts when you press Start. There are no setup choices.
+              </div>
+              <button class="btn btn-primary" type="button" data-start>Start exercise</button>
+            </div>
+
+            <div class="question-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Score: 0 / 0</strong>
+                  <span data-live-progress>Question 1 of 10</span>
+                </div>
+                <div class="mini-timer" data-timer>10:00</div>
+                <button class="btn btn-danger" type="button" data-end>End exercise early</button>
+              </div>
+
+              <div class="question-meta" data-meta></div>
+              <div data-context></div>
+              <div class="question-text" data-question></div>
+              <div class="option-list" data-options></div>
+              <div class="feedback" data-feedback hidden aria-live="polite"></div>
+
+              <div class="button-row">
+                <button class="btn btn-success" type="button" data-next hidden>Next question</button>
+              </div>
+            </div>
+
+            <div class="question-stage" data-finish hidden></div>
+          </article>
+        `;
+
+        const card = document.getElementById(id);
+        const elements = {
+          score: card.querySelector("[data-score]"),
+          progress: card.querySelector("[data-progress]"),
+          menu: card.querySelector("[data-menu]"),
+          live: card.querySelector("[data-live]"),
+          liveScore: card.querySelector("[data-live-score]"),
+          liveProgress: card.querySelector("[data-live-progress]"),
+          timer: card.querySelector("[data-timer]"),
+          meta: card.querySelector("[data-meta]"),
+          context: card.querySelector("[data-context]"),
+          question: card.querySelector("[data-question]"),
+          options: card.querySelector("[data-options]"),
+          feedback: card.querySelector("[data-feedback]"),
+          next: card.querySelector("[data-next]"),
+          finish: card.querySelector("[data-finish]"),
+          start: card.querySelector("[data-start]"),
+          end: card.querySelector("[data-end]")
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false,
+          secondsRemaining: TIME_LIMIT_SECONDS,
+          startedAt: 0,
+          interval: null
+        };
+
+        function stopTimer() {
+          if (state.interval) window.clearInterval(state.interval);
+          state.interval = null;
+        }
+
+        function elapsedSeconds() {
+          if (!state.startedAt) return 0;
+          return Math.min(TIME_LIMIT_SECONDS, Math.max(0, Math.round((Date.now() - state.startedAt) / 1000)));
+        }
+
+        function updateHeader() {
+          elements.score.textContent = state.active
+            ? `Score: ${state.score} / ${state.responses.length}`
+            : elements.score.textContent;
+
+          elements.liveScore.textContent = `Score: ${state.score} / ${state.responses.length}`;
+          elements.liveProgress.textContent = `Question ${Math.min(state.index + 1, QUESTION_COUNT)} of ${QUESTION_COUNT}`;
+          elements.progress.style.width = `${(state.responses.length / QUESTION_COUNT) * 100}%`;
+        }
+
+        function updateTimer() {
+          elements.timer.textContent = formatTime(state.secondsRemaining);
+          elements.timer.classList.toggle("warning", state.secondsRemaining <= 60);
+        }
+
+        function startExercise() {
+          stopTimer();
+          state.questions = shuffle(questions).slice(0, QUESTION_COUNT).map((question) => ({
+            ...question,
+            options: shuffle(question.options)
+          }));
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+          state.secondsRemaining = TIME_LIMIT_SECONDS;
+          state.startedAt = Date.now();
+
+          elements.menu.hidden = true;
+          elements.finish.hidden = true;
+          elements.live.hidden = false;
+          elements.score.textContent = "Score: 0 / 0";
+          elements.progress.style.width = "0%";
+
+          updateTimer();
+          renderQuestion();
+
+          state.interval = window.setInterval(() => {
+            state.secondsRemaining -= 1;
+            updateTimer();
+
+            if (state.secondsRemaining <= 0) {
+              finishExercise("Time expired");
+            }
+          }, 1000);
+        }
+
+        function renderQuestion() {
+          const question = state.questions[state.index];
+          state.answered = false;
+
+          elements.meta.textContent = `Question ${state.index + 1} of ${QUESTION_COUNT}`;
+          elements.context.innerHTML = contextRenderer(question);
+          elements.question.textContent = question.prompt;
+          elements.options.innerHTML = "";
+          elements.feedback.hidden = true;
+          elements.next.hidden = true;
+
+          question.options.forEach((option) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "option-btn";
+            button.textContent = option;
+            button.addEventListener("click", () => gradeAnswer(option, button));
+            elements.options.appendChild(button);
+          });
+
+          updateHeader();
+        }
+
+        function gradeAnswer(answer, selectedButton) {
+          if (!state.active || state.answered) return;
+
+          state.answered = true;
+          const question = state.questions[state.index];
+          const correct = answer === question.correct;
+
+          const buttons = [...elements.options.querySelectorAll(".option-btn")];
+          buttons.forEach((button) => {
+            button.disabled = true;
+            if (button.textContent === question.correct) button.classList.add("correct-choice");
+          });
+
+          if (!correct) selectedButton.classList.add("wrong-choice");
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            question,
+            userAnswer: answer,
+            correct
+          });
+
+          elements.feedback.hidden = false;
+          elements.feedback.className = `feedback ${correct ? "correct" : "incorrect"}`;
+          elements.feedback.innerHTML = `
+            <strong>${correct ? "✓ Correct" : "✕ Incorrect"}</strong><br>
+            ${correct ? "" : `<strong>Correct answer:</strong> ${escapeHtml(question.correct)}<br>`}
+            ${escapeHtml(question.explanation)}
+          `;
+
+          elements.next.hidden = false;
+          elements.next.textContent = state.index === QUESTION_COUNT - 1
+            ? "Finish exercise"
+            : "Next question";
+
+          updateHeader();
+          elements.next.focus();
+        }
+
+        function buildReviewMarkup() {
+          return state.responses.map((response, index) => {
+            const status = response.correct ? "✓ Correct" : "✕ Incorrect";
+            return `
+              <div class="review-box">
+                <strong>Question ${index + 1} · ${status}</strong>
+                <div class="review-answer">
+                  <strong>Your answer:</strong> ${escapeHtml(response.userAnswer)}<br>
+                  <strong>Correct answer:</strong> ${escapeHtml(response.question.correct)}
+                </div>
+              </div>
+            `;
+          }).join("");
+        }
+
+        function finishExercise(reason) {
+          if (!state.active) return;
+
+          stopTimer();
+          state.active = false;
+          elements.live.hidden = true;
+          elements.finish.hidden = false;
+
+          const answered = state.responses.length;
+          const incorrect = answered - state.score;
+          const unattempted = QUESTION_COUNT - answered;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+          const elapsed = elapsedSeconds();
+
+          elements.score.textContent = `Final: ${state.score} / ${answered}`;
+          elements.progress.style.width = `${(answered / QUESTION_COUNT) * 100}%`;
+
+          elements.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>Exercise Summary</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${incorrect}</strong><span>Incorrect</span></div>
+                <div class="metric"><strong>${unattempted}</strong><span>Not attempted</span></div>
+              </div>
+
+              <div class="metric-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+                <div class="metric"><strong>${formatTime(elapsed)}</strong><span>Time used</span></div>
+                <div class="metric"><strong>${formatTime(Math.max(0, state.secondsRemaining))}</strong><span>Time left</span></div>
+              </div>
+
+              ${buildReviewMarkup()}
+
+              <div class="email-status" data-exercise-email-status hidden aria-live="polite"></div>
+
+              <div class="button-row">
+                <button class="btn btn-secondary" type="button" data-retry>Retry exercise</button>
+              </div>
+            </div>
+          `;
+
+          const result = {
+            id,
+            title,
+            reason,
+            score: state.score,
+            answered,
+            incorrect,
+            unattempted,
+            accuracy,
+            elapsed,
+            responses: state.responses.map((response) => ({ ...response }))
+          };
+
+          elements.finish.querySelector("[data-retry]").addEventListener("click", startExercise);
+
+          const emailStatus = elements.finish.querySelector("[data-exercise-email-status]");
+          sendExerciseResult(result, emailStatus);
+
+          elements.finish.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        elements.start.addEventListener("click", startExercise);
+        elements.end.addEventListener("click", () => finishExercise("Exercise ended early"));
+        elements.next.addEventListener("click", () => {
+          if (!state.answered) return;
+
+          if (state.index >= QUESTION_COUNT - 1) {
+            finishExercise("Completed all 10 questions");
+          } else {
+            state.index += 1;
+            renderQuestion();
+            elements.live.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      }
+
+      /* ====================================================================
+         6. AUTOMATIC RESULTS EMAIL
+         Each exercise sends its own report immediately when that exercise ends.
+         Retrying an exercise creates a new completion and sends a new report.
+         ==================================================================== */
+      function resultToText(result) {
+        const lines = [
+          `${result.title}`,
+          `Completion reason: ${result.reason}`,
+          `Score: ${result.score}/${result.answered}`,
+          `Accuracy: ${result.accuracy}%`,
+          `Time used: ${formatTime(result.elapsed)}`,
+          `Not attempted: ${result.unattempted}`,
+          ""
+        ];
+
+        result.responses.forEach((response, index) => {
+          const question = response.question;
+          const context = question.original
+            ? question.original
+            : `${question.before}${question.chunk}${question.after}`;
+
+          lines.push(`Q${index + 1}. ${context}`);
+          lines.push(`Prompt: ${question.prompt}`);
+          lines.push(`Student answer: ${response.userAnswer}`);
+          lines.push(`Correct answer: ${question.correct}`);
+          lines.push(`Result: ${response.correct ? "Correct" : "Incorrect"}`);
+          lines.push("");
+        });
+
+        return lines.join("\n");
+      }
+
+      async function sendExerciseResult(result, emailStatus) {
+        if (!emailStatus) return;
+
+        emailStatus.hidden = false;
+        emailStatus.className = "email-status sending";
+        emailStatus.innerHTML = `<strong>Sending ${escapeHtml(result.title)} results…</strong>The report is being submitted automatically.`;
+
+        try {
+          if (!window.EmailResults || typeof window.EmailResults.send !== "function") {
+            throw new Error("The reusable email-results.js helper could not be loaded.");
+          }
+
+          await window.EmailResults.send({
+            accessKey: WEB3FORMS_ACCESS_KEY,
+            subject: `${result.title} results · ${WORKSHEET_TITLE}`,
+            worksheetTitle: WORKSHEET_TITLE,
+            resultsText: resultToText(result),
+            metadata: {
+              "Exercise": result.title,
+              "Score": `${result.score}/${result.answered}`,
+              "Accuracy": `${result.accuracy}%`,
+              "Time used": formatTime(result.elapsed),
+              "Not attempted": result.unattempted,
+              "Completion reason": result.reason,
+              "Completed at": new Date().toLocaleString()
+            }
+          });
+
+          emailStatus.className = "email-status sent";
+          emailStatus.innerHTML = `<strong>✓ ${escapeHtml(result.title)} results sent</strong>This exercise report was submitted successfully.`;
+        } catch (error) {
+          emailStatus.className = "email-status failed";
+          emailStatus.innerHTML = `
+            <strong>${escapeHtml(result.title)} results could not be sent automatically.</strong>
+            ${escapeHtml(error.message || "Unknown submission error.")}
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" data-retry-email>Retry sending this exercise</button>
+            </div>
+          `;
+
+          emailStatus.querySelector("[data-retry-email]").addEventListener("click", () => {
+            sendExerciseResult(result, emailStatus);
+          });
+        }
+      }
+
+      /* ====================================================================
+         7. CONTEXT RENDERERS
+         ==================================================================== */
+      function renderWordMatchContext(question) {
+        return `
+          <div class="context-block">
+            <span class="context-label">Original sentence</span>
+            ${escapeHtml(question.original)}
+          </div>
+        `;
+      }
+
+      function renderChunkingContext(question) {
+        return `
+          <div class="context-block">
+            <span class="context-label">Original sentence</span>
+            ${escapeHtml(question.before)}<span class="chunk">${escapeHtml(question.chunk)}</span>${escapeHtml(question.after)}
+          </div>
+        `;
+      }
+
+      /* ====================================================================
+         8. INITIALIZATION
+         ==================================================================== */
+      function init() {
+        setupTheme();
+
+        createExercise({
+          id: "word-match-exercise",
+          title: "The Word-Match Trap",
+          instructions: "Choose the sentence that keeps the same meaning, even when it uses different words.",
+          questions: WORD_MATCH_QUESTIONS,
+          mountId: "exercise1Mount",
+          contextRenderer: renderWordMatchContext
+        });
+
+        createExercise({
+          id: "chunking-exercise",
+          title: "Chunking Substitution",
+          instructions: "Choose the phrase that can replace only the highlighted chunk without changing the meaning.",
+          questions: CHUNKING_QUESTIONS,
+          mountId: "exercise2Mount",
+          contextRenderer: renderChunkingContext
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

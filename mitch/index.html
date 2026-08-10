@@ -7,11 +7,15 @@
   <title>Mitch — English Tutoring Resources</title>
 
   <script>
-    try {
-      const savedTheme = localStorage.getItem("theme");
-      const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
-    } catch (_) {}
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("mitchTheme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
+      } catch (_) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,18 +23,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* =========================================================
+       1. THEME
+       ========================================================= */
     :root {
       --page: #e5e7eb;
       --surface: #ffffff;
       --surface-alt: #f3f4f6;
       --text: #111827;
       --subtle: #4b5563;
+      --border: #e5e7eb;
       --primary: #3b82f6;
       --primary-hover: #2563eb;
+      --primary-soft: #dbeafe;
       --accent: #f59e0b;
       --accent-hover: #d97706;
       --radius: 8px;
       --font: "Outfit", system-ui, sans-serif;
+      --transition: 160ms ease;
       color-scheme: light;
     }
 
@@ -40,26 +50,40 @@
       --surface-alt: #1f2937;
       --text: #f9fafb;
       --subtle: #cbd5e1;
+      --border: #374151;
       --primary: #3b82f6;
       --primary-hover: #60a5fa;
+      --primary-soft: #172554;
       --accent: #f59e0b;
       --accent-hover: #fbbf24;
       color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       min-height: 100vh;
       padding: 48px 24px;
-      background: var(--page);
       color: var(--text);
+      background: var(--page);
       font-family: var(--font);
     }
 
     button, a { font: inherit; }
+    a { color: inherit; }
 
+    button:focus-visible,
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    /* =========================================================
+       2. PAGE SHELL + TOP BAR
+       ========================================================= */
     .site {
       width: min(1280px, 100%);
       margin: 0 auto;
@@ -75,6 +99,8 @@
       justify-content: space-between;
       gap: 20px;
       padding: 12px 28px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
     }
 
     .brand {
@@ -90,10 +116,10 @@
       align-items: center;
       gap: 9px;
       padding: 0 14px;
-      border: 0;
-      border-radius: 6px;
       color: var(--text);
       background: var(--surface-alt);
+      border: 0;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -103,12 +129,9 @@
 
     .theme-toggle:hover { background: var(--page); }
 
-    .theme-toggle:focus-visible,
-    .quiz-link:focus-visible {
-      outline: 3px solid var(--primary);
-      outline-offset: 3px;
-    }
-
+    /* =========================================================
+       3. LARGE MITCH HERO
+       ========================================================= */
     .hero {
       min-height: 620px;
       display: flex;
@@ -132,6 +155,132 @@
       letter-spacing: -0.055em;
     }
 
+    /* =========================================================
+       4. AUTO-GENERATED SECTION NAVIGATION
+       ========================================================= */
+    .directory-nav {
+      padding: 18px 28px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .directory-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--subtle);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .directory-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .directory-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      background: var(--surface-alt);
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .directory-link:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .directory-link small {
+      color: var(--subtle);
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       5. GROUP / SECTION HEADERS
+       ========================================================= */
+    .resource-section {
+      scroll-margin-top: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resource-section > summary {
+      min-height: 132px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 44px;
+      color: var(--text);
+      background: var(--surface-alt);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .resource-section > summary::-webkit-details-marker { display: none; }
+
+    .section-title-row {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-title-row h2 {
+      margin: 0;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .count-badge {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 11px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .collapse-label {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      color: var(--text);
+      background: var(--surface);
+      border: 2px solid var(--text);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .resource-section:not([open]) .collapse-label::before { content: "Expand"; }
+    .resource-section[open] .collapse-label::before { content: "Collapse"; }
+
+    /* =========================================================
+       6. RESOURCE CARDS — SAME LARGE MITCH STYLE
+       ========================================================= */
     .quiz-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -152,8 +301,27 @@
       background: var(--surface-alt);
     }
 
-    .quiz-card h2 {
-      margin: 0 0 44px;
+    .card-tag {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      margin-bottom: 20px;
+      color: #111827;
+      background: var(--primary-soft);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    :root[data-theme="dark"] .card-tag {
+      color: #dbeafe;
+    }
+
+    .quiz-card h3 {
+      margin: 0 0 28px;
       font-size: clamp(42px, 4.2vw, 58px);
       font-weight: 800;
       line-height: 1;
@@ -175,15 +343,15 @@
       justify-content: space-between;
       gap: 20px;
       padding: 0 24px;
-      border-radius: 6px;
       color: #ffffff;
       background: var(--accent);
+      border-radius: 6px;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.03em;
       text-decoration: none;
       text-transform: uppercase;
-      transition: background 160ms ease, transform 160ms ease;
+      transition: background var(--transition), transform var(--transition);
     }
 
     .quiz-link:hover {
@@ -196,6 +364,60 @@
       line-height: 1;
     }
 
+    .empty-message {
+      padding: 42px;
+      color: var(--subtle);
+      background: var(--surface);
+    }
+
+    /* =========================================================
+       7. OPTIONAL EDITING HELP
+       ========================================================= */
+    .edit-help {
+      border-bottom: 0;
+    }
+
+    .edit-help > summary {
+      min-height: 82px;
+      padding: 24px 28px;
+      color: var(--text);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    .edit-help > summary::-webkit-details-marker { display: none; }
+
+    .edit-body {
+      display: grid;
+      gap: 14px;
+      padding: 0 28px 30px;
+      color: var(--subtle);
+      background: var(--surface);
+    }
+
+    .edit-body p { margin: 0; }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      padding: 18px;
+      color: #f9fafb;
+      background: #111827;
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       8. RESPONSIVE
+       ========================================================= */
     @media (max-width: 760px) {
       body { padding: 0; }
       .site { border-radius: 0; }
@@ -211,6 +433,31 @@
 
       .hero h1 { font-size: clamp(68px, 23vw, 96px); }
 
+      .directory-nav {
+        padding: 16px 18px;
+        overflow: hidden;
+      }
+
+      .directory-links {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .directory-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .resource-section > summary {
+        min-height: 0;
+        align-items: stretch;
+        flex-direction: column;
+        padding: 28px 24px;
+      }
+
+      .collapse-label { width: 100%; }
+
       .quiz-grid { grid-template-columns: 1fr; }
 
       .quiz-card,
@@ -220,19 +467,28 @@
         padding: 38px 24px 30px;
       }
 
-      .quiz-card:nth-child(even) { background: var(--surface-alt); }
-      .quiz-card h2 { margin-bottom: 30px; }
+      .quiz-card:nth-child(even) {
+        background: var(--surface-alt);
+      }
+
+      .quiz-card h3 { margin-bottom: 24px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      * { scroll-behavior: auto !important; transition: none !important; }
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="site">
     <header class="topbar">
       <p class="brand">Mitch - English Tutoring Resources</p>
+
       <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
         <span aria-hidden="true">◐</span>
         <span class="theme-label">Dark mode</span>
@@ -246,88 +502,237 @@
       </div>
     </section>
 
-    <section class="quiz-grid" aria-label="Available quizzes">
-      <article class="quiz-card">
-        <div>
-          <h2>July 22, 2026</h2>
-          <p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p>
-        </div>
-        <a class="quiz-link" href="./july22-English-Grammar-IELTS-Typing-Lab.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
+    <nav class="directory-nav" aria-label="Resource sections">
+      <span class="directory-label">Jump to a section</span>
+      <div class="directory-links" id="sectionLinks"></div>
+    </nav>
 
-      <article class="quiz-card">
-        <div>
-          <h2>July 24, 2026</h2>
-          <p>Previous-point review, reflexive pronouns, forms of other, five correction sets, and reason/detail matching with balanced choices.</p>
-        </div>
-        <a class="quiz-link" href="./july24-Grammar-Review-IELTS-Sprint-Lab.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
+    <div id="sections"></div>
 
-      <article class="quiz-card">
-        <div>
-          <h2>July 26, 2026</h2>
-          <p>Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.</p>
-        </div>
-        <a class="quiz-link" href="./july26-Grammar-IELTS-5W1H-Practice-Lab.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
+    <details class="edit-help">
+      <summary>How to add pages and sections</summary>
+      <div class="edit-body">
+        <p>
+          Edit only the <strong>PAGES</strong> list near the bottom of this file.
+          A new <strong>group</strong> name automatically creates a new section.
+        </p>
 
-      <article class="quiz-card">
-        <div>
-          <h2>August 3, 2026</h2>
-          <p>Build stronger IELTS language, repair modifier placement, review simple past forms, and turn basic ideas into specific, coherent storylines.</p>
-        </div>
-        <a class="quiz-link" href="./august3-vocabulary-grammar-IELTS-storyline.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
+        <pre><code>{ title: "Conjugation Practice", href: "conjugation-practice.html", group: "Helper exercises", tag: "Conjugation" },</code></pre>
 
-      <article class="quiz-card">
-        <div>
-          <h2>August 7, 2026</h2>
-          <p>Use the vocabulary bank in context, control modifier placement and meaning, and practice turning IELTS sentences into useful 5W/1H sub-questions.</p>
-        </div>
-          <a class="quiz-link" href="./august7-vocab-modifiers-cluesIELTS.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
-
-      <article class="quiz-card">
-        <div>
-          <h2>August 10, 2026</h2>
-          <p>IELTS relevance lab: learn to turn a broad prompt into useful sub-questions, then choose or generate only the details that actually answer them.</p>
-        </div>
-          <a class="quiz-link" href="./august10-ielts.html">
-          <span>Open File</span><span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </article>
-
-    </section>
+        <p>
+          <strong>description</strong> is optional. If you leave it out, the card still works.
+          Keep <strong>href</strong> as a relative path when the files live together on GitHub Pages.
+        </p>
+      </div>
+    </details>
   </main>
 
   <script>
-    const toggle = document.getElementById("themeToggle");
-    const root = document.documentElement;
-    const label = toggle.querySelector(".theme-label");
+    /* =========================================================
+       EDIT YOUR RESOURCE LIST HERE
+       =========================================================
 
-    function setTheme(theme, save = false) {
-      root.dataset.theme = theme;
-      const dark = theme === "dark";
-      toggle.setAttribute("aria-pressed", String(dark));
-      toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-      label.textContent = dark ? "Light mode" : "Dark mode";
-      if (save) localStorage.setItem("theme", theme);
+       To add a file:
+       { title: "Conjugation Practice", href: "conjugation-practice.html", group: "Helper exercises", tag: "Conjugation" },
+
+       To create a NEW SECTION:
+       Just use a new group name. No other code changes are needed.
+
+       description is optional.
+    */
+    const PAGES = [
+      {
+        title: "July 22, 2026",
+        href: "july22-English-Grammar-IELTS-Typing-Lab.html",
+        description: "Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.",
+        group: "Tutoring Sessions",
+        tag: "Grammar + IELTS"
+      },
+      {
+        title: "July 24, 2026",
+        href: "july24-Grammar-Review-IELTS-Sprint-Lab.html",
+        description: "Previous-point review, reflexive pronouns, forms of other, five correction sets, and reason/detail matching with balanced choices.",
+        group: "Tutoring Sessions",
+        tag: "Review + IELTS"
+      },
+      {
+        title: "July 26, 2026",
+        href: "july26-Grammar-IELTS-5W1H-Practice-Lab.html",
+        description: "Possessive nouns, whose, possessive pronouns and adjectives, 45-second or untimed fluency, and typed error correction.",
+        group: "Tutoring Sessions",
+        tag: "Grammar + IELTS"
+      },
+      {
+        title: "August 3, 2026",
+        href: "august3-vocabulary-grammar-IELTS-storyline.html",
+        description: "Build stronger IELTS language, repair modifier placement, review simple past forms, and turn basic ideas into specific, coherent storylines.",
+        group: "Tutoring Sessions",
+        tag: "Vocabulary + IELTS"
+      },
+      {
+        title: "August 7, 2026",
+        href: "august7-vocab-modifiers-cluesIELTS.html",
+        description: "Use the vocabulary bank in context, control modifier placement and meaning, and practice turning IELTS sentences into useful 5W/1H sub-questions.",
+        group: "Tutoring Sessions",
+        tag: "Vocabulary + IELTS"
+      },
+      {
+        title: "August 10, 2026",
+        href: "august10-ielts.html",
+        description: "IELTS relevance lab: turn broad prompts into useful sub-questions, then choose or generate only the details that actually answer them.",
+        group: "Tutoring Sessions",
+        tag: "IELTS Relevance"
+      },
+      {
+        title: "August 10 Homework",
+        href: "august10-homework-semantics-paraphrasing.html",
+        group: "Homework",
+        tag: "Paraphrasing"
+      }
+    ];
+
+    /* =========================================================
+       DIRECTORY RENDERING
+       ========================================================= */
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
-    setTheme(root.dataset.theme || "light");
-    toggle.addEventListener("click", () => {
-      setTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
-    });
+    function slugify(value) {
+      return String(value)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function groupPages(pages) {
+      const groups = new Map();
+
+      pages.forEach((page) => {
+        const groupName = page.group || "Resources";
+
+        if (!groups.has(groupName)) {
+          groups.set(groupName, []);
+        }
+
+        groups.get(groupName).push(page);
+      });
+
+      return groups;
+    }
+
+    function renderSectionLinks(groups) {
+      const container = document.getElementById("sectionLinks");
+
+      container.innerHTML = [...groups.entries()]
+        .map(([groupName, pages]) => `
+          <a class="directory-link" href="#${escapeHTML(slugify(groupName))}">
+            <span>${escapeHTML(groupName)}</span>
+            <small>${pages.length}</small>
+          </a>
+        `)
+        .join("");
+    }
+
+    function renderSections(groups) {
+      const container = document.getElementById("sections");
+
+      if (!PAGES.length) {
+        container.innerHTML = `
+          <div class="empty-message">
+            No resources yet. Add entries to the PAGES list near the bottom of this file.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = [...groups.entries()]
+        .map(([groupName, pages], groupIndex) => `
+          <details
+            class="resource-section"
+            id="${escapeHTML(slugify(groupName))}"
+            ${groupIndex === 0 ? "open" : ""}
+          >
+            <summary>
+              <div class="section-title-row">
+                <h2>${escapeHTML(groupName)}</h2>
+                <span class="count-badge">
+                  ${pages.length} ${pages.length === 1 ? "file" : "files"}
+                </span>
+              </div>
+
+              <span class="collapse-label" aria-hidden="true"></span>
+            </summary>
+
+            <div class="quiz-grid">
+              ${pages.map((page) => `
+                <article class="quiz-card">
+                  <div>
+                    <span class="card-tag">${escapeHTML(page.tag || "Resource")}</span>
+                    <h3>${escapeHTML(page.title)}</h3>
+                    ${page.description ? `<p>${escapeHTML(page.description)}</p>` : ""}
+                  </div>
+
+                  <a class="quiz-link" href="${escapeHTML(page.href)}">
+                    <span>Open File</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                </article>
+              `).join("")}
+            </div>
+          </details>
+        `)
+        .join("");
+    }
+
+    /* =========================================================
+       THEME
+       ========================================================= */
+    function setupTheme() {
+      const toggle = document.getElementById("themeToggle");
+      const root = document.documentElement;
+      const label = toggle.querySelector(".theme-label");
+
+      function applyTheme(theme, save = false) {
+        const next = theme === "dark" ? "dark" : "light";
+        const isDark = next === "dark";
+
+        root.dataset.theme = next;
+        toggle.setAttribute("aria-pressed", String(isDark));
+        toggle.setAttribute(
+          "aria-label",
+          isDark ? "Switch to light mode" : "Switch to dark mode"
+        );
+        label.textContent = isDark ? "Light mode" : "Dark mode";
+
+        if (save) {
+          try {
+            localStorage.setItem("mitchTheme", next);
+          } catch (_) {}
+        }
+      }
+
+      applyTheme(root.dataset.theme || "light");
+
+      toggle.addEventListener("click", () => {
+        applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+      });
+    }
+
+    /* =========================================================
+       START PAGE
+       ========================================================= */
+    setupTheme();
+
+    const groupedPages = groupPages(PAGES);
+    renderSectionLinks(groupedPages);
+    renderSections(groupedPages);
   </script>
 </body>
 </html>
