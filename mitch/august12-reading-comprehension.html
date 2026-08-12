@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Grade 3 reading comprehension practice">
+  <title>August 12, 2026 - Reading Comprehension</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('reading-lab-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+    :root {
+      color-scheme:light;
+      --background:#FFFFFF; --foreground:#111827; --primary:#3B82F6; --primary-hover:#2563EB;
+      --secondary:#10B981; --secondary-soft:#D1FAE5; --accent:#F59E0B; --accent-soft:#FEF3C7;
+      --danger:#DC2626; --danger-soft:#FEE2E2; --muted:#F3F4F6; --muted-strong:#E5E7EB;
+      --border:#E5E7EB; --surface:#FFFFFF; --blue-soft:#DBEAFE; --text-muted:#4B5563;
+      --hero-text:#EFF6FF; --radius-md:6px; --radius-lg:8px; --font:'Outfit',sans-serif;
+      --transition:all 180ms ease;
+    }
+    html[data-theme="dark"] {
+      color-scheme:dark; --background:#0B1220; --foreground:#F9FAFB; --primary:#60A5FA; --primary-hover:#3B82F6;
+      --secondary:#34D399; --secondary-soft:#052E2B; --accent:#FBBF24; --accent-soft:#451A03;
+      --danger:#F87171; --danger-soft:#450A0A; --muted:#111827; --muted-strong:#1F2937;
+      --border:#374151; --surface:#111827; --blue-soft:#172554; --text-muted:#CBD5E1; --hero-text:#DBEAFE;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} [hidden]{display:none!important}
+    body{margin:0;min-height:100vh;color:var(--foreground);background:var(--muted);font-family:var(--font);font-size:16px;line-height:1.6}
+    button,input,select{font:inherit} button{cursor:pointer} h1,h2,h3,h4,p{margin-top:0} h1,h2,h3,h4{line-height:1;letter-spacing:-.02em}
+    .site-header{background:var(--surface);border-bottom:1px solid var(--border)}
+    .header-inner{width:min(1120px,calc(100% - 40px));min-height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{min-width:0;color:var(--foreground);font-size:1rem;font-weight:800;text-decoration:none}
+    .header-actions{display:flex;align-items:center;gap:8px}
+    .home-link,.theme-toggle,.btn{border:0;border-radius:var(--radius-md);font-weight:700;transition:var(--transition)}
+    .home-link,.theme-toggle{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 13px;color:var(--foreground);background:var(--surface);border:1px solid var(--border);font-size:.86rem;text-decoration:none}
+    .home-link:hover,.theme-toggle:hover{background:var(--muted-strong)}
+    .page-shell{width:min(1120px,calc(100% - 40px));margin:24px auto 64px;overflow:hidden;background:var(--surface);border-radius:var(--radius-lg)}
+    .hero{color:#fff;background:var(--primary)} .hero-copy{padding:clamp(48px,7vw,82px)}
+    h1{max-width:12ch;margin:0 0 22px;font-size:clamp(3rem,7vw,5.7rem);line-height:.92;letter-spacing:-.04em;font-weight:800}
+    .hero-copy p{max-width:64ch;margin:0;color:#EFF6FF;font-size:clamp(1rem,1.5vw,1.16rem)}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.hero-tag{padding:8px 11px;color:#111827;background:#fff;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .section-header{min-height:150px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(30px,5vw,62px);color:#111827;background:var(--secondary)}
+    .section-kicker,.menu-field label,.question-meta,.topic-title,.story-label{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .section-kicker{margin-bottom:12px;opacity:.76}.section-header h2{max-width:18ch;margin:0;font-size:clamp(2.4rem,6vw,5rem);font-weight:800}
+    .section-body{padding:clamp(22px,4vw,48px);background:var(--muted)}
+    .exercise-card{overflow:hidden;background:var(--surface);border-radius:var(--radius-lg)}
+    .exercise-head{display:grid;grid-template-columns:1fr auto;align-items:stretch;color:#fff;background:#111827}
+    html[data-theme="dark"] .exercise-head{background:#030712}
+    .exercise-head-copy{padding:26px}.exercise-head h3{margin-bottom:8px;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:800}.exercise-head p{max-width:72ch;margin:0;color:#D1D5DB}
+    .score-block{min-width:170px;display:grid;place-items:center;padding:18px;color:#111827;background:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.07em;text-align:center;text-transform:uppercase}
+    .progress-track{height:12px;background:var(--border)}.progress-fill{width:0;height:100%;background:var(--secondary);transition:width 200ms ease}
+    .exercise-menu,.quiz-stage,.finish-stage{padding:clamp(24px,4vw,38px)}
+    .menu-intro{margin-bottom:20px;color:var(--text-muted)}.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .menu-field{display:grid;gap:7px;padding:14px;background:var(--muted);border-radius:var(--radius-md)}
+    .menu-field label{color:var(--primary)}.menu-field select,.menu-field input{width:100%;min-height:46px;padding:8px 10px;color:var(--foreground);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);outline:none}
+    .menu-field select:focus,.menu-field input:focus{border-color:var(--primary)}
+    .story-preview{margin-top:16px;padding:18px;background:var(--blue-soft);border-left:6px solid var(--primary);border-radius:var(--radius-lg)}
+    .story-preview strong{font-size:1.08rem}.story-preview p{margin:5px 0 0;color:var(--text-muted)}
+    .topic-panel{margin-top:16px;padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+    .topic-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}.topic-title{color:var(--primary)}
+    .tiny-actions{display:flex;flex-wrap:wrap;gap:8px}.tiny-btn{min-height:34px;padding:0 10px;color:var(--foreground);background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-md);font-size:.72rem;font-weight:800}
+    .tiny-btn:hover{background:var(--blue-soft);border-color:var(--primary)}
+    .topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+    .topic-chip{position:relative;display:flex;align-items:flex-start;gap:9px;padding:12px;background:var(--muted);border:2px solid transparent;border-radius:var(--radius-md);font-weight:700;cursor:pointer;transition:var(--transition)}
+    .topic-chip:hover{border-color:var(--primary)}.topic-chip.checked{background:var(--blue-soft);border-color:var(--primary)}
+    .topic-chip input{margin-top:4px;accent-color:var(--primary)}
+    .availability{margin-top:12px;color:var(--text-muted);font-size:.88rem}.availability strong{color:var(--primary)}
+    .menu-note{margin-top:16px;padding:14px;color:var(--text-muted);background:var(--accent-soft);border-radius:var(--radius-md)}
+    .button-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.btn{min-height:52px;padding:0 18px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase}
+    .btn:hover:not(:disabled){transform:scale(1.03)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-primary{color:#fff;background:var(--primary)}.btn-primary:hover:not(:disabled){background:var(--primary-hover)}
+    .btn-secondary{color:var(--foreground);background:var(--muted-strong)}.btn-accent{color:#111827;background:var(--accent)}.btn-success{color:#052E16;background:var(--secondary)}.btn-danger{color:#fff;background:var(--danger)}
+    .live-toolbar{position:sticky;top:8px;z-index:35;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;margin:0 0 18px;padding:12px 14px;color:#fff;background:#111827;border-radius:var(--radius-lg)}
+    html[data-theme="dark"] .live-toolbar{background:#030712}.live-status strong{display:block;color:var(--secondary);font-size:1.05rem}.live-status span{color:#D1D5DB;font-size:.78rem}
+    .mini-timer{min-width:92px;padding:8px 12px;color:#111827;background:var(--accent);border-radius:var(--radius-md);font-weight:800;text-align:center}.mini-timer.warning{color:#fff;background:var(--danger)}
+    .quiz-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:18px;align-items:start}
+    .story-card{position:sticky;top:94px;padding:24px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-lg)}
+    .story-label{color:var(--primary);margin-bottom:7px}.story-card h4{margin-bottom:16px;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800}.story-text{color:var(--foreground);font-size:1.04rem;line-height:1.78}
+    .story-text p{margin:0 0 1em}.story-text p:last-child{margin-bottom:0}
+    .question-card{padding:24px;background:var(--surface);border-radius:var(--radius-lg)}.question-meta{margin-bottom:10px;color:var(--primary)}
+    .question-text{margin:0 0 22px;font-size:clamp(1.35rem,2.6vw,2rem);font-weight:800;line-height:1.25}
+    .option-list{display:grid;gap:10px}.option-btn{width:100%;min-height:58px;padding:14px 16px;color:var(--foreground);background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-md);text-align:left;font-weight:700;transition:var(--transition)}
+    .option-btn:hover:not(:disabled){background:var(--blue-soft);border-color:var(--primary);transform:translateX(4px)}.option-btn.correct-choice{color:#052E16;background:#86EFAC;border-color:#16A34A}.option-btn.wrong-choice{color:#450A0A;background:#FCA5A5;border-color:#DC2626}.option-btn:disabled{cursor:not-allowed}
+    .feedback{margin-top:18px;padding:18px;border-radius:var(--radius-lg)}.feedback.correct{background:var(--secondary-soft);border-left:8px solid var(--secondary)}.feedback.incorrect{background:var(--danger-soft);border-left:8px solid var(--danger)}
+    .finish-panel{padding:28px;background:var(--blue-soft);border-radius:var(--radius-lg)}.finish-panel h4{font-size:clamp(1.8rem,4vw,3rem);font-weight:800}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0}.metric{padding:16px;background:var(--surface);border-radius:var(--radius-md)}
+    .metric strong{display:block;color:var(--primary);font-size:1.6rem}.metric span{color:var(--text-muted);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .skill-breakdown{display:grid;gap:8px;margin-top:18px}.skill-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 14px;background:var(--surface);border-radius:var(--radius-md)}
+    .skill-row span:last-child{font-weight:800;color:var(--primary)}.review-box{margin-top:18px;padding:18px;background:var(--surface);border-radius:var(--radius-lg)}
+    .review-box h5{margin:0 0 8px;font-size:1.05rem}.review-box p{margin:4px 0;color:var(--text-muted)}
+    .empty-warning{margin-top:14px;padding:14px;background:var(--danger-soft);border-left:6px solid var(--danger);border-radius:var(--radius-md)}
+    .back-to-top{position:fixed;right:18px;bottom:18px;z-index:60;width:46px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:#111827;border-radius:50%;text-decoration:none;font-size:1rem}
+    button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+    @media(max-width:900px){.menu-grid{grid-template-columns:1fr}.quiz-layout{grid-template-columns:1fr}.story-card{position:static}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:680px){.header-inner{width:calc(100% - 28px)}.brand{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.page-shell{width:100%;margin:0;border-radius:0}.hero-copy{padding:48px 22px}.section-header{padding-left:22px;padding-right:22px}.section-body{padding-left:16px;padding-right:16px}.exercise-head{grid-template-columns:1fr}.score-block{min-width:0;min-height:52px}.live-toolbar{position:static;grid-template-columns:1fr}.mini-timer{width:100%}.button-row{display:grid}.btn{width:100%}.topic-head{align-items:flex-start;flex-direction:column}.topic-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr}.back-to-top{right:8px;bottom:8px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;transform:none!important}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Reading Lab</h1>
+        <p>Read one short story, then practice the exact comprehension skills you choose. Build a custom quiz with topic filters, question count, and an optional timer.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">Grade 3</span>
+          <span class="hero-tag">Reading comprehension</span>
+          <span class="hero-tag">13 skills</span>
+          <span class="hero-tag">5 stories</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Reading Comprehension Exercise</div>
+            <h2>August 12, 2026 - Reading Comprehension</h2>
+          </div>
+        </div>
+        <div class="section-body">
+          <article class="exercise-card">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Custom Story Quiz</h3>
+                <p>Choose a story and the reading skills you want to practice. Questions are shuffled each time you begin.</p>
+              </div>
+              <div class="score-block" id="scoreBlock">Ready</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+            <div class="exercise-menu" id="menu">
+              <p class="menu-intro">Set up the exercise before reading. You can practice one skill at a time or combine several skills in the same quiz.</p>
+
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="storySelect">Story to read</label>
+                  <select id="storySelect"></select>
+                </div>
+                <div class="menu-field">
+                  <label for="timerSelect">Timer</label>
+                  <select id="timerSelect">
+                    <option value="0">Untimed</option>
+                    <option value="300">5 minutes</option>
+                    <option value="600">10 minutes</option>
+                    <option value="900">15 minutes</option>
+                    <option value="1200">20 minutes</option>
+                  </select>
+                </div>
+                <div class="menu-field">
+                  <label for="questionCount">Number of questions</label>
+                  <input id="questionCount" type="number" min="1" max="13" value="10" inputmode="numeric">
+                </div>
+              </div>
+
+              <div class="story-preview" id="storyPreview"></div>
+
+              <div class="topic-panel">
+                <div class="topic-head">
+                  <div class="topic-title">Skills to cover</div>
+                  <div class="tiny-actions">
+                    <button class="tiny-btn" id="selectAll" type="button">Select all</button>
+                    <button class="tiny-btn" id="clearAll" type="button">Clear all</button>
+                  </div>
+                </div>
+                <div class="topic-grid" id="topicGrid"></div>
+                <div class="availability" id="availability"></div>
+                <div class="empty-warning" id="emptyWarning" hidden>Please select at least one reading skill.</div>
+              </div>
+
+              <div class="menu-note">Tip: selecting fewer topics gives you more focused practice. Answer choices are shuffled each attempt, and distractors are written to be similar in length, detail, and grammar so the correct answer is not revealed by formatting or wording patterns.</div>
+
+              <div class="button-row">
+                <button class="btn btn-primary" id="startBtn" type="button">Start exercise</button>
+              </div>
+            </div>
+
+            <div class="quiz-stage" id="quizStage" hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong id="liveScore">Score: 0 / 0</strong>
+                  <span id="liveProgress">Question 1</span>
+                </div>
+                <div class="mini-timer" id="liveTimer">∞ Untimed</div>
+                <button class="btn btn-danger" id="endBtn" type="button">End early</button>
+              </div>
+
+              <div class="quiz-layout">
+                <aside class="story-card">
+                  <div class="story-label">Story</div>
+                  <h4 id="storyTitle"></h4>
+                  <div class="story-text" id="storyText"></div>
+                </aside>
+
+                <section class="question-card">
+                  <div class="question-meta" id="questionMeta"></div>
+                  <div class="question-text" id="questionText"></div>
+                  <div class="option-list" id="optionList"></div>
+                  <div class="feedback" id="feedback" hidden></div>
+                  <div class="button-row">
+                    <button class="btn btn-success" id="nextBtn" type="button" hidden>Next question</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="finish-stage" id="finishStage" hidden></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+<script>
+const DATA = {"topics": {"compare_contrast": "Compare & contrast", "five_ws": "The 5 W's", "main_ideas": "Main ideas, details & summaries", "sequencing": "Sequencing", "story_elements": "Elements of a story", "authors_purpose": "Author's purpose", "point_of_view": "Point of View", "inference": "Making inferences", "context_clues": "Context clues", "cause_effect": "Cause & effect in the real world", "fact_opinion": "Fact vs. opinion", "predictions": "Predictions", "figurative_language": "Figurative language"}, "stories": [{"id": "garden-signs", "title": "Maya and the Garden Signs", "reading_time": "About 3 minutes", "text": "On Saturday morning, Maya met her grandfather at the community garden. Each garden bed had a small wooden sign that told visitors what was growing there. Maya had painted the signs herself: tomatoes, mint, beans, carrots, and sunflowers.\n\nBy noon, dark clouds rolled over the neighborhood. The wind howled like a hungry wolf and shook the sunflowers. Maya and her grandfather hurried to put away their tools. Just as they reached the gate, a gust knocked several signs out of the soil. Some rolled under benches, and one disappeared behind the tool shed.\n\n“We can fix them tomorrow,” Grandfather said.\n\nThe next morning, Maya returned early. Without the labels, she could not remember which tiny green sprouts belonged to which plants. She felt frustrated, but then she noticed clues. The mint bed had a fresh, sharp smell. The bean plants were already curling around a string. The carrot leaves looked thin and feathery.\n\nMaya matched four signs correctly, but the last two beds looked almost the same. Instead of guessing, she checked the garden map in the shed. Then she pushed every sign deep into the soil and tied each one to a short wooden stake.\n\nGrandfather tested the new signs by giving them a gentle tug. “Much sturdier,” he said. Maya smiled. Next time the wind came racing through the garden, the signs would be ready."}, {"id": "lunchbox", "title": "The Mystery Lunchbox", "reading_time": "About 3 minutes", "text": "By the time lunch began, my stomach was a drum. I opened my backpack and froze. My blue lunchbox was gone.\n\nI checked under my desk, inside my cubby, and beside the classroom sink. Nothing. My friend Eli offered me half of his sandwich, but I wanted to find out what had happened first. I remembered carrying the lunchbox into school that morning, so I retraced my steps.\n\nFirst, I walked to the front entrance. Then I checked the hallway where our class had stopped to look at a science display. Near the library, I saw a blue handle sticking out from under a bench. I hurried over, but the lunchbox belonged to a first grader named Sam.\n\nSam looked worried because he could not find his class. I walked him to the office. While we waited, the secretary asked why I was carrying someone else’s lunchbox. I explained the whole mystery.\n\nShe smiled and opened a cabinet behind her desk. There sat my lunchbox. A teacher had found it beside the science display and brought it to the office.\n\nI felt relieved, which meant the tight worried feeling in my chest finally disappeared. Sam found his teacher, and I found my lunch. I was late to the cafeteria, but Eli had saved me a seat."}, {"id": "indoor-field-day", "title": "The Indoor Field Day", "reading_time": "About 3 minutes", "text": "Ms. Patel’s class had practiced for field day all week. They expected relay races, long jumps, and a water-cup challenge on the playground. On Friday morning, however, heavy rain covered the track with puddles.\n\nAt first, everyone groaned. Jordan had been excited about the sprint, while Nia wanted to try the long jump. Ms. Patel told the class that the outdoor events were canceled, but field day was not.\n\nThe class moved to the gym. The room buzzed like a beehive as students carried cones, hoops, beanbags, and jump ropes from the equipment closet. Ms. Patel improvised new events, meaning she created them quickly with the materials available.\n\nFor one challenge, teams had to move a beanbag across the gym using only two hoops. Another event asked students to toss rolled-up socks into baskets from different distances. Jordan’s team started too fast and dropped its beanbag twice. Nia suggested moving slowly and keeping the hoops close together.\n\nTheir team followed her plan and finished the final round without a mistake. They did not win every event, but by the end of the afternoon, Jordan admitted that indoor field day had been more surprising than the one he had imagined.\n\nOutside, the rain was still falling. Inside, nobody was groaning anymore."}, {"id": "book-cart", "title": "Nora’s Book Cart", "reading_time": "About 3 minutes", "text": "Every Wednesday, Nora helped Mrs. Chen return books to the shelves in the school library. Usually, the books stood like colorful soldiers in neat rows. One afternoon, however, a wheel on the library cart began to wobble.\n\nNora pushed the cart slowly. Halfway down the mystery aisle, the loose wheel caught on the carpet. The cart tilted, and a stack of books slid onto the floor.\n\nNora wanted to keep working, but she knew the cart was unsafe. She placed a “Do Not Use” note on the handle and told Mrs. Chen what had happened. Together, they moved the books into two sturdy baskets.\n\nCarrying baskets took longer than pushing the cart. Nora made several trips, sorting the books by shelf number before she put them away. Because she organized them first, each trip became faster.\n\nThe next morning, the school custodian tightened the wheel and replaced a worn screw. Nora tested the cart with a small stack of books. It rolled straight and smoothly again.\n\nMrs. Chen thanked Nora for reporting the problem instead of pretending nothing was wrong. Nora looked at the repaired wheel and grinned. Finishing the job had taken extra time, but keeping everyone safe had mattered more."}, {"id": "balcony-nest", "title": "The Balcony Nest", "reading_time": "About 3 minutes", "text": "One spring morning, I stepped onto our balcony and heard tiny squeaks above the flowerpots. A robin had built a nest on a ledge near the window. Inside were three chicks with beaks like little yellow trumpets.\n\nI wanted to get close enough to take a picture, but Dad asked me to stay back. “The parent birds need space to feed them,” he said. We became cautious visitors. Instead of opening the balcony door often, we watched through the glass.\n\nFor the next two weeks, the parent robins flew back and forth with worms and insects. The chicks grew quickly. Their bare skin disappeared under soft feathers, and their wings became stronger.\n\nOne windy afternoon, a plastic shopping bag blew onto the balcony and caught on a chair near the nest. I worried that it might flap against the ledge and scare the birds. Dad and I waited until both parent robins had flown away. Then he quietly stepped outside, removed the bag, and came right back in.\n\nA few days later, one chick hopped to the edge of the nest. I predicted it would fly soon. The next morning, the nest was empty.\n\nI felt a little sad, but mostly proud that we had watched without disturbing them. The balcony seemed strangely quiet after our small neighbors were gone."}], "questions": {"garden-signs": [{"topic": "compare_contrast", "q": "How was the garden different on Sunday morning compared with Saturday morning?", "options": ["Several signs were missing or had moved to new places.", "Several plants were missing from the beds they had been in.", "Most of the signs were standing, but their words had faded.", "Most of the plants were covered because of the strong wind."], "answer": 0, "explanation": "After Saturday's wind, several signs were blown away or moved, so the garden was harder to identify on Sunday."}, {"topic": "five_ws", "q": "Why did Maya check the garden map in the shed?", "options": ["She could not tell the last two garden beds apart.", "She wanted to check which plants were ready to be picked.", "She needed to find where the extra paint was stored.", "She wanted to compare Sunday's weather with Saturday's weather."], "answer": 0, "explanation": "The last two beds looked almost the same, so Maya used the map instead of guessing."}, {"topic": "main_ideas", "q": "Which sentence best summarizes the story?", "options": ["A storm moves garden signs, so Maya uses clues and a map to replace and secure them.", "After a storm, Maya replaces damaged plants and paints a new set of signs with Grandfather.", "Maya spends the weekend learning how different garden plants smell and where each one grows.", "Maya discovers that the garden map is wrong and decides to move plants into different beds."], "answer": 0, "explanation": "That choice includes the main problem, Maya's solution, and the ending without unnecessary details."}, {"topic": "sequencing", "q": "What did Maya do just before she checked the garden map?", "options": ["She matched four signs by using clues from the plants.", "She helped Grandfather put all of the garden tools away.", "She pushed each of the loose signs deep into the soil.", "She noticed that the wind had moved signs around the garden."], "answer": 0, "explanation": "She used smell and plant features to match four signs, then used the map for the final two beds."}, {"topic": "story_elements", "q": "What is the main problem in the story?", "options": ["The storm blows several garden signs out of place.", "Maya forgets how to paint the names of the plants.", "Grandfather wants to remove the signs before the storm.", "Two garden beds contain plants that have stopped growing."], "answer": 0, "explanation": "The missing and mixed-up signs create the challenge Maya must solve."}, {"topic": "authors_purpose", "q": "What is the author's main purpose?", "options": ["To entertain with a story about solving a garden problem", "To explain how labels can help gardeners identify young plants", "To persuade readers to volunteer at a community garden", "To describe the different plants growing in one community garden"], "answer": 0, "explanation": "The passage is a fictional narrative that entertains while showing careful problem-solving."}, {"topic": "point_of_view", "q": "From which point of view is the story told?", "options": ["Third person, mainly following Maya's actions and thoughts", "First person, with Maya telling the events in her own words", "First person, with Grandfather telling the events in his own words", "Third person, mainly following Grandfather's actions and thoughts"], "answer": 0, "explanation": "The narrator uses 'Maya' and 'she' and mainly follows Maya's actions and thoughts."}, {"topic": "inference", "q": "What can you infer about Maya?", "options": ["She notices details and checks her work before deciding.", "She likes to work quickly even when she is not completely sure.", "She usually waits for Grandfather to solve garden problems for her.", "She cares more about painting signs than identifying the plants."], "answer": 0, "explanation": "Maya notices plant clues, avoids guessing, and checks the map, showing patience and observation."}, {"topic": "context_clues", "q": "Grandfather says the new signs are “sturdier.” What does sturdier most likely mean?", "options": ["Stronger and more securely placed", "Brighter and easier to notice", "Newer and more expensive to make", "Smoother and easier to paint"], "answer": 0, "explanation": "The signs were pushed deeper and tied to stakes, so 'sturdier' means stronger or more secure."}, {"topic": "cause_effect", "q": "In the real world, what would most likely happen if a garden label were not secured during strong wind?", "options": ["It could blow away or end up beside the wrong plant.", "It could bend toward the ground but stay beside the same plant.", "It could become covered with leaves and be harder to notice.", "It could get wet from the storm while staying in the same place."], "answer": 0, "explanation": "Wind can move lightweight objects, which is the same cause-and-effect relationship shown in the story."}, {"topic": "fact_opinion", "q": "Which statement is an opinion?", "options": ["Maya made the smartest possible signs for the garden.", "Maya painted plant names on several small wooden signs.", "The Saturday wind knocked several signs out of the soil.", "Maya used the garden map to identify the last two beds."], "answer": 0, "explanation": "'Smartest possible' is a judgment that cannot be proven as a fact."}, {"topic": "predictions", "q": "What will most likely happen the next time strong wind reaches the garden?", "options": ["The reinforced signs will probably stay in place better.", "Maya will probably carry every sign indoors before the wind.", "Grandfather will probably replace all the wooden signs with metal ones.", "The wind will probably move the plants even if the signs stay put."], "answer": 0, "explanation": "Maya made the signs more secure by pushing them deeper and tying them to stakes."}, {"topic": "figurative_language", "q": "What does “The wind howled like a hungry wolf” help the reader imagine?", "options": ["A loud, wild wind rushing through the garden", "A cold wind making the plants bend toward the ground", "A wolf running somewhere close to the community garden", "A quiet breeze moving gently through the tall sunflowers"], "answer": 0, "explanation": "The simile compares the sound of the wind to a wolf's howl to emphasize how loud and wild it was."}], "lunchbox": [{"topic": "compare_contrast", "q": "How was Sam's problem different from the narrator's problem?", "options": ["Sam could not find his class; the narrator could not find a lunchbox.", "Sam could not find his lunchbox; the narrator could not find a classroom.", "Sam was late for lunch; the narrator was late for the morning lesson.", "Sam had lost a school book; the narrator had lost an entire backpack."], "answer": 0, "explanation": "Sam could not find his class, while the narrator was trying to find a missing lunchbox."}, {"topic": "five_ws", "q": "Where was the narrator's lunchbox finally found?", "options": ["In a cabinet inside the school office", "Under a bench beside the school library", "Beside the sink inside the classroom", "Inside a cubby near the classroom door"], "answer": 0, "explanation": "A teacher had brought it to the office, where the secretary kept it in a cabinet."}, {"topic": "main_ideas", "q": "Which is the best summary?", "options": ["A student searches for a missing lunchbox, helps a younger child, and finally finds the lunchbox at the office.", "A student searches for a missing lunchbox, finds another child's lunchbox, and takes it to the cafeteria.", "A student forgets lunch at home, accepts a friend's sandwich, and later gets a replacement lunchbox at school.", "A student loses a lunchbox near the library, suspects another child, and later finds it beneath a classroom desk."], "answer": 0, "explanation": "That choice captures the problem, important events, and solution."}, {"topic": "sequencing", "q": "What happened after the narrator found Sam's lunchbox?", "options": ["The narrator walked Sam to the school office.", "The narrator returned the lunchbox to the library bench.", "The narrator went back to class to search the cubby again.", "The narrator asked Eli to take Sam to the cafeteria."], "answer": 0, "explanation": "After realizing the lunchbox belonged to Sam, the narrator helped him get to the office."}, {"topic": "story_elements", "q": "Which event is the resolution of the story?", "options": ["The narrator finds the lunchbox at the office, Sam finds his teacher, and the narrator joins Eli for lunch.", "The narrator realizes the blue lunchbox belongs to Sam and continues searching for the missing lunch.", "Eli offers part of his sandwich while the narrator decides to retrace the morning route through school.", "A teacher finds the lunchbox near the science display and brings it to the office before lunch ends."], "answer": 0, "explanation": "The missing lunchbox is recovered, Sam finds his teacher, and the main problems are solved."}, {"topic": "authors_purpose", "q": "Why did the author most likely write this story?", "options": ["To entertain readers with a small mystery about a missing lunchbox", "To explain how students should organize their belongings before lunch", "To persuade readers that school lunches should be kept in classrooms", "To describe the different jobs that people do in a school office"], "answer": 0, "explanation": "The passage is a narrative with a problem, clues, and a satisfying solution."}, {"topic": "point_of_view", "q": "How is this story told?", "options": ["First person, with the student who lost the lunchbox telling the story", "First person, with Eli telling what happened during the lunch period", "Third person, with a narrator describing the student from outside", "Second person, with the narrator giving directions directly to the reader"], "answer": 0, "explanation": "The narrator uses 'I,' 'my,' and 'me' while describing personal experiences."}, {"topic": "inference", "q": "What can you infer about the narrator?", "options": ["The narrator helps others even while dealing with a personal problem.", "The narrator tries to solve every problem without speaking to an adult.", "The narrator remembers exactly where every school item was placed.", "The narrator becomes impatient whenever another student needs help."], "answer": 0, "explanation": "Even while searching for lunch, the narrator stops to help Sam find the office."}, {"topic": "context_clues", "q": "The narrator felt “relieved.” What does relieved mean in this story?", "options": ["Calm again because the worry has ended", "More nervous because a new problem has appeared", "Embarrassed because other students are watching", "Excited because something surprising is about to happen"], "answer": 0, "explanation": "The story explains that the tight worried feeling disappeared, which defines 'relieved'."}, {"topic": "cause_effect", "q": "In real life, why is retracing your steps often useful when something is missing?", "options": ["It lets you revisit places where the missing item may have been left.", "It helps you remember which person may have borrowed the missing item.", "It gives someone extra time to carry the item to a lost-and-found area.", "It helps you decide whether the missing item should be replaced with a new one."], "answer": 0, "explanation": "Going back through recent locations can help you notice where an item was dropped or left behind."}, {"topic": "fact_opinion", "q": "Which statement is an opinion?", "options": ["Eli was the most generous student in the whole school.", "The narrator's blue lunchbox was missing when lunchtime began.", "A teacher found the lunchbox beside the hallway science display.", "Eli offered the narrator half of his sandwich during lunch."], "answer": 0, "explanation": "'Most generous' is a personal judgment, not something the story can prove."}, {"topic": "predictions", "q": "What is the narrator most likely to do on a future school morning?", "options": ["Pay closer attention to where the lunchbox is placed each morning", "Check the school office first even when nothing has gone missing", "Leave the lunchbox in the classroom instead of taking it to lunch", "Ask Eli to carry the lunchbox to the cafeteria every school day"], "answer": 0, "explanation": "After losing the lunchbox once, the narrator would likely be more careful about keeping track of it."}, {"topic": "figurative_language", "q": "What does “my stomach was a drum” mean?", "options": ["The narrator's stomach was making loud noises from hunger.", "The narrator was nervous about playing music during lunchtime.", "The narrator's stomach hurt after walking quickly through school.", "The narrator could hear someone playing a drum near the cafeteria."], "answer": 0, "explanation": "The metaphor compares the noisy, empty-feeling stomach to a drum."}], "indoor-field-day": [{"topic": "compare_contrast", "q": "How was the indoor field day different from the original outdoor plan?", "options": ["It used gym equipment and new challenges instead of outdoor races and jumps.", "It used the same races and jumps, but students completed them inside the gym.", "It focused on individual running events instead of activities completed with teams.", "It used classroom games and puzzles instead of physical activities and equipment."], "answer": 0, "explanation": "Rain forced the class to replace the outdoor events with improvised indoor ones."}, {"topic": "five_ws", "q": "Why were the outdoor events canceled?", "options": ["Heavy rain left the outdoor track covered with puddles.", "A delivery problem left the class without its outdoor equipment.", "Several students were absent, so the class did not have enough teams.", "Another class needed the playground during the scheduled field-day time."], "answer": 0, "explanation": "The rain made the outdoor track unsuitable for the planned activities."}, {"topic": "main_ideas", "q": "What is the main idea of the story?", "options": ["A class adapts to rainy weather and finds that a changed plan can still be enjoyable.", "A class spends a rainy day practicing harder so the original field day can happen later.", "Two students compete over which indoor game should replace the canceled outdoor races.", "A teacher moves field day indoors because the class has not practiced the outdoor events enough."], "answer": 0, "explanation": "The central idea is adapting to an unexpected change and still having a good experience."}, {"topic": "sequencing", "q": "What happened immediately before Nia suggested moving slowly?", "options": ["Jordan's team had dropped the beanbag twice while moving too quickly.", "Ms. Patel had explained that the class would stay inside for the afternoon.", "Nia's team had finished the first indoor challenge without making a mistake.", "The students had carried hoops and beanbags back into the equipment closet."], "answer": 0, "explanation": "The team made mistakes by rushing, which led Nia to suggest a slower plan."}, {"topic": "story_elements", "q": "What is the main challenge in the story?", "options": ["Rain prevents the class from using the outdoor events it had practiced.", "The class has to invent rules because Ms. Patel forgot the field-day plan.", "Jordan and Nia disagree about which team should be allowed to compete first.", "The gym is too small to hold the students and all of the sports equipment."], "answer": 0, "explanation": "The weather disrupts the original plan, so the class must adapt."}, {"topic": "authors_purpose", "q": "What is the author's main purpose?", "options": ["To entertain with a story about adapting when plans suddenly change", "To explain the official rules used in school relay and jumping events", "To persuade schools to hold every field day indoors instead of outside", "To describe how gym equipment should be stored after a school event"], "answer": 0, "explanation": "The story is designed to entertain while showing flexibility and teamwork."}, {"topic": "point_of_view", "q": "Which point of view is used?", "options": ["Third person, with a narrator describing several students in the class", "First person, with Jordan telling what happened during the field day", "First person, with Nia telling what happened during the field day", "Second person, with the narrator giving field-day directions to the reader"], "answer": 0, "explanation": "The narrator refers to the characters as Jordan, Nia, they, and the class."}, {"topic": "inference", "q": "Why did Nia's plan help the team?", "options": ["Moving more slowly helped the team avoid dropping the beanbag.", "Moving more slowly gave the team extra time that other teams did not receive.", "Moving more slowly made the hoops larger and easier to stand inside.", "Moving more slowly allowed Nia to carry the beanbag instead of the team."], "answer": 0, "explanation": "The team had been rushing and dropping the beanbag, so a slower, controlled approach helped."}, {"topic": "context_clues", "q": "What does “improvised” mean in the sentence about Ms. Patel?", "options": ["Created quickly by using the materials that were available", "Canceled completely because the original plan could not happen", "Copied exactly from an activity that was already in a rule book", "Practiced many times before the students arrived in the gym"], "answer": 0, "explanation": "The text directly explains that she created the activities quickly with available materials."}, {"topic": "cause_effect", "q": "In real life, why can wet outdoor tracks be unsafe for running?", "options": ["Wet surfaces can become slippery and make runners more likely to fall.", "Wet weather can make runners feel colder while they wait between events.", "Puddles can slow runners down and make their race times less accurate.", "Rain can make spectators move indoors before an outdoor event begins."], "answer": 0, "explanation": "Wet surfaces often reduce traction, which can lead to slips and falls."}, {"topic": "fact_opinion", "q": "Which is an opinion?", "options": ["Indoor field day was more exciting than any outdoor field day could be.", "The class moved from the playground plan to activities inside the gym.", "Students used cones, hoops, beanbags, and jump ropes during the events.", "Jordan's team dropped its beanbag twice before changing its strategy."], "answer": 0, "explanation": "That statement is a personal judgment, not a fact that can be proven."}, {"topic": "predictions", "q": "If rain cancels another outdoor event, what will the class most likely do?", "options": ["Look for another safe way to change the activity and keep it going", "Ask Ms. Patel to delay every activity until the original plan can happen", "Choose only quiet classroom games that do not require any equipment", "Let students decide individually whether they want to participate at all"], "answer": 0, "explanation": "The class successfully adapted once, so they would likely try another alternative plan."}, {"topic": "figurative_language", "q": "What does “The room buzzed like a beehive” suggest?", "options": ["The gym was busy and filled with excited voices and movement.", "The gym was so quiet that every small sound seemed unusually loud.", "The gym actually had bees flying around while students played games.", "The gym felt confusing because nobody knew which event came next."], "answer": 0, "explanation": "The simile compares the busy, noisy gym to an active beehive."}], "book-cart": [{"topic": "compare_contrast", "q": "How was returning books with baskets different from using the cart?", "options": ["The baskets required several trips and took longer than the cart.", "The baskets held more books, so Nora finished in fewer trips than usual.", "The baskets rolled more smoothly because they did not have a loose wheel.", "The baskets let Nora sort books after each shelf instead of before each trip."], "answer": 0, "explanation": "The story states that carrying baskets took longer and required several trips."}, {"topic": "five_ws", "q": "Who repaired the cart?", "options": ["The school custodian", "The librarian, Mrs. Chen", "The student helper, Nora", "Another student helper"], "answer": 0, "explanation": "The school custodian tightened the wheel and replaced a worn screw."}, {"topic": "main_ideas", "q": "Which sentence best summarizes the story?", "options": ["Nora notices an unsafe cart, reports it, finishes with baskets, and later tests the repaired cart.", "Nora notices an unsafe cart, repairs the wheel herself, and finishes shelving every book before leaving.", "Nora spills books from a cart, decides the work is too difficult, and waits for Mrs. Chen to finish it.", "Nora finds a broken cart, moves all the books to another room, and asks the school to buy a new one."], "answer": 0, "explanation": "This captures the problem, responsible response, workaround, and resolution."}, {"topic": "sequencing", "q": "What did Nora do before telling Mrs. Chen about the cart?", "options": ["She placed a “Do Not Use” note on the cart handle.", "She moved every book from the cart onto the correct shelf.", "She tested the repaired cart with a small stack of books.", "She asked the custodian to replace the cart's loose wheel."], "answer": 0, "explanation": "Nora first marked the unsafe cart, then told Mrs. Chen."}, {"topic": "story_elements", "q": "What is the climax or most important turning point?", "options": ["The loose wheel catches, the cart tilts, and books slide onto the floor.", "Nora sorts the books by shelf number before carrying the first basket.", "Mrs. Chen agrees to use baskets until someone can repair the damaged cart.", "The custodian replaces the worn screw and makes the cart roll smoothly again."], "answer": 0, "explanation": "The cart failure makes the danger clear and forces Nora to decide what to do."}, {"topic": "authors_purpose", "q": "Why did the author most likely write this story?", "options": ["To entertain while showing why reporting a safety problem can matter", "To explain each step a custodian should use to repair a library cart", "To persuade school libraries to replace carts with baskets for carrying books", "To describe the system libraries use to organize books by shelf number"], "answer": 0, "explanation": "The narrative emphasizes responsible action and safety."}, {"topic": "point_of_view", "q": "From what point of view is the story told?", "options": ["Third person, with a narrator mainly following Nora", "First person, with Nora telling the events herself", "First person, with Mrs. Chen telling the events herself", "Second person, with the narrator giving directions to the reader"], "answer": 0, "explanation": "The narrator uses Nora's name and 'she' rather than 'I'."}, {"topic": "inference", "q": "Why did Mrs. Chen thank Nora?", "options": ["Nora reported the unsafe cart instead of letting someone keep using it.", "Nora finished shelving the books faster than she normally did with the cart.", "Nora repaired the wheel herself before the custodian arrived the next morning.", "Nora moved every book without asking Mrs. Chen for any help or advice."], "answer": 0, "explanation": "Mrs. Chen values Nora's responsible choice to report an unsafe condition."}, {"topic": "context_clues", "q": "What does “wobble” most likely mean?", "options": ["Move unsteadily from side to side", "Move smoothly in a straight line", "Make a sharp sound while rolling", "Become difficult to lift upward"], "answer": 0, "explanation": "The later details about the loose wheel catching and the cart tilting show that it was moving unsteadily."}, {"topic": "cause_effect", "q": "In the real world, what is a sensible result of noticing damaged equipment?", "options": ["Stop using it and report the damage so it can be checked or repaired.", "Keep using it carefully until someone has enough time to look at the damage.", "Move it out of the way without telling anyone what problem was noticed.", "Test it with a heavier load to find out whether the damage gets worse."], "answer": 0, "explanation": "Stopping use and reporting damage helps prevent injuries and further damage."}, {"topic": "fact_opinion", "q": "Which statement is an opinion?", "options": ["Nora was the most responsible library helper the school had ever had.", "The cart had a loose wheel when Nora was returning books to the shelves.", "The custodian replaced a worn screw while repairing the cart the next morning.", "Nora and Mrs. Chen carried books in sturdy baskets after the cart was set aside."], "answer": 0, "explanation": "'Best ever' is an opinion and is not proven by the story."}, {"topic": "predictions", "q": "What will Nora most likely do if she notices another broken library tool?", "options": ["Report the damage and stop using the tool until it can be checked", "Keep using the tool gently as long as it still works most of the time", "Move the tool somewhere else and let the next person decide what to do", "Try to repair the tool alone before telling an adult that anything is wrong"], "answer": 0, "explanation": "Her actions in this story show that she takes safety problems seriously."}, {"topic": "figurative_language", "q": "What does the phrase “books stood like colorful soldiers” describe?", "options": ["The books were standing upright in neat, even rows.", "The books were arranged by height from the shortest to the tallest.", "The books seemed ready to fall forward from the crowded shelves.", "The books had covers showing soldiers in many different colors."], "answer": 0, "explanation": "The simile compares the neat rows of upright books to soldiers standing in formation."}], "balcony-nest": [{"topic": "compare_contrast", "q": "How did the balcony feel at the end compared with when the chicks were there?", "options": ["It seemed much quieter after the chicks had left.", "It seemed much busier because more birds had arrived.", "It seemed more crowded because the nest had become larger.", "It seemed more cheerful because the family used the balcony again."], "answer": 0, "explanation": "After the chicks left, the narrator says the balcony seemed strangely quiet."}, {"topic": "five_ws", "q": "Why did the family watch the nest through the glass?", "options": ["They wanted to give the parent birds enough space to care for the chicks.", "They wanted to keep the chicks from seeing people through the open doorway.", "They wanted to make sure the parent birds stayed on the balcony all day.", "They wanted to prevent the wind from reaching the nest near the window."], "answer": 0, "explanation": "Dad explained that the parent birds needed space to feed the chicks."}, {"topic": "main_ideas", "q": "What is the best summary of the story?", "options": ["A family carefully watches robin chicks grow, protects their space, and later sees the young birds leave the nest.", "A family finds robin chicks on a balcony, brings them indoors, and raises them until they are ready to fly.", "A child studies a robin nest every day, feeds the chicks by hand, and teaches them to return to the balcony.", "A family discovers a bird nest after a storm, repairs the damaged ledge, and moves the nest to a safer place."], "answer": 0, "explanation": "That choice includes the key events and the family's careful behavior."}, {"topic": "sequencing", "q": "What happened before the shopping bag blew onto the balcony?", "options": ["The chicks had grown feathers and their wings had become stronger.", "One chick had already flown away and left the other two behind.", "Dad had removed the empty nest from the ledge near the window.", "The narrator had stepped outside to take a close picture of the chicks."], "answer": 0, "explanation": "The story describes two weeks of growth before the windy afternoon with the bag."}, {"topic": "story_elements", "q": "What is one important challenge in the story?", "options": ["Watching the birds closely without disturbing their normal care and growth", "Finding enough food to feed the chicks while the parent birds are away", "Keeping the chicks inside the nest after their wings become strong enough", "Moving the nest to a safer place before windy spring weather arrives"], "answer": 0, "explanation": "The family wants to observe the nest while giving the birds enough space and safety."}, {"topic": "authors_purpose", "q": "What is the author's main purpose?", "options": ["To entertain with a story about watching wildlife carefully and responsibly", "To explain the exact stages of robin growth from hatching to adulthood", "To persuade readers to build nesting places for wild birds on every balcony", "To describe the materials that robins use when building nests near homes"], "answer": 0, "explanation": "The story is narrative and emphasizes respectful observation of wild animals."}, {"topic": "point_of_view", "q": "Who tells the story?", "options": ["First person, with the child in the home telling what happened", "First person, with Dad telling what happened on the balcony", "Third person, with an outside narrator following the child", "Third person, with an outside narrator following the robins"], "answer": 0, "explanation": "The narrator uses 'I,' 'we,' and 'our' and describes personal feelings."}, {"topic": "inference", "q": "Why did Dad wait until both parent robins had flown away before removing the bag?", "options": ["He wanted to avoid frightening the parent birds while he removed the bag.", "He wanted the chicks to notice the bag before it was taken off the chair.", "He wanted to wait until the strongest wind had passed before opening the door.", "He wanted the parent birds to bring food before he checked the ledge."], "answer": 0, "explanation": "The family's earlier cautious behavior shows they are trying not to disturb the birds."}, {"topic": "context_clues", "q": "What does “cautious” mean in “We became cautious visitors”?", "options": ["Careful to avoid causing trouble or disturbing something", "Excited to get as close as possible to something interesting", "Worried because something dangerous has already happened", "Uninterested in watching what happens next"], "answer": 0, "explanation": "They stay back and limit opening the door, showing careful behavior."}, {"topic": "cause_effect", "q": "In real life, why can giving nesting birds space be helpful?", "options": ["It can let the parent birds return and care for their chicks with less disturbance.", "It can help the chicks learn to search for food before they are ready to leave.", "It can keep strong wind from reaching the nest while the parent birds are gone.", "It can encourage the parent birds to build another nest on the same balcony."], "answer": 0, "explanation": "Wild animals generally need space to carry out normal behaviors such as feeding and caring for young."}, {"topic": "fact_opinion", "q": "Which statement is an opinion?", "options": ["The chicks were the cutest young birds in the whole neighborhood.", "There were three young chicks inside the nest when the family first noticed it.", "The parent robins carried worms and insects back to the growing chicks.", "A plastic shopping bag blew onto the balcony and caught on a nearby chair."], "answer": 0, "explanation": "'Cutest' is a personal judgment."}, {"topic": "predictions", "q": "Why was the narrator's prediction that the chick would fly soon reasonable?", "options": ["The chick had grown feathers, had stronger wings, and was moving to the nest's edge.", "The chick had started eating different food from the food brought by its parents.", "The parent robins had stopped returning to the nest during the previous few days.", "The weather had become warmer and the balcony door was being opened more often."], "answer": 0, "explanation": "Those physical and behavioral changes are clues that the chick was close to leaving the nest."}, {"topic": "figurative_language", "q": "What does “beaks like little yellow trumpets” help the reader picture?", "options": ["The chicks' bright yellow beaks were open wide and easy to picture.", "The chicks were making musical sounds that seemed to come from instruments.", "The parent birds were carrying objects shaped like small yellow trumpets.", "The nest had several yellow objects sticking upward beside the young birds."], "answer": 0, "explanation": "The simile compares the chicks' open yellow beaks to small trumpets."}]}};
+
+(() => {
+  'use strict';
+
+  const $ = (s, scope=document) => scope.querySelector(s);
+  const $$ = (s, scope=document) => [...scope.querySelectorAll(s)];
+  const shuffle = (arr) => {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+  const formatTime = (s) => `${Math.floor(Math.max(0,s)/60)}:${String(Math.max(0,s)%60).padStart(2,'0')}`;
+  const escapeHtml = (value) => String(value ?? '')
+    .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'",'&#039;');
+
+  const els = {
+    themeToggle: $('#themeToggle'),
+    storySelect: $('#storySelect'),
+    timerSelect: $('#timerSelect'),
+    questionCount: $('#questionCount'),
+    storyPreview: $('#storyPreview'),
+    topicGrid: $('#topicGrid'),
+    selectAll: $('#selectAll'),
+    clearAll: $('#clearAll'),
+    availability: $('#availability'),
+    emptyWarning: $('#emptyWarning'),
+    menu: $('#menu'),
+    startBtn: $('#startBtn'),
+    quizStage: $('#quizStage'),
+    finishStage: $('#finishStage'),
+    scoreBlock: $('#scoreBlock'),
+    progressFill: $('#progressFill'),
+    liveScore: $('#liveScore'),
+    liveProgress: $('#liveProgress'),
+    liveTimer: $('#liveTimer'),
+    endBtn: $('#endBtn'),
+    storyTitle: $('#storyTitle'),
+    storyText: $('#storyText'),
+    questionMeta: $('#questionMeta'),
+    questionText: $('#questionText'),
+    optionList: $('#optionList'),
+    feedback: $('#feedback'),
+    nextBtn: $('#nextBtn')
+  };
+
+  let state = {
+    story: null,
+    selectedQuestions: [],
+    index: 0,
+    score: 0,
+    responses: [],
+    answered: false,
+    active: false,
+    totalSeconds: 0,
+    seconds: 0,
+    timerId: null,
+    startedAt: 0
+  };
+
+  function setupTheme() {
+    const sync = () => {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      els.themeToggle.textContent = dark ? '☀ Light' : '☾ Dark';
+      els.themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+    sync();
+    els.themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('reading-lab-theme', next); } catch (e) {}
+      sync();
+    });
+  }
+
+  function buildMenu() {
+    DATA.stories.forEach(story => {
+      const opt = document.createElement('option');
+      opt.value = story.id;
+      opt.textContent = story.title;
+      els.storySelect.appendChild(opt);
+    });
+
+    Object.entries(DATA.topics).forEach(([key, label]) => {
+      const chip = document.createElement('label');
+      chip.className = 'topic-chip checked';
+      chip.innerHTML = `<input type="checkbox" value="${key}" checked><span>${escapeHtml(label)}</span>`;
+      const input = $('input', chip);
+      input.addEventListener('change', () => {
+        chip.classList.toggle('checked', input.checked);
+        updateAvailability();
+      });
+      els.topicGrid.appendChild(chip);
+    });
+
+    els.storySelect.addEventListener('change', () => {
+      updateStoryPreview();
+      updateAvailability();
+    });
+    els.selectAll.addEventListener('click', () => setAllTopics(true));
+    els.clearAll.addEventListener('click', () => setAllTopics(false));
+    els.questionCount.addEventListener('input', updateAvailability);
+
+    updateStoryPreview();
+    updateAvailability();
+  }
+
+  function setAllTopics(checked) {
+    $$('.topic-chip input', els.topicGrid).forEach(input => {
+      input.checked = checked;
+      input.closest('.topic-chip').classList.toggle('checked', checked);
+    });
+    updateAvailability();
+  }
+
+  function getSelectedTopics() {
+    return $$('.topic-chip input:checked', els.topicGrid).map(input => input.value);
+  }
+
+  function currentStory() {
+    return DATA.stories.find(s => s.id === els.storySelect.value) || DATA.stories[0];
+  }
+
+  function updateStoryPreview() {
+    const story = currentStory();
+    els.storyPreview.innerHTML = `<strong>${escapeHtml(story.title)}</strong><p>${escapeHtml(story.reading_time)} · Short narrative with a clear problem, sequence, and resolution.</p>`;
+  }
+
+  function availableQuestions() {
+    const storyId = currentStory().id;
+    const selected = new Set(getSelectedTopics());
+    return (DATA.questions[storyId] || []).filter(q => selected.has(q.topic));
+  }
+
+  function updateAvailability() {
+    const available = availableQuestions();
+    const selectedCount = getSelectedTopics().length;
+    const requested = Math.max(1, parseInt(els.questionCount.value,10) || 1);
+    const usable = Math.min(requested, available.length);
+    els.availability.innerHTML = `<strong>${available.length}</strong> question${available.length===1?'':'s'} available across <strong>${selectedCount}</strong> selected skill${selectedCount===1?'':'s'}. This setup will use <strong>${usable}</strong>.`;
+    els.emptyWarning.hidden = selectedCount > 0;
+    els.startBtn.disabled = selectedCount === 0 || available.length === 0;
+  }
+
+  function paragraphs(text) {
+    return text.split(/\n\s*\n/).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+  }
+
+  function startExercise() {
+    const pool = availableQuestions();
+    if (!pool.length) {
+      els.emptyWarning.hidden = false;
+      return;
+    }
+
+    let count = Math.max(1, parseInt(els.questionCount.value,10) || 10);
+    count = Math.min(count, pool.length);
+
+    state.story = currentStory();
+    state.selectedQuestions = shuffle(pool).slice(0, count).map(q => {
+      const answerText = q.options[q.answer];
+      const shuffledOptions = shuffle(q.options);
+      return {...q, shuffledOptions, answerText};
+    });
+    state.index = 0;
+    state.score = 0;
+    state.responses = [];
+    state.answered = false;
+    state.active = true;
+    state.totalSeconds = parseInt(els.timerSelect.value,10) || 0;
+    state.seconds = state.totalSeconds;
+    state.startedAt = Date.now();
+
+    els.menu.hidden = true;
+    els.finishStage.hidden = true;
+    els.quizStage.hidden = false;
+    els.storyTitle.textContent = state.story.title;
+    els.storyText.innerHTML = paragraphs(state.story.text);
+    els.scoreBlock.textContent = 'In progress';
+
+    stopTimer();
+    updateTimerDisplay();
+
+    if (state.totalSeconds > 0) {
+      state.timerId = setInterval(() => {
+        state.seconds -= 1;
+        updateTimerDisplay();
+        if (state.seconds <= 0) finishExercise('Time expired');
+      }, 1000);
+    }
+
+    renderQuestion();
+    els.quizStage.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function updateTimerDisplay() {
+    if (!state.totalSeconds) {
+      els.liveTimer.textContent = '∞ Untimed';
+      els.liveTimer.classList.remove('warning');
+      return;
+    }
+    els.liveTimer.textContent = formatTime(state.seconds);
+    els.liveTimer.classList.toggle('warning', state.seconds <= 30);
+  }
+
+  function stopTimer() {
+    if (state.timerId) clearInterval(state.timerId);
+    state.timerId = null;
+  }
+
+  function updateProgress() {
+    const answered = state.responses.length;
+    const total = state.selectedQuestions.length;
+    els.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+    els.liveProgress.textContent = `Question ${Math.min(state.index+1,total)} of ${total}`;
+    els.progressFill.style.width = total ? `${(answered/total)*100}%` : '0%';
+  }
+
+  function renderQuestion() {
+    state.answered = false;
+    els.feedback.hidden = true;
+    els.nextBtn.hidden = true;
+    els.optionList.innerHTML = '';
+
+    const q = state.selectedQuestions[state.index];
+    els.questionMeta.textContent = `${DATA.topics[q.topic]} · Question ${state.index+1} of ${state.selectedQuestions.length}`;
+    els.questionText.textContent = q.q;
+
+    q.shuffledOptions.forEach(option => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'option-btn';
+      btn.textContent = option;
+      btn.addEventListener('click', () => gradeAnswer(option, btn));
+      els.optionList.appendChild(btn);
+    });
+
+    updateProgress();
+  }
+
+  function gradeAnswer(option, selectedBtn) {
+    if (state.answered || !state.active) return;
+    state.answered = true;
+
+    const q = state.selectedQuestions[state.index];
+    const correct = option === q.answerText;
+    if (correct) state.score += 1;
+
+    state.responses.push({
+      topic: q.topic,
+      question: q.q,
+      userAnswer: option,
+      correctAnswer: q.answerText,
+      correct
+    });
+
+    $$('.option-btn', els.optionList).forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent === q.answerText) btn.classList.add('correct-choice');
+    });
+    if (!correct) selectedBtn.classList.add('wrong-choice');
+
+    els.feedback.hidden = false;
+    els.feedback.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+    els.feedback.innerHTML = correct
+      ? `✓ <strong>Correct.</strong><br>${escapeHtml(q.explanation)}`
+      : `✕ <strong>Not quite.</strong><br><strong>Correct answer:</strong> ${escapeHtml(q.answerText)}<br>${escapeHtml(q.explanation)}`;
+
+    els.nextBtn.hidden = false;
+    els.nextBtn.textContent = state.index === state.selectedQuestions.length - 1 ? 'Finish exercise' : 'Next question';
+    updateProgress();
+  }
+
+  function finishExercise(reason) {
+    if (!state.active) return;
+    state.active = false;
+    stopTimer();
+
+    els.quizStage.hidden = true;
+    els.finishStage.hidden = false;
+
+    const answered = state.responses.length;
+    const total = state.selectedQuestions.length;
+    const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+    const skipped = total - answered;
+    const elapsed = Math.max(0, Math.round((Date.now() - state.startedAt)/1000));
+
+    const bySkill = {};
+    state.responses.forEach(r => {
+      bySkill[r.topic] ??= {correct:0,total:0};
+      bySkill[r.topic].total += 1;
+      if (r.correct) bySkill[r.topic].correct += 1;
+    });
+
+    const skillRows = Object.entries(bySkill).map(([key,val]) =>
+      `<div class="skill-row"><span>${escapeHtml(DATA.topics[key])}</span><span>${val.correct}/${val.total}</span></div>`
+    ).join('');
+
+    const review = state.responses.map((r,i) => `
+      <div class="review-box">
+        <h5>${i+1}. ${escapeHtml(r.question)}</h5>
+        <p><strong>Your answer:</strong> ${escapeHtml(r.userAnswer)}</p>
+        <p><strong>Correct answer:</strong> ${escapeHtml(r.correctAnswer)}</p>
+      </div>
+    `).join('');
+
+    els.finishStage.innerHTML = `
+      <div class="finish-panel">
+        <h4>Reading Quiz Summary</h4>
+        <p>${escapeHtml(reason)}.</p>
+
+        <div class="metric-grid">
+          <div class="metric"><strong>${state.score}/${answered}</strong><span>Answered score</span></div>
+          <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+          <div class="metric"><strong>${skipped}</strong><span>Not attempted</span></div>
+          <div class="metric"><strong>${formatTime(elapsed)}</strong><span>Time used</span></div>
+        </div>
+
+        ${skillRows ? `<h4 style="font-size:1.25rem;line-height:1.2;margin:24px 0 10px">Skill breakdown</h4><div class="skill-breakdown">${skillRows}</div>` : ''}
+
+        ${review ? `<h4 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px">Answer review</h4>${review}` : ''}
+
+        <div class="button-row">
+          <button class="btn btn-accent" id="retryBtn" type="button">Retry same setup</button>
+          <button class="btn btn-secondary" id="menuBtn" type="button">Back to menu</button>
+        </div>
+      </div>
+    `;
+
+    els.scoreBlock.textContent = answered ? `Final: ${state.score} / ${answered}` : 'No answers';
+    els.progressFill.style.width = total ? `${(answered/total)*100}%` : '0%';
+
+    $('#retryBtn').addEventListener('click', startExercise);
+    $('#menuBtn').addEventListener('click', () => {
+      els.finishStage.hidden = true;
+      els.menu.hidden = false;
+      els.scoreBlock.textContent = 'Ready';
+      els.progressFill.style.width = '0%';
+      updateAvailability();
+      els.menu.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    els.finishStage.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  els.startBtn.addEventListener('click', startExercise);
+  els.endBtn.addEventListener('click', () => finishExercise('Exercise ended early'));
+  els.nextBtn.addEventListener('click', () => {
+    if (!state.answered) return;
+    if (state.index >= state.selectedQuestions.length - 1) {
+      finishExercise('Completed all selected questions');
+    } else {
+      state.index += 1;
+      renderQuestion();
+      $('.question-card').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+
+  setupTheme();
+  buildMenu();
+})();
+</script>
+</body>
+</html>
