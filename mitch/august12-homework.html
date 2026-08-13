@@ -6,82 +6,808 @@
 <meta name="description" content="Grade 4 reading comprehension assignment">
 <title>Reading Comprehension Assignment</title>
 <script>
-(() => {
-  try {
-    const savedTheme = localStorage.getItem("reading-assignment-theme");
-    const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    document.documentElement.dataset.theme = savedTheme || preferredTheme;
-  } catch (error) {
-    document.documentElement.dataset.theme = "light";
-  }
-})();
-</script>
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
-:root{color-scheme:light;--foreground:#111827;--primary:#3B82F6;--primary-hover:#2563EB;--secondary:#10B981;--secondary-soft:#D1FAE5;--accent:#F59E0B;--accent-soft:#FEF3C7;--danger:#DC2626;--danger-soft:#FEE2E2;--muted:#F3F4F6;--muted-strong:#E5E7EB;--border:#D1D5DB;--surface:#FFFFFF;--blue-soft:#DBEAFE;--text-muted:#4B5563;--hero-text:#EFF6FF;--radius-md:6px;--radius-lg:8px;--font:"Outfit",sans-serif;--transition:all 180ms ease}
-html[data-theme="dark"]{color-scheme:dark;--foreground:#F9FAFB;--primary:#60A5FA;--primary-hover:#3B82F6;--secondary:#34D399;--secondary-soft:#052E2B;--accent:#FBBF24;--accent-soft:#451A03;--danger:#F87171;--danger-soft:#450A0A;--muted:#111827;--muted-strong:#1F2937;--border:#4B5563;--surface:#111827;--blue-soft:#172554;--text-muted:#CBD5E1;--hero-text:#DBEAFE}
-*{box-sizing:border-box}html{scroll-behavior:smooth}[hidden]{display:none!important}body{margin:0;min-height:100vh;color:var(--foreground);background:var(--muted);font-family:var(--font);font-size:16px;line-height:1.6}button{font:inherit;cursor:pointer}a{color:inherit}h1,h2,h3,h4,p{margin-top:0}h1,h2,h3,h4{line-height:1;letter-spacing:-.02em}
-.site-header{background:var(--surface);border-bottom:1px solid var(--border)}.header-inner{width:min(1120px,calc(100% - 40px));min-height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{min-width:0;color:var(--foreground);font-size:1rem;font-weight:800;text-decoration:none}.header-actions{display:flex;gap:8px}.home-link,.theme-toggle,.btn{border-radius:var(--radius-md);font-weight:700;transition:var(--transition)}.home-link,.theme-toggle{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 13px;color:var(--foreground);background:var(--surface);border:1px solid var(--border);font-size:.86rem;text-decoration:none}.home-link:hover,.theme-toggle:hover{background:var(--muted-strong)}
-.page-shell{width:min(1120px,calc(100% - 40px));margin:24px auto 64px;overflow:hidden;background:var(--surface);border-radius:var(--radius-lg)}.hero{color:#fff;background:var(--primary)}.hero-copy{padding:clamp(48px,7vw,82px)}h1{max-width:14ch;margin:0 0 22px;font-size:clamp(3rem,7vw,5.7rem);line-height:.92;letter-spacing:-.04em;font-weight:800}.hero-copy p{max-width:65ch;margin:0;color:var(--hero-text);font-size:clamp(1rem,1.5vw,1.16rem)}.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.hero-tag{padding:8px 11px;color:#111827;background:#fff;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.assignment-section{padding:clamp(28px,5vw,54px);background:var(--muted)}.section-kicker,.story-label,.question-meta{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.section-kicker{margin-bottom:10px;color:var(--primary)}.assignment-section>h2{margin-bottom:14px;font-size:clamp(2.3rem,5vw,4.4rem);font-weight:800}.section-lead{max-width:74ch;margin-bottom:24px;color:var(--text-muted);font-size:1.05rem}
-.exercise-card{overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}.exercise-head{display:grid;grid-template-columns:1fr auto;color:#fff;background:#111827}html[data-theme="dark"] .exercise-head{background:#030712}.exercise-head-copy{padding:28px}.exercise-head h3{margin-bottom:8px;font-size:clamp(1.8rem,4vw,3rem);font-weight:800}.exercise-head p{max-width:74ch;margin:0;color:#D1D5DB}.score-block{min-width:180px;display:grid;place-items:center;padding:20px;color:#111827;background:var(--accent);font-size:.8rem;font-weight:800;text-align:center;text-transform:uppercase}.progress-track{height:12px;background:var(--border)}.progress-fill{width:0;height:100%;background:var(--secondary);transition:width 180ms ease}
-.start-screen{padding:clamp(28px,5vw,46px);text-align:center}.fixed-format{max-width:620px;margin:0 auto 22px;padding:22px;color:var(--foreground);background:var(--blue-soft);border-radius:var(--radius-lg)}.fixed-format strong{display:block;margin-bottom:5px;color:var(--primary);font-size:1.35rem}.skill-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:820px;margin:20px auto 0}.skill-pill{padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;color:var(--text-muted);font-size:.72rem;font-weight:800}
-.btn{min-height:54px;padding:0 20px;border:0;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.btn:hover:not(:disabled){transform:scale(1.03)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-primary{color:#fff;background:var(--primary)}.btn-primary:hover:not(:disabled){background:var(--primary-hover)}.btn-success{color:#052E16;background:var(--secondary)}.btn-secondary{color:var(--foreground);background:var(--muted-strong)}.btn-danger{color:#fff;background:var(--danger)}
-.question-stage{padding:clamp(24px,4vw,40px)}.live-toolbar{position:sticky;top:8px;z-index:30;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;margin-bottom:20px;padding:12px 14px;color:#fff;background:#111827;border-radius:var(--radius-lg)}html[data-theme="dark"] .live-toolbar{background:#030712}.live-status strong{display:block;color:var(--secondary);font-size:1.05rem}.live-status span{color:#D1D5DB;font-size:.78rem}.mini-timer{min-width:110px;padding:8px 12px;color:#111827;background:var(--accent);border-radius:var(--radius-md);font-weight:800;text-align:center}.mini-timer.warning{color:#fff;background:var(--danger)}
-.assignment-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:18px;align-items:start}.story-card{position:sticky;top:94px;padding:25px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-lg)}.story-label{margin-bottom:7px;color:var(--primary)}.story-card h4{margin-bottom:16px;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:800}.story-text{font-size:1.02rem;line-height:1.78}.story-text p{margin:0 0 1em}.story-text p:last-child{margin-bottom:0}
-.question-card{padding:25px;background:var(--surface);border-radius:var(--radius-lg)}.question-meta{margin-bottom:10px;color:var(--primary)}.question-text{margin:0 0 22px;font-size:clamp(1.35rem,2.7vw,2rem);font-weight:800;line-height:1.25}.option-list{display:grid;gap:10px}.option-btn{width:100%;min-height:64px;padding:15px 17px;color:var(--foreground);background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-md);text-align:left;font-weight:700;line-height:1.45;transition:var(--transition)}.option-btn:hover:not(:disabled){background:var(--blue-soft);border-color:var(--primary);transform:translateX(4px)}.option-btn.selected-choice{background:var(--blue-soft);border-color:var(--primary)}.option-btn.correct-choice{color:#052E16;background:#DCFCE7;border-color:#16A34A}.option-btn.wrong-choice{color:#450A0A;background:#FEE2E2;border-color:#DC2626}.answer-saved{margin-top:16px;padding:14px;background:var(--blue-soft);border-left:6px solid var(--primary);border-radius:var(--radius-md);color:var(--text-muted)}.button-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.finish-panel{padding:28px;background:var(--blue-soft);border-radius:var(--radius-lg)}.finish-panel h4{margin-bottom:12px;font-size:clamp(1.8rem,4vw,3rem);font-weight:800}.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0}.metric{padding:16px;background:var(--surface);border-radius:var(--radius-md)}.metric strong{display:block;color:var(--primary);font-size:1.6rem}.metric span{color:var(--text-muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.improve-panel{margin-top:20px;padding:18px;background:var(--accent-soft);border-left:8px solid var(--accent);border-radius:var(--radius-lg)}.improve-panel.good{background:var(--secondary-soft);border-left-color:var(--secondary)}.skill-breakdown{display:grid;gap:8px;margin-top:12px}.skill-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 14px;background:var(--surface);border-radius:var(--radius-md)}.skill-row span:last-child{font-weight:800;color:var(--primary)}.review-box{margin-top:18px;padding:18px;background:var(--surface);border-radius:var(--radius-lg)}.review-box h5{margin:0 0 8px;font-size:1.05rem;line-height:1.35}.review-box p{margin:4px 0;color:var(--text-muted)}.email-status{margin:18px 0 0;padding:18px;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-lg)}.email-status.sending{border-left:8px solid var(--accent)}.email-status.sent{border-left:8px solid var(--secondary);background:var(--secondary-soft)}.email-status.failed{border-left:8px solid var(--danger);background:var(--danger-soft)}.email-status strong{display:block;margin-bottom:4px}
-.back-to-top{position:fixed;right:18px;bottom:18px;z-index:50;width:46px;min-height:46px;display:grid;place-items:center;color:#fff;background:#111827;border-radius:50%;text-decoration:none}.back-to-top:hover{background:var(--primary)}button:focus-visible,a:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
-@media(max-width:900px){.assignment-layout{grid-template-columns:1fr}.story-card{position:static}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:760px){.page-shell{width:100%;margin:0;border-radius:0}.header-inner{width:calc(100% - 28px)}.exercise-head{grid-template-columns:1fr}.score-block{min-width:0;min-height:54px}.live-toolbar{position:static;grid-template-columns:1fr}.mini-timer{width:100%}.metric-grid{grid-template-columns:1fr}.button-row{display:grid}.btn{width:100%}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;transform:none!important}}
-</style>
+    (() => {
+        try {
+            const savedTheme = localStorage.getItem("reading-assignment-theme");
+            const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.dataset.theme = savedTheme || preferredTheme;
+        }
+        catch (error) {
+            document.documentElement.dataset.theme = "light";
+        }
+    })();
+  </script><style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+     /* 1. Theme tokens */
+    :root {
+      color-scheme:light;
+      --foreground:#111827;
+      --primary:#3B82F6;
+      --primary-hover:#2563EB;
+      --secondary:#10B981;
+      --secondary-soft:#D1FAE5;
+      --accent:#F59E0B;
+      --accent-soft:#FEF3C7;
+      --danger:#DC2626;
+      --danger-soft:#FEE2E2;
+      --muted:#F3F4F6;
+      --muted-strong:#E5E7EB;
+      --border:#D1D5DB;
+      --surface:#FFFFFF;
+      --blue-soft:#DBEAFE;
+      --text-muted:#4B5563;
+      --hero-text:#EFF6FF;
+      --radius-md:6px;
+      --radius-lg:8px;
+      --font:"Outfit",sans-serif;
+      --transition:all 180ms ease
+    }
+     html[data-theme="dark"] {
+      color-scheme:dark;
+      --foreground:#F9FAFB;
+      --primary:#60A5FA;
+      --primary-hover:#3B82F6;
+      --secondary:#34D399;
+      --secondary-soft:#052E2B;
+      --accent:#FBBF24;
+      --accent-soft:#451A03;
+      --danger:#F87171;
+      --danger-soft:#450A0A;
+      --muted:#111827;
+      --muted-strong:#1F2937;
+      --border:#4B5563;
+      --surface:#111827;
+      --blue-soft:#172554;
+      --text-muted:#CBD5E1;
+      --hero-text:#DBEAFE
+    }
+     * {
+      box-sizing:border-box
+    }
+    html {
+      scroll-behavior:smooth
+    }
+    [hidden] {
+      display:none!important
+    }
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--foreground);
+      background:var(--muted);
+      font-family:var(--font);
+      font-size:16px;
+      line-height:1.6
+    }
+    button {
+      font:inherit;
+      cursor:pointer
+    }
+    a {
+      color:inherit
+    }
+    h1,h2,h3,h4,p {
+      margin-top:0
+    }
+    h1,h2,h3,h4 {
+      line-height:1;
+      letter-spacing:-.02em
+    }
+     /* 2. Header */
+    .site-header {
+      background:var(--surface);
+      border-bottom:1px solid var(--border)
+    }
+    .header-inner {
+      width:min(1120px,calc(100% - 40px));
+      min-height:64px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px
+    }
+    .brand {
+      min-width:0;
+      color:var(--foreground);
+      font-size:1rem;
+      font-weight:800;
+      text-decoration:none
+    }
+    .header-actions {
+      display:flex;
+      gap:8px
+    }
+    .home-link,.theme-toggle,.btn {
+      border-radius:var(--radius-md);
+      font-weight:700;
+      transition:var(--transition)
+    }
+    .home-link,.theme-toggle {
+      min-height:40px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 13px;
+      color:var(--foreground);
+      background:var(--surface);
+      border:1px solid var(--border);
+      font-size:.86rem;
+      text-decoration:none
+    }
+    .home-link:hover,.theme-toggle:hover {
+      background:var(--muted-strong)
+    }
+     /* 3. Page shell and hero */
+    .page-shell {
+      width:min(1120px,calc(100% - 40px));
+      margin:24px auto 64px;
+      overflow:hidden;
+      background:var(--surface);
+      border-radius:var(--radius-lg)
+    }
+    .hero {
+      color:#fff;
+      background:var(--primary)
+    }
+    .hero-copy {
+      padding:clamp(48px,7vw,82px)
+    }
+    h1 {
+      max-width:14ch;
+      margin:0 0 22px;
+      font-size:clamp(3rem,7vw,5.7rem);
+      line-height:.92;
+      letter-spacing:-.04em;
+      font-weight:800
+    }
+    .hero-copy p {
+      max-width:65ch;
+      margin:0;
+      color:var(--hero-text);
+      font-size:clamp(1rem,1.5vw,1.16rem)
+    }
+    .hero-tags {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:26px
+    }
+    .hero-tag {
+      padding:8px 11px;
+      color:#111827;
+      background:#fff;
+      border-radius:999px;
+      font-size:.7rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase
+    }
+     /* 4. Assignment introduction */
+    .assignment-section {
+      padding:clamp(28px,5vw,54px);
+      background:var(--muted)
+    }
+    .section-kicker,.story-label,.question-meta {
+      font-size:.74rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase
+    }
+    .section-kicker {
+      margin-bottom:10px;
+      color:var(--primary)
+    }
+    .assignment-section>h2 {
+      margin-bottom:14px;
+      font-size:clamp(2.3rem,5vw,4.4rem);
+      font-weight:800
+    }
+    .section-lead {
+      max-width:74ch;
+      margin-bottom:24px;
+      color:var(--text-muted);
+      font-size:1.05rem
+    }
+     /* 5. Assignment card and start screen */
+    .exercise-card {
+      overflow:hidden;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg)
+    }
+    .exercise-head {
+      display:grid;
+      grid-template-columns:1fr auto;
+      color:#fff;
+      background:#111827
+    }
+    html[data-theme="dark"] .exercise-head {
+      background:#030712
+    }
+    .exercise-head-copy {
+      padding:28px
+    }
+    .exercise-head h3 {
+      margin-bottom:8px;
+      font-size:clamp(1.8rem,4vw,3rem);
+      font-weight:800
+    }
+    .exercise-head p {
+      max-width:74ch;
+      margin:0;
+      color:#D1D5DB
+    }
+    .score-block {
+      min-width:180px;
+      display:grid;
+      place-items:center;
+      padding:20px;
+      color:#111827;
+      background:var(--accent);
+      font-size:.8rem;
+      font-weight:800;
+      text-align:center;
+      text-transform:uppercase
+    }
+    .progress-track {
+      height:12px;
+      background:var(--border)
+    }
+    .progress-fill {
+      width:0;
+      height:100%;
+      background:var(--secondary);
+      transition:width 180ms ease
+    }
+     .start-screen {
+      padding:clamp(28px,5vw,46px);
+      text-align:center
+    }
+    .fixed-format {
+      max-width:620px;
+      margin:0 auto 22px;
+      padding:22px;
+      color:var(--foreground);
+      background:var(--blue-soft);
+      border-radius:var(--radius-lg)
+    }
+    .fixed-format strong {
+      display:block;
+      margin-bottom:5px;
+      color:var(--primary);
+      font-size:1.35rem
+    }
+    .skill-pills {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:7px;
+      max-width:820px;
+      margin:20px auto 0
+    }
+    .skill-pill {
+      padding:7px 10px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:999px;
+      color:var(--text-muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+     .btn {
+      min-height:54px;
+      padding:0 20px;
+      border:0;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase
+    }
+    .btn:hover:not(:disabled) {
+      transform:scale(1.03)
+    }
+    .btn:disabled {
+      opacity:.45;
+      cursor:not-allowed
+    }
+    .btn-primary {
+      color:#fff;
+      background:var(--primary)
+    }
+    .btn-primary:hover:not(:disabled) {
+      background:var(--primary-hover)
+    }
+    .btn-success {
+      color:#052E16;
+      background:var(--secondary)
+    }
+    .btn-secondary {
+      color:var(--foreground);
+      background:var(--muted-strong)
+    }
+    .btn-danger {
+      color:#fff;
+      background:var(--danger)
+    }
+     /* 6. Live assignment layout */
+    .question-stage {
+      padding:clamp(24px,4vw,40px)
+    }
+    .live-toolbar {
+      position:sticky;
+      top:8px;
+      z-index:30;
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:10px;
+      align-items:center;
+      margin-bottom:20px;
+      padding:12px 14px;
+      color:#fff;
+      background:#111827;
+      border-radius:var(--radius-lg)
+    }
+    html[data-theme="dark"] .live-toolbar {
+      background:#030712
+    }
+    .live-status strong {
+      display:block;
+      color:var(--secondary);
+      font-size:1.05rem
+    }
+    .live-status span {
+      color:#D1D5DB;
+      font-size:.78rem
+    }
+    .mini-timer {
+      min-width:110px;
+      padding:8px 12px;
+      color:#111827;
+      background:var(--accent);
+      border-radius:var(--radius-md);
+      font-weight:800;
+      text-align:center
+    }
+    .mini-timer.warning {
+      color:#fff;
+      background:var(--danger)
+    }
+     .assignment-layout {
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+      gap:18px;
+      align-items:start
+    }
+    .story-card {
+      position:sticky;
+      top:94px;
+      padding:25px;
+      background:var(--surface);
+      border:2px solid var(--border);
+      border-radius:var(--radius-lg)
+    }
+    .story-label {
+      margin-bottom:7px;
+      color:var(--primary)
+    }
+    .story-card h4 {
+      margin-bottom:16px;
+      font-size:clamp(1.7rem,3vw,2.5rem);
+      font-weight:800
+    }
+    .story-text {
+      font-size:1.02rem;
+      line-height:1.78
+    }
+    .story-text p {
+      margin:0 0 1em
+    }
+    .story-text p:last-child {
+      margin-bottom:0
+    }
+     .question-card {
+      padding:25px;
+      background:var(--surface);
+      border-radius:var(--radius-lg)
+    }
+    .question-meta {
+      margin-bottom:10px;
+      color:var(--primary)
+    }
+    .question-text {
+      margin:0 0 22px;
+      font-size:clamp(1.35rem,2.7vw,2rem);
+      font-weight:800;
+      line-height:1.25
+    }
+    .option-list {
+      display:grid;
+      gap:10px
+    }
+    .option-btn {
+      width:100%;
+      min-height:64px;
+      padding:15px 17px;
+      color:var(--foreground);
+      background:var(--surface);
+      border:2px solid var(--border);
+      border-radius:var(--radius-md);
+      text-align:left;
+      font-weight:700;
+      line-height:1.45;
+      transition:var(--transition)
+    }
+    .option-btn:hover:not(:disabled) {
+      background:var(--blue-soft);
+      border-color:var(--primary);
+      transform:translateX(4px)
+    }
+    .option-btn.selected-choice {
+      background:var(--blue-soft);
+      border-color:var(--primary)
+    }
+    .option-btn.correct-choice {
+      color:#052E16;
+      background:#DCFCE7;
+      border-color:#16A34A
+    }
+    .option-btn.wrong-choice {
+      color:#450A0A;
+      background:#FEE2E2;
+      border-color:#DC2626
+    }
+    .answer-saved {
+      margin-top:16px;
+      padding:14px;
+      background:var(--blue-soft);
+      border-left:6px solid var(--primary);
+      border-radius:var(--radius-md);
+      color:var(--text-muted)
+    }
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:20px
+    }
+     /* 7. Results and email status */
+    .finish-panel {
+      padding:28px;
+      background:var(--blue-soft);
+      border-radius:var(--radius-lg)
+    }
+    .finish-panel h4 {
+      margin-bottom:12px;
+      font-size:clamp(1.8rem,4vw,3rem);
+      font-weight:800
+    }
+    .metric-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin:20px 0
+    }
+    .metric {
+      padding:16px;
+      background:var(--surface);
+      border-radius:var(--radius-md)
+    }
+    .metric strong {
+      display:block;
+      color:var(--primary);
+      font-size:1.6rem
+    }
+    .metric span {
+      color:var(--text-muted);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase
+    }
+    .improve-panel {
+      margin-top:20px;
+      padding:18px;
+      background:var(--accent-soft);
+      border-left:8px solid var(--accent);
+      border-radius:var(--radius-lg)
+    }
+    .improve-panel.good {
+      background:var(--secondary-soft);
+      border-left-color:var(--secondary)
+    }
+    .skill-breakdown {
+      display:grid;
+      gap:8px;
+      margin-top:12px
+    }
+    .skill-row {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      padding:12px 14px;
+      background:var(--surface);
+      border-radius:var(--radius-md)
+    }
+    .skill-row span:last-child {
+      font-weight:800;
+      color:var(--primary)
+    }
+    .review-box {
+      margin-top:18px;
+      padding:18px;
+      background:var(--surface);
+      border-radius:var(--radius-lg)
+    }
+    .review-box h5 {
+      margin:0 0 8px;
+      font-size:1.05rem;
+      line-height:1.35
+    }
+    .review-box p {
+      margin:4px 0;
+      color:var(--text-muted)
+    }
+    .email-status {
+      margin:18px 0 0;
+      padding:18px;
+      background:var(--muted);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg)
+    }
+    .email-status.sending {
+      border-left:8px solid var(--accent)
+    }
+    .email-status.sent {
+      border-left:8px solid var(--secondary);
+      background:var(--secondary-soft)
+    }
+    .email-status.failed {
+      border-left:8px solid var(--danger);
+      background:var(--danger-soft)
+    }
+    .email-status strong {
+      display:block;
+      margin-bottom:4px
+    }
+     /* 8. Accessibility and responsive layout */
+    .back-to-top {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      width:46px;
+      min-height:46px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:#111827;
+      border-radius:50%;
+      text-decoration:none
+    }
+    .back-to-top:hover {
+      background:var(--primary)
+    }
+    button:focus-visible,a:focus-visible {
+      outline:3px solid var(--primary);
+      outline-offset:3px
+    }
+     @media(max-width:900px) {
+      .assignment-layout {
+        grid-template-columns:1fr
+      }
+      .story-card {
+        position:static
+      }
+      .metric-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr))
+      }
+
+    }
+    @media(max-width:760px) {
+      .page-shell {
+        width:100%;
+        margin:0;
+        border-radius:0
+      }
+      .header-inner {
+        width:calc(100% - 28px)
+      }
+      .exercise-head {
+        grid-template-columns:1fr
+      }
+      .score-block {
+        min-width:0;
+        min-height:54px
+      }
+      .live-toolbar {
+        position:static;
+        grid-template-columns:1fr
+      }
+      .mini-timer {
+        width:100%
+      }
+      .metric-grid {
+        grid-template-columns:1fr
+      }
+      .button-row {
+        display:grid
+      }
+      .btn {
+        width:100%
+      }
+
+    }
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto!important;
+        transition:none!important;
+        transform:none!important
+      }
+
+    }
+  </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="brand" href="./index.html">Mitch - English Tutoring Resources</a><div class="header-actions"><a class="home-link" href="./index.html">Home</a><button class="theme-toggle" id="themeToggle" type="button">Theme</button></div></div></header>
-<div class="page-shell" id="top">
-<section class="hero"><div class="hero-copy"><h1>Reading Assignment</h1><p>Read one fourth-grade passage carefully, then answer ten comprehension questions. The assignment is timed and your completed results are submitted automatically.</p><div class="hero-tags"><span class="hero-tag">Grade 4</span><span class="hero-tag">10 questions</span><span class="hero-tag">20 minutes</span><span class="hero-tag">Reading comprehension</span></div></div></section>
-<main><section class="assignment-section"><div class="section-kicker">Homework Assignment</div><h2>Read carefully and use evidence</h2><p class="section-lead">You may look back at the passage while answering. Choose the best answer for each question. Your answer is saved when you select it, but correct answers are not shown until the assignment is finished.</p>
-<article class="exercise-card">
-<div class="exercise-head"><div class="exercise-head-copy"><h3>The Creek Behind the School</h3><p>One passage · fixed 10-question assignment · no setup choices.</p></div><div class="score-block" id="scoreBlock">Ready</div></div>
+  <!--
+    FILE OVERVIEW
+    - CSS is organized into eight labeled sections.
+    - Passage and question data are near the top of the main script.
+    - Timer, grading, skill analysis, results, and email logic are separated.
+    - Keep email-results.js in the same folder as this HTML file.
+  -->
+<header class="site-header"><div class="header-inner">
+<a class="brand" href="./index.html">Mitch - English Tutoring Resources</a><div class="header-actions">
+<a class="home-link" href="./index.html">Home</a><button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+</div>
+</div></header><div class="page-shell" id="top">
+<section class="hero"><div class="hero-copy">
+<h1>Reading Assignment</h1>
+<p>Read one fourth-grade passage carefully, then answer ten comprehension questions. The assignment is timed and your completed results are submitted automatically.</p>
+<div class="hero-tags">
+<span class="hero-tag">Grade 4</span><span class="hero-tag">10 questions</span><span class="hero-tag">20 minutes</span><span class="hero-tag">Reading comprehension</span>
+</div>
+</div></section><main><section class="assignment-section"><div class="section-kicker">Homework Assignment</div>
+<h2>Read carefully and use evidence</h2>
+<p class="section-lead">You may look back at the passage while answering. Choose the best answer for each question. Your answer is saved when you select it, but correct answers are not shown until the assignment is finished.</p>
+<article class="exercise-card"><div class="exercise-head">
+<div class="exercise-head-copy">
+<h3>The Creek Behind the School</h3>
+<p>One passage · fixed 10-question assignment · no setup choices.</p>
+</div>
+<div class="score-block" id="scoreBlock">Ready</div>
+</div>
 <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-<div class="start-screen" id="startScreen"><div class="fixed-format"><strong>10 questions · 20 minutes</strong>The timer starts when you press Start Assignment. You can reread the passage at any time during the assignment.</div><div class="skill-pills"><span class="skill-pill">The 5 W's</span><span class="skill-pill">Main ideas &amp; details</span><span class="skill-pill">Sequencing</span><span class="skill-pill">Story elements</span><span class="skill-pill">Inferences</span><span class="skill-pill">Context clues</span><span class="skill-pill">Figurative language</span></div><div class="button-row" style="justify-content:center"><button class="btn btn-primary" id="startBtn" type="button">Start Assignment</button></div></div>
-<div class="question-stage" id="liveStage" hidden><div class="live-toolbar"><div class="live-status"><strong id="liveStatus">Answered: 0 / 10</strong><span id="liveProgress">Question 1 of 10</span></div><div class="mini-timer" id="timer">20:00</div><button class="btn btn-danger" id="endBtn" type="button">Submit early</button></div><div class="assignment-layout"><aside class="story-card"><div class="story-label">Reading passage</div><h4>The Creek Behind the School</h4><div class="story-text" id="storyText"></div></aside><section class="question-card"><div class="question-meta" id="questionMeta"></div><div class="question-text" id="questionText"></div><div class="option-list" id="optionList"></div><div class="answer-saved" id="savedNotice" hidden>Answer saved. Correct answers will be shown after you finish the assignment.</div><div class="button-row"><button class="btn btn-success" id="nextBtn" type="button" disabled>Next question</button></div></section></div></div>
+<div class="start-screen" id="startScreen">
+<div class="fixed-format">
+<strong>10 questions · 20 minutes</strong>The timer starts when you press Start Assignment. You can reread the passage at any time during the assignment.</div>
+<div class="skill-pills">
+<span class="skill-pill">The 5 W's</span><span class="skill-pill">Main ideas &amp; details</span><span class="skill-pill">Sequencing</span><span class="skill-pill">Story elements</span><span class="skill-pill">Inferences</span><span class="skill-pill">Context clues</span><span class="skill-pill">Figurative language</span>
+</div>
+<div class="button-row" style="justify-content:center"><button class="btn btn-primary" id="startBtn" type="button">Start Assignment</button></div>
+</div>
+<div class="question-stage" id="liveStage" hidden>
+<div class="live-toolbar">
+<div class="live-status">
+<strong id="liveStatus">Answered: 0 / 10</strong><span id="liveProgress">Question 1 of 10</span>
+</div>
+<div class="mini-timer" id="timer">20:00</div>
+<button class="btn btn-danger" id="endBtn" type="button">Submit early</button>
+</div>
+<div class="assignment-layout">
+<aside class="story-card"><div class="story-label">Reading passage</div>
+<h4>The Creek Behind the School</h4>
+<div class="story-text" id="storyText"></div></aside><section class="question-card"><div class="question-meta" id="questionMeta"></div>
+<div class="question-text" id="questionText"></div>
+<div class="option-list" id="optionList"></div>
+<div class="answer-saved" id="savedNotice" hidden>Answer saved. Correct answers will be shown after you finish the assignment.</div>
+<div class="button-row"><button class="btn btn-success" id="nextBtn" type="button" disabled>Next question</button></div></section>
+</div>
+</div>
 <div class="question-stage" id="finishStage" hidden></div>
-</article></section></main></div>
+</article></section></main>
+</div>
 <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
-<script src="./email-results.js"></script>
-<script>
-(() => {
-"use strict";
-const WEB3FORMS_ACCESS_KEY="17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
-const WORKSHEET_TITLE="Reading Comprehension Assignment · The Creek Behind the School";
-const QUESTION_COUNT=10;
-const TIME_LIMIT_SECONDS=20*60;
-const PASSAGE="On the first Monday in April, Ms. Alvarez led her fourth-grade class behind the school to a narrow creek. Most students had walked past the wooden fence many times, but few had noticed what was on the other side. The creek curved through a patch of trees before disappearing under a small bridge.\n\nThe class was beginning a science project about local habitats. Their job was not to collect animals or plants. Instead, they would observe the creek, record what they saw, and look for signs that the habitat was healthy.\n\nAt first, Lucas expected the trip to be boring. He had imagined standing around while everyone counted leaves. Then he spotted a bright green frog resting on a flat rock. A few feet away, tiny water insects skimmed across the surface. The creek was as busy as a train station, even though most of the activity was easy to miss.\n\nMs. Alvarez divided the class into pairs. Lucas worked with Priya. She carried a clipboard while he used a small thermometer to check the water temperature. They also counted birds, looked for animal tracks in the mud, and wrote down the kinds of plants growing near the bank.\n\nWhen they reached the bend in the creek, Priya suddenly stopped. A plastic bottle was trapped between two branches. Nearby, a snack wrapper floated beside the reeds.\n\n“We should clean this up,” Lucas said, reaching for the bottle.\n\nMs. Alvarez asked him to wait. She explained that the class needed gloves and trash grabbers before touching litter near the water. Some objects could be sharp or dirty. She promised they would return with the right supplies.\n\nThe next afternoon, the class came back. This time, everyone wore gloves. Working slowly, they collected bottles, wrappers, and several pieces of fishing line. The fishing line was especially troublesome because it had twisted around a low branch near the water.\n\nLucas and Priya carefully loosened the line while Ms. Alvarez held the branch steady. When the last loop came free, Lucas noticed a small bird watching from a nearby bush.\n\n“Good thing we found that,” Priya said. Lucas nodded. He had learned that litter was not only ugly. It could also become a danger to animals.\n\nBefore leaving, each pair checked one section of the creek again. The water still moved clearly over the stones, and frogs called from the muddy bank. The class had not changed the whole creek in one afternoon, but their work had made one small part of it safer.\n\nBack in the classroom, Ms. Alvarez asked everyone to write one sentence about what surprised them. Lucas wrote, “A place can look quiet until you learn how to notice what is happening there.”\n\nHe had started the project expecting to count leaves. Now he was already wondering what the class would discover on its next visit.";
-const DATA={"topics": {"five_ws": "The 5 W's", "main_ideas": "Main ideas, details and summaries", "sequencing": "Sequencing", "story_elements": "Elements of a story", "inference": "Making inferences", "context_clues": "Context clues", "figurative_language": "Figurative language"}, "questions": [{"topic": "five_ws", "q": "Why did Ms. Alvarez tell Lucas not to pick up the bottle right away?", "options": ["The class needed safety equipment before handling litter near the water.", "The class had already finished observing that part of the creek.", "Lucas needed to record the bottle before anyone moved it.", "Lucas and Priya had been assigned to watch birds instead."], "correct": "The class needed safety equipment before handling litter near the water.", "explanation": "Ms. Alvarez explained that gloves and trash grabbers would help protect students from sharp or dirty objects."}, {"topic": "five_ws", "q": "What was the class mainly supposed to do during its first visit to the creek?", "options": ["Observe the habitat and record signs of what was living there.", "Remove litter and repair damaged branches along the bank.", "Catch small animals and bring them back to the classroom.", "Measure the bridge and map the entire area behind the school."], "correct": "Observe the habitat and record signs of what was living there.", "explanation": "Their first job was to observe, take notes, and look for signs that the habitat was healthy."}, {"topic": "main_ideas", "q": "Which statement best gives the main idea of the passage?", "options": ["A creek study helps Lucas notice wildlife and understand why caring for a habitat matters.", "A class visits a creek mainly to practice using thermometers and clipboards outdoors.", "Lucas enjoys finding frogs but wishes the class could spend more time near the bridge.", "A teacher plans a science trip so students can identify every plant beside a creek."], "correct": "A creek study helps Lucas notice wildlife and understand why caring for a habitat matters.", "explanation": "This choice includes both Lucas's new awareness of the habitat and the lesson he learns from helping protect it."}, {"topic": "main_ideas", "q": "Which detail best supports the idea that litter can harm wildlife?", "options": ["Fishing line had twisted around a low branch close to the water.", "A plastic bottle was caught between two branches at the creek bend.", "The class found several kinds of plants growing beside the bank.", "The water moved clearly over stones when the class checked it again."], "correct": "Fishing line had twisted around a low branch close to the water.", "explanation": "Tangled fishing line could trap or injure an animal, making it the strongest support for the idea that litter can be dangerous."}, {"topic": "sequencing", "q": "Which event happened immediately before the class returned with gloves and trash grabbers?", "options": ["Ms. Alvarez explained why the students should wait before touching the litter.", "Lucas and Priya loosened fishing line from a branch beside the water.", "The class checked the creek again to see how the habitat looked afterward.", "Lucas wrote a sentence about what had surprised him during the project."], "correct": "Ms. Alvarez explained why the students should wait before touching the litter.", "explanation": "The safety explanation happened on the first visit. The class returned with equipment the next afternoon."}, {"topic": "story_elements", "q": "Which event is the main turning point in the story?", "options": ["Lucas and Priya discover litter and realize the class can help make the creek safer.", "Ms. Alvarez divides the students into pairs and gives each pair a job to complete.", "Lucas notices a frog and begins to think the creek is more interesting than expected.", "The class returns to school and writes about what surprised them during the visit."], "correct": "Lucas and Priya discover litter and realize the class can help make the creek safer.", "explanation": "Finding the litter changes the project from simple observation into a chance to protect the habitat."}, {"topic": "inference", "q": "What can the reader infer about Lucas by the end of the passage?", "options": ["He has become more curious about the creek and more aware of how people affect it.", "He has decided that outdoor science projects are much easier for him than regular classroom assignments.", "He is mostly interested in returning so he can find and watch the same frog again.", "He believes the class has already solved the important problems affecting the creek habitat."], "correct": "He has become more curious about the creek and more aware of how people affect it.", "explanation": "Lucas begins uninterested, then notices more, helps remove dangerous litter, and wonders what the class will discover next."}, {"topic": "context_clues", "q": "The passage says the fishing line was “especially troublesome.” What does troublesome mean here?", "options": ["Difficult to deal with because it was tangled around the branch.", "Easy to overlook because it matched the color of the water.", "Useful to keep because it could help with another science activity.", "Interesting to study because it showed where someone had been fishing."], "correct": "Difficult to deal with because it was tangled around the branch.", "explanation": "The next sentence explains that the line had twisted around a branch and had to be carefully loosened."}, {"topic": "figurative_language", "q": "What does the sentence “The creek was as busy as a train station” help the reader understand?", "options": ["Many living things were active around the creek even though the area seemed quiet.", "The creek was loud because trains were passing close to the school all afternoon.", "Students had to wait in lines before they could begin observing plants and animals.", "The bridge over the creek carried many people from one place to another each day."], "correct": "Many living things were active around the creek even though the area seemed quiet.", "explanation": "The simile compares the hidden activity in the creek habitat to the constant activity of a busy train station."}, {"topic": "inference", "q": "Why does Priya say, “Good thing we found that,” after the fishing line is removed?", "options": ["She understands that the tangled line might have become dangerous to an animal.", "She is relieved because the fishing line was the final item listed on their worksheet.", "She thinks the line proves that people are allowed to fish anywhere along the creek.", "She wants to save the fishing line so the class can use it for another project."], "correct": "She understands that the tangled line might have become dangerous to an animal.", "explanation": "The nearby bird and Lucas's later thought about litter being dangerous show why Priya is glad they removed the line."}]};
-const $=(s,scope=document)=>scope.querySelector(s), $$=(s,scope=document)=>[...scope.querySelectorAll(s)];
-const els={themeToggle:$("#themeToggle"),startScreen:$("#startScreen"),startBtn:$("#startBtn"),liveStage:$("#liveStage"),finishStage:$("#finishStage"),scoreBlock:$("#scoreBlock"),progressFill:$("#progressFill"),liveStatus:$("#liveStatus"),liveProgress:$("#liveProgress"),timer:$("#timer"),endBtn:$("#endBtn"),storyText:$("#storyText"),questionMeta:$("#questionMeta"),questionText:$("#questionText"),optionList:$("#optionList"),savedNotice:$("#savedNotice"),nextBtn:$("#nextBtn")};
-const state={questions:[],index:0,answers:new Map(),active:false,secondsRemaining:TIME_LIMIT_SECONDS,startedAt:0,interval:null};
-function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function shuffle(items){const c=[...items];for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]]}return c}
-function formatTime(s){const x=Math.max(0,s);return `${Math.floor(x/60)}:${String(x%60).padStart(2,"0")}`}
-function passageMarkup(t){return t.split(/\n\s*\n/).map(p=>`<p>${escapeHtml(p)}</p>`).join("")}
-function setupTheme(){const sync=()=>{els.themeToggle.textContent=document.documentElement.dataset.theme==="dark"?"☀ Light":"☾ Dark"};sync();els.themeToggle.addEventListener("click",()=>{const n=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("reading-assignment-theme",n)}catch(e){}sync()})}
-function stopTimer(){if(state.interval)clearInterval(state.interval);state.interval=null}
-function elapsedSeconds(){if(!state.startedAt)return 0;return Math.min(TIME_LIMIT_SECONDS,Math.max(0,Math.round((Date.now()-state.startedAt)/1000)))}
-function updateToolbar(){const a=state.answers.size;els.liveStatus.textContent=`Answered: ${a} / ${QUESTION_COUNT}`;els.liveProgress.textContent=`Question ${state.index+1} of ${QUESTION_COUNT}`;els.progressFill.style.width=`${a/QUESTION_COUNT*100}%`}
-function updateTimer(){els.timer.textContent=formatTime(state.secondsRemaining);els.timer.classList.toggle("warning",state.secondsRemaining<=60)}
-function startAssignment(){stopTimer();state.questions=DATA.questions.map((q,index)=>({...q,originalIndex:index,options:shuffle(q.options)}));state.index=0;state.answers=new Map();state.active=true;state.secondsRemaining=TIME_LIMIT_SECONDS;state.startedAt=Date.now();els.startScreen.hidden=true;els.finishStage.hidden=true;els.liveStage.hidden=false;els.scoreBlock.textContent="In progress";els.storyText.innerHTML=passageMarkup(PASSAGE);els.progressFill.style.width="0%";updateTimer();renderQuestion();state.interval=setInterval(()=>{state.secondsRemaining-=1;updateTimer();if(state.secondsRemaining<=0)finishAssignment("Time expired")},1000);els.liveStage.scrollIntoView({behavior:"smooth",block:"start"})}
-function renderQuestion(){const q=state.questions[state.index],prior=state.answers.get(state.index);els.questionMeta.textContent=`${DATA.topics[q.topic]} · Question ${state.index+1} of ${QUESTION_COUNT}`;els.questionText.textContent=q.q;els.optionList.innerHTML="";els.savedNotice.hidden=!prior;els.nextBtn.disabled=!prior;els.nextBtn.textContent=state.index===QUESTION_COUNT-1?"Submit assignment":"Next question";q.options.forEach(option=>{const b=document.createElement("button");b.type="button";b.className="option-btn";b.textContent=option;if(prior===option)b.classList.add("selected-choice");b.addEventListener("click",()=>selectAnswer(option));els.optionList.appendChild(b)});updateToolbar()}
-function selectAnswer(option){if(!state.active)return;state.answers.set(state.index,option);$$(".option-btn",els.optionList).forEach(b=>b.classList.toggle("selected-choice",b.textContent===option));els.savedNotice.hidden=false;els.nextBtn.disabled=false;updateToolbar()}
-function grade(){return state.questions.map((q,index)=>{const studentAnswer=state.answers.get(index)||"";return {...q,studentAnswer,correctResult:studentAnswer===q.correct,attempted:Boolean(studentAnswer)}})}
-function skillStats(results){const stats={};Object.keys(DATA.topics).forEach(k=>stats[k]={correct:0,total:0});results.forEach(r=>{stats[r.topic].total+=1;if(r.correctResult)stats[r.topic].correct+=1});return stats}
-function improvementTopics(stats){return Object.entries(stats).filter(([,v])=>v.total>0&&v.correct/v.total<.75).map(([key,v])=>({key,label:DATA.topics[key],correct:v.correct,total:v.total}))}
-function resultText(results,stats,needsImprove,reason,elapsed){const score=results.filter(r=>r.correctResult).length,attempted=results.filter(r=>r.attempted).length;const lines=[`Assignment: ${WORKSHEET_TITLE}`,`Completion reason: ${reason}`,`Score: ${score}/${QUESTION_COUNT}`,`Attempted: ${attempted}/${QUESTION_COUNT}`,`Time used: ${formatTime(elapsed)}`,"","TOPIC BREAKDOWN"];Object.entries(stats).forEach(([key,v])=>{if(v.total)lines.push(`${DATA.topics[key]}: ${v.correct}/${v.total}`)});lines.push("","TOPICS TO IMPROVE");if(needsImprove.length)needsImprove.forEach(x=>lines.push(`- ${x.label} (${x.correct}/${x.total})`));else lines.push("- None flagged on this assignment.");lines.push("","QUESTION RESULTS");results.forEach((r,i)=>{lines.push(`Q${i+1} · ${DATA.topics[r.topic]}`,r.q,`Student answer: ${r.studentAnswer||"[Not answered]"}`,`Correct answer: ${r.correct}`,`Result: ${r.correctResult?"Correct":"Incorrect"}`,"")});return lines.join("\n")}
-async function sendResults(results,stats,needsImprove,reason,elapsed,emailStatus){emailStatus.hidden=false;emailStatus.className="email-status sending";emailStatus.innerHTML="<strong>Sending assignment results…</strong>The report is being submitted automatically.";const score=results.filter(r=>r.correctResult).length,attempted=results.filter(r=>r.attempted).length,improveText=needsImprove.length?needsImprove.map(x=>x.label).join(", "):"None flagged";try{if(!window.EmailResults||typeof window.EmailResults.send!=="function")throw new Error("email-results.js could not be loaded.");await window.EmailResults.send({accessKey:WEB3FORMS_ACCESS_KEY,subject:`Reading assignment results · ${score}/${QUESTION_COUNT}`,worksheetTitle:WORKSHEET_TITLE,resultsText:resultText(results,stats,needsImprove,reason,elapsed),metadata:{"Score":`${score}/${QUESTION_COUNT}`,"Attempted":`${attempted}/${QUESTION_COUNT}`,"Time used":formatTime(elapsed),"Topics to improve":improveText,"Completion reason":reason,"Completed at":new Date().toLocaleString()}});emailStatus.className="email-status sent";emailStatus.innerHTML="<strong>✓ Results sent</strong>The assignment report was submitted successfully."}catch(error){emailStatus.className="email-status failed";emailStatus.innerHTML=`<strong>Results could not be sent automatically.</strong>${escapeHtml(error.message||"Unknown submission error.")}<div class="button-row"><button class="btn btn-primary" type="button" data-retry-email>Retry sending results</button></div>`;emailStatus.querySelector("[data-retry-email]").addEventListener("click",()=>sendResults(results,stats,needsImprove,reason,elapsed,emailStatus))}}
-function finishAssignment(reason){if(!state.active)return;stopTimer();state.active=false;const results=grade(),stats=skillStats(results),needsImprove=improvementTopics(stats),score=results.filter(r=>r.correctResult).length,attempted=results.filter(r=>r.attempted).length,elapsed=elapsedSeconds(),accuracy=Math.round(score/QUESTION_COUNT*100);els.liveStage.hidden=true;els.finishStage.hidden=false;els.scoreBlock.textContent=`Final: ${score} / ${QUESTION_COUNT}`;els.progressFill.style.width="100%";const skillRows=Object.entries(stats).filter(([,v])=>v.total).map(([key,v])=>`<div class="skill-row"><span>${escapeHtml(DATA.topics[key])}</span><span>${v.correct}/${v.total}</span></div>`).join("");const improveMarkup=needsImprove.length?`<div class="improve-panel"><strong>Topics to improve</strong><p>${needsImprove.map(x=>escapeHtml(x.label)).join(" · ")}</p></div>`:`<div class="improve-panel good"><strong>No topic was flagged for improvement.</strong><p>All assessed topic scores met the assignment threshold.</p></div>`;const reviews=results.map((r,i)=>`<div class="review-box"><h5>${i+1}. ${escapeHtml(r.q)}</h5><p><strong>Topic:</strong> ${escapeHtml(DATA.topics[r.topic])}</p><p><strong>Your answer:</strong> ${escapeHtml(r.studentAnswer||"[Not answered]")}</p><p><strong>Correct answer:</strong> ${escapeHtml(r.correct)}</p><p><strong>${r.correctResult?"✓ Correct":"✕ Incorrect"}</strong> — ${escapeHtml(r.explanation)}</p></div>`).join("");els.finishStage.innerHTML=`<div class="finish-panel"><h4>Assignment Complete</h4><p>${escapeHtml(reason)}.</p><div class="metric-grid"><div class="metric"><strong>${score}/${QUESTION_COUNT}</strong><span>Score</span></div><div class="metric"><strong>${accuracy}%</strong><span>Overall</span></div><div class="metric"><strong>${attempted}/${QUESTION_COUNT}</strong><span>Attempted</span></div><div class="metric"><strong>${formatTime(elapsed)}</strong><span>Time used</span></div></div>${improveMarkup}<h4 style="font-size:1.25rem;line-height:1.2;margin:26px 0 10px">Skill breakdown</h4><div class="skill-breakdown">${skillRows}</div><h4 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px">Answer review</h4>${reviews}<div class="email-status sending" data-email-status aria-live="polite"><strong>Sending assignment results…</strong>The report is being submitted automatically.</div></div>`;const emailStatus=els.finishStage.querySelector("[data-email-status]");sendResults(results,stats,needsImprove,reason,elapsed,emailStatus);els.finishStage.scrollIntoView({behavior:"smooth",block:"start"})}
-els.startBtn.addEventListener("click",startAssignment);els.endBtn.addEventListener("click",()=>finishAssignment("Assignment submitted early"));els.nextBtn.addEventListener("click",()=>{if(!state.answers.has(state.index))return;if(state.index>=QUESTION_COUNT-1)finishAssignment("Completed all 10 questions");else{state.index+=1;renderQuestion();$(".question-card").scrollIntoView({behavior:"smooth",block:"start"})}});
-setupTheme();
-})();
-</script>
+<script src="./email-results.js"></script><script>
+    (() => {
+        "use strict";
+        /* ==========================================================================
+       1. ASSIGNMENT SETTINGS AND CONTENT
+       ========================================================================== */
+    const WEB3FORMS_ACCESS_KEY = "17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
+        const WORKSHEET_TITLE = "Reading Comprehension Assignment · The Creek Behind the School";
+        const QUESTION_COUNT = 10;
+        const TIME_LIMIT_SECONDS = 20 * 60;
+        const PASSAGE = "On the first Monday in April, Ms. Alvarez led her fourth-grade class behind the school to a narrow creek. Most students had walked past the wooden fence many times, but few had noticed what was on the other side. The creek curved through a patch of trees before disappearing under a small bridge.\n\nThe class was beginning a science project about local habitats. Their job was not to collect animals or plants. Instead, they would observe the creek, record what they saw, and look for signs that the habitat was healthy.\n\nAt first, Lucas expected the trip to be boring. He had imagined standing around while everyone counted leaves. Then he spotted a bright green frog resting on a flat rock. A few feet away, tiny water insects skimmed across the surface. The creek was as busy as a train station, even though most of the activity was easy to miss.\n\nMs. Alvarez divided the class into pairs. Lucas worked with Priya. She carried a clipboard while he used a small thermometer to check the water temperature. They also counted birds, looked for animal tracks in the mud, and wrote down the kinds of plants growing near the bank.\n\nWhen they reached the bend in the creek, Priya suddenly stopped. A plastic bottle was trapped between two branches. Nearby, a snack wrapper floated beside the reeds.\n\n“We should clean this up,” Lucas said, reaching for the bottle.\n\nMs. Alvarez asked him to wait. She explained that the class needed gloves and trash grabbers before touching litter near the water. Some objects could be sharp or dirty. She promised they would return with the right supplies.\n\nThe next afternoon, the class came back. This time, everyone wore gloves. Working slowly, they collected bottles, wrappers, and several pieces of fishing line. The fishing line was especially troublesome because it had twisted around a low branch near the water.\n\nLucas and Priya carefully loosened the line while Ms. Alvarez held the branch steady. When the last loop came free, Lucas noticed a small bird watching from a nearby bush.\n\n“Good thing we found that,” Priya said. Lucas nodded. He had learned that litter was not only ugly. It could also become a danger to animals.\n\nBefore leaving, each pair checked one section of the creek again. The water still moved clearly over the stones, and frogs called from the muddy bank. The class had not changed the whole creek in one afternoon, but their work had made one small part of it safer.\n\nBack in the classroom, Ms. Alvarez asked everyone to write one sentence about what surprised them. Lucas wrote, “A place can look quiet until you learn how to notice what is happening there.”\n\nHe had started the project expecting to count leaves. Now he was already wondering what the class would discover on its next visit.";
+        const DATA = { "topics": { "five_ws": "The 5 W's", "main_ideas": "Main ideas, details and summaries", "sequencing": "Sequencing", "story_elements": "Elements of a story", "inference": "Making inferences", "context_clues": "Context clues", "figurative_language": "Figurative language" }, "questions": [{ "topic": "five_ws", "q": "Why did Ms. Alvarez tell Lucas not to pick up the bottle right away?", "options": ["The class needed safety equipment before handling litter near the water.", "The class had already finished observing that part of the creek.", "Lucas needed to record the bottle before anyone moved it.", "Lucas and Priya had been assigned to watch birds instead."], "correct": "The class needed safety equipment before handling litter near the water.", "explanation": "Ms. Alvarez explained that gloves and trash grabbers would help protect students from sharp or dirty objects." }, { "topic": "five_ws", "q": "What was the class mainly supposed to do during its first visit to the creek?", "options": ["Observe the habitat and record signs of what was living there.", "Remove litter and repair damaged branches along the bank.", "Catch small animals and bring them back to the classroom.", "Measure the bridge and map the entire area behind the school."], "correct": "Observe the habitat and record signs of what was living there.", "explanation": "Their first job was to observe, take notes, and look for signs that the habitat was healthy." }, { "topic": "main_ideas", "q": "Which statement best gives the main idea of the passage?", "options": ["A creek study helps Lucas notice wildlife and understand why caring for a habitat matters.", "A class visits a creek mainly to practice using thermometers and clipboards outdoors.", "Lucas enjoys finding frogs but wishes the class could spend more time near the bridge.", "A teacher plans a science trip so students can identify every plant beside a creek."], "correct": "A creek study helps Lucas notice wildlife and understand why caring for a habitat matters.", "explanation": "This choice includes both Lucas's new awareness of the habitat and the lesson he learns from helping protect it." }, { "topic": "main_ideas", "q": "Which detail best supports the idea that litter can harm wildlife?", "options": ["Fishing line had twisted around a low branch close to the water.", "A plastic bottle was caught between two branches at the creek bend.", "The class found several kinds of plants growing beside the bank.", "The water moved clearly over stones when the class checked it again."], "correct": "Fishing line had twisted around a low branch close to the water.", "explanation": "Tangled fishing line could trap or injure an animal, making it the strongest support for the idea that litter can be dangerous." }, { "topic": "sequencing", "q": "Which event happened immediately before the class returned with gloves and trash grabbers?", "options": ["Ms. Alvarez explained why the students should wait before touching the litter.", "Lucas and Priya loosened fishing line from a branch beside the water.", "The class checked the creek again to see how the habitat looked afterward.", "Lucas wrote a sentence about what had surprised him during the project."], "correct": "Ms. Alvarez explained why the students should wait before touching the litter.", "explanation": "The safety explanation happened on the first visit. The class returned with equipment the next afternoon." }, { "topic": "story_elements", "q": "Which event is the main turning point in the story?", "options": ["Lucas and Priya discover litter and realize the class can help make the creek safer.", "Ms. Alvarez divides the students into pairs and gives each pair a job to complete.", "Lucas notices a frog and begins to think the creek is more interesting than expected.", "The class returns to school and writes about what surprised them during the visit."], "correct": "Lucas and Priya discover litter and realize the class can help make the creek safer.", "explanation": "Finding the litter changes the project from simple observation into a chance to protect the habitat." }, { "topic": "inference", "q": "What can the reader infer about Lucas by the end of the passage?", "options": ["He has become more curious about the creek and more aware of how people affect it.", "He has decided that outdoor science projects are much easier for him than regular classroom assignments.", "He is mostly interested in returning so he can find and watch the same frog again.", "He believes the class has already solved the important problems affecting the creek habitat."], "correct": "He has become more curious about the creek and more aware of how people affect it.", "explanation": "Lucas begins uninterested, then notices more, helps remove dangerous litter, and wonders what the class will discover next." }, { "topic": "context_clues", "q": "The passage says the fishing line was “especially troublesome.” What does troublesome mean here?", "options": ["Difficult to deal with because it was tangled around the branch.", "Easy to overlook because it matched the color of the water.", "Useful to keep because it could help with another science activity.", "Interesting to study because it showed where someone had been fishing."], "correct": "Difficult to deal with because it was tangled around the branch.", "explanation": "The next sentence explains that the line had twisted around a branch and had to be carefully loosened." }, { "topic": "figurative_language", "q": "What does the sentence “The creek was as busy as a train station” help the reader understand?", "options": ["Many living things were active around the creek even though the area seemed quiet.", "The creek was loud because trains were passing close to the school all afternoon.", "Students had to wait in lines before they could begin observing plants and animals.", "The bridge over the creek carried many people from one place to another each day."], "correct": "Many living things were active around the creek even though the area seemed quiet.", "explanation": "The simile compares the hidden activity in the creek habitat to the constant activity of a busy train station." }, { "topic": "inference", "q": "Why does Priya say, “Good thing we found that,” after the fishing line is removed?", "options": ["She understands that the tangled line might have become dangerous to an animal.", "She is relieved because the fishing line was the final item listed on their worksheet.", "She thinks the line proves that people are allowed to fish anywhere along the creek.", "She wants to save the fishing line so the class can use it for another project."], "correct": "She understands that the tangled line might have become dangerous to an animal.", "explanation": "The nearby bird and Lucas's later thought about litter being dangerous show why Priya is glad they removed the line." }] };
+        /* ==========================================================================
+       2. DOM REFERENCES AND ASSIGNMENT STATE
+       ========================================================================== */
+    const $ = (s, scope = document) => scope.querySelector(s), $$ = (s, scope = document) => [...scope.querySelectorAll(s)];
+        const els = { themeToggle: $("#themeToggle"), startScreen: $("#startScreen"), startBtn: $("#startBtn"), liveStage: $("#liveStage"), finishStage: $("#finishStage"), scoreBlock: $("#scoreBlock"), progressFill: $("#progressFill"), liveStatus: $("#liveStatus"), liveProgress: $("#liveProgress"), timer: $("#timer"), endBtn: $("#endBtn"), storyText: $("#storyText"), questionMeta: $("#questionMeta"), questionText: $("#questionText"), optionList: $("#optionList"), savedNotice: $("#savedNotice"), nextBtn: $("#nextBtn") };
+        const state = { questions: [], index: 0, answers: new Map(), active: false, secondsRemaining: TIME_LIMIT_SECONDS, startedAt: 0, interval: null };
+        /* ==========================================================================
+       3. GENERAL UTILITIES
+       ========================================================================== */
+    function escapeHtml(v) { return String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+        function shuffle(items) { const c = [...items]; for (let i = c.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [c[i], c[j]] = [c[j], c[i]];
+        } return c; }
+        function formatTime(s) { const x = Math.max(0, s); return `${Math.floor(x / 60)}:${String(x % 60).padStart(2, "0")}`; }
+        function passageMarkup(t) { return t.split(/\n\s*\n/).map(p => `<p>${escapeHtml(p)}</p>`).join(""); }
+        /* ==========================================================================
+       4. THEME
+       ========================================================================== */
+    function setupTheme() { const sync = () => { els.themeToggle.textContent = document.documentElement.dataset.theme === "dark" ? "☀ Light" : "☾ Dark"; }; sync(); els.themeToggle.addEventListener("click", () => { const n = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = n; try {
+            localStorage.setItem("reading-assignment-theme", n);
+        }
+        catch (e) { } sync(); }); }
+        /* ==========================================================================
+       5. TIMER AND PROGRESS
+       ========================================================================== */
+    function stopTimer() { if (state.interval)
+            clearInterval(state.interval); state.interval = null; }
+        function elapsedSeconds() { if (!state.startedAt)
+            return 0; return Math.min(TIME_LIMIT_SECONDS, Math.max(0, Math.round((Date.now() - state.startedAt) / 1000))); }
+        function updateToolbar() { const a = state.answers.size; els.liveStatus.textContent = `Answered: ${a} / ${QUESTION_COUNT}`; els.liveProgress.textContent = `Question ${state.index + 1} of ${QUESTION_COUNT}`; els.progressFill.style.width = `${a / QUESTION_COUNT * 100}%`; }
+        function updateTimer() { els.timer.textContent = formatTime(state.secondsRemaining); els.timer.classList.toggle("warning", state.secondsRemaining <= 60); }
+        /* ==========================================================================
+       6. ASSIGNMENT ENGINE
+       ========================================================================== */
+    function startAssignment() { stopTimer(); state.questions = DATA.questions.map((q, index) => ({ ...q, originalIndex: index, options: shuffle(q.options) })); state.index = 0; state.answers = new Map(); state.active = true; state.secondsRemaining = TIME_LIMIT_SECONDS; state.startedAt = Date.now(); els.startScreen.hidden = true; els.finishStage.hidden = true; els.liveStage.hidden = false; els.scoreBlock.textContent = "In progress"; els.storyText.innerHTML = passageMarkup(PASSAGE); els.progressFill.style.width = "0%"; updateTimer(); renderQuestion(); state.interval = setInterval(() => { state.secondsRemaining -= 1; updateTimer(); if (state.secondsRemaining <= 0)
+            finishAssignment("Time expired"); }, 1000); els.liveStage.scrollIntoView({ behavior: "smooth", block: "start" }); }
+        function renderQuestion() { const q = state.questions[state.index], prior = state.answers.get(state.index); els.questionMeta.textContent = `${DATA.topics[q.topic]} · Question ${state.index + 1} of ${QUESTION_COUNT}`; els.questionText.textContent = q.q; els.optionList.innerHTML = ""; els.savedNotice.hidden = !prior; els.nextBtn.disabled = !prior; els.nextBtn.textContent = state.index === QUESTION_COUNT - 1 ? "Submit assignment" : "Next question"; q.options.forEach(option => { const b = document.createElement("button"); b.type = "button"; b.className = "option-btn"; b.textContent = option; if (prior === option)
+            b.classList.add("selected-choice"); b.addEventListener("click", () => selectAnswer(option)); els.optionList.appendChild(b); }); updateToolbar(); }
+        function selectAnswer(option) { if (!state.active)
+            return; state.answers.set(state.index, option); $$(".option-btn", els.optionList).forEach(b => b.classList.toggle("selected-choice", b.textContent === option)); els.savedNotice.hidden = false; els.nextBtn.disabled = false; updateToolbar(); }
+        /* ==========================================================================
+       7. GRADING AND SKILL ANALYSIS
+       ========================================================================== */
+    function grade() { return state.questions.map((q, index) => { const studentAnswer = state.answers.get(index) || ""; return { ...q, studentAnswer, correctResult: studentAnswer === q.correct, attempted: Boolean(studentAnswer) }; }); }
+        function skillStats(results) { const stats = {}; Object.keys(DATA.topics).forEach(k => stats[k] = { correct: 0, total: 0 }); results.forEach(r => { stats[r.topic].total += 1; if (r.correctResult)
+            stats[r.topic].correct += 1; }); return stats; }
+        function improvementTopics(stats) { return Object.entries(stats).filter(([, v]) => v.total > 0 && v.correct / v.total < .75).map(([key, v]) => ({ key, label: DATA.topics[key], correct: v.correct, total: v.total })); }
+        function resultText(results, stats, needsImprove, reason, elapsed) { const score = results.filter(r => r.correctResult).length, attempted = results.filter(r => r.attempted).length; const lines = [`Assignment: ${WORKSHEET_TITLE}`, `Completion reason: ${reason}`, `Score: ${score}/${QUESTION_COUNT}`, `Attempted: ${attempted}/${QUESTION_COUNT}`, `Time used: ${formatTime(elapsed)}`, "", "TOPIC BREAKDOWN"]; Object.entries(stats).forEach(([key, v]) => { if (v.total)
+            lines.push(`${DATA.topics[key]}: ${v.correct}/${v.total}`); }); lines.push("", "TOPICS TO IMPROVE"); if (needsImprove.length)
+            needsImprove.forEach(x => lines.push(`- ${x.label} (${x.correct}/${x.total})`));
+        else
+            lines.push("- None flagged on this assignment."); lines.push("", "QUESTION RESULTS"); results.forEach((r, i) => { lines.push(`Q${i + 1} · ${DATA.topics[r.topic]}`, r.q, `Student answer: ${r.studentAnswer || "[Not answered]"}`, `Correct answer: ${r.correct}`, `Result: ${r.correctResult ? "Correct" : "Incorrect"}`, ""); }); return lines.join("\n"); }
+        /* ==========================================================================
+       8. AUTOMATIC EMAIL REPORT
+       ========================================================================== */
+    async function sendResults(results, stats, needsImprove, reason, elapsed, emailStatus) { emailStatus.hidden = false; emailStatus.className = "email-status sending"; emailStatus.innerHTML = "<strong>Sending assignment results…</strong>The report is being submitted automatically."; const score = results.filter(r => r.correctResult).length, attempted = results.filter(r => r.attempted).length, improveText = needsImprove.length ? needsImprove.map(x => x.label).join(", ") : "None flagged"; try {
+            if (!window.EmailResults || typeof window.EmailResults.send !== "function")
+                throw new Error("email-results.js could not be loaded.");
+            await window.EmailResults.send({ accessKey: WEB3FORMS_ACCESS_KEY, subject: `Reading assignment results · ${score}/${QUESTION_COUNT}`, worksheetTitle: WORKSHEET_TITLE, resultsText: resultText(results, stats, needsImprove, reason, elapsed), metadata: { "Score": `${score}/${QUESTION_COUNT}`, "Attempted": `${attempted}/${QUESTION_COUNT}`, "Time used": formatTime(elapsed), "Topics to improve": improveText, "Completion reason": reason, "Completed at": new Date().toLocaleString() } });
+            emailStatus.className = "email-status sent";
+            emailStatus.innerHTML = "<strong>✓ Results sent</strong>The assignment report was submitted successfully.";
+        }
+        catch (error) {
+            emailStatus.className = "email-status failed";
+            emailStatus.innerHTML = `<strong>Results could not be sent automatically.</strong>${escapeHtml(error.message || "Unknown submission error.")}<div class="button-row"><button class="btn btn-primary" type="button" data-retry-email>Retry sending results</button></div>`;
+            emailStatus.querySelector("[data-retry-email]").addEventListener("click", () => sendResults(results, stats, needsImprove, reason, elapsed, emailStatus));
+        } }
+        /* ==========================================================================
+       9. RESULTS SCREEN
+       ========================================================================== */
+    function finishAssignment(reason) { if (!state.active)
+            return; stopTimer(); state.active = false; const results = grade(), stats = skillStats(results), needsImprove = improvementTopics(stats), score = results.filter(r => r.correctResult).length, attempted = results.filter(r => r.attempted).length, elapsed = elapsedSeconds(), accuracy = Math.round(score / QUESTION_COUNT * 100); els.liveStage.hidden = true; els.finishStage.hidden = false; els.scoreBlock.textContent = `Final: ${score} / ${QUESTION_COUNT}`; els.progressFill.style.width = "100%"; const skillRows = Object.entries(stats).filter(([, v]) => v.total).map(([key, v]) => `<div class="skill-row"><span>${escapeHtml(DATA.topics[key])}</span><span>${v.correct}/${v.total}</span></div>`).join(""); const improveMarkup = needsImprove.length ? `<div class="improve-panel"><strong>Topics to improve</strong><p>${needsImprove.map(x => escapeHtml(x.label)).join(" · ")}</p></div>` : `<div class="improve-panel good"><strong>No topic was flagged for improvement.</strong><p>All assessed topic scores met the assignment threshold.</p></div>`; const reviews = results.map((r, i) => `<div class="review-box"><h5>${i + 1}. ${escapeHtml(r.q)}</h5><p><strong>Topic:</strong> ${escapeHtml(DATA.topics[r.topic])}</p><p><strong>Your answer:</strong> ${escapeHtml(r.studentAnswer || "[Not answered]")}</p><p><strong>Correct answer:</strong> ${escapeHtml(r.correct)}</p><p><strong>${r.correctResult ? "✓ Correct" : "✕ Incorrect"}</strong> — ${escapeHtml(r.explanation)}</p></div>`).join(""); els.finishStage.innerHTML = `<div class="finish-panel"><h4>Assignment Complete</h4><p>${escapeHtml(reason)}.</p><div class="metric-grid"><div class="metric"><strong>${score}/${QUESTION_COUNT}</strong><span>Score</span></div><div class="metric"><strong>${accuracy}%</strong><span>Overall</span></div><div class="metric"><strong>${attempted}/${QUESTION_COUNT}</strong><span>Attempted</span></div><div class="metric"><strong>${formatTime(elapsed)}</strong><span>Time used</span></div></div>${improveMarkup}<h4 style="font-size:1.25rem;line-height:1.2;margin:26px 0 10px">Skill breakdown</h4><div class="skill-breakdown">${skillRows}</div><h4 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px">Answer review</h4>${reviews}<div class="email-status sending" data-email-status aria-live="polite"><strong>Sending assignment results…</strong>The report is being submitted automatically.</div></div>`; const emailStatus = els.finishStage.querySelector("[data-email-status]"); sendResults(results, stats, needsImprove, reason, elapsed, emailStatus); els.finishStage.scrollIntoView({ behavior: "smooth", block: "start" }); }
+        /* ==========================================================================
+       10. EVENT LISTENERS AND INITIALIZATION
+       ========================================================================== */
+    els.startBtn.addEventListener("click", startAssignment);
+        els.endBtn.addEventListener("click", () => finishAssignment("Assignment submitted early"));
+        els.nextBtn.addEventListener("click", () => { if (!state.answers.has(state.index))
+            return; if (state.index >= QUESTION_COUNT - 1)
+            finishAssignment("Completed all 10 questions");
+        else {
+            state.index += 1;
+            renderQuestion();
+            $(".question-card").scrollIntoView({ behavior: "smooth", block: "start" });
+        } });
+        setupTheme();
+    })();
+  </script>
 </body>
 </html>
