@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Two independent IELTS-style Academic and General Training reading exercises">
+  <title>IELTS Reading Practice - Academic & General Training</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('reading-lab-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme:light;
+      --background:#FFFFFF; --foreground:#111827; --primary:#3B82F6; --primary-hover:#2563EB;
+      --secondary:#10B981; --secondary-soft:#D1FAE5; --accent:#F59E0B; --accent-soft:#FEF3C7;
+      --danger:#DC2626; --danger-soft:#FEE2E2; --muted:#F3F4F6; --muted-strong:#E5E7EB;
+      --border:#E5E7EB; --surface:#FFFFFF; --blue-soft:#DBEAFE; --text-muted:#4B5563;
+      --radius-md:6px; --radius-lg:8px; --font:'Outfit',sans-serif; --transition:all 180ms ease;
+    }
+    html[data-theme="dark"] {
+      color-scheme:dark; --background:#0B1220; --foreground:#F9FAFB; --primary:#60A5FA; --primary-hover:#3B82F6;
+      --secondary:#34D399; --secondary-soft:#052E2B; --accent:#FBBF24; --accent-soft:#451A03;
+      --danger:#F87171; --danger-soft:#450A0A; --muted:#111827; --muted-strong:#1F2937;
+      --border:#374151; --surface:#111827; --blue-soft:#172554; --text-muted:#CBD5E1;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} [hidden]{display:none!important}
+    body{margin:0;min-height:100vh;color:var(--foreground);background:var(--muted);font-family:var(--font);font-size:16px;line-height:1.6}
+    button,input,select{font:inherit} button{cursor:pointer} h1,h2,h3,h4,h5,p{margin-top:0} h1,h2,h3,h4,h5{line-height:1.05;letter-spacing:-.02em}
+    .site-header{background:var(--surface);border-bottom:1px solid var(--border)}
+    .header-inner{width:min(1120px,calc(100% - 40px));min-height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{min-width:0;color:var(--foreground);font-size:1rem;font-weight:800;text-decoration:none}
+    .header-actions{display:flex;align-items:center;gap:8px}
+    .home-link,.theme-toggle,.btn{border:0;border-radius:var(--radius-md);font-weight:700;transition:var(--transition)}
+    .home-link,.theme-toggle{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0 13px;color:var(--foreground);background:var(--surface);border:1px solid var(--border);font-size:.86rem;text-decoration:none}
+    .home-link:hover,.theme-toggle:hover{background:var(--muted-strong)}
+    .page-shell{width:min(1120px,calc(100% - 40px));margin:24px auto 64px;overflow:hidden;background:var(--surface);border-radius:var(--radius-lg)}
+    .hero{color:#fff;background:var(--primary)} .hero-copy{padding:clamp(48px,7vw,82px)}
+    h1{max-width:12ch;margin:0 0 22px;font-size:clamp(3rem,7vw,5.7rem);line-height:.92;letter-spacing:-.04em;font-weight:800}
+    .hero-copy p{max-width:68ch;margin:0;color:#EFF6FF;font-size:clamp(1rem,1.5vw,1.16rem)}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.hero-tag{padding:8px 11px;color:#111827;background:#fff;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .exercise-section + .exercise-section{border-top:14px solid var(--muted)}
+    .section-header{min-height:150px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(30px,5vw,62px);color:#111827;background:var(--secondary)}
+    .exercise-section.general .section-header{background:var(--accent)}
+    .section-kicker,.menu-field label,.question-meta,.passage-label,.tip-label,.lesson-label{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .section-kicker{margin-bottom:12px;opacity:.76}.section-header h2{max-width:18ch;margin:0;font-size:clamp(2.4rem,6vw,5rem);font-weight:800}
+    .section-header p{max-width:50ch;margin:14px 0 0;font-weight:600;opacity:.82}.section-body{padding:clamp(22px,4vw,48px);background:var(--muted)}
+
+    .lesson-panel{margin-bottom:22px;padding:clamp(24px,4vw,38px);background:var(--blue-soft);border-radius:var(--radius-lg)}
+    .lesson-heading{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+    .lesson-badge{min-width:54px;height:54px;display:grid;place-items:center;color:#fff;background:var(--primary);border-radius:50%;font-size:1.1rem;font-weight:800}
+    .lesson-label{display:block;margin-bottom:6px;color:var(--primary)}.lesson-panel h3{margin-bottom:9px;font-size:clamp(1.75rem,4vw,3rem);font-weight:800}
+    .lesson-panel .lesson-intro{max-width:78ch;margin:0;color:var(--text-muted)}
+    .lesson-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
+    .lesson-step{padding:16px;background:var(--surface);border-radius:var(--radius-md)}
+    .lesson-step-number{display:inline-grid;width:28px;height:28px;place-items:center;margin-bottom:9px;color:#fff;background:var(--primary);border-radius:50%;font-size:.75rem;font-weight:800}
+    .lesson-step strong{display:block;margin-bottom:5px}.lesson-step p{margin:0;color:var(--text-muted);font-size:.9rem;line-height:1.5}
+    .tip-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+    .tip-card{padding:17px;background:var(--surface);border-radius:var(--radius-md)}.tip-label{display:block;margin-bottom:6px;color:var(--primary)}
+    .tip-card strong{display:block;margin-bottom:5px}.tip-card p{margin:0;color:var(--text-muted);font-size:.92rem}
+    .lesson-reminder{margin-top:14px;padding:14px;background:var(--accent-soft);border-left:6px solid var(--accent);border-radius:var(--radius-md);color:var(--text-muted)}
+
+    .exercise-card{overflow:hidden;background:var(--surface);border-radius:var(--radius-lg)}
+    .exercise-head{display:grid;grid-template-columns:1fr auto;align-items:stretch;color:#fff;background:#111827}html[data-theme="dark"] .exercise-head{background:#030712}
+    .exercise-head-copy{padding:26px}.exercise-head h3{margin-bottom:8px;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:800}.exercise-head p{max-width:74ch;margin:0;color:#D1D5DB}
+    .score-block{min-width:170px;display:grid;place-items:center;padding:18px;color:#111827;background:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.07em;text-align:center;text-transform:uppercase}
+    .progress-track{height:12px;background:var(--border)}.progress-fill{width:0;height:100%;background:var(--secondary);transition:width 200ms ease}
+    .exercise-menu,.quiz-stage,.finish-stage{padding:clamp(24px,4vw,38px)}.menu-intro{margin-bottom:20px;color:var(--text-muted)}
+    .menu-grid{display:grid;grid-template-columns:minmax(0,430px);gap:12px}.menu-field{display:grid;gap:7px;padding:14px;background:var(--muted);border-radius:var(--radius-md)}
+    .menu-field label{color:var(--primary)}.menu-field select{width:100%;min-height:48px;padding:8px 10px;color:var(--foreground);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);outline:none}.menu-field select:focus{border-color:var(--primary)}
+    .menu-note{margin-top:16px;padding:14px;color:var(--text-muted);background:var(--accent-soft);border-radius:var(--radius-md)}
+    .button-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.btn{min-height:52px;padding:0 18px;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase}
+    .btn:hover:not(:disabled){transform:scale(1.03)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-primary{color:#fff;background:var(--primary)}.btn-primary:hover:not(:disabled){background:var(--primary-hover)}
+    .btn-secondary{color:var(--foreground);background:var(--muted-strong)}.btn-accent{color:#111827;background:var(--accent)}.btn-success{color:#052E16;background:var(--secondary)}.btn-danger{color:#fff;background:var(--danger)}
+
+    .live-toolbar{position:sticky;top:8px;z-index:35;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;margin:0 0 18px;padding:12px 14px;color:#fff;background:#111827;border-radius:var(--radius-lg)}
+    html[data-theme="dark"] .live-toolbar{background:#030712}.live-status strong{display:block;color:var(--secondary);font-size:1.05rem}.live-status span{color:#D1D5DB;font-size:.78rem}
+    .mini-timer{min-width:104px;padding:8px 12px;color:#111827;background:var(--accent);border-radius:var(--radius-md);font-weight:800;text-align:center}.mini-timer.warning{color:#fff;background:var(--danger)}
+    .section-tip-strip{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;margin-bottom:18px;padding:17px;background:var(--accent-soft);border-left:7px solid var(--accent);border-radius:var(--radius-lg)}
+    .section-tip-strip strong{color:var(--foreground)}.section-tip-strip p{margin:2px 0 0;color:var(--text-muted)}.tip-icon{width:40px;height:40px;display:grid;place-items:center;color:#111827;background:var(--accent);border-radius:50%;font-weight:800}
+    .quiz-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:18px;align-items:start}
+    .passage-card{position:sticky;top:94px;max-height:calc(100vh - 116px);overflow:auto;padding:24px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-lg)}
+    .passage-label{color:var(--primary);margin-bottom:7px}.passage-card h4{margin-bottom:16px;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800}.passage-text{color:var(--foreground);font-size:1rem;line-height:1.74}
+    .passage-text p{margin:0 0 1em}.passage-text p:last-child{margin-bottom:0}.paragraph-letter{float:left;min-width:30px;margin-right:8px;color:var(--primary);font-weight:800}
+    .question-card{padding:24px;background:var(--surface);border-radius:var(--radius-lg)}.question-meta{margin-bottom:10px;color:var(--primary)}
+    .question-instruction{margin-bottom:14px;padding:10px 12px;color:var(--text-muted);background:var(--muted);border-radius:var(--radius-md);font-size:.91rem;font-weight:600}
+    .question-text{margin:0 0 22px;font-size:clamp(1.25rem,2.4vw,1.85rem);font-weight:800;line-height:1.28}.option-list{display:grid;gap:10px}
+    .option-btn{width:100%;min-height:58px;padding:14px 16px;color:var(--foreground);background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-md);text-align:left;font-weight:700;transition:var(--transition)}
+    .option-btn:hover{background:var(--blue-soft);border-color:var(--primary);transform:translateX(4px)}.option-btn.selected{background:var(--blue-soft);border-color:var(--primary)}
+    .option-key{display:inline-grid;width:28px;height:28px;place-items:center;margin-right:9px;color:var(--foreground);background:var(--muted-strong);border-radius:50%;font-size:.78rem;font-weight:800}.option-btn.selected .option-key{color:#fff;background:var(--primary)}
+    .answer-input{width:100%;min-height:54px;padding:12px 14px;color:var(--foreground);background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-md);outline:none}.answer-input:focus{border-color:var(--primary)}
+    .answer-help{margin:9px 0 0;color:var(--text-muted);font-size:.86rem}
+    .finish-panel{padding:28px;background:var(--blue-soft);border-radius:var(--radius-lg)}.finish-panel h4{font-size:clamp(1.8rem,4vw,3rem);font-weight:800}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0}.metric{padding:16px;background:var(--surface);border-radius:var(--radius-md)}.metric strong{display:block;color:var(--primary);font-size:1.6rem}.metric span{color:var(--text-muted);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .breakdown{display:grid;gap:8px;margin-top:18px}.breakdown-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 14px;background:var(--surface);border-radius:var(--radius-md)}.breakdown-row span:last-child{font-weight:800;color:var(--primary)}
+    .review-box{margin-top:14px;padding:18px;background:var(--surface);border-radius:var(--radius-lg)}.review-box.correct{border-left:7px solid var(--secondary)}.review-box.incorrect{border-left:7px solid var(--danger)}
+    .review-box h5{margin:0 0 8px;font-size:1.05rem;line-height:1.3}.review-box p{margin:4px 0;color:var(--text-muted)}.review-box .result-label{font-weight:800}.review-box.correct .result-label{color:var(--secondary)}.review-box.incorrect .result-label{color:var(--danger)}.review-section-title{margin:30px 0 8px;font-size:1.35rem}
+    .back-to-top{position:fixed;right:18px;bottom:18px;z-index:60;width:46px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:#111827;border-radius:50%;text-decoration:none;font-size:1rem}
+    button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+    @media(max-width:1050px){.lesson-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.lesson-step:last-child{grid-column:1/-1}}
+    @media(max-width:900px){.quiz-layout{grid-template-columns:1fr}.passage-card{position:static;max-height:none}.tip-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:680px){.header-inner{width:calc(100% - 28px)}.brand{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.page-shell{width:100%;margin:0;border-radius:0}.hero-copy{padding:48px 22px}.section-header{padding-left:22px;padding-right:22px}.section-body{padding-left:16px;padding-right:16px}.exercise-head{grid-template-columns:1fr}.score-block{min-width:0;min-height:52px}.lesson-heading{grid-template-columns:1fr}.lesson-steps{grid-template-columns:1fr}.lesson-step:last-child{grid-column:auto}.live-toolbar{position:static;grid-template-columns:1fr}.mini-timer{width:100%}.button-row{display:grid}.btn{width:100%}.metric-grid{grid-template-columns:1fr}.back-to-top{right:8px;bottom:8px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;transform:none!important}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch - English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>IELTS Reading Lab</h1>
+        <p>Choose either exercise independently. Each module contains one reading, 20 IELTS-style questions, its own timer, and a complete answer review.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">2 Separate Exercises</span>
+          <span class="hero-tag">20 Questions Each</span>
+          <span class="hero-tag">Mini Lessons</span>
+          <span class="hero-tag">Independent Results</span>
+        </div>
+      </div>
+    </section>
+
+    <main id="exerciseContainer"></main>
+  </div>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+<script>
+const TEST_DATA = {
+  sections: [
+    {
+      id: 'academic',
+      name: 'Academic Reading',
+      passageLabel: 'Academic Reading Passage',
+      title: 'The Hidden Value of Urban Wetlands',
+      overview: 'This passage explains why some cities are restoring wetlands and why those projects must be planned and maintained carefully.',
+      focusTitle: 'Academic section focus',
+      focusText: 'Separate the writer’s main claim from examples. For True/False/Not Given, use only the passage: “Not Given” means the text does not provide enough evidence, not that the statement sounds unlikely.',
+      tips: [
+        {
+          label: 'Skim first',
+          title: 'Map the paragraph purposes',
+          text: 'Read the first and last sentence of each paragraph and note its main function before answering detailed questions.'
+        },
+        {
+          label: 'Track paraphrases',
+          title: 'Expect different wording',
+          text: 'Questions rarely repeat the passage exactly. Look for matching meaning rather than identical vocabulary.'
+        },
+        {
+          label: 'Control assumptions',
+          title: 'Do not add outside knowledge',
+          text: 'A reasonable idea can still be wrong if the passage does not state or support it.'
+        }
+      ],
+      paragraphs: [
+        {
+          letter: 'A',
+          text: 'For much of the twentieth century, wetlands inside cities were treated as wasted land. They were drained, filled with soil, or forced into narrow concrete channels so that roads and buildings could be constructed. More recently, however, urban planners have begun to reconsider this approach. As heavier rain, hotter summers, and the loss of wildlife become more visible, some cities are restoring marshes, ponds, and wet grasslands as part of their public infrastructure.'
+        },
+        {
+          letter: 'B',
+          text: 'One important benefit is flood control. A healthy wetland behaves rather like a shallow storage basin: it receives rainwater, holds it for a period, and releases it slowly. This process can reduce the sudden rush of water into streets and underground drains. A single restored site cannot prevent every flood, and wetlands do not remove the need for pipes or emergency channels. Nevertheless, when they are connected to a wider drainage system, they can reduce pressure on that system during intense storms.'
+        },
+        {
+          letter: 'C',
+          text: 'Wetlands may also cool the neighbourhoods around them. Water evaporating from ponds and moisture released by plants absorb heat from the surrounding air. Studies in several cities have recorded local temperature differences of one or two degrees Celsius near larger wetland parks on hot days. This cooling effect is not identical everywhere. It depends on the size of the site, the amount of open water, the type of vegetation, wind direction, and the density of nearby buildings.'
+        },
+        {
+          letter: 'D',
+          text: 'A further advantage is the creation of habitat. Urban development often divides natural areas into small, isolated pieces. A chain of ponds and marshes can act as stepping stones, allowing birds, insects, and amphibians to move across the city. Poorly designed wetlands, however, may create problems. Still water with little plant diversity can encourage mosquitoes. By contrast, wetlands with moving water and a balanced food web often support fish, dragonflies, and other animals that feed on mosquito larvae.'
+        },
+        {
+          letter: 'E',
+          text: 'The social value of these places is harder to measure but should not be ignored. Walking routes, viewing platforms, and outdoor classrooms can turn a technical flood project into a public space. People may use the area for exercise, nature study, or quiet rest. Access must still be managed. Paths placed too close to nesting areas can disturb wildlife, while unrestricted dogs may damage vegetation. Good design therefore gives visitors clear routes while leaving some zones protected.'
+        },
+        {
+          letter: 'F',
+          text: 'Restoration is sometimes presented as a low-cost solution, but a wetland is not maintenance-free. Invasive plants may spread rapidly, litter must be removed, and channels can become blocked. Sediment also builds up over time and reduces the wetland’s storage capacity. These tasks require regular inspection and long-term funding. Even so, the total cost may remain lower than repeatedly enlarging concrete drainage systems, especially when recreation and wildlife benefits are included in the calculation.'
+        },
+        {
+          letter: 'G',
+          text: 'The Riverside East project illustrates both the promise and the difficulty of measuring results. A concrete storm-water basin was replaced by a shallow wetland with reed beds, paths, and a small outdoor classroom. In the four years after completion, residents reported fewer flooded gardens. Yet new street drains were installed at the same time, so the improvement cannot be credited to the wetland alone. Local schools now test water quality and record bird species, creating a useful body of information for future planning.'
+        },
+        {
+          letter: 'H',
+          text: 'Urban wetlands are therefore best understood as one part of a mixed strategy. They can store storm water, reduce local heat, support wildlife, and provide attractive public spaces. They also need land, careful design, and continuous care. The strongest projects do not replace traditional infrastructure completely; instead, they combine natural systems with pipes, channels, building rules, and emergency planning.'
+        }
+      ],
+      questions: [
+        {
+          type: 'choice',
+          questionType: 'Matching headings',
+          instruction: 'Choose the best heading for Paragraph B.',
+          prompt: 'Paragraph B',
+          options: [
+            'A natural defence against heavy rain',
+            'A refuge in a broken landscape',
+            'The need for continued care',
+            'Managing public access responsibly',
+            'A source of local cooling',
+            'The limits of measuring public opinion'
+          ],
+          answer: 'A natural defence against heavy rain',
+          explanation: 'Paragraph B explains how wetlands store rainwater temporarily and reduce pressure on drains during storms.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching headings',
+          instruction: 'Choose the best heading for Paragraph C.',
+          prompt: 'Paragraph C',
+          options: [
+            'The need for continued care',
+            'A refuge in a broken landscape',
+            'A source of local cooling',
+            'Managing public access responsibly',
+            'A natural defence against heavy rain',
+            'The limits of measuring public opinion'
+          ],
+          answer: 'A source of local cooling',
+          explanation: 'Paragraph C focuses on evaporation, plants, and the possible reduction of local temperatures.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching headings',
+          instruction: 'Choose the best heading for Paragraph D.',
+          prompt: 'Paragraph D',
+          options: [
+            'A source of local cooling',
+            'Managing public access responsibly',
+            'A refuge in a broken landscape',
+            'The need for continued care',
+            'The limits of measuring public opinion',
+            'A natural defence against heavy rain'
+          ],
+          answer: 'A refuge in a broken landscape',
+          explanation: 'Paragraph D describes wetlands as connected habitats that help wildlife move through developed areas.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching headings',
+          instruction: 'Choose the best heading for Paragraph E.',
+          prompt: 'Paragraph E',
+          options: [
+            'The need for continued care',
+            'A natural defence against heavy rain',
+            'Managing public access responsibly',
+            'A refuge in a broken landscape',
+            'A source of local cooling',
+            'The limits of measuring public opinion'
+          ],
+          answer: 'Managing public access responsibly',
+          explanation: 'Paragraph E discusses public use while explaining why some wildlife areas need protection.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching headings',
+          instruction: 'Choose the best heading for Paragraph F.',
+          prompt: 'Paragraph F',
+          options: [
+            'The limits of measuring public opinion',
+            'A refuge in a broken landscape',
+            'The need for continued care',
+            'A source of local cooling',
+            'Managing public access responsibly',
+            'A natural defence against heavy rain'
+          ],
+          answer: 'The need for continued care',
+          explanation: 'Paragraph F lists maintenance needs such as removing litter, controlling invasive plants, and clearing sediment.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the passage.',
+          prompt: 'Restored wetlands can completely replace conventional drainage systems in cities.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'The passage says wetlands do not remove the need for pipes or emergency channels.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the passage.',
+          prompt: 'The cooling effect of an urban wetland can vary according to its design and surroundings.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'True',
+          fixedOrder: true,
+          explanation: 'Paragraph C lists several factors that influence the cooling effect.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the passage.',
+          prompt: 'Mosquito numbers always rise after a wetland is restored.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'The passage contrasts poorly designed wetlands with balanced wetlands that support predators of mosquito larvae.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the passage.',
+          prompt: 'Schools collected water-quality information at Riverside East before construction began.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'Not Given',
+          fixedOrder: true,
+          explanation: 'The passage says schools collect information now, but it does not say they collected it before construction.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the passage.',
+          prompt: 'The Riverside East wetland was completed without any other drainage improvements nearby.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'New street drains were installed at the same time as the wetland project.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'Why did many planners previously remove urban wetlands?',
+          options: [
+            'They considered the land more useful for construction.',
+            'They believed wetlands could not support any wildlife.',
+            'They wanted to increase open water inside city centres.',
+            'They expected wetlands to make summer temperatures lower.'
+          ],
+          answer: 'They considered the land more useful for construction.',
+          explanation: 'Paragraph A says wetlands were drained or filled so roads and buildings could be constructed.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'In Paragraph D, the phrase “stepping stones” refers to places that',
+          options: [
+            'help wildlife travel between separated natural areas.',
+            'allow visitors to cross shallow water without a bridge.',
+            'prevent plants from spreading outside the wetland boundary.',
+            'divide large habitats into smaller protected sections.'
+          ],
+          answer: 'help wildlife travel between separated natural areas.',
+          explanation: 'The wetlands connect isolated habitat areas and allow animals to move across the city.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'Why does the writer support controlled access in wetland parks?',
+          options: [
+            'It lets people visit while reducing damage to sensitive areas.',
+            'It ensures that every part of the site can be used for exercise.',
+            'It prevents visitors from learning where wildlife is located.',
+            'It allows maintenance teams to remove all natural vegetation.'
+          ],
+          answer: 'It lets people visit while reducing damage to sensitive areas.',
+          explanation: 'Paragraph E recommends clear visitor routes while keeping some zones protected.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'Why can the Riverside East results not prove that the wetland caused the reduction in flooding?',
+          options: [
+            'Street drains were improved during the same period.',
+            'Residents stopped reporting flooded gardens after construction.',
+            'The wetland had not been operating for a complete year.',
+            'Water levels were measured only by local school students.'
+          ],
+          answer: 'Street drains were improved during the same period.',
+          explanation: 'Because two changes occurred together, the improvement cannot be attributed to the wetland alone.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'Which statement best represents the writer’s overall view?',
+          options: [
+            'Wetlands are useful when combined with other urban systems.',
+            'Wetlands should replace concrete drainage wherever land permits.',
+            'Wetland projects are mainly valuable as public recreation areas.',
+            'Wetlands provide reliable benefits without long-term maintenance.'
+          ],
+          answer: 'Wetlands are useful when combined with other urban systems.',
+          explanation: 'The final paragraph presents wetlands as one part of a mixed strategy rather than a complete replacement.'
+        },
+        {
+          type: 'text',
+          questionType: 'Sentence completion',
+          instruction: 'Complete the sentence with ONE WORD from the passage.',
+          prompt: 'Wetlands can reduce the sudden movement of rainwater into streets and underground ________.',
+          answers: ['drains'],
+          displayAnswer: 'drains',
+          wordLimit: 'One word only',
+          explanation: 'Paragraph B states that wetlands reduce the rush of water into streets and underground drains.'
+        },
+        {
+          type: 'text',
+          questionType: 'Sentence completion',
+          instruction: 'Complete the sentence with ONE WORD from the passage.',
+          prompt: 'Evaporation from ponds and moisture from plants can have a ________ effect.',
+          answers: ['cooling'],
+          displayAnswer: 'cooling',
+          wordLimit: 'One word only',
+          explanation: 'Paragraph C explains that evaporation and plant moisture absorb heat and cool the surrounding air.'
+        },
+        {
+          type: 'text',
+          questionType: 'Sentence completion',
+          instruction: 'Complete the sentence with ONE WORD from the passage.',
+          prompt: 'Some fish and insects feed on mosquito ________.',
+          answers: ['larvae'],
+          displayAnswer: 'larvae',
+          wordLimit: 'One word only',
+          explanation: 'Paragraph D identifies mosquito larvae as food for several wetland animals.'
+        },
+        {
+          type: 'text',
+          questionType: 'Sentence completion',
+          instruction: 'Complete the sentence with ONE WORD from the passage.',
+          prompt: 'A build-up of sediment reduces a wetland’s storage ________.',
+          answers: ['capacity'],
+          displayAnswer: 'capacity',
+          wordLimit: 'One word only',
+          explanation: 'The passage says sediment reduces the amount of water the wetland can store, meaning its storage capacity.'
+        },
+        {
+          type: 'text',
+          questionType: 'Sentence completion',
+          instruction: 'Complete the sentence with ONE WORD from the passage.',
+          prompt: 'The writer recommends combining wetlands with traditional urban ________.',
+          answers: ['infrastructure'],
+          displayAnswer: 'infrastructure',
+          wordLimit: 'One word only',
+          explanation: 'Paragraph H recommends combining natural systems with pipes, channels, building rules, and emergency planning.'
+        }
+      ]
+    },
+    {
+      id: 'general',
+      name: 'General Training Reading',
+      passageLabel: 'General Training Reading Text',
+      title: 'Northbridge Community Skills Centre: Visitor and Course Guide',
+      overview: 'This practical guide explains registration, course bookings, cancellations, equipment loans, volunteering, accessibility, and centre rules.',
+      focusTitle: 'General Training section focus',
+      focusText: 'Scan for names, numbers, deadlines, and conditions. Similar details may appear in several sections, so read the complete rule before choosing an answer.',
+      tips: [
+        {
+          label: 'Scan with purpose',
+          title: 'Search for anchors',
+          text: 'Use capital letters, prices, time limits, and policy words to locate the relevant part quickly.'
+        },
+        {
+          label: 'Read conditions',
+          title: 'Watch for exceptions',
+          text: 'Words such as unless, only, except, and provided that often determine the correct answer.'
+        },
+        {
+          label: 'Respect limits',
+          title: 'Follow answer instructions',
+          text: 'For short answers, copy only the required word or number and do not exceed the stated limit.'
+        }
+      ],
+      paragraphs: [
+        {
+          letter: 'A',
+          text: 'REGISTRATION AND MEMBERSHIP — Anyone aged 16 or over may become a centre member. New members must show photo identification and proof of address at reception. Standard membership costs £18 per year, while students and adults over 65 pay £10. Membership is required for courses, equipment loans, and advance room bookings. Free public talks and the ground-floor café remain open to non-members.'
+        },
+        {
+          letter: 'B',
+          text: 'BOOKING COURSES — Courses may be booked online, by telephone, or at reception. Payment is required when the booking is made. Same-day booking is possible when a place remains available, but participants must register before the published start time. Popular evening courses often fill two weeks ahead. Learners should arrive ten minutes early for their first session to complete sign-in and receive any safety information.'
+        },
+        {
+          letter: 'C',
+          text: 'CANCELLATIONS AND MISSED CLASSES — Cancel at least five full days before a course begins to receive a refund, minus a £3 administration charge. Later cancellations normally receive no refund. However, a participant who misses a course because of illness may request a credit by providing a medical note within seven days. If the centre cancels a course, participants may choose a full refund or transfer their payment to another course.'
+        },
+        {
+          letter: 'D',
+          text: 'LEARNING HUB — Members may use the computers and study desks whenever the centre is open. Computer sessions are limited to two hours during the busy period from 4 p.m. to 7 p.m. Headphones can be borrowed from the desk, and printing is available for a small charge. Four laptops are available for use inside the building only; they may not be taken home. Quiet study rooms can be reserved up to seven days ahead.'
+        },
+        {
+          letter: 'E',
+          text: 'TOOL LIBRARY — Members who complete the short tool-safety introduction may borrow basic hand tools, sewing machines, and small gardening equipment. Most items can be borrowed for seven days. High-demand tools are limited to three days and cannot be renewed. Late returns may result in a temporary suspension of borrowing rights. Members must report damaged or missing parts when an item is returned.'
+        },
+        {
+          letter: 'F',
+          text: 'VOLUNTEER PROGRAMME — Volunteers assist with reception, community events, basic computer support, and the repair workshop. Applicants attend an informal interview and two training sessions before beginning. Volunteers are not paid, but they receive travel expenses and may join one centre course each term without charge. The usual commitment is at least six hours per month for a minimum of four months.'
+        },
+        {
+          letter: 'G',
+          text: 'ACCESS AND FAMILY SUPPORT — The main entrance, classrooms, and café are wheelchair accessible. A portable hearing loop is available; please request it when booking so staff can prepare the room. Large-print course materials can usually be provided with three working days’ notice. Supervised childcare is offered for selected daytime courses, but places are limited and must be booked separately. Children cannot wait unattended elsewhere in the building.'
+        },
+        {
+          letter: 'H',
+          text: 'BUILDING AND SAFETY RULES — Visitors must follow staff instructions during alarms and emergency drills. Drinks with secure lids are allowed in classrooms, but food may be eaten only in the café or courtyard. Closed shoes are required in the repair workshop, and long hair must be tied back when machinery is in use. Bicycles should be locked outside; folding bicycles may be stored at reception if space is available.'
+        }
+      ],
+      questions: [
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'Documents required when joining the centre',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section A',
+          explanation: 'Section A requires photo identification and proof of address.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'The conditions for receiving money back after cancelling',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section C',
+          explanation: 'Section C explains the five-day deadline, administration charge, and refund exceptions.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'Rules for borrowing practical equipment',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section E',
+          explanation: 'Section E covers safety training, loan periods, renewals, and late returns.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'Unpaid work that includes training and a course benefit',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section F',
+          explanation: 'Section F describes volunteer training, unpaid work, expenses, and a free course.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'Support that should be requested before attending',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section G',
+          explanation: 'Section G asks learners to request the hearing loop when booking and large print in advance.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Matching information',
+          instruction: 'Choose the section that contains the following information.',
+          prompt: 'Restrictions on eating and workshop clothing',
+          options: ['Section A', 'Section B', 'Section C', 'Section D', 'Section E', 'Section F', 'Section G', 'Section H'],
+          answer: 'Section H',
+          explanation: 'Section H explains where food is allowed and what must be worn in the workshop.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'People must become members before attending any event at the centre.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'Free public talks and the café are open to non-members.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'A learner may book a course on the day it starts if a place is still available.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'True',
+          fixedOrder: true,
+          explanation: 'Section B permits same-day booking when space remains, provided registration occurs before the start time.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'Cancelling five full days in advance guarantees repayment of the complete course fee.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'A £3 administration charge is deducted from the refund.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'Members may take a Learning Hub laptop home overnight.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'The laptops are for use inside the building only.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'Volunteers receive an hourly wage after completing their training.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'False',
+          fixedOrder: true,
+          explanation: 'Volunteers are unpaid, although travel expenses and one free course are provided.'
+        },
+        {
+          type: 'choice',
+          questionType: 'True / False / Not Given',
+          instruction: 'Decide whether the statement agrees with the text.',
+          prompt: 'The childcare staff are qualified school teachers.',
+          options: ['True', 'False', 'Not Given'],
+          answer: 'Not Given',
+          fixedOrder: true,
+          explanation: 'The guide says childcare is supervised but gives no information about staff teaching qualifications.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'What should a participant do after missing a course because of illness?',
+          options: [
+            'Send a medical note within seven days to request credit.',
+            'Rebook the same course within five working days.',
+            'Ask reception for a refund before the next course begins.',
+            'Transfer the payment to another learner immediately.'
+          ],
+          answer: 'Send a medical note within seven days to request credit.',
+          explanation: 'Section C allows an illness-related credit when a medical note is supplied within seven days.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'What may happen when a tool is returned late?',
+          options: [
+            'The member may temporarily lose borrowing rights.',
+            'The tool may be renewed for an additional three days.',
+            'The member may be required to repeat the safety session.',
+            'The item may be transferred to another centre member.'
+          ],
+          answer: 'The member may temporarily lose borrowing rights.',
+          explanation: 'Section E states that late returns can lead to a temporary suspension.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'What should a learner who needs the hearing loop do?',
+          options: [
+            'Request it while making the course booking.',
+            'Collect it from reception after the lesson begins.',
+            'Provide three working days of written notice.',
+            'Reserve a quiet study room for the same period.'
+          ],
+          answer: 'Request it while making the course booking.',
+          explanation: 'Section G asks learners to request the hearing loop at booking so staff can prepare it.'
+        },
+        {
+          type: 'choice',
+          questionType: 'Multiple choice',
+          instruction: 'Choose the best answer.',
+          prompt: 'Why should first-time learners arrive ten minutes early?',
+          options: [
+            'To sign in and receive relevant safety information',
+            'To confirm that the course fee has been paid in full',
+            'To choose equipment before returning members arrive',
+            'To request a different classroom from reception staff'
+          ],
+          answer: 'To sign in and receive relevant safety information',
+          explanation: 'Section B gives these two reasons for arriving early.'
+        },
+        {
+          type: 'text',
+          questionType: 'Short answer',
+          instruction: 'Answer using NO MORE THAN THREE WORDS from the text.',
+          prompt: 'Besides photo identification, what must a new member show?',
+          answers: ['proof of address', 'address proof'],
+          displayAnswer: 'proof of address',
+          wordLimit: 'No more than three words',
+          explanation: 'Section A requires photo identification and proof of address.'
+        },
+        {
+          type: 'text',
+          questionType: 'Short answer',
+          instruction: 'Answer using ONE WORD AND/OR A NUMBER from the text.',
+          prompt: 'During the busy period, how long may one computer session last?',
+          answers: ['two hours', '2 hours', 'two', '2'],
+          displayAnswer: 'two hours',
+          wordLimit: 'One word and/or a number',
+          explanation: 'Section D limits computer sessions to two hours from 4 p.m. to 7 p.m.'
+        },
+        {
+          type: 'text',
+          questionType: 'Short answer',
+          instruction: 'Answer using ONE WORD AND/OR A NUMBER from the text.',
+          prompt: 'For how many days can most Tool Library items be borrowed?',
+          answers: ['seven days', '7 days', 'seven', '7'],
+          displayAnswer: 'seven days',
+          wordLimit: 'One word and/or a number',
+          explanation: 'Section E gives a standard loan period of seven days for most items.'
+        },
+        {
+          type: 'text',
+          questionType: 'Short answer',
+          instruction: 'Answer using ONE WORD AND/OR A NUMBER from the text.',
+          prompt: 'What is the minimum monthly time commitment for volunteers?',
+          answers: ['six hours', '6 hours', 'six', '6'],
+          displayAnswer: 'six hours',
+          wordLimit: 'One word and/or a number',
+          explanation: 'Section F states that volunteers usually commit at least six hours per month.'
+        }
+      ]
+    }
+  ]
+};
+
+const LESSONS = {
+  academic: {
+    title: 'How to approach an Academic Reading passage',
+    intro: 'Academic Reading rewards evidence-based reading, not perfect understanding of every sentence. Build a quick map of the passage, then return to the exact area that proves each answer.',
+    steps: [
+      ['Skim the structure', 'Spend about two minutes reading the title, paragraph openings, and endings. Give each paragraph a short mental label.'],
+      ['Read the task carefully', 'Check whether you need a main idea, a factual judgement, a selected option, or words copied from the passage.'],
+      ['Locate paraphrases', 'Search for ideas that match the question in meaning. IELTS commonly changes the vocabulary and sentence structure.'],
+      ['Prove the answer', 'Choose an answer only when a sentence or connected group of sentences supports it. Do not rely on outside knowledge.'],
+      ['Control your time', 'For 20 questions, aim for about 30 minutes. Mark difficult items, move forward, and return only when time allows.']
+    ],
+    reminder: 'True / False / Not Given: False means the passage contradicts the statement. Not Given means the passage does not provide enough information to decide.'
+  },
+  general: {
+    title: 'How to approach a General Training Reading text',
+    intro: 'General Training texts often contain practical rules, dates, fees, exceptions, and conditions. Your main skill is locating the correct section and reading the full rule without overlooking a limiting word.',
+    steps: [
+      ['Inspect the layout', 'Read the headings first. Decide where information about membership, booking, refunds, facilities, or safety is likely to appear.'],
+      ['Scan for anchors', 'Look for names, numbers, prices, times, and distinctive nouns from the question before reading the surrounding lines closely.'],
+      ['Read the whole condition', 'Pay special attention to only, unless, except, may, must, and normally. One condition can change the answer completely.'],
+      ['Copy short answers exactly', 'Use words from the text and obey the word limit. Extra words can make an otherwise correct response wrong.'],
+      ['Check similar details', 'Several sections may mention courses or bookings. Confirm that the selected section answers the precise question, not merely the general topic.']
+    ],
+    reminder: 'For matching information, identify the unique detail in the question. Do not choose a section simply because it contains the same broad topic.'
+  }
+};
+
+(() => {
+  'use strict';
+
+  const $ = (selector, scope=document) => scope.querySelector(selector);
+  const $$ = (selector, scope=document) => [...scope.querySelectorAll(selector)];
+  const shuffle = (items) => {
+    const copy = [...items];
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+  const formatTime = (seconds) => `${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.max(0, seconds) % 60).padStart(2, '0')}`;
+  const escapeHtml = (value) => String(value ?? '')
+    .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'",'&#039;');
+  const normalize = (value) => String(value ?? '').trim().toLowerCase().replace(/[.,;:!?]/g, '').replace(/\s+/g, ' ');
+
+  function setupTheme() {
+    const button = $('#themeToggle');
+    const sync = () => {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      button.textContent = dark ? '☀ Light' : '☾ Dark';
+      button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+    sync();
+    button.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('reading-lab-theme', next); } catch (error) {}
+      sync();
+    });
+  }
+
+  function lessonHtml(section) {
+    const lesson = LESSONS[section.id];
+    return `
+      <div class="lesson-panel">
+        <div class="lesson-heading">
+          <div class="lesson-badge">i</div>
+          <div>
+            <span class="lesson-label">Mini lesson before you begin</span>
+            <h3>${escapeHtml(lesson.title)}</h3>
+            <p class="lesson-intro">${escapeHtml(lesson.intro)}</p>
+          </div>
+        </div>
+        <div class="lesson-steps">
+          ${lesson.steps.map((step, index) => `
+            <div class="lesson-step">
+              <span class="lesson-step-number">${index + 1}</span>
+              <strong>${escapeHtml(step[0])}</strong>
+              <p>${escapeHtml(step[1])}</p>
+            </div>
+          `).join('')}
+        </div>
+        <div class="tip-grid">
+          ${section.tips.map((tip) => `
+            <div class="tip-card">
+              <span class="tip-label">${escapeHtml(tip.label)}</span>
+              <strong>${escapeHtml(tip.title)}</strong>
+              <p>${escapeHtml(tip.text)}</p>
+            </div>
+          `).join('')}
+        </div>
+        <div class="lesson-reminder"><strong>Remember:</strong> ${escapeHtml(lesson.reminder)}</div>
+      </div>
+    `;
+  }
+
+  function exerciseHtml(section, index) {
+    const scopedId = section.id;
+    return `
+      <section class="exercise-section ${section.id === 'general' ? 'general' : 'academic'}" id="${scopedId}-exercise">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Exercise ${index + 1} · Independent module</div>
+            <h2>${escapeHtml(section.name)}</h2>
+            <p>One reading passage · ${section.questions.length} questions · Separate timer and results</p>
+          </div>
+        </div>
+        <div class="section-body">
+          ${lessonHtml(section)}
+          <article class="exercise-card">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>${escapeHtml(section.title)}</h3>
+                <p>${escapeHtml(section.overview)} Correct answers and explanations appear only after this exercise is finished.</p>
+              </div>
+              <div class="score-block" data-role="score">Ready</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" data-role="progress"></div></div>
+
+            <div class="exercise-menu" data-role="menu">
+              <p class="menu-intro">Choose a timing mode for this exercise. The timed option gives you 30 minutes for all ${section.questions.length} questions.</p>
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="${scopedId}-timer">Timing mode</label>
+                  <select id="${scopedId}-timer" data-role="timer-select">
+                    <option value="0">Untimed practice</option>
+                    <option value="1800">Timed practice — 30 minutes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="menu-note">Answer choices are shuffled where appropriate. Distractors are designed to be similar in length, grammar, and detail so the correct answer does not stand out through cheap clues.</div>
+              <div class="button-row"><button class="btn btn-primary" data-role="start" type="button">Start ${escapeHtml(section.name)}</button></div>
+            </div>
+
+            <div class="quiz-stage" data-role="quiz" hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong>${escapeHtml(section.name)}</strong>
+                  <span data-role="live-progress">Question 1 of ${section.questions.length}</span>
+                </div>
+                <div class="mini-timer" data-role="live-timer">∞ Untimed</div>
+                <button class="btn btn-danger" data-role="end" type="button">End exercise</button>
+              </div>
+
+              <div class="section-tip-strip">
+                <div class="tip-icon">i</div>
+                <div><strong>${escapeHtml(section.focusTitle)}</strong><p>${escapeHtml(section.focusText)}</p></div>
+              </div>
+
+              <div class="quiz-layout">
+                <aside class="passage-card">
+                  <div class="passage-label">${escapeHtml(section.passageLabel)}</div>
+                  <h4>${escapeHtml(section.title)}</h4>
+                  <div class="passage-text" data-role="passage"></div>
+                </aside>
+                <section class="question-card">
+                  <div class="question-meta" data-role="question-meta"></div>
+                  <div class="question-instruction" data-role="question-instruction"></div>
+                  <div class="question-text" data-role="question-text"></div>
+                  <div data-role="answer-area"></div>
+                  <div class="button-row">
+                    <button class="btn btn-secondary" data-role="skip" type="button">Skip question</button>
+                    <button class="btn btn-success" data-role="next" type="button">Save & next</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="finish-stage" data-role="finish" hidden></div>
+          </article>
+        </div>
+      </section>
+    `;
+  }
+
+  class ReadingExercise {
+    constructor(root, sourceSection) {
+      this.root = root;
+      this.sourceSection = sourceSection;
+      this.els = {
+        score: $('[data-role="score"]', root), progress: $('[data-role="progress"]', root),
+        menu: $('[data-role="menu"]', root), timerSelect: $('[data-role="timer-select"]', root),
+        start: $('[data-role="start"]', root), quiz: $('[data-role="quiz"]', root), finish: $('[data-role="finish"]', root),
+        liveProgress: $('[data-role="live-progress"]', root), liveTimer: $('[data-role="live-timer"]', root),
+        end: $('[data-role="end"]', root), passage: $('[data-role="passage"]', root),
+        questionMeta: $('[data-role="question-meta"]', root), questionInstruction: $('[data-role="question-instruction"]', root),
+        questionText: $('[data-role="question-text"]', root), answerArea: $('[data-role="answer-area"]', root),
+        skip: $('[data-role="skip"]', root), next: $('[data-role="next"]', root)
+      };
+      this.state = { active:false, timerId:null, totalSeconds:0, seconds:0, startedAt:0, index:0, questions:[], responses:[], currentAnswer:'' };
+      this.els.start.addEventListener('click', () => this.start());
+      this.els.next.addEventListener('click', () => this.saveAndAdvance(false));
+      this.els.skip.addEventListener('click', () => this.saveAndAdvance(true));
+      this.els.end.addEventListener('click', () => this.finish('Exercise ended early'));
+      this.els.passage.innerHTML = this.passageHtml(sourceSection.paragraphs);
+    }
+
+    prepareQuestions() {
+      return this.sourceSection.questions.map((question) => ({
+        ...question,
+        shownOptions: question.type === 'choice' ? (question.fixedOrder ? [...question.options] : shuffle(question.options)) : []
+      }));
+    }
+
+    passageHtml(paragraphs) {
+      return paragraphs.map((paragraph) => `<p><span class="paragraph-letter">${escapeHtml(paragraph.letter)}</span>${escapeHtml(paragraph.text)}</p>`).join('');
+    }
+
+    start() {
+      this.stopTimer();
+      this.state.active = true;
+      this.state.totalSeconds = Number.parseInt(this.els.timerSelect.value, 10) || 0;
+      this.state.seconds = this.state.totalSeconds;
+      this.state.startedAt = Date.now();
+      this.state.index = 0;
+      this.state.questions = this.prepareQuestions();
+      this.state.responses = [];
+      this.state.currentAnswer = '';
+      this.els.menu.hidden = true;
+      this.els.finish.hidden = true;
+      this.els.quiz.hidden = false;
+      this.els.score.textContent = 'In progress';
+      this.els.progress.style.width = '0%';
+      this.startTimer();
+      this.renderQuestion();
+      this.els.quiz.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    startTimer() {
+      this.updateTimer();
+      if (!this.state.totalSeconds) return;
+      this.state.timerId = window.setInterval(() => {
+        this.state.seconds -= 1;
+        this.updateTimer();
+        if (this.state.seconds <= 0) this.finish('Time expired');
+      }, 1000);
+    }
+
+    stopTimer() {
+      if (this.state.timerId) window.clearInterval(this.state.timerId);
+      this.state.timerId = null;
+    }
+
+    updateTimer() {
+      if (!this.state.totalSeconds) {
+        this.els.liveTimer.textContent = '∞ Untimed';
+        this.els.liveTimer.classList.remove('warning');
+        return;
+      }
+      this.els.liveTimer.textContent = formatTime(this.state.seconds);
+      this.els.liveTimer.classList.toggle('warning', this.state.seconds <= 300);
+    }
+
+    renderQuestion() {
+      const question = this.state.questions[this.state.index];
+      this.state.currentAnswer = '';
+      this.els.liveProgress.textContent = `Question ${this.state.index + 1} of ${this.state.questions.length} · ${this.state.responses.length} answered`;
+      this.els.questionMeta.textContent = `${question.questionType} · Question ${this.state.index + 1}`;
+      this.els.questionInstruction.textContent = question.instruction;
+      this.els.questionText.textContent = question.prompt;
+      this.els.answerArea.innerHTML = '';
+
+      if (question.type === 'choice') {
+        const optionList = document.createElement('div');
+        optionList.className = 'option-list';
+        question.shownOptions.forEach((option, index) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'option-btn';
+          button.innerHTML = `<span class="option-key">${String.fromCharCode(65 + index)}</span>${escapeHtml(option)}`;
+          button.addEventListener('click', () => {
+            this.state.currentAnswer = option;
+            $$('.option-btn', optionList).forEach((item) => item.classList.remove('selected'));
+            button.classList.add('selected');
+          });
+          optionList.appendChild(button);
+        });
+        this.els.answerArea.appendChild(optionList);
+      } else {
+        const input = document.createElement('input');
+        input.type = 'text'; input.className = 'answer-input'; input.autocomplete = 'off'; input.spellcheck = false;
+        input.placeholder = 'Type your answer'; input.setAttribute('aria-label', 'Type your answer');
+        input.addEventListener('input', () => { this.state.currentAnswer = input.value; });
+        input.addEventListener('keydown', (event) => { if (event.key === 'Enter') this.saveAndAdvance(false); });
+        this.els.answerArea.appendChild(input);
+        const help = document.createElement('p'); help.className = 'answer-help'; help.textContent = question.wordLimit;
+        this.els.answerArea.appendChild(help);
+        window.setTimeout(() => input.focus(), 50);
+      }
+      this.updateProgress();
+    }
+
+    evaluate(question, answer) {
+      if (!answer) return false;
+      if (question.type === 'choice') return answer === question.answer;
+      return question.answers.map(normalize).includes(normalize(answer));
+    }
+
+    saveAndAdvance(skipped) {
+      if (!this.state.active) return;
+      const question = this.state.questions[this.state.index];
+      const userAnswer = skipped ? '' : String(this.state.currentAnswer ?? '').trim();
+      this.state.responses.push({
+        questionType: question.questionType, prompt: question.prompt, userAnswer,
+        correctAnswer: question.type === 'choice' ? question.answer : question.displayAnswer,
+        explanation: question.explanation, correct: this.evaluate(question, userAnswer), skipped: !userAnswer
+      });
+      if (this.state.index >= this.state.questions.length - 1) {
+        this.finish(`Completed all ${this.state.questions.length} questions`);
+        return;
+      }
+      this.state.index += 1;
+      this.renderQuestion();
+      $('.question-card', this.root).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    updateProgress() {
+      const total = this.state.questions.length || this.sourceSection.questions.length;
+      this.els.progress.style.width = `${(this.state.responses.length / total) * 100}%`;
+      if (!this.els.quiz.hidden) this.els.liveProgress.textContent = `Question ${this.state.index + 1} of ${total} · ${this.state.responses.length} answered`;
+    }
+
+    finish(reason) {
+      if (!this.state.active) return;
+      this.state.active = false;
+      this.stopTimer();
+      this.els.menu.hidden = true;
+      this.els.quiz.hidden = true;
+      this.els.finish.hidden = false;
+      const total = this.state.questions.length || this.sourceSection.questions.length;
+      const answered = this.state.responses.filter((response) => !response.skipped).length;
+      const blank = total - answered;
+      const score = this.state.responses.filter((response) => response.correct).length;
+      const accuracy = Math.round((score / total) * 100);
+      const elapsed = Math.max(0, Math.round((Date.now() - this.state.startedAt) / 1000));
+
+      const typeMap = new Map();
+      this.state.responses.forEach((response) => {
+        const item = typeMap.get(response.questionType) || {correct:0,total:0};
+        item.total += 1; if (response.correct) item.correct += 1; typeMap.set(response.questionType, item);
+      });
+      const typeRows = [...typeMap.entries()].map(([type, result]) => `<div class="breakdown-row"><span>${escapeHtml(type)}</span><span>${result.correct}/${result.total}</span></div>`).join('');
+      const review = this.state.responses.map((response, index) => `
+        <div class="review-box ${response.correct ? 'correct' : 'incorrect'}">
+          <h5>${index + 1}. ${escapeHtml(response.prompt)}</h5>
+          <p class="result-label">${response.correct ? 'Correct' : (response.skipped ? 'Skipped' : 'Incorrect')}</p>
+          <p><strong>Your answer:</strong> ${response.userAnswer ? escapeHtml(response.userAnswer) : 'No answer'}</p>
+          <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+          <p>${escapeHtml(response.explanation)}</p>
+        </div>
+      `).join('');
+      const notReached = this.state.responses.length < total ? `<div class="review-box incorrect"><h5>Questions not reached</h5><p>${total - this.state.responses.length} question(s) were not reached before the exercise ended.</p></div>` : '';
+
+      this.els.finish.innerHTML = `
+        <div class="finish-panel">
+          <h4>${escapeHtml(this.sourceSection.name)} Summary</h4>
+          <p>${escapeHtml(reason)}.</p>
+          <div class="metric-grid">
+            <div class="metric"><strong>${score}/${total}</strong><span>Score</span></div>
+            <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+            <div class="metric"><strong>${blank}</strong><span>Blank or not reached</span></div>
+            <div class="metric"><strong>${formatTime(elapsed)}</strong><span>Time used</span></div>
+          </div>
+          <h5 class="review-section-title">Score by question type</h5>
+          <div class="breakdown">${typeRows || '<div class="breakdown-row"><span>No questions answered</span><span>0</span></div>'}</div>
+          <h5 class="review-section-title">Answer review</h5>
+          ${review || '<div class="review-box incorrect"><p>No answers were submitted.</p></div>'}
+          ${notReached}
+          <div class="button-row">
+            <button class="btn btn-accent" data-action="retry" type="button">Retry this exercise</button>
+            <button class="btn btn-secondary" data-action="menu" type="button">Back to exercise menu</button>
+          </div>
+        </div>
+      `;
+      this.els.score.textContent = `Final: ${score} / ${total}`;
+      this.els.progress.style.width = `${(this.state.responses.length / total) * 100}%`;
+      $('[data-action="retry"]', this.els.finish).addEventListener('click', () => this.start());
+      $('[data-action="menu"]', this.els.finish).addEventListener('click', () => this.returnToMenu());
+      this.els.finish.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    returnToMenu() {
+      this.stopTimer();
+      this.state.active = false;
+      this.els.finish.hidden = true;
+      this.els.quiz.hidden = true;
+      this.els.menu.hidden = false;
+      this.els.score.textContent = 'Ready';
+      this.els.progress.style.width = '0%';
+      this.els.menu.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  const container = $('#exerciseContainer');
+  container.innerHTML = TEST_DATA.sections.map(exerciseHtml).join('');
+  TEST_DATA.sections.forEach((section) => {
+    const root = $(`#${section.id}-exercise`);
+    new ReadingExercise(root, section);
+  });
+  setupTheme();
+})();
+</script>
+</body>
+</html>
