@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Grade 3 reading comprehension lesson and timed assignment"
+  >
+  <title>Reading Comprehension Assignment 2</title>
+
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("reading-assignment-2-theme");
+        const preferredTheme =
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+
+        document.documentElement.dataset.theme =
+          savedTheme || preferredTheme;
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+    /* ======================================================================
+       1. Theme tokens
+       ====================================================================== */
+
+    :root {
+      color-scheme: light;
+
+      --foreground: #111827;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #D1D5DB;
+      --surface: #FFFFFF;
+      --blue-soft: #DBEAFE;
+      --text-muted: #4B5563;
+      --hero-text: #EFF6FF;
+
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: "Outfit", sans-serif;
+      --transition: all 180ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #4B5563;
+      --surface: #111827;
+      --blue-soft: #172554;
+      --text-muted: #CBD5E1;
+      --hero-text: #DBEAFE;
+    }
+
+    /* ======================================================================
+       2. Base styles
+       ====================================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* ======================================================================
+       3. Header and page shell
+       ====================================================================== */
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ======================================================================
+       4. Hero
+       ====================================================================== */
+
+    .hero {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+
+    .hero-copy p {
+      max-width: 65ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .hero-tag {
+      padding: 8px 11px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ======================================================================
+       5. Concept lesson
+       ====================================================================== */
+
+    .lesson-section {
+      padding: clamp(30px, 5vw, 56px);
+      background: var(--surface);
+    }
+
+    .section-kicker,
+    .story-label,
+    .question-meta,
+    .concept-name {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .lesson-section > h2,
+    .assignment-section > h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      font-weight: 800;
+    }
+
+    .section-lead {
+      max-width: 76ch;
+      margin-bottom: 24px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .example-passage {
+      margin-bottom: 18px;
+      padding: 22px;
+      background: var(--blue-soft);
+      border-left: 8px solid var(--primary);
+      border-radius: var(--radius-lg);
+    }
+
+    .example-passage strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .example-passage p {
+      margin: 0;
+      font-size: 1.04rem;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .concept-card {
+      padding: 20px;
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .concept-name {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .concept-card h3 {
+      margin-bottom: 9px;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .concept-card p {
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+
+    .concept-example {
+      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+    }
+
+    .concept-example strong {
+      color: var(--primary);
+    }
+
+    .lesson-reminder {
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--accent-soft);
+      border-left: 7px solid var(--accent);
+      border-radius: var(--radius-lg);
+      font-weight: 700;
+    }
+
+    /* ======================================================================
+       6. Assignment shell and start screen
+       ====================================================================== */
+
+    .assignment-section {
+      padding: clamp(30px, 5vw, 56px);
+      background: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    html[data-theme="dark"] .exercise-head {
+      background: #030712;
+    }
+
+    .exercise-head-copy {
+      padding: 28px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 74ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 180px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #111827;
+      background: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--border);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 180ms ease;
+    }
+
+    .start-screen {
+      padding: clamp(28px, 5vw, 46px);
+      text-align: center;
+    }
+
+    .fixed-format {
+      max-width: 620px;
+      margin: 0 auto 22px;
+      padding: 22px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .fixed-format strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--primary);
+      font-size: 1.35rem;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      max-width: 820px;
+      margin: 20px auto 0;
+    }
+
+    .skill-pill {
+      padding: 7px 10px;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    /* ======================================================================
+       7. Buttons
+       ====================================================================== */
+
+    .btn {
+      min-height: 54px;
+      padding: 0 20px;
+      border: 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.03);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .btn-success {
+      color: #052E16;
+      background: var(--secondary);
+    }
+
+    .btn-secondary {
+      color: var(--foreground);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* ======================================================================
+       8. Live assignment
+       ====================================================================== */
+
+    .question-stage {
+      padding: clamp(24px, 4vw, 40px);
+    }
+
+    .live-toolbar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+    }
+
+    html[data-theme="dark"] .live-toolbar {
+      background: #030712;
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--secondary);
+      font-size: 1.05rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: 0.78rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 8px 12px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .assignment-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .story-card {
+      position: sticky;
+      top: 94px;
+      padding: 25px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 7px;
+      color: var(--primary);
+    }
+
+    .story-card h4 {
+      margin-bottom: 16px;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 800;
+    }
+
+    .story-text {
+      font-size: 1.02rem;
+      line-height: 1.78;
+    }
+
+    .story-text p {
+      margin: 0 0 1em;
+    }
+
+    .story-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .question-card {
+      padding: 25px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 22px;
+      font-size: clamp(1.35rem, 2.7vw, 2rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 64px;
+      padding: 15px 17px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+      line-height: 1.45;
+      transition: var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .option-btn.selected-choice {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .answer-saved {
+      margin-top: 16px;
+      padding: 14px;
+      color: var(--text-muted);
+      background: var(--blue-soft);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius-md);
+    }
+
+    /* ======================================================================
+       9. Results
+       ====================================================================== */
+
+    .finish-panel {
+      padding: 28px;
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .finish-panel h4 {
+      margin-bottom: 12px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .metric span {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .improve-panel {
+      margin-top: 20px;
+      padding: 18px;
+      background: var(--accent-soft);
+      border-left: 8px solid var(--accent);
+      border-radius: var(--radius-lg);
+    }
+
+    .improve-panel.good {
+      background: var(--secondary-soft);
+      border-left-color: var(--secondary);
+    }
+
+    .skill-breakdown {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+
+    .skill-row span:last-child {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .review-box {
+      margin-top: 18px;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-box h5 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+
+    .review-box p {
+      margin: 4px 0;
+      color: var(--text-muted);
+    }
+
+    .email-status {
+      margin: 18px 0 0;
+      padding: 18px;
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .email-status.sending {
+      border-left: 8px solid var(--accent);
+    }
+
+    .email-status.sent {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .email-status.failed {
+      background: var(--danger-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .email-status strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ======================================================================
+       10. Accessibility and responsive layout
+       ====================================================================== */
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      width: 46px;
+      min-height: 46px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary);
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .concept-grid,
+      .assignment-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card {
+        position: static;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .header-inner {
+        width: calc(100% - 28px);
+      }
+
+      .exercise-head {
+        grid-template-columns: 1fr;
+      }
+
+      .score-block {
+        min-width: 0;
+        min-height: 54px;
+      }
+
+      .live-toolbar {
+        position: static;
+        grid-template-columns: 1fr;
+      }
+
+      .mini-timer {
+        width: 100%;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">
+        Mitch - English Tutoring Resources
+      </a>
+
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button">
+          Theme
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Reading Assignment 2</h1>
+
+        <p>
+          Review seven important reading skills with a short example.
+          Then read a Grade 3 story and complete a timed comprehension
+          assignment.
+        </p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Grade 3</span>
+          <span class="hero-tag">Skill review</span>
+          <span class="hero-tag">10 questions</span>
+          <span class="hero-tag">20 minutes</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <!-- ================================================================
+           Concept lesson
+           ================================================================ -->
+
+      <section class="lesson-section" id="lesson">
+        <div class="section-kicker">Before the assignment</div>
+
+        <h2>What will be tested?</h2>
+
+        <p class="section-lead">
+          Read the mini example first. Each card shows what one reading
+          skill means and how to use it.
+        </p>
+
+        <div class="example-passage">
+          <strong>Mini Example: The Wet Puppy</strong>
+          <p>
+            On Monday, Leo found a small puppy shivering under the school
+            steps. He wrapped it in his jacket and called the office.
+            Soon, the puppy's owner arrived.
+          </p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <div class="concept-name">Skill 1</div>
+            <h3>The 5 W's</h3>
+            <p>
+              Find the important facts: <strong>who, what, when, where,
+              and why</strong>.
+            </p>
+            <div class="concept-example">
+              <strong>Example:</strong> Who found the puppy? Leo.
+              Where was it? Under the school steps.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 2</div>
+            <h3>Main ideas, details, and summaries</h3>
+            <p>
+              The main idea tells what the whole passage is mostly about.
+              Details support it. A summary gives only the most important
+              events.
+            </p>
+            <div class="concept-example">
+              <strong>Main idea:</strong> Leo helps a lost puppy.
+              <strong>Detail:</strong> He wraps it in his jacket.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 3</div>
+            <h3>Sequencing</h3>
+            <p>
+              Put events in the order they happened. Look for words such
+              as <strong>first, next, then,</strong> and
+              <strong>finally</strong>.
+            </p>
+            <div class="concept-example">
+              <strong>Order:</strong> First Leo finds the puppy. Next he
+              calls the office. Last, the owner arrives.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 4</div>
+            <h3>Elements of a story</h3>
+            <p>
+              Look for the characters, setting, problem, important events,
+              and solution.
+            </p>
+            <div class="concept-example">
+              <strong>Problem:</strong> The puppy is lost and cold.
+              <strong>Solution:</strong> Leo gets help from the office.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 5</div>
+            <h3>Making inferences</h3>
+            <p>
+              Use story clues and what you already know to figure out
+              something the author does not say directly.
+            </p>
+            <div class="concept-example">
+              <strong>Inference:</strong> Leo is caring because he keeps
+              the puppy warm and asks an adult for help.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 6</div>
+            <h3>Context clues</h3>
+            <p>
+              Use nearby words and events to figure out the meaning of an
+              unfamiliar word.
+            </p>
+            <div class="concept-example">
+              <strong>Example:</strong> The puppy is “shivering,” and Leo
+              wraps it in a jacket. Shivering probably means shaking from
+              the cold.
+            </div>
+          </article>
+
+          <article class="concept-card">
+            <div class="concept-name">Skill 7</div>
+            <h3>Figurative language</h3>
+            <p>
+              Authors sometimes compare things to create a strong picture.
+              A comparison using <strong>like</strong> or
+              <strong>as</strong> is called a simile.
+            </p>
+            <div class="concept-example">
+              <strong>Example:</strong> “The rain tapped like tiny
+              fingers” means the drops made a light tapping sound.
+            </div>
+          </article>
+        </div>
+
+        <div class="lesson-reminder">
+          During the assignment, go back to the passage and look for
+          evidence. Do not choose an answer only because it repeats a word
+          from the question.
+        </div>
+      </section>
+
+      <!-- ================================================================
+           Timed assignment
+           ================================================================ -->
+
+      <section class="assignment-section" id="assignment">
+        <div class="section-kicker">Timed assignment</div>
+
+        <h2>Read carefully and use evidence</h2>
+
+        <p class="section-lead">
+          You may look back at the story while answering. Correct answers
+          will not be shown until the assignment is submitted.
+        </p>
+
+        <article class="exercise-card">
+          <div class="exercise-head">
+            <div class="exercise-head-copy">
+              <h3>Where Did Pebble Go?</h3>
+              <p>
+                One Grade 3 passage · fixed 10-question assignment ·
+                no setup choices.
+              </p>
+            </div>
+
+            <div class="score-block" id="scoreBlock">Ready</div>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <div class="start-screen" id="startScreen">
+            <div class="fixed-format">
+              <strong>10 questions · 20 minutes</strong>
+              The timer begins when you press Start Assignment. You can
+              reread the story at any time.
+            </div>
+
+            <div class="skill-pills">
+              <span class="skill-pill">The 5 W's</span>
+              <span class="skill-pill">Main ideas &amp; summaries</span>
+              <span class="skill-pill">Sequencing</span>
+              <span class="skill-pill">Story elements</span>
+              <span class="skill-pill">Inferences</span>
+              <span class="skill-pill">Context clues</span>
+              <span class="skill-pill">Figurative language</span>
+            </div>
+
+            <div class="button-row" style="justify-content: center;">
+              <button
+                class="btn btn-primary"
+                id="startBtn"
+                type="button"
+              >
+                Start Assignment
+              </button>
+            </div>
+          </div>
+
+          <div class="question-stage" id="liveStage" hidden>
+            <div class="live-toolbar">
+              <div class="live-status">
+                <strong id="liveStatus">Answered: 0 / 10</strong>
+                <span id="liveProgress">Question 1 of 10</span>
+              </div>
+
+              <div class="mini-timer" id="timer">20:00</div>
+
+              <button class="btn btn-danger" id="endBtn" type="button">
+                Submit Early
+              </button>
+            </div>
+
+            <div class="assignment-layout">
+              <aside class="story-card">
+                <div class="story-label">Reading passage</div>
+                <h4>Where Did Pebble Go?</h4>
+                <div class="story-text" id="storyText"></div>
+              </aside>
+
+              <section class="question-card">
+                <div class="question-meta" id="questionMeta"></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="option-list" id="optionList"></div>
+
+                <div class="answer-saved" id="savedNotice" hidden>
+                  Answer saved. Correct answers will be shown after you
+                  finish the assignment.
+                </div>
+
+                <div class="button-row">
+                  <button
+                    class="btn btn-success"
+                    id="nextBtn"
+                    type="button"
+                    disabled
+                  >
+                    Next Question
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="question-stage" id="finishStage" hidden></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+  <!-- Keep this helper file beside the HTML file. -->
+  <script src="./email-results.js"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      /* ====================================================================
+         1. Assignment settings
+         ==================================================================== */
+
+      const WEB3FORMS_ACCESS_KEY =
+        "17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
+
+      const WORKSHEET_TITLE =
+        "Reading Comprehension Assignment 2 · Where Did Pebble Go?";
+
+      const QUESTION_COUNT = 10;
+      const TIME_LIMIT_SECONDS = 20 * 60;
+
+      /* ====================================================================
+         2. Passage and question data
+         ==================================================================== */
+
+      const PASSAGE = "On Friday morning, Jada entered her classroom and walked over to the turtle tank. The class turtle, Pebble, usually rested on a flat gray rock. That morning, the rock was empty.\n\nJada looked into the water and behind the small log. Pebble was not there. Then she noticed that one corner of the tank lid was open.\n\n“Pebble is missing!” she called.\n\nThe room buzzed like a beehive. Everyone wanted to search at once, but Mr. Kim asked the class to stay calm. A small turtle could be hurt if someone ran or moved a chair too quickly.\n\nFirst, the students checked the floor around the tank. Jada found a faint trail of damp spots leading toward the art table. The class followed the trail, but it ended beside a stack of paper.\n\nNext, Mr. Kim asked everyone to look in quiet, dark places. Two students checked under the coat rack. Others searched behind the book bins and beside the classroom plants.\n\nJada knelt near the reading corner. She heard a soft scratching sound under a low shelf. She carefully moved a basket of pillows. Pebble was tucked behind it, safe and still.\n\nMr. Kim picked up the turtle and returned it to the tank. He made sure the lid was secure, which meant it was firmly closed and would not open easily.\n\nThe class felt relieved, but Mr. Kim wanted to know how Pebble had escaped. Jada remembered that the tank had been cleaned the afternoon before. The lid may not have been closed all the way afterward.\n\nBefore lunch, the class made a simple checklist for caring for Pebble. The last step said, “Check every corner of the lid.”\n\nJada smiled when Pebble climbed back onto the gray rock. The morning had begun with a mystery, but it ended with a safer home for their class pet.";
+      const DATA = {"topics": {"five_ws": "The 5 W's", "main_ideas": "Main ideas, details and summaries", "sequencing": "Sequencing", "story_elements": "Elements of a story", "inference": "Making inferences", "context_clues": "Context clues", "figurative_language": "Figurative language"}, "questions": [{"topic": "five_ws", "question": "Why did Mr. Kim ask the students not to run while they searched?", "options": ["A student might step on Pebble or move something that could hurt him.", "The students needed to finish their art work before they could search.", "Pebble usually became frightened when the classroom lights were turned on.", "Mr. Kim wanted the class to wait until another teacher came to help."], "correct": "A student might step on Pebble or move something that could hurt him.", "explanation": "Mr. Kim explains that a small turtle could be hurt if someone ran or moved a chair too quickly."}, {"topic": "five_ws", "question": "Where did Jada finally find Pebble?", "options": ["Behind the pillow basket under a low shelf in the reading corner.", "Under the paper stack beside the classroom art table.", "Behind the book bins beside the classroom coat rack.", "Inside the small log at the bottom of the turtle tank."], "correct": "Behind the pillow basket under a low shelf in the reading corner.", "explanation": "Jada hears scratching near the reading corner and finds Pebble behind the basket under the shelf."}, {"topic": "main_ideas", "question": "Which sentence best states the main idea of the story?", "options": ["A class searches carefully for its missing turtle and improves the tank afterward.", "A student learns that turtles enjoy hiding in dark corners of a classroom.", "A teacher shows his class how to clean a turtle tank before lunch.", "A group of students follows a damp trail during an art lesson."], "correct": "A class searches carefully for its missing turtle and improves the tank afterward.", "explanation": "This choice includes the main problem, the search, and the class's effort to prevent another escape."}, {"topic": "main_ideas", "question": "Which detail best explains how Pebble may have escaped?", "options": ["The tank lid may not have been fully closed after it was cleaned.", "The turtle's gray rock was empty when Jada entered the room.", "A trail of damp spots led from the tank toward the art table.", "The class kept pillows in a basket beside the low reading shelf."], "correct": "The tank lid may not have been fully closed after it was cleaned.", "explanation": "The open corner of the lid and the earlier tank cleaning give the strongest explanation for the escape."}, {"topic": "sequencing", "question": "What happened just before the class began checking quiet, dark places?", "options": ["The students followed damp spots until the trail ended near the art table.", "Jada heard a scratching sound under a shelf in the reading corner.", "Mr. Kim returned Pebble to the tank and closed the lid firmly.", "The class wrote a checklist for taking care of the turtle tank."], "correct": "The students followed damp spots until the trail ended near the art table.", "explanation": "The class first follows the damp trail. After it ends, Mr. Kim suggests looking in quiet, dark places."}, {"topic": "story_elements", "question": "What is the main problem in the story?", "options": ["Pebble is missing, and the class must find him without causing harm.", "The students disagree about who should clean Pebble's tank after class.", "Jada cannot remember where the class stores its reading-corner pillows.", "Mr. Kim must learn how to care for the classroom turtle."], "correct": "Pebble is missing, and the class must find him without causing harm.", "explanation": "The missing turtle is the central problem that causes the class to search and make a new care checklist."}, {"topic": "inference", "question": "What can the reader infer about Jada?", "options": ["She notices small clues and behaves carefully while solving a problem.", "She often forgets to complete her jobs before leaving the classroom.", "She would rather work alone than help the rest of her classmates.", "She knows more about turtles than every adult at the school."], "correct": "She notices small clues and behaves carefully while solving a problem.", "explanation": "Jada notices the open lid, follows the damp spots, listens for scratching, and moves the basket carefully."}, {"topic": "inference", "question": "Why did the class add “Check every corner of the lid” to its checklist?", "options": ["They wanted to prevent another escape caused by a partly open lid.", "They planned to replace the lid with a larger one after lunch.", "They wanted Pebble to have more air when the room became warm.", "They needed to remember where the turtle liked to rest each morning."], "correct": "They wanted to prevent another escape caused by a partly open lid.", "explanation": "The class believes the lid may not have been closed correctly, so checking each corner can help keep Pebble inside."}, {"topic": "context_clues", "question": "What does the word “secure” mean when it describes the tank lid?", "options": ["Firmly closed so it is not likely to open.", "Easy to lift when someone needs to reach inside.", "Clean and dry after being washed with water.", "Heavy enough to hold the gray rock in place."], "correct": "Firmly closed so it is not likely to open.", "explanation": "The passage defines the word by saying the lid was firmly closed and would not open easily."}, {"topic": "figurative_language", "question": "What does “The room buzzed like a beehive” tell the reader?", "options": ["The students became busy and excited when they heard Pebble was missing.", "A group of bees had entered the room through an open classroom window.", "The students became silent so they could hear the turtle moving nearby.", "A machine near the turtle tank began making a low humming sound."], "correct": "The students became busy and excited when they heard Pebble was missing.", "explanation": "The simile compares the noisy, active classroom to a busy beehive."}]};
+
+      /* ====================================================================
+         3. DOM references and state
+         ==================================================================== */
+
+      const $ = (selector, scope = document) =>
+        scope.querySelector(selector);
+
+      const $$ = (selector, scope = document) =>
+        [...scope.querySelectorAll(selector)];
+
+      const elements = {
+        themeToggle: $("#themeToggle"),
+        startScreen: $("#startScreen"),
+        startButton: $("#startBtn"),
+        liveStage: $("#liveStage"),
+        finishStage: $("#finishStage"),
+        scoreBlock: $("#scoreBlock"),
+        progressFill: $("#progressFill"),
+        liveStatus: $("#liveStatus"),
+        liveProgress: $("#liveProgress"),
+        timer: $("#timer"),
+        endButton: $("#endBtn"),
+        storyText: $("#storyText"),
+        questionMeta: $("#questionMeta"),
+        questionText: $("#questionText"),
+        optionList: $("#optionList"),
+        savedNotice: $("#savedNotice"),
+        nextButton: $("#nextBtn")
+      };
+
+      const state = {
+        questions: [],
+        currentIndex: 0,
+        answers: new Map(),
+        active: false,
+        secondsRemaining: TIME_LIMIT_SECONDS,
+        startedAt: 0,
+        timerId: null
+      };
+
+      /* ====================================================================
+         4. General utilities
+         ==================================================================== */
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+
+          [copy[index], copy[swapIndex]] =
+            [copy[swapIndex], copy[index]];
+        }
+
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const safeSeconds = Math.max(0, totalSeconds);
+        const minutes = Math.floor(safeSeconds / 60);
+        const seconds = safeSeconds % 60;
+
+        return `${minutes}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      function passageToHtml(text) {
+        return text
+          .split(/\n\s*\n/)
+          .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+          .join("");
+      }
+
+      /* ====================================================================
+         5. Theme
+         ==================================================================== */
+
+      function setupTheme() {
+        function updateThemeButton() {
+          const dark =
+            document.documentElement.dataset.theme === "dark";
+
+          elements.themeToggle.textContent =
+            dark ? "☀ Light" : "☾ Dark";
+        }
+
+        updateThemeButton();
+
+        elements.themeToggle.addEventListener("click", () => {
+          const nextTheme =
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark";
+
+          document.documentElement.dataset.theme = nextTheme;
+
+          try {
+            localStorage.setItem(
+              "reading-assignment-2-theme",
+              nextTheme
+            );
+          } catch (error) {
+            // The page still works when localStorage is unavailable.
+          }
+
+          updateThemeButton();
+        });
+      }
+
+      /* ====================================================================
+         6. Timer
+         ==================================================================== */
+
+      function stopTimer() {
+        if (state.timerId) {
+          window.clearInterval(state.timerId);
+        }
+
+        state.timerId = null;
+      }
+
+      function getElapsedSeconds() {
+        if (!state.startedAt) {
+          return 0;
+        }
+
+        const elapsed = Math.round(
+          (Date.now() - state.startedAt) / 1000
+        );
+
+        return Math.min(
+          TIME_LIMIT_SECONDS,
+          Math.max(0, elapsed)
+        );
+      }
+
+      function updateTimerDisplay() {
+        elements.timer.textContent =
+          formatTime(state.secondsRemaining);
+
+        elements.timer.classList.toggle(
+          "warning",
+          state.secondsRemaining <= 60
+        );
+      }
+
+      /* ====================================================================
+         7. Assignment progress
+         ==================================================================== */
+
+      function updateProgress() {
+        const answeredCount = state.answers.size;
+
+        elements.liveStatus.textContent =
+          `Answered: ${answeredCount} / ${QUESTION_COUNT}`;
+
+        elements.liveProgress.textContent =
+          `Question ${state.currentIndex + 1} of ${QUESTION_COUNT}`;
+
+        elements.progressFill.style.width =
+          `${(answeredCount / QUESTION_COUNT) * 100}%`;
+      }
+
+      /* ====================================================================
+         8. Start and render questions
+         ==================================================================== */
+
+      function startAssignment() {
+        stopTimer();
+
+        state.questions = DATA.questions.map((question) => ({
+          ...question,
+          options: shuffle(question.options)
+        }));
+
+        state.currentIndex = 0;
+        state.answers = new Map();
+        state.active = true;
+        state.secondsRemaining = TIME_LIMIT_SECONDS;
+        state.startedAt = Date.now();
+
+        elements.startScreen.hidden = true;
+        elements.finishStage.hidden = true;
+        elements.liveStage.hidden = false;
+        elements.scoreBlock.textContent = "In progress";
+        elements.progressFill.style.width = "0%";
+        elements.storyText.innerHTML = passageToHtml(PASSAGE);
+
+        updateTimerDisplay();
+        renderQuestion();
+
+        state.timerId = window.setInterval(() => {
+          state.secondsRemaining -= 1;
+          updateTimerDisplay();
+
+          if (state.secondsRemaining <= 0) {
+            finishAssignment("Time expired");
+          }
+        }, 1000);
+
+        elements.liveStage.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+
+      function renderQuestion() {
+        const question =
+          state.questions[state.currentIndex];
+
+        const savedAnswer =
+          state.answers.get(state.currentIndex);
+
+        elements.questionMeta.textContent =
+          `${DATA.topics[question.topic]} · ` +
+          `Question ${state.currentIndex + 1} of ${QUESTION_COUNT}`;
+
+        elements.questionText.textContent =
+          question.question;
+
+        elements.optionList.innerHTML = "";
+        elements.savedNotice.hidden = !savedAnswer;
+        elements.nextButton.disabled = !savedAnswer;
+
+        elements.nextButton.textContent =
+          state.currentIndex === QUESTION_COUNT - 1
+            ? "Submit Assignment"
+            : "Next Question";
+
+        question.options.forEach((option) => {
+          const button = document.createElement("button");
+
+          button.type = "button";
+          button.className = "option-btn";
+          button.textContent = option;
+
+          if (savedAnswer === option) {
+            button.classList.add("selected-choice");
+          }
+
+          button.addEventListener("click", () => {
+            selectAnswer(option);
+          });
+
+          elements.optionList.appendChild(button);
+        });
+
+        updateProgress();
+      }
+
+      function selectAnswer(option) {
+        if (!state.active) {
+          return;
+        }
+
+        state.answers.set(state.currentIndex, option);
+
+        $$(".option-btn", elements.optionList).forEach(
+          (button) => {
+            button.classList.toggle(
+              "selected-choice",
+              button.textContent === option
+            );
+          }
+        );
+
+        elements.savedNotice.hidden = false;
+        elements.nextButton.disabled = false;
+
+        updateProgress();
+      }
+
+      /* ====================================================================
+         9. Grading and skill analysis
+         ==================================================================== */
+
+      function gradeAssignment() {
+        return state.questions.map((question, index) => {
+          const studentAnswer =
+            state.answers.get(index) || "";
+
+          return {
+            ...question,
+            studentAnswer,
+            attempted: Boolean(studentAnswer),
+            correctResult:
+              studentAnswer === question.correct
+          };
+        });
+      }
+
+      function calculateSkillStats(results) {
+        const stats = {};
+
+        Object.keys(DATA.topics).forEach((topicKey) => {
+          stats[topicKey] = {
+            correct: 0,
+            total: 0
+          };
+        });
+
+        results.forEach((result) => {
+          stats[result.topic].total += 1;
+
+          if (result.correctResult) {
+            stats[result.topic].correct += 1;
+          }
+        });
+
+        return stats;
+      }
+
+      function findImprovementTopics(stats) {
+        return Object.entries(stats)
+          .filter(([, result]) => {
+            if (result.total === 0) {
+              return false;
+            }
+
+            return result.correct / result.total < 0.75;
+          })
+          .map(([topicKey, result]) => ({
+            key: topicKey,
+            label: DATA.topics[topicKey],
+            correct: result.correct,
+            total: result.total
+          }));
+      }
+
+      /* ====================================================================
+         10. Email report
+         ==================================================================== */
+
+      function buildEmailText(
+        results,
+        stats,
+        improvementTopics,
+        completionReason,
+        elapsedSeconds
+      ) {
+        const score =
+          results.filter((result) => result.correctResult).length;
+
+        const attempted =
+          results.filter((result) => result.attempted).length;
+
+        const lines = [
+          `Assignment: ${WORKSHEET_TITLE}`,
+          `Completion reason: ${completionReason}`,
+          `Score: ${score}/${QUESTION_COUNT}`,
+          `Attempted: ${attempted}/${QUESTION_COUNT}`,
+          `Time used: ${formatTime(elapsedSeconds)}`,
+          "",
+          "TOPIC BREAKDOWN"
+        ];
+
+        Object.entries(stats).forEach(([topicKey, result]) => {
+          if (result.total > 0) {
+            lines.push(
+              `${DATA.topics[topicKey]}: ` +
+              `${result.correct}/${result.total}`
+            );
+          }
+        });
+
+        lines.push("");
+        lines.push("TOPICS TO IMPROVE");
+
+        if (improvementTopics.length > 0) {
+          improvementTopics.forEach((topic) => {
+            lines.push(
+              `- ${topic.label} ` +
+              `(${topic.correct}/${topic.total})`
+            );
+          });
+        } else {
+          lines.push("- None flagged on this assignment.");
+        }
+
+        lines.push("");
+        lines.push("QUESTION RESULTS");
+
+        results.forEach((result, index) => {
+          lines.push(
+            `Q${index + 1} · ${DATA.topics[result.topic]}`
+          );
+          lines.push(result.question);
+          lines.push(
+            `Student answer: ` +
+            `${result.studentAnswer || "[Not answered]"}`
+          );
+          lines.push(`Correct answer: ${result.correct}`);
+          lines.push(
+            `Result: ` +
+            `${result.correctResult ? "Correct" : "Incorrect"}`
+          );
+          lines.push("");
+        });
+
+        return lines.join("\n");
+      }
+
+      async function sendResultsByEmail({
+        results,
+        stats,
+        improvementTopics,
+        completionReason,
+        elapsedSeconds,
+        statusElement
+      }) {
+        statusElement.hidden = false;
+        statusElement.className = "email-status sending";
+        statusElement.innerHTML =
+          "<strong>Sending assignment results…</strong>" +
+          "The report is being submitted automatically.";
+
+        const score =
+          results.filter((result) => result.correctResult).length;
+
+        const attempted =
+          results.filter((result) => result.attempted).length;
+
+        const improvementText =
+          improvementTopics.length > 0
+            ? improvementTopics
+                .map((topic) => topic.label)
+                .join(", ")
+            : "None flagged";
+
+        try {
+          if (
+            !window.EmailResults ||
+            typeof window.EmailResults.send !== "function"
+          ) {
+            throw new Error(
+              "email-results.js could not be loaded."
+            );
+          }
+
+          await window.EmailResults.send({
+            accessKey: WEB3FORMS_ACCESS_KEY,
+            subject:
+              `Reading assignment 2 results · ` +
+              `${score}/${QUESTION_COUNT}`,
+            worksheetTitle: WORKSHEET_TITLE,
+            resultsText: buildEmailText(
+              results,
+              stats,
+              improvementTopics,
+              completionReason,
+              elapsedSeconds
+            ),
+            metadata: {
+              "Score": `${score}/${QUESTION_COUNT}`,
+              "Attempted":
+                `${attempted}/${QUESTION_COUNT}`,
+              "Time used": formatTime(elapsedSeconds),
+              "Topics to improve": improvementText,
+              "Completion reason": completionReason,
+              "Completed at": new Date().toLocaleString()
+            }
+          });
+
+          statusElement.className = "email-status sent";
+          statusElement.innerHTML =
+            "<strong>✓ Results sent</strong>" +
+            "The assignment report was submitted successfully.";
+        } catch (error) {
+          statusElement.className = "email-status failed";
+          statusElement.innerHTML = `
+            <strong>
+              Results could not be sent automatically.
+            </strong>
+            ${escapeHtml(
+              error.message || "Unknown submission error."
+            )}
+            <div class="button-row">
+              <button
+                class="btn btn-primary"
+                type="button"
+                data-retry-email
+              >
+                Retry Sending Results
+              </button>
+            </div>
+          `;
+
+          statusElement
+            .querySelector("[data-retry-email]")
+            .addEventListener("click", () => {
+              sendResultsByEmail({
+                results,
+                stats,
+                improvementTopics,
+                completionReason,
+                elapsedSeconds,
+                statusElement
+              });
+            });
+        }
+      }
+
+      /* ====================================================================
+         11. Final results screen
+         ==================================================================== */
+
+      function finishAssignment(completionReason) {
+        if (!state.active) {
+          return;
+        }
+
+        stopTimer();
+        state.active = false;
+
+        const results = gradeAssignment();
+        const stats = calculateSkillStats(results);
+        const improvementTopics =
+          findImprovementTopics(stats);
+
+        const score =
+          results.filter((result) => result.correctResult).length;
+
+        const attempted =
+          results.filter((result) => result.attempted).length;
+
+        const elapsedSeconds = getElapsedSeconds();
+
+        const overallPercent =
+          Math.round((score / QUESTION_COUNT) * 100);
+
+        elements.liveStage.hidden = true;
+        elements.finishStage.hidden = false;
+        elements.scoreBlock.textContent =
+          `Final: ${score} / ${QUESTION_COUNT}`;
+        elements.progressFill.style.width = "100%";
+
+        const skillRows = Object.entries(stats)
+          .filter(([, result]) => result.total > 0)
+          .map(([topicKey, result]) => `
+            <div class="skill-row">
+              <span>${escapeHtml(DATA.topics[topicKey])}</span>
+              <span>${result.correct}/${result.total}</span>
+            </div>
+          `)
+          .join("");
+
+        const improvementMarkup =
+          improvementTopics.length > 0
+            ? `
+              <div class="improve-panel">
+                <strong>Topics to improve</strong>
+                <p>
+                  ${improvementTopics
+                    .map((topic) => escapeHtml(topic.label))
+                    .join(" · ")}
+                </p>
+              </div>
+            `
+            : `
+              <div class="improve-panel good">
+                <strong>
+                  No topic was flagged for improvement.
+                </strong>
+                <p>
+                  All assessed topic scores met the assignment
+                  threshold.
+                </p>
+              </div>
+            `;
+
+        const reviewMarkup = results
+          .map((result, index) => `
+            <div class="review-box">
+              <h5>
+                ${index + 1}.
+                ${escapeHtml(result.question)}
+              </h5>
+              <p>
+                <strong>Topic:</strong>
+                ${escapeHtml(DATA.topics[result.topic])}
+              </p>
+              <p>
+                <strong>Your answer:</strong>
+                ${escapeHtml(
+                  result.studentAnswer || "[Not answered]"
+                )}
+              </p>
+              <p>
+                <strong>Correct answer:</strong>
+                ${escapeHtml(result.correct)}
+              </p>
+              <p>
+                <strong>
+                  ${result.correctResult
+                    ? "✓ Correct"
+                    : "✕ Incorrect"}
+                </strong>
+                — ${escapeHtml(result.explanation)}
+              </p>
+            </div>
+          `)
+          .join("");
+
+        elements.finishStage.innerHTML = `
+          <div class="finish-panel">
+            <h4>Assignment Complete</h4>
+            <p>${escapeHtml(completionReason)}.</p>
+
+            <div class="metric-grid">
+              <div class="metric">
+                <strong>${score}/${QUESTION_COUNT}</strong>
+                <span>Score</span>
+              </div>
+              <div class="metric">
+                <strong>${overallPercent}%</strong>
+                <span>Overall</span>
+              </div>
+              <div class="metric">
+                <strong>${attempted}/${QUESTION_COUNT}</strong>
+                <span>Attempted</span>
+              </div>
+              <div class="metric">
+                <strong>${formatTime(elapsedSeconds)}</strong>
+                <span>Time used</span>
+              </div>
+            </div>
+
+            ${improvementMarkup}
+
+            <h4
+              style="
+                font-size: 1.25rem;
+                line-height: 1.2;
+                margin: 26px 0 10px;
+              "
+            >
+              Skill breakdown
+            </h4>
+
+            <div class="skill-breakdown">
+              ${skillRows}
+            </div>
+
+            <h4
+              style="
+                font-size: 1.25rem;
+                line-height: 1.2;
+                margin: 28px 0 10px;
+              "
+            >
+              Answer review
+            </h4>
+
+            ${reviewMarkup}
+
+            <div
+              class="email-status sending"
+              data-email-status
+              aria-live="polite"
+            >
+              <strong>Sending assignment results…</strong>
+              The report is being submitted automatically.
+            </div>
+          </div>
+        `;
+
+        const emailStatus =
+          elements.finishStage.querySelector(
+            "[data-email-status]"
+          );
+
+        sendResultsByEmail({
+          results,
+          stats,
+          improvementTopics,
+          completionReason,
+          elapsedSeconds,
+          statusElement: emailStatus
+        });
+
+        elements.finishStage.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+
+      /* ====================================================================
+         12. Event listeners and initialization
+         ==================================================================== */
+
+      elements.startButton.addEventListener(
+        "click",
+        startAssignment
+      );
+
+      elements.endButton.addEventListener("click", () => {
+        finishAssignment("Assignment submitted early");
+      });
+
+      elements.nextButton.addEventListener("click", () => {
+        if (!state.answers.has(state.currentIndex)) {
+          return;
+        }
+
+        if (state.currentIndex >= QUESTION_COUNT - 1) {
+          finishAssignment("Completed all 10 questions");
+          return;
+        }
+
+        state.currentIndex += 1;
+        renderQuestion();
+
+        $(".question-card").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+
+      setupTheme();
+    })();
+  </script>
+</body>
+</html>
