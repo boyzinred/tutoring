@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Five timed reading comprehension quizzes for Tasya and Efla.">
+  <title>August 16 - Homework</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('tasya-efla-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --background: #D35D4A;
+      --foreground: #68B9DE;
+      --primary: #11328D;
+      --primary-hover: #FFEB09;
+      --secondary: #1648D2;
+      --secondary-soft: #FFEB09;
+      --accent: #F0D7A8;
+      --accent-soft: #F0D7A8;
+      --muted: #B6EBA2;
+      --muted-strong: #99C588;
+      --blue-soft: #A4483B;
+      --border: #EACF86;
+      --subtle: #B3DA58;
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #B42318;
+      --danger-soft: #FADBD6;
+      --success: #1648D2;
+      --success-soft: #FFEB09;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success: #7E9DF1;
+      --success-soft: #423D0B;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+
+    .home-link, .theme-toggle, .btn, .collapse-btn, .toc-link, .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link, .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover, .theme-toggle:hover { background: var(--muted-strong); }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero { color: var(--hero-heading); background: var(--primary); }
+    .hero-copy { padding: clamp(48px, 7vw, 82px); }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover { background: var(--blue-soft); border-color: var(--primary); }
+
+    .section-card { scroll-margin-top: 20px; }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .section-kicker, .question-meta, .menu-field label, .story-label, .quiz-number {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker { margin-bottom: 12px; opacity: .85; }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover { color: #FFFFFF; background: #111827; }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .section-intro {
+      margin-bottom: 28px;
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .section-intro strong { color: var(--primary); }
+    .quiz-list { display: grid; gap: 28px; }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 20px;
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy { padding: 26px; }
+    .quiz-number { margin-bottom: 9px; color: var(--accent); }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p { max-width: 72ch; margin: 0; color: #D1D5DB; }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track { height: 12px; background: var(--muted-strong); }
+    .progress-fill { width: 0; height: 100%; background: var(--secondary); transition: width 200ms ease; }
+
+    .exercise-menu, .live-stage, .finish-stage { padding: clamp(24px, 4vw, 38px); }
+    .menu-intro { max-width: 72ch; margin-bottom: 20px; color: var(--surface-text); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(180px, .55fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .menu-field, .fixed-info {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field { display: grid; gap: 7px; }
+    .menu-field label { color: var(--primary); }
+
+    .menu-field input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 14px;
+      color: var(--surface-text);
+      background: #FFFFFF;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    html[data-theme='dark'] .menu-field input { background: var(--muted-strong); }
+    .menu-field input:focus { border-color: var(--primary); }
+
+    .fixed-info { display: grid; place-content: center; }
+    .fixed-info strong { display: block; color: var(--primary); font-size: 1.45rem; }
+    .fixed-info span { font-size: .82rem; font-weight: 700; }
+    .name-error { margin-top: 10px; color: var(--danger); font-weight: 800; }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) { transform: scale(1.04); }
+    .btn:disabled { cursor: not-allowed; opacity: .55; }
+    .btn-primary { color: #FFFFFF; background: var(--primary); }
+    .btn-primary:hover:not(:disabled) { color: #111827; background: var(--primary-hover); }
+    .btn-positive { color: #FFFFFF; background: var(--secondary); }
+    .btn-secondary { color: var(--surface-text); background: var(--muted-strong); }
+    .btn-danger { color: #FFFFFF; background: var(--danger); }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong { display: block; color: var(--accent); font-size: 1.06rem; }
+    .live-status span { color: #D1D5DB; font-size: .8rem; }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning { color: #111827; background: var(--accent); }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .story-card, .question-card, .metric, .review-box { border-radius: var(--radius-lg); }
+
+    .story-card {
+      position: sticky;
+      top: 16px;
+      padding: clamp(22px, 4vw, 30px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .story-label { margin-bottom: 8px; color: var(--primary); }
+    .story-card h4 { margin-bottom: 18px; font-size: clamp(1.65rem, 3vw, 2.45rem); font-weight: 800; }
+    .reading-prompt { margin-bottom: 16px; padding: 12px; background: var(--accent-soft); border-radius: var(--radius-md); font-weight: 700; }
+    .story-text { font-size: 1.02rem; line-height: 1.78; }
+    .story-text p { margin-bottom: 1em; }
+    .story-text p:last-child { margin-bottom: 0; }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .question-meta { margin-bottom: 12px; color: var(--primary); }
+    .question-text { margin: 0 0 24px; font-size: clamp(1.25rem, 2.5vw, 2rem); font-weight: 700; line-height: 1.2; }
+    .option-list { display: grid; gap: 10px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) { color: #FFFFFF; background: var(--primary); }
+    .option-btn.correct-choice { color: #111827; background: var(--success-soft); border-color: var(--success); }
+    .option-btn.wrong-choice { color: var(--surface-text); background: var(--danger-soft); border-color: var(--danger); }
+    .option-btn:disabled { cursor: not-allowed; opacity: 1; }
+
+
+
+    .option-btn.selected-choice {
+      color: #FFFFFF;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .strategy-block {
+      display: grid;
+      gap: 16px;
+    }
+
+    .strategy-sentence,
+    .strategy-prompt {
+      padding: 18px;
+      color: var(--surface-text);
+      background: var(--accent-soft);
+      border-left: 8px solid var(--accent);
+      border-radius: var(--radius-lg);
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .strategy-choice-label,
+    .open-response-label {
+      color: var(--primary);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .open-response {
+      width: 100%;
+      min-height: 130px;
+      padding: 14px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+      resize: vertical;
+    }
+
+    .open-response:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .ungraded-note,
+    .answer-warning {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .ungraded-note {
+      background: var(--blue-soft);
+    }
+
+    .answer-warning {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-left: 6px solid var(--danger);
+    }
+
+    .feedback { margin-top: 18px; padding: 18px; border-radius: var(--radius-lg); }
+    .feedback.correct { background: var(--secondary-soft); border-left: 8px solid var(--secondary); }
+    .feedback.incorrect { background: var(--accent-soft); border-left: 8px solid var(--danger); }
+
+    .finish-panel { padding: 28px; color: var(--surface-text); background: var(--blue-soft); border-radius: var(--radius-lg); }
+    .finish-panel h4 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; }
+
+    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
+    .metric { padding: 16px; background: var(--background); }
+    .metric strong { display: block; color: var(--primary); font-size: 1.6rem; }
+    .metric span { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .email-status { margin-top: 18px; padding: 16px; border-radius: var(--radius-lg); }
+    .email-status strong { display: block; margin-bottom: 4px; }
+    .email-status.sending { background: var(--accent-soft); border-left: 8px solid var(--accent); }
+    .email-status.sent { background: var(--secondary-soft); border-left: 8px solid var(--secondary); }
+    .email-status.failed { background: var(--danger-soft); border-left: 8px solid var(--danger); }
+
+    .review-box { margin-top: 12px; padding: 18px; background: var(--background); }
+    .review-box h5 { margin-bottom: 8px; font-size: 1.05rem; line-height: 1.3; }
+    .review-box p { margin: 4px 0; }
+
+    .source-note { margin-top: 28px; padding: 20px; color: var(--surface-text); background: var(--background); border-radius: var(--radius-lg); font-size: .86rem; }
+
+    .floating-controls { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: flex; gap: 8px; }
+    .float-btn { width: 46px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; color: #FFFFFF; background: var(--inverse); border: 0; border-radius: 50%; text-decoration: none; font-size: 1rem; }
+    .float-btn:hover { background: var(--primary); }
+
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .story-card { position: static; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner { width: calc(100% - 28px); min-height: 60px; }
+      .brand { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .theme-label { display: none; }
+      .page-shell { width: 100%; margin: 0; border-radius: 0; }
+      .hero-copy { padding: 48px 22px; }
+      h1 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+      .toc-panel { overflow: hidden; }
+      .toc-grid { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+      .toc-link { flex: 0 0 auto; white-space: nowrap; }
+      .section-header { align-items: flex-start; flex-direction: column; padding-inline: 22px; }
+      .collapse-btn { width: 100%; }
+      .section-body { padding-inline: 16px; }
+      .exercise-head { grid-template-columns: 1fr; }
+      .score-block { min-width: 0; min-height: 54px; }
+      .menu-grid, .metric-grid { grid-template-columns: 1fr; }
+      .live-toolbar { grid-template-columns: 1fr; }
+      .mini-timer { width: 100%; }
+      .button-row { display: grid; }
+      .btn { width: 100%; }
+      .floating-controls { right: 8px; bottom: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Tasya and Efla — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 16 - Homework</h1>
+        <p>Read five short passages and complete one independent ten-minute quiz for each story.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a quiz</h2>
+      <div class="toc-grid" id="tocGrid"></div>
+    </nav>
+
+    <main>
+      <section class="section-card" id="reading">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Reading Comprehension</div>
+            <h2>Five Story Quizzes</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="readingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="readingBody">
+          <div class="section-intro">
+            <strong>How it works:</strong> Each story has one strategy response and four scored questions. Every quiz lasts ten minutes. Answer feedback appears only after the quiz is submitted, and results are emailed automatically.
+          </div>
+          <div class="quiz-list" id="quizList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <button class="float-btn" id="floatingTheme" type="button" aria-label="Switch color theme">☾</button>
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+
+  <script src="../email-results.js"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const DATA = {"stories":[{"id":"sparky","prompt":"Think about what a real dog can do.","title":"Sparky the Wonder Dog","text":["Bella’s dog Sparky likes to run and explore. Bella thinks that Sparky is like a magician. One moment Sparky is in the backyard and then, all of a sudden, he’s gone!","Sparky escaped again last week, so Bella set out to find him. She called out Sparky’s name as she walked. Bella even shook Sparky’s bag of dog chow. “Treats! Treats!” yelled Bella. Sparky loved his treats, but he did not appear.","Then Bella stopped. She smelled some meat grilling. She spotted a cloud of smoke from behind a house. Bella headed there and peeked in the yard. Sure enough, there was Sparky. He stood on his hind legs in front of a grill. Sparky was whistling and flipping burgers. Bella could see Sparky’s mouth drool. Bella wondered where Sparky got the apron he was wearing."],"questions":[{"question":"What can really happen?","options":["A dog can cook burgers.","A dog can run away.","A dog can whistle.","A dog can do magic."],"answer":1,"explanation":"A real dog can run away. Cooking burgers, whistling, and doing magic are make-believe actions in this story."},{"question":"What is make-believe in the story?","options":["A girl looks for a missing dog.","A dog likes treats.","A dog cooks burgers.","A dog stands on its back legs."],"answer":2,"explanation":"The make-believe event is Sparky cooking burgers at the grill."},{"question":"Which word best describes Sparky?","options":["well-behaved","clever","angry","lucky"],"answer":1,"explanation":"Sparky is described doing surprisingly skillful things, so “clever” fits best."},{"question":"Which one can be said about Sparky?","options":["Sparky is a small dog.","Sparky has run away before.","Sparky never leaves the backyard.","Sparky comes when he is called."],"answer":1,"explanation":"The passage says Sparky “escaped again,” which shows that he has run away before."}],"quiz":"Quiz 1","strategy":{"instruction":"Circle the word or words, and complete the sentence.","sentenceStart":"I","choices":["would","would not"],"sentenceEnd":"like to have Sparky as a pet because","placeholder":"Explain your reason.","sourceType":"choice_and_typed"}},{"id":"whoa-boy","prompt":"Think about a time when you learned something new.","title":"Whoa, Boy!","text":["Evan lived in the city. More than anything, he wanted to ride a horse. He could hardly wait to gallop as fast as the wind. Evan visited Uncle Pete at his farm. His uncle was ready to show Evan how to ride.","Evan sat on a fence as his uncle walked a horse toward him. The ground seemed to shake with every step the horse took. Evan dug his fingernails into the fence. He stared at the huge beast. “Were all horses this big?” he wondered.","Uncle Pete helped Evan onto the horse’s back. Then Evan tapped the horse’s sides with his heels. The horse began to trot. Evan bounced up and down like a jumping frog.","“Riding a horse hurts,” said Evan. He decided to forget about galloping. For now, the speed of a merry-go-round seemed just right."],"questions":[{"question":"Where does the passage happen?","options":["on a farm","in a city","near a frog pond","at a castle"],"answer":0,"explanation":"Evan visits Uncle Pete at his farm, and that is where he learns to ride."},{"question":"When Evan sees the horse, he feels _____.","options":["very happy","a bit scared","quite brave","a little silly"],"answer":1,"explanation":"Evan grips the fence, stares at the huge horse, and wonders whether all horses are that big, showing that he is a bit scared."},{"question":"Which of these is most like Evan’s experience?","options":["learning to write letters","learning to divide numbers","learning to ride a bike","learning how to care for a goldfish"],"answer":2,"explanation":"Learning to ride a bike is another physical skill that may feel exciting but difficult or scary at first."},{"question":"What does the last sentence in the passage mean?","options":["Evan was on a merry-go-round.","Evan wanted a new horse to ride.","Evan did not want to go faster.","Evan wanted to hop like a frog."],"answer":2,"explanation":"Evan decides that a slower speed feels right, so he does not want the horse to go faster."}],"quiz":"Quiz 2","strategy":{"instruction":"Circle the word or words, and complete the sentence.","sentenceStart":"When I learned something new, I","choices":["felt","did not feel"],"sentenceEnd":"like Evan because","placeholder":"Explain your reason.","sourceType":"choice_and_typed"}},{"id":"chimpanzees","prompt":"Look for how chimpanzees’ behavior is like human behavior.","title":"Learning About Chimpanzees","text":["We know a lot about chimpanzees because of Jane Goodall. She studied the apes for over 30 years. She crawled through thick forests in Africa to sit still and watch them. During that time, Jane wrote down what she saw and heard.","We now know that chimpanzees live in friendly groups. They greet each other with a hug and a kiss. Mother chimps tickle their babies and make them laugh. Chimpanzees play games together, and they clean each other. They show their feelings, too. Worried chimpanzees pucker their lips. Scared chimpanzees bare their teeth. Calm and happy chimpanzees smile. And each sound a chimpanzee makes means something. For example, chimpanzees bark when they find food.","Chimpanzees also solve problems. They use sticks as tools to get food they cannot reach. They chew leaves and use them as sponges to sop up water."],"questions":[{"question":"Which one is probably Jane Goodall’s job?","options":["She raises chimpanzees.","She is a zoo vet.","She is a scientist.","She trains animals."],"answer":2,"explanation":"Jane Goodall carefully observed chimpanzees for many years and recorded what she discovered, which is scientific work."},{"question":"Based on the passage, which one is true about chimpanzees?","options":["They do not like people.","They act like people in some ways.","They like to live alone.","They sing and dance."],"answer":1,"explanation":"Chimpanzees hug, kiss, play, laugh, show feelings, and solve problems, so they act like people in some ways."},{"question":"Where do chimpanzees live?","options":["only in zoos","in forests","in deserts","in icy areas"],"answer":1,"explanation":"The passage says Jane Goodall crawled through thick forests in Africa to observe chimpanzees."},{"question":"Which one shows that chimpanzees act like people?","options":["They show their teeth when they are scared.","They bark when they find food.","They pucker their lips when they are worried.","They play games together."],"answer":3,"explanation":"Playing games together is a clear example of social behavior that is also common among people."}],"quiz":"Quiz 3","strategy":{"instruction":"Complete the sentence.","prompt":"I was surprised to read that chimpanzees…","choices":[],"placeholder":"Complete the sentence.","sourceType":"typed"}},{"id":"charles","prompt":"Think about what makes people grouchy or grumpy.","title":"Charles the Grouch","text":["Charles did not care to smile, but he did like to complain. When the day was sunny, Charles said it was too hot. When the birds sang, he said they were too loud. Charles said parties were too crowded and rainbows were too colorful.","One day, Charles was in his garden grumbling that the carrots were too orange. And he thought the trees were too tall. Suddenly, an elf appeared. The elf spoke slowly, as he tried to control his anger. The elf said, “I have heard enough of your complaining. You grumble all day. You fuss all night. I am going to grant you three wishes. Then perhaps you will stop being such a grouch!”","“Only three wishes? Why can’t I have more than three?” whined Charles.","“Forget it! No wishes for you!” yelled the elf. The elf disappeared.","“They were probably crummy wishes anyway,” Charles complained."],"questions":[{"question":"What is make-believe in the passage?","options":["A man complains.","A man makes a wish.","An elf appears in a garden.","A man grows carrots."],"answer":2,"explanation":"An elf suddenly appearing in a garden is the make-believe event."},{"question":"What in the passage can happen?","options":["Elves can grant wishes.","A man can be grumpy.","An elf can live in a garden.","A man can talk to an elf."],"answer":1,"explanation":"A real person can be grumpy. The choices involving elves are make-believe."},{"question":"Why does Charles want more wishes?","options":["He does not like the elf.","He is never happy with the way things are.","He wants more of everything.","He already wasted two wishes."],"answer":1,"explanation":"Charles complains about everything, so even three wishes are not enough to make him satisfied."},{"question":"Which adjective best describes Charles?","options":["tired","cheery","thankful","crabby"],"answer":3,"explanation":"Charles constantly complains and grumbles, so “crabby” describes him best."}],"quiz":"Quiz 4","strategy":{"instruction":"Answer the question.","prompt":"How do you act around grumpy people?","choices":[],"placeholder":"Write your answer.","sourceType":"typed"}},{"id":"waxwings","prompt":"Think about the colors of birds you have seen.","title":"Odd Baby Birds","text":["Waxwings are small songbirds. They have pale yellow bellies and yellow tips on their tail feathers. Some young waxwings are odd because they look different from their parents. Those young birds have tail feathers with orange tips. Scientists have discovered why. The answer has to do with food.","Waxwings mostly eat berries. One kind of honeysuckle plant grows in some places. The plant’s berries grow for just a short time. The berries have a strong red color. Some waxwings feed a lot of those red berries to their babies. Their babies might be growing tail feathers at that time. If they are, the red color settles in their tail feathers. Instead of having yellow tips like their parents, their feathers are tipped in orange."],"questions":[{"question":"To have orange-tipped feathers, baby waxwings must _____.","options":["have parents that look that way","eat one kind of red berry","eat a lot of orange plants","get red berries on their tails"],"answer":1,"explanation":"The orange tips can appear when baby waxwings are fed many red berries while their tail feathers are growing."},{"question":"Which one is true about most adult waxwings?","options":["They eat only red berries.","Their tail feathers have orange tips.","They mostly eat yellow bugs.","Their tail feathers have yellow tips."],"answer":3,"explanation":"The passage says waxwings normally have yellow tips on their tail feathers."},{"question":"Which question does the passage answer?","options":["Why do waxwings feed their babies red berries?","Why do some young waxwings look different from their parents?","Why do plants have berries?","Why do birds have tail feathers?"],"answer":1,"explanation":"The passage explains why some young waxwings have orange-tipped feathers instead of yellow tips like their parents."},{"question":"Based on what you read, what happens when red and yellow are mixed?","options":["They make orange.","They make a bright yellow.","They make a dark red.","They make blue."],"answer":0,"explanation":"The red color from the berries combines with the birds’ normal yellow feather color, producing orange tips."}],"quiz":"Quiz 5","strategy":{"instruction":"Tell a partner about the strangest bird you have ever seen.","prompt":"What is the strangest bird you have ever seen?","choices":[],"placeholder":"Describe the bird.","sourceType":"typed"}}]};
+      const WEB3FORMS_ACCESS_KEY = '17d39e49-04e5-42bf-bfa0-5b7f9eba1090';
+      const WORKSHEET_TITLE = 'August 16 · Five Reading Comprehension Quizzes';
+      const TIME_LIMIT_SECONDS = 10 * 60;
+      const states = new Map();
+      let sharedStudentName = '';
+      let activeQuizId = null;
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function formatTime(totalSeconds) {
+        const safe = Math.max(0, totalSeconds);
+        return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+      }
+
+      function paragraphs(items) {
+        return items.map(item => `<p>${escapeHtml(item)}</p>`).join('');
+      }
+
+      function setupTheme() {
+        const apply = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          $('#themeIcon').textContent = dark ? '☀' : '☾';
+          $('#themeLabel').textContent = dark ? 'Light' : 'Dark';
+          $('#themeToggle').setAttribute('aria-pressed', String(dark));
+          $('#floatingTheme').textContent = dark ? '☀' : '☾';
+        };
+
+        const toggle = () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('tasya-efla-quiz-theme', next); } catch (error) {}
+          apply();
+        };
+
+        $('#themeToggle').addEventListener('click', toggle);
+        $('#floatingTheme').addEventListener('click', toggle);
+        apply();
+      }
+
+      function setSharedName(value, sourceInput) {
+        sharedStudentName = value.trimStart().slice(0, 80);
+        $$('[data-student-name]').forEach(input => {
+          if (input !== sourceInput) input.value = sharedStudentName;
+        });
+      }
+
+      function totalTasks(story) {
+        return story.questions.length + 1;
+      }
+
+      function quizMarkup(story) {
+        const tasks = totalTasks(story);
+        return `
+          <article class="exercise-card" id="quiz-${escapeHtml(story.id)}">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <div class="quiz-number">${escapeHtml(story.quiz)}</div>
+                <h3>${escapeHtml(story.title)}</h3>
+                <p>${escapeHtml(story.prompt)}</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">Enter the student’s name to begin this story quiz.</p>
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="name-${escapeHtml(story.id)}">Student name</label>
+                  <input id="name-${escapeHtml(story.id)}" data-student-name type="text" maxlength="80" autocomplete="name" placeholder="Enter name" required>
+                </div>
+                <div class="fixed-info">
+                  <strong>1 strategy response + 4 scored questions</strong>
+                  <span>10 minutes · Feedback is shown after submission.</span>
+                </div>
+              </div>
+              <div class="name-error" data-name-error hidden>Please enter the student’s name before starting.</div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start Quiz</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Progress: 0 / ${tasks}</strong>
+                  <span data-live-progress>Task 1 of ${tasks}</span>
+                </div>
+                <div class="mini-timer" data-timer aria-live="polite">10:00</div>
+                <button class="btn btn-danger" type="button" data-end>Submit Early</button>
+              </div>
+
+              <div class="question-layout">
+                <aside class="story-card">
+                  <div class="story-label">Reading passage</div>
+                  <h4>${escapeHtml(story.title)}</h4>
+                  <div class="reading-prompt">${escapeHtml(story.prompt)}</div>
+                  <div class="story-text">${paragraphs(story.text)}</div>
+                </aside>
+
+                <section class="question-card">
+                  <div class="question-meta" data-meta></div>
+                  <div class="question-text" data-question></div>
+                  <div data-answer-area></div>
+                  <div class="answer-warning" data-answer-warning hidden>Please complete this task before continuing.</div>
+                  <div class="button-row">
+                    <button class="btn btn-secondary" type="button" data-previous hidden>Previous Question</button>
+                    <button class="btn btn-positive" type="button" data-next disabled>Next Question</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        `;
+      }
+
+      function renderPage() {
+        $('#tocGrid').innerHTML = DATA.stories.map(story =>
+          `<a class="toc-link" href="#quiz-${escapeHtml(story.id)}">${escapeHtml(story.quiz)} · ${escapeHtml(story.title)}</a>`
+        ).join('');
+
+        const list = $('#quizList');
+        DATA.stories.forEach(story => {
+          list.insertAdjacentHTML('beforeend', quizMarkup(story));
+          createQuiz(story);
+        });
+      }
+
+      function createQuiz(story) {
+        const card = $(`#quiz-${story.id}`);
+        const els = {
+          menu: $('[data-menu]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          name: $('[data-student-name]', card),
+          nameError: $('[data-name-error]', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          timer: $('[data-timer]', card),
+          meta: $('[data-meta]', card),
+          question: $('[data-question]', card),
+          answerArea: $('[data-answer-area]', card),
+          answerWarning: $('[data-answer-warning]', card),
+          previous: $('[data-previous]', card),
+          next: $('[data-next]', card),
+          start: $('[data-start]', card),
+          end: $('[data-end]', card)
+        };
+
+        const state = {
+          index: 0,
+          score: 0,
+          responses: [],
+          strategyResponse: null,
+          pendingOptionIndex: null,
+          pendingStrategyChoice: '',
+          pendingStrategyText: '',
+          active: false,
+          seconds: TIME_LIMIT_SECONDS,
+          timerId: null,
+          startedAt: 0,
+          studentName: '',
+          lastEmailResult: null
+        };
+        states.set(story.id, state);
+
+        els.name.value = sharedStudentName;
+        els.name.addEventListener('input', () => {
+          setSharedName(els.name.value, els.name);
+          els.nameError.hidden = Boolean(els.name.value.trim());
+        });
+
+        function stopTimer() {
+          if (state.timerId) clearInterval(state.timerId);
+          state.timerId = null;
+        }
+
+        function elapsedSeconds() {
+          return state.startedAt
+            ? Math.min(TIME_LIMIT_SECONDS, Math.max(0, Math.round((Date.now() - state.startedAt) / 1000)))
+            : 0;
+        }
+
+        function updateTimer() {
+          els.timer.textContent = formatTime(state.seconds);
+          els.timer.classList.toggle('warning', state.seconds <= 60);
+        }
+
+        function completedTaskCount() {
+          return (state.strategyResponse ? 1 : 0) + state.responses.filter(Boolean).length;
+        }
+
+        function updateStatus() {
+          const completed = completedTaskCount();
+          const tasks = totalTasks(story);
+          els.liveScore.textContent = `Progress: ${completed} / ${tasks}`;
+          els.liveProgress.textContent = `Task ${Math.min(state.index + 1, tasks)} of ${tasks}`;
+          els.progress.style.width = `${(completed / tasks) * 100}%`;
+          if (state.active) els.score.textContent = 'In progress';
+        }
+
+        function startQuiz() {
+          const name = els.name.value.trim();
+          if (!name) {
+            els.nameError.hidden = false;
+            els.name.focus();
+            return;
+          }
+
+          if (activeQuizId && activeQuizId !== story.id) {
+            const activeCard = $(`#quiz-${activeQuizId}`);
+            activeCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.alert('Please finish or submit the current quiz before starting another one.');
+            return;
+          }
+
+          setSharedName(name, els.name);
+          activeQuizId = story.id;
+          stopTimer();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.strategyResponse = null;
+          state.pendingOptionIndex = null;
+          state.pendingStrategyChoice = '';
+          state.pendingStrategyText = '';
+          state.active = true;
+          state.seconds = TIME_LIMIT_SECONDS;
+          state.startedAt = Date.now();
+          state.studentName = name;
+          state.lastEmailResult = null;
+
+          els.menu.hidden = true;
+          els.finish.hidden = true;
+          els.live.hidden = false;
+          els.score.textContent = 'In progress';
+          els.progress.style.width = '0%';
+          updateTimer();
+          renderTask();
+
+          state.timerId = setInterval(() => {
+            state.seconds -= 1;
+            updateTimer();
+            if (state.seconds <= 0) finishQuiz('Time expired');
+          }, 1000);
+
+          els.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function strategyIsComplete() {
+          const needsChoice = story.strategy.choices.length > 0;
+          return (!needsChoice || Boolean(state.pendingStrategyChoice)) && Boolean(state.pendingStrategyText.trim());
+        }
+
+        function renderStrategyTask() {
+          const strategy = story.strategy;
+          state.pendingStrategyChoice = state.strategyResponse?.choice === '[No choice selected]'
+            ? ''
+            : (state.strategyResponse?.choice || '');
+          state.pendingStrategyText = state.strategyResponse?.writtenResponse === '[No written response]'
+            ? ''
+            : (state.strategyResponse?.writtenResponse || '');
+          els.meta.textContent = `${story.quiz} · Strategy Practice · Task 1 of ${totalTasks(story)}`;
+          els.question.textContent = strategy.instruction;
+          els.next.textContent = 'Save Response & Continue';
+          els.next.disabled = true;
+          els.answerWarning.hidden = true;
+
+          const block = document.createElement('div');
+          block.className = 'strategy-block';
+
+          const prompt = document.createElement('div');
+          prompt.className = strategy.choices.length ? 'strategy-sentence' : 'strategy-prompt';
+          if (strategy.choices.length) {
+            prompt.textContent = `${strategy.sentenceStart} (${strategy.choices.join(' / ')}) ${strategy.sentenceEnd}…`;
+          } else {
+            prompt.textContent = strategy.prompt;
+          }
+          block.appendChild(prompt);
+
+          if (strategy.choices.length) {
+            const choiceLabel = document.createElement('div');
+            choiceLabel.className = 'strategy-choice-label';
+            choiceLabel.textContent = 'Choose one';
+            block.appendChild(choiceLabel);
+
+            const options = document.createElement('div');
+            options.className = 'option-list';
+            strategy.choices.forEach(choice => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = choice;
+              if (choice === state.pendingStrategyChoice) button.classList.add('selected-choice');
+              button.addEventListener('click', () => {
+                state.pendingStrategyChoice = choice;
+                $$('.option-btn', options).forEach(item => item.classList.remove('selected-choice'));
+                button.classList.add('selected-choice');
+                els.next.disabled = !strategyIsComplete();
+                els.answerWarning.hidden = true;
+              });
+              options.appendChild(button);
+            });
+            block.appendChild(options);
+          }
+
+          const label = document.createElement('label');
+          label.className = 'open-response-label';
+          label.textContent = strategy.choices.length ? 'Complete the sentence' : 'Your response';
+          block.appendChild(label);
+
+          const textarea = document.createElement('textarea');
+          textarea.className = 'open-response';
+          textarea.rows = 5;
+          textarea.maxLength = 600;
+          textarea.placeholder = strategy.placeholder;
+          textarea.value = state.pendingStrategyText;
+          textarea.addEventListener('input', () => {
+            state.pendingStrategyText = textarea.value;
+            els.next.disabled = !strategyIsComplete();
+            els.answerWarning.hidden = true;
+          });
+          block.appendChild(textarea);
+
+          const note = document.createElement('div');
+          note.className = 'ungraded-note';
+          note.textContent = 'This written response is included in the emailed report but is not graded.';
+          block.appendChild(note);
+
+          els.answerArea.innerHTML = '';
+          els.answerArea.appendChild(block);
+          els.next.disabled = !strategyIsComplete();
+        }
+
+        function renderScoredQuestion() {
+          const questionIndex = state.index - 1;
+          const q = story.questions[questionIndex];
+          const savedResponse = state.responses[questionIndex];
+          state.pendingOptionIndex = savedResponse
+            ? q.options.indexOf(savedResponse.studentAnswer)
+            : null;
+          els.meta.textContent = `${story.quiz} · Scored Question ${questionIndex + 1} of ${story.questions.length} · Task ${state.index + 1} of ${totalTasks(story)}`;
+          els.question.textContent = q.question;
+          els.next.textContent = questionIndex === story.questions.length - 1 ? 'Finish Quiz' : 'Next Question';
+          els.next.disabled = true;
+          els.answerWarning.hidden = true;
+
+          const options = document.createElement('div');
+          options.className = 'option-list';
+          q.options.forEach((option, optionIndex) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'option-btn';
+            button.textContent = option;
+            if (optionIndex === state.pendingOptionIndex) button.classList.add('selected-choice');
+            button.addEventListener('click', () => {
+              state.pendingOptionIndex = optionIndex;
+              $$('.option-btn', options).forEach(item => item.classList.remove('selected-choice'));
+              button.classList.add('selected-choice');
+              els.next.disabled = false;
+              els.answerWarning.hidden = true;
+            });
+            options.appendChild(button);
+          });
+
+          els.answerArea.innerHTML = '';
+          els.answerArea.appendChild(options);
+          els.next.disabled = state.pendingOptionIndex === null;
+        }
+
+        function renderTask() {
+          if (state.index === 0) renderStrategyTask();
+          else renderScoredQuestion();
+          els.previous.hidden = state.index === 0;
+          els.previous.disabled = state.index === 0;
+          updateStatus();
+        }
+
+        function commitCurrentTask({ allowPartial = false } = {}) {
+          if (state.index === 0) {
+            if (!allowPartial && !strategyIsComplete()) return false;
+            if (state.pendingStrategyChoice || state.pendingStrategyText.trim()) {
+              state.strategyResponse = {
+                instruction: story.strategy.instruction,
+                prompt: story.strategy.choices.length
+                  ? `${story.strategy.sentenceStart} (${story.strategy.choices.join(' / ')}) ${story.strategy.sentenceEnd}…`
+                  : story.strategy.prompt,
+                choice: state.pendingStrategyChoice || '[No choice selected]',
+                writtenResponse: state.pendingStrategyText.trim() || '[No written response]',
+                graded: false
+              };
+            }
+            return allowPartial || Boolean(state.strategyResponse);
+          }
+
+          const questionIndex = state.index - 1;
+          const q = story.questions[questionIndex];
+          if (state.pendingOptionIndex === null) return allowPartial;
+          const previousResponse = state.responses[questionIndex];
+          if (previousResponse?.correct) state.score -= 1;
+          const correct = state.pendingOptionIndex === q.answer;
+          if (correct) state.score += 1;
+          state.responses[questionIndex] = {
+            question: q.question,
+            studentAnswer: q.options[state.pendingOptionIndex],
+            correctAnswer: q.options[q.answer],
+            correct,
+            explanation: q.explanation
+          };
+          return true;
+        }
+
+        function completeResults(reason) {
+          const byQuestion = story.questions.map((q, index) => {
+            const response = state.responses[index];
+            return response || {
+              question: q.question,
+              studentAnswer: '[Not answered]',
+              correctAnswer: q.options[q.answer],
+              correct: false,
+              explanation: q.explanation
+            };
+          });
+
+          return {
+            storyId: story.id,
+            storyTitle: story.title,
+            quiz: story.quiz,
+            studentName: state.studentName,
+            reason,
+            score: state.score,
+            attempted: state.responses.filter(Boolean).length,
+            total: story.questions.length,
+            elapsed: elapsedSeconds(),
+            strategy: state.strategyResponse || {
+              instruction: story.strategy.instruction,
+              prompt: story.strategy.choices.length
+                ? `${story.strategy.sentenceStart} (${story.strategy.choices.join(' / ')}) ${story.strategy.sentenceEnd}…`
+                : story.strategy.prompt,
+              choice: '[No choice selected]',
+              writtenResponse: '[No written response]',
+              graded: false
+            },
+            responses: byQuestion
+          };
+        }
+
+        function emailText(result) {
+          const lines = [
+            `Quiz: ${result.quiz} · ${result.storyTitle}`,
+            `Student: ${result.studentName}`,
+            `Completion reason: ${result.reason}`,
+            `Score: ${result.score}/${result.total}`,
+            `Attempted scored questions: ${result.attempted}/${result.total}`,
+            `Time used: ${formatTime(result.elapsed)}`,
+            '',
+            'STRATEGY PRACTICE — NOT GRADED',
+            `Prompt: ${result.strategy.prompt}`,
+            `Selected words: ${result.strategy.choice}`,
+            `Written response: ${result.strategy.writtenResponse}`,
+            '',
+            'SCORED QUESTION RESULTS'
+          ];
+
+          result.responses.forEach((response, index) => {
+            lines.push(`Q${index + 1}. ${response.question}`);
+            lines.push(`Student answer: ${response.studentAnswer}`);
+            lines.push(`Correct answer: ${response.correctAnswer}`);
+            lines.push(`Result: ${response.correct ? 'Correct' : 'Incorrect'}`);
+            lines.push('');
+          });
+
+          return lines.join('\n');
+        }
+
+        async function sendResult(result, statusElement) {
+          state.lastEmailResult = result;
+          statusElement.hidden = false;
+          statusElement.className = 'email-status sending';
+          statusElement.innerHTML = `<strong>Sending ${escapeHtml(result.storyTitle)} results…</strong>The report is being submitted automatically.`;
+
+          try {
+            if (!window.EmailResults || typeof window.EmailResults.send !== 'function') {
+              throw new Error('email-results.js could not be loaded.');
+            }
+
+            await window.EmailResults.send({
+              accessKey: WEB3FORMS_ACCESS_KEY,
+              subject: `${result.studentName} · ${result.quiz} · ${result.storyTitle} · ${result.score}/${result.total}`,
+              studentLabel: result.studentName,
+              worksheetTitle: WORKSHEET_TITLE,
+              resultsText: emailText(result),
+              metadata: {
+                'Quiz': `${result.quiz} · ${result.storyTitle}`,
+                'Score': `${result.score}/${result.total}`,
+                'Attempted': `${result.attempted}/${result.total}`,
+                'Accuracy': `${Math.round((result.score / result.total) * 100)}%`,
+                'Time used': formatTime(result.elapsed),
+                'Completion reason': result.reason,
+                'Completed at': new Date().toLocaleString()
+              }
+            });
+
+            statusElement.className = 'email-status sent';
+            statusElement.innerHTML = `<strong>✓ Results sent</strong>The ${escapeHtml(result.storyTitle)} report was submitted successfully.`;
+          } catch (error) {
+            statusElement.className = 'email-status failed';
+            statusElement.innerHTML = `
+              <strong>Results could not be sent automatically.</strong>
+              ${escapeHtml(error.message || 'Unknown submission error.')}
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-retry-email>Retry Sending Results</button>
+              </div>
+            `;
+            $('[data-retry-email]', statusElement).addEventListener('click', () => sendResult(result, statusElement));
+          }
+        }
+
+        function finishQuiz(reason) {
+          if (!state.active) return;
+
+          if (state.index < totalTasks(story)) {
+            commitCurrentTask({ allowPartial: true });
+          }
+
+          stopTimer();
+          state.active = false;
+          activeQuizId = null;
+          const result = completeResults(reason);
+          const accuracy = Math.round((result.score / result.total) * 100);
+
+          els.live.hidden = true;
+          els.finish.hidden = false;
+          els.score.textContent = `Final: ${result.score} / ${result.total}`;
+          els.progress.style.width = '100%';
+
+          const strategyChoice = story.strategy.choices.length
+            ? `<p><strong>Selected words:</strong> ${escapeHtml(result.strategy.choice)}</p>`
+            : '';
+
+          const review = result.responses.map((response, index) => `
+            <div class="review-box">
+              <h5>${index + 1}. ${escapeHtml(response.question)}</h5>
+              <p><strong>Your answer:</strong> ${escapeHtml(response.studentAnswer)}</p>
+              <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+              <p><strong>${response.correct ? '✓ Correct' : '✕ Incorrect'}</strong> — ${escapeHtml(response.explanation)}</p>
+            </div>
+          `).join('');
+
+          els.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(story.quiz)} · ${escapeHtml(story.title)} Complete</h4>
+              <p>${escapeHtml(reason)}. Feedback is now available, and results for <strong>${escapeHtml(result.studentName)}</strong> are being emailed.</p>
+              <div class="metric-grid">
+                <div class="metric"><strong>${result.score}/${result.total}</strong><span>Scored questions</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${result.total - result.attempted}</strong><span>Not attempted</span></div>
+                <div class="metric"><strong>${formatTime(result.elapsed)}</strong><span>Time used</span></div>
+              </div>
+              <div class="email-status sending" data-email-status><strong>Sending results…</strong>The report is being submitted automatically.</div>
+              <h4 style="font-size:1.35rem;line-height:1.2;margin-top:26px;">Strategy Practice</h4>
+              <div class="review-box">
+                <h5>${escapeHtml(result.strategy.prompt)}</h5>
+                ${strategyChoice}
+                <p><strong>Written response:</strong> ${escapeHtml(result.strategy.writtenResponse)}</p>
+                <p><strong>Not graded.</strong> This open-ended response is included in the emailed report.</p>
+              </div>
+              <h4 style="font-size:1.35rem;line-height:1.2;margin-top:26px;">Answer Feedback</h4>
+              ${review}
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-retry>Retry This Quiz</button>
+                <button class="btn btn-secondary" type="button" data-menu-return>Back to Quiz Menu</button>
+              </div>
+            </div>
+          `;
+
+          const emailStatus = $('[data-email-status]', els.finish);
+          sendResult(result, emailStatus);
+
+          $('[data-retry]', els.finish).addEventListener('click', startQuiz);
+          $('[data-menu-return]', els.finish).addEventListener('click', () => {
+            els.finish.hidden = true;
+            els.menu.hidden = false;
+            els.score.textContent = 'Ready';
+            els.progress.style.width = '0%';
+            els.name.value = sharedStudentName;
+            els.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          els.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        els.start.addEventListener('click', startQuiz);
+        els.end.addEventListener('click', () => finishQuiz('Quiz submitted early'));
+        els.previous.addEventListener('click', () => {
+          if (state.index === 0 || !state.active) return;
+          commitCurrentTask({ allowPartial: true });
+          state.index -= 1;
+          renderTask();
+          $('.question-card', card).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        els.next.addEventListener('click', () => {
+          if (!commitCurrentTask()) {
+            els.answerWarning.hidden = false;
+            return;
+          }
+
+          const tasks = totalTasks(story);
+          if (state.index >= tasks - 1) {
+            state.index = tasks;
+            finishQuiz('All tasks completed');
+          } else {
+            state.index += 1;
+            renderTask();
+            $('.question-card', card).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      function setupCollapse() {
+        $('[data-collapse]').addEventListener('click', event => {
+          const button = event.currentTarget;
+          const target = document.getElementById(button.dataset.collapse);
+          const willHide = !target.hidden;
+          if (willHide && activeQuizId) {
+            window.alert('Please finish or submit the active quiz before collapsing this section.');
+            return;
+          }
+          target.hidden = willHide;
+          button.textContent = willHide ? 'Expand' : 'Collapse';
+          button.setAttribute('aria-expanded', String(!willHide));
+        });
+      }
+
+      setupTheme();
+      renderPage();
+      setupCollapse();
+    })();
+  </script>
+</body>
+</html>

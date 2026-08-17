@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Grade 4 reading comprehension and past-time grammar practice for Tasya and Efla.">
+  <title>August 16 - Classwork</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('tasya-efla-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      /* Editable palette from the Tasya and Efla design system */
+      --light-background: #D35D4A;
+      --light-foreground: #68B9DE;
+      --light-primary: #11328D;
+      --light-primary-hover: #FFEB09;
+      --light-secondary: #1648D2;
+      --light-secondary-soft: #FFEB09;
+      --light-accent: #F0D7A8;
+      --light-accent-soft: #F0D7A8;
+      --light-muted: #B6EBA2;
+      --light-muted-strong: #99C588;
+      --light-blue-soft: #A4483B;
+      --light-border: #EACF86;
+      --light-subtle: #B3DA58;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #B42318;
+      --danger-soft: #FADBD6;
+      --success-text: #071E12;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success-text: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .grammar-section .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .rule-label,
+    .story-label {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rule-card,
+    .story-card,
+    .question-card,
+    .metric,
+    .review-box,
+    .topic-row {
+      border-radius: var(--radius-lg);
+    }
+
+    .rule-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+    }
+
+    .rule-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .rule-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .rule-card h3 {
+      margin-bottom: 12px;
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .rule-card p:last-child,
+    .rule-card ul:last-child,
+    .rule-card ol:last-child {
+      margin-bottom: 0;
+    }
+
+    .rule-card li {
+      margin: 7px 0;
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3,
+    .story-card h4 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-text {
+      font-size: 1.02rem;
+      line-height: 1.78;
+    }
+
+    .story-text p {
+      margin-bottom: 1em;
+    }
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--surface-text);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .65fr));
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-field select:focus {
+      border-color: var(--primary);
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      color: #111827;
+      background: var(--primary-hover);
+    }
+
+    .btn-positive {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .btn-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: .8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single {
+      grid-template-columns: 1fr;
+    }
+
+    .question-layout .story-card {
+      position: sticky;
+      top: 16px;
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color: var(--success-text);
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .typed-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .typed-input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .typed-input:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .typed-input:disabled {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .typed-hint {
+      font-size: .85rem;
+      color: var(--surface-text);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--accent-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--muted);
+      border-left: 8px solid var(--primary);
+    }
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .finish-panel h4 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--background);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .metric span {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .topic-breakdown {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .topic-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--background);
+    }
+
+    .topic-row span:last-child {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+    }
+
+    .review-box h5 {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+
+    .review-box p {
+      margin: 4px 0;
+    }
+
+    .source-note {
+      margin-top: 28px;
+      padding: 20px;
+      color: var(--surface-text);
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display: flex;
+      gap: 8px;
+    }
+
+    .float-btn {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border: 0;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .float-btn:hover {
+      background: var(--primary);
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .lesson-grid,
+      .question-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .question-layout .story-card {
+        position: static;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .menu-field {
+        grid-column: 1 / -1;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: calc(100% - 28px);
+        min-height: 60px;
+      }
+
+      .brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .theme-toggle .theme-label {
+        display: none;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero-copy {
+        padding: 48px 22px;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+      }
+
+      .toc-panel {
+        overflow: hidden;
+      }
+
+      .toc-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .toc-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-inline: 22px;
+      }
+
+      .collapse-btn {
+        width: 100%;
+      }
+
+      .section-body {
+        padding-inline: 16px;
+      }
+
+      .exercise-head {
+        grid-template-columns: 1fr;
+      }
+
+      .score-block {
+        min-width: 0;
+        min-height: 54px;
+      }
+
+      .menu-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-field {
+        grid-column: auto;
+      }
+
+      .live-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-timer {
+        width: 100%;
+      }
+
+      .button-row {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .floating-controls {
+        right: 8px;
+        bottom: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Tasya and Efla — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Reading &amp; Grammar</h1>
+        <p>Practice the 5Ws and 1H in a Grade 4 story, then review eight important forms for describing past events.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#reading">Reading · 5Ws and 1H</a>
+        <a class="toc-link" href="#grammar">Grammar · Past time</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="section-card reading-section" id="reading">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 1 · Reading</div>
+            <h2>5Ws and 1H</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="readingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="readingBody">
+          <div class="lesson-grid">
+            <article class="rule-card full">
+              <span class="rule-label">What it means</span>
+              <h3>Find the six facts that explain an event</h3>
+              <p><strong>Who</strong> identifies the people, <strong>what</strong> identifies the event, <strong>when</strong> gives the time, <strong>where</strong> gives the place, <strong>why</strong> gives the reason, and <strong>how</strong> explains the method or steps.</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Spotting technique</span>
+              <h3>Match the question word to a clue</h3>
+              <ul>
+                <li><strong>Who:</strong> names, roles, groups, or pronouns.</li>
+                <li><strong>When:</strong> dates, clock times, days, and sequence words.</li>
+                <li><strong>Where:</strong> buildings, rooms, streets, towns, and position words.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Spotting technique</span>
+              <h3>Trace reasons and actions</h3>
+              <ul>
+                <li><strong>Why:</strong> look for <em>because</em>, <em>so</em>, reasons, or goals.</li>
+                <li><strong>How:</strong> look for action verbs, steps, and words such as <em>first</em> or <em>then</em>.</li>
+                <li><strong>What:</strong> identify the central action or problem before choosing a detail.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card full">
+              <span class="rule-label">Answer strategy</span>
+              <h3>Return to the exact sentence</h3>
+              <ol>
+                <li>Read the question word first.</li>
+                <li>Underline the names, times, places, reason words, and action steps in the story.</li>
+                <li>Find the paragraph that contains the needed fact.</li>
+                <li>Choose the answer supported by the passage—not merely an answer that sounds possible.</li>
+              </ol>
+            </article>
+          </div>
+
+          <article class="story-card">
+            <div class="story-label">Grade 4 reading passage</div>
+            <h3 id="storyHeading">The Saturday Library Project</h3>
+            <div class="story-text" id="storyText"></div>
+          </article>
+
+          <article class="exercise-card" id="readingExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Reading Exercise</h3>
+                <p>Answer 20 multiple-choice questions about who, what, when, where, why, and how.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Reading exercise progress" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+              <div class="progress-fill" data-progress></div>
+            </div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">Choose a time limit for this reading exercise. Feedback and the correct answer will appear immediately after every response.</p>
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="readingTimer">Time limit</label>
+                  <select id="readingTimer" data-timer>
+                    <option value="0">Untimed</option>
+                    <option value="300">5 minutes</option>
+                    <option value="600">10 minutes</option>
+                    <option value="900">15 minutes</option>
+                    <option value="1200" selected>20 minutes</option>
+                    <option value="1500">25 minutes</option>
+                    <option value="1800">30 minutes</option>
+                    <option value="2400">40 minutes</option>
+                    <option value="2700">45 minutes</option>
+                  </select>
+                </div>
+                <div class="menu-summary"><strong>20</strong><span>Multiple-choice questions</span></div>
+                <div class="menu-summary"><strong>1 story</strong><span>Available beside every question</span></div>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start reading exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Score: 0 / 0</strong>
+                  <span data-live-progress>Question 1 of 20</span>
+                </div>
+                <div class="mini-timer" data-live-timer aria-live="polite">20:00</div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+
+          <p class="source-note">This original practice passage and question set were created for this lesson.</p>
+        </div>
+      </section>
+
+      <section class="section-card grammar-section" id="grammar">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 2 · Grammar</div>
+            <h2>Past-time grammar</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="grammarBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="grammarBody">
+          <div class="lesson-grid">
+            <article class="rule-card">
+              <span class="rule-label">Past simple</span>
+              <h3>A completed past action</h3>
+              <p><em>Lena found a damaged book yesterday.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past continuous</span>
+              <h3>An action in progress</h3>
+              <p><em>They were painting when the table moved.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past perfect</span>
+              <h3>An earlier past event</h3>
+              <p><em>They had finished before the rain started.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past perfect continuous</span>
+              <h3>Duration before a past point</h3>
+              <p><em>They had been working for three hours.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past sequence</span>
+              <h3>Place events on a timeline</h3>
+              <p>Use <em>before</em>, <em>after</em>, <em>when</em>, and <em>by the time</em> to show which event happened first.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Used to / would</span>
+              <h3>Past habits and states</h3>
+              <p><em>Used to</em> can describe old habits or states. <em>Would</em> normally describes repeated actions, not past states.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Be used to</span>
+              <h3>Already familiar</h3>
+              <p><em>Mrs. Bell was used to busy events.</em> The form after <em>to</em> is a noun or an <em>-ing</em> form.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Get used to</span>
+              <h3>Become familiar</h3>
+              <p><em>Marcus got used to sorting books.</em> This describes a change from unfamiliar to familiar.</p>
+            </article>
+            <article class="rule-card full">
+              <span class="rule-label">Choosing the form</span>
+              <h3>Use the time clue and the event order</h3>
+              <ol>
+                <li>Find markers such as <em>yesterday</em>, <em>while</em>, <em>before</em>, and <em>for three hours</em>.</li>
+                <li>Decide whether the event was completed, in progress, or earlier than another past event.</li>
+                <li>Check whether the sentence describes a repeated action, an old state, existing familiarity, or the process of becoming familiar.</li>
+              </ol>
+            </article>
+          </div>
+
+          <article class="exercise-card" id="grammarExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Grammar Exercise</h3>
+                <p>Complete 10 multiple-choice questions followed by 10 typed-answer questions.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Grammar exercise progress" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+              <div class="progress-fill" data-progress></div>
+            </div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">Choose a time limit for the complete grammar exercise. Feedback and the correct or model answer will appear after every response.</p>
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="grammarTimer">Time limit</label>
+                  <select id="grammarTimer" data-timer>
+                    <option value="0">Untimed</option>
+                    <option value="300">5 minutes</option>
+                    <option value="600">10 minutes</option>
+                    <option value="900">15 minutes</option>
+                    <option value="1200" selected>20 minutes</option>
+                    <option value="1500">25 minutes</option>
+                    <option value="1800">30 minutes</option>
+                    <option value="2400">40 minutes</option>
+                    <option value="2700">45 minutes</option>
+                    <option value="3600">60 minutes</option>
+                  </select>
+                </div>
+                <div class="menu-summary"><strong>10</strong><span>Multiple-choice questions</span></div>
+                <div class="menu-summary"><strong>10</strong><span>Typed-answer questions</span></div>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start grammar exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Score: 0 / 0</strong>
+                  <span data-live-progress>Question 1 of 20</span>
+                </div>
+                <div class="mini-timer" data-live-timer aria-live="polite">20:00</div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+
+          <p class="source-note">The grammar questions cover past simple, past continuous, past perfect, past perfect continuous, event sequencing, used to, would, be used to, and get used to.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+
+  <script>
+    const STORY = {
+  title: 'The Saturday Library Project',
+  text: `On Saturday morning, twelve-year-old Lena met her classmates at the Maple Street Library. Their teacher, Mr. Ortiz, had asked them to help create a reading corner for younger children. The project was part of the town's Family Reading Day, which would take place the following weekend.\n\nLena arrived at nine o'clock with her friend Marcus. Mrs. Bell, the librarian, showed the students an empty corner near the large front windows. The space had two low shelves, a round rug, and a small table, but it looked plain and unfinished. Their job was to organize books, make signs, and decorate the area without blocking the windows.\n\nFirst, Marcus and two other students sorted picture books by topic. They made groups for animals, space, families, and funny stories. Lena checked each book for torn pages before placing it on a shelf. When she found a damaged book about whales, she took it to Mrs. Bell instead of hiding it behind the others.\n\nMeanwhile, another team painted a sign that said, “Choose a Book and Explore.” The blue paint was still wet when a table leg bumped the sign. A long streak crossed the word “Book.” For a moment, everyone became quiet. Then Lena suggested turning the streak into a shooting star. The students added smaller stars around it, and the mistake became part of the design.\n\nAt noon, the group took a short lunch break outside. Dark clouds had begun to cover the sky, so Mr. Ortiz checked the weather forecast. A storm was expected by midafternoon. The students had planned to carry extra chairs from the community center, but it was three blocks away. Because the chairs might get wet, the class changed its plan. They used colorful floor cushions stored in the library instead.\n\nBy two o'clock, the reading corner was ready. The books were easy to reach, the sign was dry, and the cushions formed a bright circle on the rug. Mrs. Bell thanked the class for solving problems calmly and working as a team. Lena took one last look at the shooting star. What had started as a paint mistake now made the whole corner feel special.`,
+  html() {
+    return this.text.split(/\n\s*\n/).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+  }
+};
+
+    const READING_QUESTIONS = [
+  { skill: 'Who', q: 'Who asked the students to help create the reading corner?', options: ['Their teacher, Mr. Ortiz', 'The librarian, Mrs. Bell', 'Lena’s friend, Marcus', 'A worker from the community center'], answer: 0, explanation: 'Mr. Ortiz asked the students to help with the project.' },
+  { skill: 'Who', q: 'Who showed the students the empty corner near the windows?', options: ['Mrs. Bell, the librarian', 'Mr. Ortiz, their teacher', 'Marcus, Lena’s friend', 'A parent visiting the library'], answer: 0, explanation: 'Mrs. Bell showed them where the new reading corner would be.' },
+  { skill: 'Who', q: 'Who suggested turning the paint streak into a shooting star?', options: ['Lena suggested the idea', 'Marcus suggested the idea', 'Mrs. Bell suggested the idea', 'Mr. Ortiz suggested the idea'], answer: 0, explanation: 'Lena suggested using the mistake as part of the design.' },
+  { skill: 'What', q: 'What was the class creating at the library?', options: ['A reading corner for younger children', 'A study room for middle-school students', 'A book sale area for local families', 'A stage for the town’s weekend program'], answer: 0, explanation: 'The students were creating a reading corner for younger children.' },
+  { skill: 'What', q: 'What did Lena do when she found the damaged whale book?', options: ['She brought it to Mrs. Bell', 'She placed it behind the other books', 'She repaired the pages with blue tape', 'She carried it to the community center'], answer: 0, explanation: 'Lena reported the damaged book to the librarian.' },
+  { skill: 'What', q: 'What did the students use instead of chairs?', options: ['Colorful floor cushions from the library', 'Small wooden stools from the classroom', 'Folding chairs stored behind the shelves', 'Blankets brought by families in the town'], answer: 0, explanation: 'They changed the plan and used floor cushions already stored in the library.' },
+  { skill: 'What', q: 'What happened to the wet sign?', options: ['A table leg made a long paint streak', 'Rain blew through the window and smudged it', 'A stack of books fell across the painted words', 'Marcus dropped the sign onto the blue rug'], answer: 0, explanation: 'A table leg bumped the sign while the paint was still wet.' },
+  { skill: 'When', q: 'When did Lena and Marcus arrive at the library?', options: ['At nine o’clock on Saturday morning', 'At noon during the lunch break', 'At two o’clock on Saturday afternoon', 'The evening before Family Reading Day'], answer: 0, explanation: 'The passage states that they arrived at nine o’clock.' },
+  { skill: 'When', q: 'When was the reading corner finished?', options: ['By two o’clock that afternoon', 'Before the students took lunch', 'At nine o’clock that morning', 'During Family Reading Day next weekend'], answer: 0, explanation: 'The passage says the reading corner was ready by two o’clock.' },
+  { skill: 'When', q: 'When would Family Reading Day take place?', options: ['The following weekend', 'Later that same afternoon', 'The next school morning', 'Three weeks after the project'], answer: 0, explanation: 'The event was planned for the following weekend.' },
+  { skill: 'Where', q: 'Where did the students create the reading corner?', options: ['Near the library’s large front windows', 'Beside the entrance to the community center', 'Inside their classroom near the book cabinet', 'Outside the library under a covered walkway'], answer: 0, explanation: 'Mrs. Bell showed them a corner near the large front windows.' },
+  { skill: 'Where', q: 'Where did the students eat lunch?', options: ['Outside the library', 'Inside the new reading corner', 'At the community center', 'In their school cafeteria'], answer: 0, explanation: 'The group took a short lunch break outside.' },
+  { skill: 'Where', q: 'Where were the extra floor cushions stored?', options: ['Inside the library', 'At the community center', 'In Mr. Ortiz’s classroom', 'At Lena’s house'], answer: 0, explanation: 'The class used cushions that were already stored in the library.' },
+  { skill: 'Why', q: 'Why did the class decide not to carry chairs from the community center?', options: ['A storm might make the chairs wet', 'The chairs were too small for the reading corner', 'The center had already lent the chairs to another group', 'The students did not have enough time to walk there'], answer: 0, explanation: 'The approaching storm could have soaked the chairs during the trip.' },
+  { skill: 'Why', q: 'Why did Lena check each picture book?', options: ['She wanted to find damaged pages', 'She needed to count every animal story', 'She wanted to choose a book to take home', 'She needed to match each book with a cushion'], answer: 0, explanation: 'Lena checked the books for torn pages before shelving them.' },
+  { skill: 'Why', q: 'Why did the students add smaller stars around the paint streak?', options: ['They wanted the streak to become part of the design', 'They needed to cover the entire sign with blue paint', 'They wanted each book topic to have its own symbol', 'They needed the sign to match the round rug below it'], answer: 0, explanation: 'They transformed the accident into a shooting-star design.' },
+  { skill: 'How', q: 'How did the students organize the picture books?', options: ['They sorted them into groups by topic', 'They placed them in order from oldest to newest', 'They arranged them by the size of each cover', 'They separated them by the color of each shelf'], answer: 0, explanation: 'The books were grouped into topics such as animals and space.' },
+  { skill: 'How', q: 'How did the class respond when the sign was damaged?', options: ['They calmly changed the streak into a picture', 'They threw the sign away and started again', 'They asked Mrs. Bell to finish it alone', 'They covered the streak with a row of books'], answer: 0, explanation: 'They solved the problem creatively instead of giving up.' },
+  { skill: 'How', q: 'How did the students solve the seating problem?', options: ['They arranged library cushions in a circle', 'They moved the low shelves closer together', 'They asked families to bring chairs next weekend', 'They used the small table as a shared seat'], answer: 0, explanation: 'The cushions formed a bright circle on the rug.' },
+  { skill: '5Ws + 1H', q: 'Which choice best gives the 5Ws and 1H of the project?', options: [
+    'Students worked Saturday at Maple Street Library to build a children’s reading corner by sorting books, decorating, and adapting their plans.',
+    'Families visited Maple Street Library the following weekend because Mrs. Bell wanted more children to borrow picture books.',
+    'Lena and Marcus spent Saturday at the community center painting signs and carrying chairs back to their classroom.',
+    'Mr. Ortiz organized a school book sale on Saturday so the class could raise money for new library windows.'
+  ], answer: 0, explanation: 'This choice correctly combines who, what, when, where, why, and how.' }
+];
+
+    const GRAMMAR_MC = [
+  { topic: 'Past simple', q: 'Yesterday, Lena ___ the damaged book to the librarian.', options: ['brought', 'was bringing', 'had brought', 'had been bringing'], answer: 0, explanation: 'Use the past simple for a completed action at a finished time.' },
+  { topic: 'Past continuous', q: 'While the students ___ the sign, a table leg bumped it.', options: ['were painting', 'painted', 'had painted', 'had been painted'], answer: 0, explanation: 'Use the past continuous for an action in progress when another event happened.' },
+  { topic: 'Past perfect', q: 'By the time the group returned from lunch, the dark clouds ___ the sky.', options: ['had covered', 'covered', 'were covering', 'had been cover'], answer: 0, explanation: 'Use the past perfect for an action completed before another past moment.' },
+  { topic: 'Past perfect continuous', q: 'The students ___ for three hours before they took their lunch break.', options: ['had been working', 'were working', 'worked', 'had worked yesterday'], answer: 0, explanation: 'Use the past perfect continuous to show duration before another past action.' },
+  { topic: 'Sequence of events', q: 'Choose the sentence that shows the events in the correct order.', options: [
+    'After Lena had checked the books, she placed the undamaged ones on the shelf.',
+    'After Lena checked the books, she had placed the undamaged ones before checking them.',
+    'Lena had placed the books on the shelf before she had checked any of them.',
+    'Lena was checking every book after she already places them on the shelf.'
+  ], answer: 0, explanation: 'Checking happened first; placing the books happened afterward.' },
+  { topic: 'Used to', q: 'Before the new reading corner was built, that part of the library ___ look empty.', options: ['used to', 'would to', 'was used to', 'got used to'], answer: 0, explanation: 'Use “used to” for a past state that is no longer true.' },
+  { topic: 'Would for repeated actions', q: 'Every Saturday, Mrs. Bell ___ read a funny story to young visitors.', options: ['would', 'used', 'was used to', 'had been'], answer: 0, explanation: '“Would” can describe a repeated past action when the time frame is clear.' },
+  { topic: 'Be used to', q: 'Mrs. Bell was calm because she ___ working with large groups of children.', options: ['was used to', 'used to', 'would', 'got use to'], answer: 0, explanation: '“Be used to” means be familiar or comfortable with something.' },
+  { topic: 'Get used to', q: 'At first, Marcus found sorting books difficult, but he soon ___ the system.', options: ['got used to', 'was used to', 'used to sort', 'would be used'], answer: 0, explanation: '“Get used to” describes the process of becoming familiar with something.' },
+  { topic: 'Mixed past forms', q: 'When the rain finally started, the students ___ the reading corner and ___ home.', options: [
+    'had finished; went',
+    'finished; had gone',
+    'were finishing; had went',
+    'had been finish; were going'
+  ], answer: 0, explanation: 'The corner was completed before the rain started; going home followed.' }
+];
+
+    const GRAMMAR_TYPED = [
+  { topic: 'Past simple', q: 'Complete the sentence with the past simple form of “find”: Lena ___ a damaged book on the shelf.', answers: ['found'], display: 'found', explanation: '“Found” is the past simple form of “find.”' },
+  { topic: 'Past continuous', q: 'Complete the sentence: The students ___ the sign when the table moved. (paint)', answers: ['were painting'], display: 'were painting', explanation: 'The painting was in progress when another action happened.' },
+  { topic: 'Past perfect', q: 'Complete the sentence: By two o’clock, the class ___ the reading corner. (finish)', answers: ['had finished'], display: 'had finished', explanation: 'The work was complete before the past time of two o’clock.' },
+  { topic: 'Past perfect continuous', q: 'Complete the sentence: They ___ for several hours before the project ended. (work)', answers: ['had been working'], display: 'had been working', explanation: 'This form emphasizes the duration of the activity before another past event.' },
+  { topic: 'Sequence of events', q: 'Complete the sentence with the best form: After Marcus ___ the books, he placed them on the shelf. (sort)', answers: ['had sorted', 'sorted'], display: 'had sorted / sorted', explanation: 'Both forms are possible because “after” already makes the sequence clear; the past perfect adds emphasis.' },
+  { topic: 'Used to', q: 'Complete the sentence: The empty corner ___ look plain before the class decorated it.', answers: ['used to'], display: 'used to', explanation: '“Used to” describes a past state that changed.' },
+  { topic: 'Would for repeated actions', q: 'Complete the sentence: When Lena was younger, she ___ visit the library every Saturday.', answers: ['would'], display: 'would', explanation: '“Would” describes a repeated past action.' },
+  { topic: 'Be used to', q: 'Complete the sentence: Mrs. Bell ___ answering children’s questions, so the busy event did not worry her.', answers: ['was used to'], display: 'was used to', explanation: '“Was used to” means she was already comfortable with it.' },
+  { topic: 'Get used to', q: 'Complete the sentence: After a few minutes, the students ___ working quietly together.', answers: ['got used to'], display: 'got used to', explanation: '“Got used to” means they became comfortable with the situation.' },
+  { topic: 'Mixed past forms', q: 'Complete both blanks: While the students ___ lunch, Mr. Ortiz ___ the forecast. (eat / check)', answers: ['were eating, checked', 'were eating checked', 'were eating; checked'], display: 'were eating; checked', explanation: 'The longer action was in progress when the shorter completed action happened.' }
+];
+
+    (() => {
+      'use strict';
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const seconds = Math.max(0, totalSeconds);
+        return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+      }
+
+      function normalizeTyped(value) {
+        return String(value ?? '')
+          .trim()
+          .toLowerCase()
+          .replace(/[.,;:!?]+/g, ' ')
+          .replace(/\s+/g, ' ');
+      }
+
+      function paragraphs(text) {
+        return text
+          .split(/\n\s*\n/)
+          .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+          .join('');
+      }
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          const answerText = question.options[question.answer];
+          return {
+            ...question,
+            type: 'mc',
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function setupTheme() {
+        const button = $('#themeToggle');
+        const icon = $('#themeIcon');
+        const label = $('#themeLabel');
+
+        const sync = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          button.setAttribute('aria-pressed', String(dark));
+          button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          icon.textContent = dark ? '☀' : '☾';
+          label.textContent = dark ? 'Light' : 'Dark';
+        };
+
+        sync();
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem('tasya-efla-quiz-theme', next);
+          } catch (error) {}
+          sync();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$('[data-collapse]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.collapse);
+            const willCollapse = !target.hidden;
+            target.hidden = willCollapse;
+            button.textContent = willCollapse ? 'Expand' : 'Collapse';
+            button.setAttribute('aria-expanded', String(!willCollapse));
+          });
+        });
+      }
+
+      function buildReview(responses) {
+        const missed = responses.filter((response) => !response.correct);
+        if (!missed.length) {
+          return '<div class="review-box"><strong>No incorrect answers to review.</strong><p>You answered every attempted question correctly.</p></div>';
+        }
+
+        return missed.map((response, index) => `
+          <article class="review-box">
+            <h5>${index + 1}. ${escapeHtml(response.question)}</h5>
+            <p><strong>Your answer:</strong> ${escapeHtml(response.userAnswer || 'No answer')}</p>
+            <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+            <p><strong>Why:</strong> ${escapeHtml(response.explanation)}</p>
+          </article>
+        `).join('');
+      }
+
+      function buildTopicBreakdown(responses) {
+        const topics = new Map();
+        responses.forEach((response) => {
+          if (!topics.has(response.topic)) {
+            topics.set(response.topic, { correct: 0, total: 0 });
+          }
+          const item = topics.get(response.topic);
+          item.total += 1;
+          if (response.correct) item.correct += 1;
+        });
+
+        return [...topics.entries()]
+          .map(([topic, result]) => `
+            <div class="topic-row">
+              <span>${escapeHtml(topic)}</span>
+              <span>${result.correct}/${result.total}</span>
+            </div>
+          `)
+          .join('');
+      }
+
+      function createExercise(config) {
+        const card = document.getElementById(config.cardId);
+        const refs = {
+          menu: $('[data-menu]', card),
+          timer: $('[data-timer]', card),
+          start: $('[data-start]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          progressTrack: $('.progress-track', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          liveTimer: $('[data-live-timer]', card),
+          end: $('[data-end]', card),
+          host: $('[data-question-host]', card)
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false,
+          totalSeconds: 0,
+          seconds: 0,
+          timerId: null,
+          startedAt: 0
+        };
+
+        function stopTimer() {
+          if (state.timerId) clearInterval(state.timerId);
+          state.timerId = null;
+        }
+
+        function elapsedSeconds() {
+          return state.startedAt
+            ? Math.max(0, Math.round((Date.now() - state.startedAt) / 1000))
+            : 0;
+        }
+
+        function updateTimer() {
+          if (!state.totalSeconds) {
+            refs.liveTimer.textContent = '∞ Untimed';
+            refs.liveTimer.classList.remove('warning');
+            return;
+          }
+          refs.liveTimer.textContent = formatTime(state.seconds);
+          refs.liveTimer.classList.toggle('warning', state.seconds <= 60);
+        }
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total = state.questions.length || config.totalQuestions;
+          refs.score.textContent = state.active ? `Score: ${state.score} / ${answered}` : refs.score.textContent;
+          refs.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveProgress.textContent = answered >= total
+            ? `Completed ${total} questions`
+            : `${config.progressLabel(state.index)} · Question ${state.index + 1} of ${total}`;
+          const percent = total ? (answered / total) * 100 : 0;
+          refs.progress.style.width = `${percent}%`;
+          refs.progressTrack.setAttribute('aria-valuenow', String(answered));
+        }
+
+        function start() {
+          stopTimer();
+          state.questions = config.buildQuestions();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+          state.totalSeconds = Number.parseInt(refs.timer.value, 10) || 0;
+          state.seconds = state.totalSeconds;
+          state.startedAt = Date.now();
+
+          refs.menu.hidden = true;
+          refs.finish.hidden = true;
+          refs.live.hidden = false;
+          refs.score.textContent = 'In progress';
+          updateTimer();
+          updateProgress();
+          renderQuestion();
+
+          if (state.totalSeconds > 0) {
+            state.timerId = window.setInterval(() => {
+              state.seconds -= 1;
+              updateTimer();
+              if (state.seconds <= 0) finish('Time expired');
+            }, 1000);
+          }
+
+          refs.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+          const question = state.questions[state.index];
+          if (!question) return;
+
+          const isReading = config.kind === 'reading';
+          const isTyped = question.type === 'typed';
+          const phase = isTyped ? 'Typed answer' : (config.kind === 'grammar' ? 'Multiple choice' : '5Ws and 1H');
+
+          const storyPanel = isReading ? `
+            <aside class="story-card">
+              <div class="story-label">Story reference</div>
+              <h4>${escapeHtml(STORY.title)}</h4>
+              <div class="story-text">${paragraphs(STORY.text)}</div>
+            </aside>
+          ` : '';
+
+          refs.host.innerHTML = `
+            <div class="question-layout ${isReading ? '' : 'single'}">
+              ${storyPanel}
+              <section class="question-card">
+                <div class="question-meta">${escapeHtml(phase)} · ${escapeHtml(question.skill || question.topic)}</div>
+                <div class="question-text">${escapeHtml(question.q)}</div>
+                <div data-answer-area></div>
+                <div class="feedback" data-feedback hidden aria-live="polite"></div>
+                <div class="button-row">
+                  ${isTyped ? '<button class="btn btn-primary" type="button" data-submit>Check answer</button>' : ''}
+                  <button class="btn btn-positive" type="button" data-next hidden>Next question</button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea = $('[data-answer-area]', refs.host);
+          const nextButton = $('[data-next]', refs.host);
+
+          if (isTyped) {
+            answerArea.innerHTML = `
+              <div class="typed-wrap">
+                <label class="sr-only" for="${config.cardId}TypedInput">Type your answer</label>
+                <input class="typed-input" id="${config.cardId}TypedInput" type="text" autocomplete="off" spellcheck="false" placeholder="Type only the missing word or phrase">
+                <div class="typed-hint">Press Enter or choose “Check answer.”</div>
+              </div>
+            `;
+            const input = $('.typed-input', answerArea);
+            const submit = $('[data-submit]', refs.host);
+            submit.addEventListener('click', () => gradeTyped(question));
+            input.addEventListener('keydown', (event) => {
+              if (event.key === 'Enter') gradeTyped(question);
+            });
+            input.focus();
+          } else {
+            const list = document.createElement('div');
+            list.className = 'option-list';
+            question.shuffledOptions.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = option;
+              button.addEventListener('click', () => gradeMultipleChoice(question, option, button));
+              list.appendChild(button);
+            });
+            answerArea.appendChild(list);
+          }
+
+          nextButton.addEventListener('click', advance);
+          updateProgress();
+        }
+
+        function showFeedback(correct, correctAnswer, explanation) {
+          const feedback = $('[data-feedback]', refs.host);
+          feedback.hidden = false;
+          feedback.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          feedback.innerHTML = correct
+            ? `✓ <strong>Correct.</strong><br>${escapeHtml(explanation)}`
+            : `✕ <strong>Incorrect.</strong><br><strong>Correct answer:</strong> ${escapeHtml(correctAnswer)}<br><strong>Why:</strong> ${escapeHtml(explanation)}`;
+        }
+
+        function revealNextButton() {
+          const nextButton = $('[data-next]', refs.host);
+          nextButton.hidden = false;
+          nextButton.textContent = state.index === state.questions.length - 1
+            ? 'Finish exercise'
+            : 'Next question';
+          nextButton.focus();
+        }
+
+        function gradeMultipleChoice(question, selectedOption, selectedButton) {
+          if (state.answered || !state.active) return;
+          state.answered = true;
+
+          const correct = selectedOption === question.answerText;
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.skill || question.topic,
+            question: question.q,
+            userAnswer: selectedOption,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$('.option-btn', refs.host).forEach((button) => {
+            button.disabled = true;
+            if (button.textContent === question.answerText) {
+              button.classList.add('correct-choice');
+            }
+          });
+          if (!correct) selectedButton.classList.add('wrong-choice');
+
+          showFeedback(correct, question.answerText, question.explanation);
+          revealNextButton();
+          updateProgress();
+        }
+
+        function gradeTyped(question) {
+          if (state.answered || !state.active) return;
+
+          const input = $('.typed-input', refs.host);
+          const userAnswer = input.value.trim();
+          if (!userAnswer) {
+            const feedback = $('[data-feedback]', refs.host);
+            feedback.hidden = false;
+            feedback.className = 'feedback neutral';
+            feedback.innerHTML = '<strong>Type an answer before checking.</strong>';
+            input.focus();
+            return;
+          }
+
+          state.answered = true;
+          input.disabled = true;
+          $('[data-submit]', refs.host).disabled = true;
+
+          const normalized = normalizeTyped(userAnswer);
+          const correct = question.answers.some((answer) => normalizeTyped(answer) === normalized);
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer,
+            correctAnswer: question.display,
+            explanation: question.explanation,
+            correct
+          });
+
+          showFeedback(correct, question.display, question.explanation);
+          revealNextButton();
+          updateProgress();
+        }
+
+        function advance() {
+          if (!state.answered) return;
+          if (state.index >= state.questions.length - 1) {
+            finish('Completed all questions');
+            return;
+          }
+          state.index += 1;
+          renderQuestion();
+          $('.question-card', refs.host).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function finish(reason) {
+          if (!state.active) return;
+          state.active = false;
+          stopTimer();
+
+          refs.live.hidden = true;
+          refs.finish.hidden = false;
+
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+          const unattempted = total - answered;
+          const topicRows = buildTopicBreakdown(state.responses);
+
+          refs.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(config.finishTitle)}</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Answered score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${unattempted}</strong><span>Not attempted</span></div>
+                <div class="metric"><strong>${formatTime(elapsedSeconds())}</strong><span>Time used</span></div>
+              </div>
+
+              ${topicRows ? `<h5 style="font-size:1.25rem;line-height:1.2;margin:24px 0 10px;">Topic breakdown</h5><div class="topic-breakdown">${topicRows}</div>` : ''}
+
+              <h5 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px;">Incorrect-answer review</h5>
+              ${buildReview(state.responses)}
+
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Retry same setup</button>
+                <button class="btn btn-secondary" type="button" data-back-menu>Back to menu</button>
+              </div>
+            </div>
+          `;
+
+          refs.score.textContent = answered ? `Final: ${state.score} / ${answered}` : 'No answers';
+          refs.progress.style.width = total ? `${(answered / total) * 100}%` : '0%';
+          refs.progressTrack.setAttribute('aria-valuenow', String(answered));
+
+          $('[data-retry]', refs.finish).addEventListener('click', start);
+          $('[data-back-menu]', refs.finish).addEventListener('click', () => {
+            refs.finish.hidden = true;
+            refs.menu.hidden = false;
+            refs.score.textContent = 'Ready';
+            refs.progress.style.width = '0%';
+            refs.progressTrack.setAttribute('aria-valuenow', '0');
+            refs.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          refs.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        refs.start.addEventListener('click', start);
+        refs.end.addEventListener('click', () => finish('Exercise ended early'));
+      }
+
+      function setupAnchorPersistence() {
+        const saveAnchor = () => {
+          if (location.hash) {
+            try { localStorage.setItem('tasya-efla-last-anchor', location.hash); } catch (error) {}
+          }
+        };
+
+        window.addEventListener('hashchange', saveAnchor);
+        $$('.toc-link').forEach((link) => link.addEventListener('click', saveAnchor));
+
+        if (!location.hash) {
+          window.scrollTo(0, 0);
+        }
+      }
+
+      setupTheme();
+      setupSectionCollapse();
+      setupAnchorPersistence();
+
+      $('#storyText').innerHTML = paragraphs(STORY.text);
+
+      createExercise({
+        cardId: 'readingExercise',
+        kind: 'reading',
+        totalQuestions: READING_QUESTIONS.length,
+        finishTitle: 'Reading Exercise Summary',
+        progressLabel: () => 'Reading',
+        buildQuestions: () => prepareMultipleChoice(READING_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'grammarExercise',
+        kind: 'grammar',
+        totalQuestions: GRAMMAR_MC.length + GRAMMAR_TYPED.length,
+        finishTitle: 'Grammar Exercise Summary',
+        progressLabel: (index) => index < GRAMMAR_MC.length ? 'Multiple choice' : 'Typed answer',
+        buildQuestions: () => [
+          ...prepareMultipleChoice(GRAMMAR_MC),
+          ...shuffle(GRAMMAR_TYPED).map((question) => ({ ...question, type: 'typed' }))
+        ]
+      });
+    })();
+  </script>
+</body>
+</html>

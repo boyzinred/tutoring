@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="English tutoring quizzes and practice resources for Tasya and Efla.">
+  <title>Tasya and Efla — English Tutoring Resources</title>
+
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem('tasya-efla-quiz-theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = savedTheme || (systemDark ? 'dark' : 'light');
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      /* Editable palette from the Tasya and Efla design system */
+      --light-background: #D35D4A;
+      --light-foreground: #68B9DE;
+      --light-primary: #11328D;
+      --light-primary-hover: #FFEB09;
+      --light-secondary: #1648D2;
+      --light-secondary-soft: #FFEB09;
+      --light-accent: #F0D7A8;
+      --light-accent-soft: #F0D7A8;
+      --light-muted: #B6EBA2;
+      --light-muted-strong: #99C588;
+      --light-blue-soft: #A4483B;
+      --light-border: #EACF86;
+      --light-subtle: #B3DA58;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --surface-text: #111827;
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --inverse: #111827;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, a { font: inherit; }
+    a { color: inherit; }
+
+    button:focus-visible,
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      margin: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: .86rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .site {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      padding: clamp(48px, 7vw, 82px);
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero p {
+      max-width: 62ch;
+      margin: 0 0 16px;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .hero h1 {
+      max-width: 13ch;
+      margin: 0;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .directory-nav {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .directory-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .directory-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .directory-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      font-size: .88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .directory-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .directory-link small {
+      color: var(--primary);
+      font-size: .7rem;
+      font-weight: 800;
+    }
+
+    .resource-section {
+      scroll-margin-top: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resource-section > summary {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+      color: #FFFFFF;
+      background: var(--secondary);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .resource-section:nth-of-type(even) > summary {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .resource-section > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-title-row {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-title-row h2 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .count-badge {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 11px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .resource-section:nth-of-type(even) .count-badge {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .collapse-label {
+      min-height: 56px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      border-radius: var(--radius-md);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .resource-section:not([open]) .collapse-label::before { content: 'Expand'; }
+    .resource-section[open] .collapse-label::before { content: 'Collapse'; }
+
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      padding: 1px;
+      background: var(--border);
+    }
+
+    .quiz-card {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 38px;
+      padding: 38px 30px;
+      color: var(--surface-text);
+      background: var(--background);
+    }
+
+    .quiz-card:nth-child(4n + 2),
+    .quiz-card:nth-child(4n + 3) {
+      background: var(--muted);
+    }
+
+    .card-tag {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      margin-bottom: 18px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .quiz-card h3 {
+      margin: 0 0 20px;
+      font-size: clamp(2.1rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .quiz-card p {
+      max-width: 60ch;
+      margin: 0;
+    }
+
+    .quiz-link {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 20px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .quiz-link:hover {
+      color: #111827;
+      background: var(--primary-hover);
+      transform: scale(1.02);
+    }
+
+    .empty-message {
+      padding: 42px;
+      background: var(--background);
+    }
+
+    .edit-help {
+      background: var(--background);
+    }
+
+    .edit-help > summary {
+      min-height: 72px;
+      padding: 22px;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    .edit-help > summary::-webkit-details-marker { display: none; }
+
+    .edit-body {
+      display: grid;
+      gap: 14px;
+      padding: 0 22px 28px;
+    }
+
+    .edit-body p { margin: 0; }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      padding: 18px;
+      color: #F9FAFB;
+      background: var(--inverse);
+      border-radius: var(--radius-md);
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary);
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        width: calc(100% - 28px);
+        min-height: 60px;
+      }
+
+      .brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .theme-label {
+        display: none;
+      }
+
+      .site {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero {
+        padding: 48px 22px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+      }
+
+      .directory-nav {
+        overflow: hidden;
+      }
+
+      .directory-links {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .directory-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .resource-section > summary {
+        align-items: stretch;
+        flex-direction: column;
+        padding-inline: 22px;
+      }
+
+      .collapse-label {
+        width: 100%;
+      }
+
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quiz-card,
+      .quiz-card:nth-child(4n + 2),
+      .quiz-card:nth-child(4n + 3) {
+        min-height: 320px;
+        padding: 34px 22px;
+      }
+
+      .quiz-card:nth-child(even) {
+        background: var(--muted);
+      }
+
+      .back-to-top {
+        right: 8px;
+        bottom: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="brand">Tasya and Efla — English Tutoring Resources</p>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">☾</span>
+        <span class="theme-label" id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="site" id="top">
+    <section class="hero" aria-labelledby="pageTitle">
+      <p>English tutoring resources for</p>
+      <h1 id="pageTitle">Tasya &amp; Efla</h1>
+    </section>
+
+    <nav class="directory-nav" aria-label="Resource sections">
+      <span class="directory-label">Jump to a section</span>
+      <div class="directory-links" id="sectionLinks"></div>
+    </nav>
+
+    <div id="sections"></div>
+
+  </main>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+  <script>
+    /* =========================================================
+       EDIT ONLY THIS LIST TO ADD OR REMOVE RESOURCE PAGES
+       =========================================================
+    */
+    const PAGES = [
+      {
+        title: "August 16",
+        href: "august16-classwork.html",
+        description: "Practice the 5Ws and 1H in a Grade 4 story, then review eight important forms for describing past events.",
+        group: "Classwork",
+        tags: ["Reading comprehension", "Grammar"]
+      },
+      {
+        title: "August 16",
+        href: "august16-homework.html",
+        description: "Read five short passages and complete one independent ten-minute quiz for each story.",
+        group: "Homework",
+        tags: ["Reading comprehension"]
+      },
+    ];
+
+    function escapeHTML(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function slugify(value) {
+      return String(value)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function groupPages(pages) {
+      const groups = new Map();
+      pages.forEach((page) => {
+        const groupName = page.group || 'Resources';
+        if (!groups.has(groupName)) groups.set(groupName, []);
+        groups.get(groupName).push(page);
+      });
+      return groups;
+    }
+
+    function renderSectionLinks(groups) {
+      const container = document.getElementById('sectionLinks');
+      container.innerHTML = [...groups.entries()]
+        .map(([groupName, pages]) => `
+          <a class="directory-link" href="#${escapeHTML(slugify(groupName))}">
+            <span>${escapeHTML(groupName)}</span>
+            <small>${pages.length}</small>
+          </a>
+        `)
+        .join('');
+    }
+
+    function renderSections(groups) {
+      const container = document.getElementById('sections');
+
+      if (!PAGES.length) {
+        container.innerHTML = '<div class="empty-message">No resources yet. Add entries to the PAGES list.</div>';
+        return;
+      }
+
+      container.innerHTML = [...groups.entries()]
+        .map(([groupName, pages], groupIndex) => `
+          <details class="resource-section" id="${escapeHTML(slugify(groupName))}" ${groupIndex === 0 ? 'open' : ''}>
+            <summary>
+              <div class="section-title-row">
+                <h2>${escapeHTML(groupName)}</h2>
+                <span class="count-badge">${pages.length} ${pages.length === 1 ? 'file' : 'files'}</span>
+              </div>
+              <span class="collapse-label" aria-hidden="true"></span>
+            </summary>
+
+            <div class="quiz-grid">
+              ${pages.map((page) => `
+                <article class="quiz-card">
+                  <div>
+                    ${page.tags && page.tags.length > 0
+                      ? page.tags.map(tag => `<span class="card-tag">${escapeHTML(tag)}</span>`).join('')
+                      : `<span class="card-tag">Resource</span>`
+                    }
+                    <h3>${escapeHTML(page.title)}</h3>
+                    ${page.description ? `<p>${escapeHTML(page.description)}</p>` : ''}
+                  </div>
+                  <a class="quiz-link" href="${escapeHTML(page.href)}">
+                    <span>Open file</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </article>
+              `).join('')}
+            </div>
+          </details>
+        `)
+        .join('');
+    }
+
+    function setupTheme() {
+      const button = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+
+      const sync = (save = false) => {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        button.setAttribute('aria-pressed', String(dark));
+        button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        icon.textContent = dark ? '☀' : '☾';
+        label.textContent = dark ? 'Light' : 'Dark';
+        if (save) {
+          try {
+            localStorage.setItem('tasya-efla-quiz-theme', dark ? 'dark' : 'light');
+          } catch (error) {}
+        }
+      };
+
+      sync();
+      button.addEventListener('click', () => {
+        document.documentElement.dataset.theme =
+          document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        sync(true);
+      });
+    }
+
+    setupTheme();
+    const groupedPages = groupPages(PAGES);
+    renderSectionLinks(groupedPages);
+    renderSections(groupedPages);
+  </script>
+</body>
+</html>
