@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading comprehension and vocabulary practice - A New Mate.">
+  <title>August 20 - Classwork</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('tasya-elfa-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      --light-background: #D35D4A;
+      --light-foreground: #68B9DE;
+      --light-primary: #11328D;
+      --light-primary-hover: #FFEB09;
+      --light-secondary: #1648D2;
+      --light-secondary-soft: #FFEB09;
+      --light-accent: #F0D7A8;
+      --light-accent-soft: #F0D7A8;
+      --light-muted: #B6EBA2;
+      --light-muted-strong: #99C588;
+      --light-blue-soft: #A4483B;
+      --light-border: #EACF86;
+      --light-subtle: #B3DA58;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #B42318;
+      --danger-soft: #FADBD6;
+      --success-text: #071E12;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success-text: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .rule-label,
+    .story-label {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .sub-section {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .sub-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .sub-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    /* Vocab Cards Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .vocab-card {
+      padding: 20px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .vocab-word {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vocab-pos {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #111827;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-left: 8px;
+      text-transform: lowercase;
+      font-style: italic;
+    }
+
+    .vocab-def {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: var(--surface-text);
+    }
+
+    .vocab-ex {
+      font-size: 0.88rem;
+      color: var(--surface-text);
+      opacity: 0.9;
+      font-style: italic;
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+
+    }
+
+    /* Hover Tooltip Styling */
+    .vocab-hover {
+      position: relative;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline dotted var(--primary);
+      cursor: help;
+    }
+
+    .vocab-hover::after {
+      content: attr(data-def);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      padding: 8px 12px;
+      background: var(--inverse);
+      color: var(--inverse-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 50;
+      pointer-events: none;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .vocab-hover:hover::after,
+    .vocab-hover:focus::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .paragraph-num {
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+      font-size: 1.1rem;
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-text p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--surface-text);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .65fr));
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      color: #111827;
+      background: var(--primary-hover);
+    }
+
+    .btn-positive {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .btn-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: .8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single {
+      grid-template-columns: 1fr;
+    }
+
+    .question-layout .story-card {
+      position: sticky;
+      top: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color: var(--success-text);
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .typed-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .typed-input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .typed-input:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--accent-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--muted);
+      border-left: 8px solid var(--primary);
+    }
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+
+    .float-btn {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Tasya and Elfa — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 20, 2026 - Classwork</h1>
+        <p>Reading Lesson featuring vocabulary practice, text reading, story element analysis, and comprehension exercises.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a sub-section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#vocab-section">1. Vocabulary Section</a>
+        <a class="toc-link" href="#reading-section">2. Reading & Passage</a>
+        <a class="toc-link" href="#elements-section">3. Story Elements Quiz</a>
+        <a class="toc-link" href="#pdf-questions-section">4. PDF Worksheet Practice</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="section-card reading-section" id="main-reading">
+        <div class="section-header">
+          <div>
+            <h2>A New Mate</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="mainReadingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="mainReadingBody">
+          
+          <!-- SUB-SECTION 1: VOCABULARY -->
+          <div class="sub-section" id="vocab-section">
+            <h3 class="sub-title">Sub-Section 1: Vocabulary List & Practice</h3>
+            <p>Study these key vocabulary words from <em>"A New Mate"</em> before reading the story. Hover or tap on highlighted words in the passage later to see these definitions!</p>
+            
+            <div class="vocab-grid">
+              <div class="vocab-card">
+                <div><span class="vocab-word">recently</span> <span class="vocab-pos">adverb</span></div>
+                <div class="vocab-def">Just before the present time; not long ago.</div>
+                <div class="vocab-ex">"Gemma has recently moved here from Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">continent</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">One of Earth's seven main continuous expanses of land.</div>
+                <div class="vocab-ex">"Queensland is located in the northeast part of the continent."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">hemisphere</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">One half of Earth when divided by the equator or prime meridian.</div>
+                <div class="vocab-ex">"Australia is located in the Southern Hemisphere."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">reverse</span> <span class="vocab-pos">noun / adjective</span></div>
+                <div class="vocab-def">Opposite in position, direction, order, or character.</div>
+                <div class="vocab-ex">"The seasons in Australia are the reverse of those in the United States."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">tropical</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Belonging to or characteristic of the warm regions near the equator.</div>
+                <div class="vocab-ex">"Queensland is in a tropical part of Australia, so it doesn't get very cold."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">coral reef</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An underwater ecosystem formed by colonies of tiny marine animals.</div>
+                <div class="vocab-ex">"The Great Barrier Reef is the largest coral reef in the world."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">expressions</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Specific words or phrases used to communicate particular meanings.</div>
+                <div class="vocab-ex">"Australian English includes unique expressions like fair dinkum."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">mate</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A friend or companion (commonly used in Australian English).</div>
+                <div class="vocab-ex">"Gemma made a new mate on her first day of school."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">bonza</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">An Australian slang term meaning excellent, attractive, or very good.</div>
+                <div class="vocab-ex">"Having a sunny day at the beach is totally bonza!"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">brolly</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An informal Australian and British word for an umbrella.</div>
+                <div class="vocab-ex">"Don't forget your brolly because Queensland gets lots of rain."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">fair dinkum</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">An Australian slang phrase meaning honest, true, or genuine.</div>
+                <div class="vocab-ex">"He gave a fair dinkum effort to win the race."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">ta</span> <span class="vocab-pos">interjection / noun</span></div>
+                <div class="vocab-def">An informal Australian and British word for thank you.</div>
+                <div class="vocab-ex">"Ta, Gemma. We're so glad to have you in our class!"</div>
+              </div>
+            </div>
+
+            <!-- Vocab Exercise 1: Definitions -->
+            <article class="exercise-card" id="vocabDefExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 1: Word Definitions</h3>
+                  <p>Choose or type the correct definition for each vocabulary word from the story.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">Test your memory of the vocabulary definitions. Select your options below and click Start.</p>
+                <div class="menu-grid">
+                  <div class="menu-field">
+                    <label for="v1Timer">Time limit</label>
+                    <select id="v1Timer" data-timer>
+                      <option value="0">Untimed</option>
+                      <option value="180">3 minutes</option>
+                      <option value="300" selected>5 minutes</option>
+                      <option value="600">10 minutes</option>
+                    </select>
+                  </div>
+                  <div class="menu-summary"><strong>8</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>MC / Typed</strong><span>Interactive format</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 1</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 8</span></div>
+                  <div class="mini-timer" data-live-timer>05:00</div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <!-- Vocab Exercise 2: Fill in the Blanks -->
+            <article class="exercise-card" id="vocabFillExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 2: Sentence Fill-in-the-Blanks</h3>
+                  <p>Complete each sentence with the correct vocabulary word from the box.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">Fill in the missing word in each sentence using typed input or multiple choice selection.</p>
+                <div class="menu-grid">
+                  <div class="menu-field">
+                    <label for="v2Timer">Time limit</label>
+                    <select id="v2Timer" data-timer>
+                      <option value="0">Untimed</option>
+                      <option value="180">3 minutes</option>
+                      <option value="300" selected>5 minutes</option>
+                      <option value="600">10 minutes</option>
+                    </select>
+                  </div>
+                  <div class="menu-summary"><strong>8</strong><span>Fill-in sentences</span></div>
+                  <div class="menu-summary"><strong>Vocabulary</strong><span>Application</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 2</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 8</span></div>
+                  <div class="mini-timer" data-live-timer>05:00</div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 2: READING PASSAGE -->
+          <div class="sub-section" id="reading-section">
+            <h3 class="sub-title">Sub-Section 2: Reading Passage ("A New Mate")</h3>
+            <p>Read the text below carefully. Paragraph numbers are displayed at the beginning of each paragraph. Hover over the dotted underlined words to view definitions!</p>
+
+            <article class="story-card">
+              <div class="story-label">Spectrum Reading Grade 5 · Passage</div>
+              <h3>A New Mate</h3>
+              <div class="story-text" id="storyText">
+<p><span class="paragraph-num">1</span> "I think most of you have already met our new student, Gemma," said Ms. Dimitri to her class. "As you know, she has <span class="vocab-hover" data-def="Just before the present time; not long ago.">recently</span> moved here from Australia. I know you all have lots of questions about Australia, and Gemma has said she'd be happy to answer them. We can also try to give her an idea of what life is like here in Massachusetts."</p>
+                <p><span class="paragraph-num">2</span> Gemma was a tall girl with thick, dark brown hair. She had pale blue eyes, and there was a dusting of freckles across her nose. She smiled shyly at the class. "I'm very happy to be here," she said. "Everyone has been really nice to me. It feels like I've been here longer than a week already."</p>
+                <p><span class="paragraph-num">3</span> Ms. Dimitri smiled. "I'm glad to hear it. We're excited to have you here, Gemma. Before we get started, why don't you tell everyone where you lived in Australia."</p>
+                <p><span class="paragraph-num">4</span> "My family lived in Queensland," began Gemma. "It is one of Australia's six states, and it's located in the northeast part of the <span class="vocab-hover" data-def="One of Earth's seven main continuous expanses of land.">continent</span>. Queensland is the second largest state in Australia. It's a bit more than twice as big as Texas."</p>
+                <p><span class="paragraph-num">5</span> "What is the weather like there?" asked Kayla. "Do you have cold, snowy winters like we do here?"</p>
+                <p><span class="paragraph-num">6</span> "Actually, because Australia is in the Southern <span class="vocab-hover" data-def="One half of Earth when divided by the equator.">Hemisphere</span>, the seasons are the <span class="vocab-hover" data-def="Opposite in position, direction, or order.">reverse</span> of what they are in the United States," said Gemma. "Queensland is in a <span class="vocab-hover" data-def="Warm region near the equator.">tropical</span> part of Australia, so it doesn't get very cold. In January, which is summertime, it is in the 80s and 90s. In July, which is wintertime, it might be in the 60s. Queensland gets a lot of rain, and I won't miss that at all. I can't wait until it snows here this winter! I've never built a snowman or gone sledding before."</p>
+                <p><span class="paragraph-num">7</span> "Queensland is near Australia's Great Barrier Reef," Ms. Dimitri told the class. "Gemma, can you tell us a little about it?"</p>
+                <p><span class="paragraph-num">8</span> Gemma nodded. "The Great Barrier Reef is the largest <span class="vocab-hover" data-def="An underwater ecosystem formed by tiny marine animals.">coral reef</span> in the world. It lies off the coast of Queensland and is more than 1,200 miles long. It is home to all kinds of animal and plant life. It is an amazing place to go scuba diving."</p>
+                <p><span class="paragraph-num">9</span> Vijay raised his hand. "Can you teach us how to say some words in Australian?" he asked.</p>
+                <p><span class="paragraph-num">10</span> "Most people in Australia speak English," said Gemma. "But we do have some different words and <span class="vocab-hover" data-def="Specific words or phrases with particular meanings.">expressions</span> than you do in America. For example, the word for friend is <span class="vocab-hover" data-def="Friend or companion.">mate</span>. <span class="vocab-hover" data-def="An Australian word meaning very good or excellent.">Bonza</span> means very good. Umbrella is <span class="vocab-hover" data-def="An informal word for umbrella.">brolly</span>, and honest is <span class="vocab-hover" data-def="An Australian phrase meaning honest, true, or genuine.">fair dinkum</span>."</p>
+                <p><span class="paragraph-num">11</span> "Is there another word or expression for thank you?" asked Ms. Dimitri.</p>
+                <p><span class="paragraph-num">12</span> "Yes, <span class="vocab-hover" data-def="An informal word for thank you.">ta</span> means thank you."</p>
+                <p><span class="paragraph-num">13</span> "Gemma, you have given us an excellent idea of what it is like to live in Australia. <span class="vocab-hover" data-def="An informal word for thank you.">Ta</span>, Gemma. We're so glad to have you in our class!"</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 3: STORY ELEMENTS EXERCISE -->
+          <div class="sub-section" id="elements-section">
+            <h3 class="sub-title">Sub-Section 3: Story Elements Analysis (10 Questions)</h3>
+            <p>Answer these 10 multiple choice questions analyzing the literary elements of <em>"A New Mate"</em> (character, setting, plot, conflict, theme, point of view, and tone/mood).</p>
+
+            <article class="exercise-card" id="elementsExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Story Elements Exercise</h3>
+                  <p>10 Multiple-Choice questions testing key literary analysis elements.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">Start the story elements assessment when you are ready. The story text will remain visible alongside questions.</p>
+                <div class="menu-grid">
+                  <div class="menu-field">
+                    <label for="elemTimer">Time limit</label>
+                    <select id="elemTimer" data-timer>
+                      <option value="0">Untimed</option>
+                      <option value="600">10 minutes</option>
+                      <option value="900" selected>15 minutes</option>
+                      <option value="1200">20 minutes</option>
+                    </select>
+                  </div>
+                  <div class="menu-summary"><strong>10</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Story Elements</strong><span>Literary Focus</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Story Elements Exercise</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <div class="mini-timer" data-live-timer>15:00</div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <!-- PDF Page 2 Questions Exercise -->
+            <article class="exercise-card" id="pdfWorksheetExercise" style="margin-top: 36px;">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>PDF Page 2 Worksheet Practice (Questions 1–13)</h3>
+                  <p>Mixed Typed & Multiple Choice questions matching Page 2 of the Spectrum Reading PDF (Vocabulary meanings, Fact vs Opinion, and Comprehension).</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">This exercise directly replicates the 13 questions on page 2 of your worksheet PDF.</p>
+                <div class="menu-grid">
+                  <div class="menu-field">
+                    <label for="pdfTimer">Time limit</label>
+                    <select id="pdfTimer" data-timer>
+                      <option value="0">Untimed</option>
+                      <option value="600">10 minutes</option>
+                      <option value="900" selected>15 minutes</option>
+                      <option value="1200">20 minutes</option>
+                    </select>
+                  </div>
+                  <div class="menu-summary"><strong>13</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Page 2 PDF</strong><span>Exact Match</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Worksheet Exercise</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 13</span></div>
+                  <div class="mini-timer" data-live-timer>15:00</div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+
+  <script>
+    const STORY_RAW = `1 "I think most of you have already met our new student, Gemma," said Ms. Dimitri to her class. "As you know, she has recently moved here from Australia. I know you all have lots of questions about Australia, and Gemma has said she'd be happy to answer them. We can also try to give her an idea of what life is like here in Massachusetts."
+
+2 Gemma was a tall girl with thick, dark brown hair. She had pale blue eyes, and there was a dusting of freckles across her nose. She smiled shyly at the class. "I'm very happy to be here," she said. "Everyone has been really nice to me. It feels like I've been here longer than a week already."
+
+3 Ms. Dimitri smiled. "I'm glad to hear it. We're excited to have you here, Gemma. Before we get started, why don't you tell everyone where you lived in Australia."
+
+4 "My family lived in Queensland," began Gemma. "It is one of Australia's six states, and it's located in the northeast part of the continent. Queensland is the second largest state in Australia. It's a bit more than twice as big as Texas."
+
+5 "What is the weather like there?" asked Kayla. "Do you have cold, snowy winters like we do here?"
+
+6 "Actually, because Australia is in the Southern Hemisphere, the seasons are the reverse of what they are in the United States," said Gemma. "Queensland is in a tropical part of Australia, so it doesn't get very cold. In January, which is summertime, it is in the 80s and 90s. In July, which is wintertime, it might be in the 60s. Queensland gets a lot of rain, and I won't miss that at all. I can't wait until it snows here this winter! I've never built a snowman or gone sledding before."
+
+7 "Queensland is near Australia's Great Barrier Reef," Ms. Dimitri told the class. "Gemma, can you tell us a little about it?"
+
+8 Gemma nodded. "The Great Barrier Reef is the largest coral reef in the world. It lies off the coast of Queensland and is more than 1,200 miles long. It is home to all kinds of animal and plant life. It is an amazing place to go scuba diving."
+
+9 Vijay raised his hand. "Can you teach us how to say some words in Australian?" he asked.
+
+10 "Most people in Australia speak English," said Gemma. "But we do have some different words and expressions than you do in America. For example, the word for friend is mate. Bonza means very good. Umbrella is brolly, and honest is fair dinkum."
+
+11 "Is there another word or expression for thank you?" asked Ms. Dimitri.
+
+12 "Yes, ta means thank you."
+
+13 "Gemma, you have given us an excellent idea of what it is like to live in Australia. Ta, Gemma. We're so glad to have you in our class!"`;
+
+    // Vocab 1: Definition Questions (MC & Typed mix)
+    const VOCAB_DEF_QUESTIONS = [
+      { topic: 'Vocab Definition', q: 'What is the definition of "recently"?', options: ['Just before the present time; not long ago', 'In a distant past century', 'Predicting the far future', 'Taking place during nighttime'], answer: 0, explanation: 'Paragraph 1 mentions Gemma recently moved, meaning not long ago.' },
+      { topic: 'Vocab Definition', q: 'What does "hemisphere" mean?', options: ['One half of the Earth when divided by the equator', 'A type of ocean current near Queensland', 'A tropical weather storm', 'A mountain range in Australia'], answer: 0, explanation: 'Earth is divided into northern and southern hemispheres by the equator.' },
+      { topic: 'Vocab Definition', q: 'What does the word "reverse" mean in the context of paragraph 6?', options: ['Opposite in position, direction, or order', 'Moving backwards in a vehicle', 'Staying exactly the same', 'Extremely cold and snowy'], answer: 0, explanation: 'The seasons are opposite (reverse) between northern and southern hemispheres.' },
+      { topic: 'Vocab Definition', q: 'What are "expressions"?', options: ['Specific words or phrases with particular meanings', 'Facial gestures made during speaking', 'Mathematical calculations', 'Rules written by a school principal'], answer: 0, explanation: 'Expressions are specialized vocabulary or phrases spoken in a language.' },
+      { topic: 'Vocab Definition', q: 'In Australian slang, what does the word "mate" mean?', options: ['Friend or companion', 'School principal', 'Weather forecast', 'A quiet classroom'], answer: 0, explanation: 'Gemma explains that "mate" means friend.' },
+      { topic: 'Vocab Definition', q: 'What does the Australian word "bonza" mean?', options: ['Very good or excellent', 'Rainy and dark', 'Slow and tired', 'Expensive and fancy'], answer: 0, explanation: 'Gemma states that bonza means very good.' },
+      { topic: 'Vocab Definition', q: 'What object is referred to as a "brolly"?', options: ['An umbrella', 'A pair of winter boots', 'A wooden sled', 'A coral reef'], answer: 0, explanation: 'In Australian slang, brolly means umbrella.' },
+      { topic: 'Vocab Definition', q: 'What does the Australian expression "fair dinkum" mean?', options: ['Honest, true, or genuine', 'Extremely cold weather', 'A type of Australian animal', 'Saying goodbye to a teacher'], answer: 0, explanation: 'Gemma explains fair dinkum means honest or true.' }
+    ];
+
+    // Vocab 2: Fill in the Blanks Questions
+    const VOCAB_FILL_QUESTIONS = [
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Gemma has _______ moved to Massachusetts from Australia. (Word meaning: not long ago)', answers: ['recently'], display: 'recently', explanation: '“Recently” means just before the present time.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Australia is located in the Southern _______ .', answers: ['hemisphere'], display: 'hemisphere', explanation: 'Earth is divided into Northern and Southern hemispheres.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Because of its location, the seasons in Australia are the _______ of the US seasons.', answers: ['reverse'], display: 'reverse', explanation: 'The seasons are opposite or reverse.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'In Australian English, the common word for a friend is _______.', answers: ['mate'], display: 'mate', explanation: '“Mate” is Australian slang for friend.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'When Australians want to say something is very good, they call it _______.', answers: ['bonza'], display: 'bonza', explanation: '“Bonza” means very good or excellent.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Because Queensland gets lots of rain, you should carry a _______ (umbrella).', answers: ['brolly'], display: 'brolly', explanation: '“Brolly” is Australian slang for umbrella.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Someone who is completely honest can be described as _______ dinkum.', answers: ['fair'], display: 'fair', explanation: '“Fair dinkum” means honest or genuine.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Australian English contains many unique words and _______ .', answers: ['expressions'], display: 'expressions', explanation: 'Expressions are phrases unique to a language/region.' }
+    ];
+
+    // Story Elements Questions (10 Questions covering Character, Setting, Plot, Conflict, Theme, POV, Mood)
+    const STORY_ELEMENTS_QUESTIONS = [
+      { skill: 'Protagonist', q: 'Who is the central character (protagonist) sharing her experience in the story?', options: ['Gemma, the new student from Australia', 'Ms. Dimitri, the classroom teacher', 'Kayla, the student asking about snow', 'Vijay, the student asking about Australian slang'], answer: 0, explanation: 'Gemma is the main subject presenting her life in Australia.' },
+      { skill: 'Setting - Location', q: 'Where does the classroom scene take place?', options: ['A school classroom in Massachusetts', 'A school classroom in Queensland, Australia', 'Near the Great Barrier Reef coast', 'On a snowy sledding hill in winter'], answer: 0, explanation: 'Paragraph 1 specifies they are in a classroom in Massachusetts.' },
+      { skill: 'Setting - Comparison', q: 'How does the setting of Queensland compare geographically to Texas?', options: ['Queensland is a bit more than twice as big as Texas', 'Queensland is about half the size of Texas', 'Texas is three times larger than Queensland', 'Queensland and Texas are identical in size'], answer: 0, explanation: 'Paragraph 4 states Queensland is a bit more than twice as big as Texas.' },
+      { skill: 'Point of View', q: 'From what Point of View is the story narrated?', options: ['Third-person limited / objective (narrator observing classroom actions)', 'First-person narrator ("I went to school today")', 'Second-person direct address ("You enter the room")', 'Third-person omniscient reading everyone’s deep secrets'], answer: 0, explanation: 'The story uses third-person narration observing dialogue and actions.' },
+      { skill: 'Conflict / Challenge', q: 'What minor internal or situational adjustment is Gemma experiencing?', options: ['Adapting to a new school after moving from Australia to Massachusetts', 'Trying to learn English for the first time in school', 'Searching for a lost umbrella at the Great Barrier Reef', 'Deciding whether to move back to Queensland immediately'], answer: 0, explanation: 'Gemma is adjusting to her new school in America.' },
+      { skill: 'Plot - Climax', q: 'What is the main climax or interactive highlight of the classroom session?', options: ['Gemma sharing Australian slang words and expressions with her interested classmates', 'The class getting caught in a sudden snowstorm outside', 'Ms. Dimitri assigning a difficult written quiz on Australian geography', 'Kayla arguing with Gemma about winter weather temperatures'], answer: 0, explanation: 'The class actively engages with Gemma as she teaches Australian vocabulary.' },
+      { skill: 'Tone & Mood', q: 'What is the overall tone and mood of the story?', options: ['Welcoming, curious, and warm', 'Sarcastic, tense, and hostile', 'Mysterious and scary', 'Gloomy and depressing'], answer: 0, explanation: 'The teacher and classmates welcome Gemma warmly and curiously.' },
+      { skill: 'Theme', q: 'Which statement best expresses the central theme of the passage?', options: ['Learning about different cultures and welcoming newcomers creates understanding and friendship.', 'Moving to a new country always causes unhappiness for students.', 'Tropical regions are superior to places with cold winters.', 'Slang words should never be used in a school environment.'], answer: 0, explanation: 'The story emphasizes cultural exchange, welcoming new friends, and learning.' },
+      { skill: 'Character Traits', q: 'Which adjective best describes Gemma’s attitude when speaking to the class?', options: ['Shy yet friendly and polite', 'Loud and boisterous', 'Angry and upset', 'Arrogant and boastful'], answer: 0, explanation: 'Paragraph 2 notes she smiled shyly and expressed happiness to be there.' },
+      { skill: 'Resolution', q: 'How does the classroom interaction conclude?', options: ['Ms. Dimitri thanks Gemma using the Australian word "ta"', 'The class leaves for recess in the snow immediately', 'Gemma decides she prefers living in Texas', 'Vijay leads the class in singing an Australian song'], answer: 0, explanation: 'Paragraph 13 shows Ms. Dimitri thanking Gemma using "Ta, Gemma."' }
+    ];
+
+    // PDF Page 2 Worksheet Questions (13 Questions)
+    const PDF_WORKSHEET_QUESTIONS = [
+      { topic: 'PDF Vocab Q1', type: 'typed', q: 'Write the word from paragraph 1 that means: "just before the present time"', answers: ['recently'], display: 'recently', explanation: 'Found in Par. 1: "she has recently moved here..."' },
+      { topic: 'PDF Vocab Q2', type: 'typed', q: 'Write the word from paragraph 6 that means: "one half of Earth when divided by the equator"', answers: ['hemisphere'], display: 'hemisphere', explanation: 'Found in Par. 6: "...Australia is in the Southern Hemisphere..."' },
+      { topic: 'PDF Vocab Q3', type: 'typed', q: 'Write the word from paragraph 6 that means: "opposite"', answers: ['reverse'], display: 'reverse', explanation: 'Found in Par. 6: "...the seasons are the reverse of what they are..."' },
+      { topic: 'PDF Vocab Q4', type: 'typed', q: 'Write the word from paragraph 10 that means: "specific words or phrases"', answers: ['expressions'], display: 'expressions', explanation: 'Found in Par. 10: "...different words and expressions..."' },
+      
+      { topic: 'Fact vs Opinion Q5', q: 'Sentence 5: "Gemma moved to the United States from Australia." Is this a Fact (F) or Opinion (O)?', options: ['F (Fact)', 'O (Opinion)'], answer: 0, explanation: 'Fact: It is a proven true statement from the story.' },
+      { topic: 'Fact vs Opinion Q6', q: 'Sentence 6: "Queensland is more than twice as big as Texas." Is this a Fact (F) or Opinion (O)?', options: ['F (Fact)', 'O (Opinion)'], answer: 0, explanation: 'Fact: Geographical measurement stated as factual truth.' },
+      { topic: 'Fact vs Opinion Q7', q: 'Sentence 7: "It would be exciting to visit Australia." Is this a Fact (F) or Opinion (O)?', options: ['O (Opinion)', 'F (Fact)'], answer: 0, explanation: 'Opinion: "Exciting" expresses a personal feeling or belief.' },
+      { topic: 'Fact vs Opinion Q8', q: 'Sentence 8: "The weather in Australia is more enjoyable than it is in Massachusetts." Is this a Fact (F) or Opinion (O)?', options: ['O (Opinion)', 'F (Fact)'], answer: 0, explanation: 'Opinion: "More enjoyable" is a personal preference.' },
+      { topic: 'Fact vs Opinion Q9', q: 'Sentence 9: "Australia is in the Southern Hemisphere." Is this a Fact (F) or Opinion (O)?', options: ['F (Fact)', 'O (Opinion)'], answer: 0, explanation: 'Fact: Geographic scientific fact.' },
+
+      { topic: 'Comprehension Q10', q: 'Q10: What is the Great Barrier Reef?', options: ['The largest coral reef in the world, located off the coast of Queensland', 'A large desert in central Australia', 'A mountain range where students go sledding', 'A famous animal sanctuary in Massachusetts'], answer: 0, explanation: 'Paragraph 8 defines it as the largest coral reef in the world.' },
+      { topic: 'Comprehension Q11', q: 'Q11: What does "fair dinkum" mean?', options: ['Honest, true, or genuine', 'Very wet rain or storm', 'A type of Australian breakfast', 'An informal umbrella'], answer: 0, explanation: 'Paragraph 10 states fair dinkum means honest.' },
+      { topic: 'Comprehension Q12', q: 'Q12: How are the seasons different in Australia than they are in the United States?', options: ['They are the reverse because Australia is in the Southern Hemisphere', 'Australia has six seasons while the US has four', 'Australia never experiences summer temperatures', 'The seasons are identical in both countries'], answer: 0, explanation: 'Paragraph 6 explains they are the reverse due to the Southern Hemisphere.' },
+      { topic: 'Comprehension Q13', type: 'typed', q: 'Q13: If you could ask Gemma a question about living in Australia, what would it be? (Type your question)', answers: ['*'], display: 'Open-ended student question (e.g. What is your favorite Australian animal?)', explanation: 'This is an open-ended personal question. Any thought-provoking question is acceptable!' }
+    ];
+
+    (() => {
+      'use strict';
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const seconds = Math.max(0, totalSeconds);
+        return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+      }
+
+      function normalizeTyped(value) {
+        return String(value ?? '')
+          .trim()
+          .toLowerCase()
+          .replace(/[.,;:!?]+/g, ' ')
+          .replace(/\s+/g, ' ');
+      }
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return {
+            ...question,
+            type: 'mc',
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function setupTheme() {
+        const button = $('#themeToggle');
+        const icon = $('#themeIcon');
+        const label = $('#themeLabel');
+
+        const sync = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          button.setAttribute('aria-pressed', String(dark));
+          icon.textContent = dark ? '☀' : '☾';
+          label.textContent = dark ? 'Light' : 'Dark';
+        };
+
+        sync();
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('tasya-elfa-quiz-theme', next); } catch (e) {}
+          sync();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$('[data-collapse]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.collapse);
+            const willCollapse = !target.hidden;
+            target.hidden = willCollapse;
+            button.textContent = willCollapse ? 'Expand' : 'Collapse';
+            button.setAttribute('aria-expanded', String(!willCollapse));
+          });
+        });
+      }
+
+      function createExercise(config) {
+        const card = document.getElementById(config.cardId);
+        if (!card) return;
+
+        const refs = {
+          menu: $('[data-menu]', card),
+          timer: $('[data-timer]', card),
+          start: $('[data-start]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          progressTrack: $('.progress-track', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          liveTimer: $('[data-live-timer]', card),
+          end: $('[data-end]', card),
+          host: $('[data-question-host]', card)
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false,
+          totalSeconds: 0,
+          seconds: 0,
+          timerId: null,
+          startedAt: 0
+        };
+
+        function stopTimer() {
+          if (state.timerId) clearInterval(state.timerId);
+          state.timerId = null;
+        }
+
+        function updateTimer() {
+          if (!state.totalSeconds) {
+            refs.liveTimer.textContent = '∞ Untimed';
+            return;
+          }
+          refs.liveTimer.textContent = formatTime(state.seconds);
+          refs.liveTimer.classList.toggle('warning', state.seconds <= 60);
+        }
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          refs.score.textContent = state.active ? `Score: ${state.score} / ${answered}` : refs.score.textContent;
+          refs.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveProgress.textContent = answered >= total
+            ? `Completed ${total} questions`
+            : `Question ${state.index + 1} of ${total}`;
+          const percent = total ? (answered / total) * 100 : 0;
+          refs.progress.style.width = `${percent}%`;
+        }
+
+        function start() {
+          stopTimer();
+          state.questions = config.buildQuestions();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+          state.totalSeconds = Number.parseInt(refs.timer.value, 10) || 0;
+          state.seconds = state.totalSeconds;
+          state.startedAt = Date.now();
+
+          refs.menu.hidden = true;
+          refs.finish.hidden = true;
+          refs.live.hidden = false;
+          refs.score.textContent = 'In progress';
+          updateTimer();
+          updateProgress();
+          renderQuestion();
+
+          if (state.totalSeconds > 0) {
+            state.timerId = window.setInterval(() => {
+              state.seconds -= 1;
+              updateTimer();
+              if (state.seconds <= 0) finish('Time expired');
+            }, 1000);
+          }
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+          const question = state.questions[state.index];
+          if (!question) return;
+
+          const isTyped = question.type === 'typed';
+          const storySide = config.showStory ? `
+            <aside class="story-card">
+              <div class="story-label">Passage Reference</div>
+              <h3>A New Mate</h3>
+              <div class="story-text">
+                <p><strong>Par. 1:</strong> "I think most of you have already met our new student, Gemma," said Ms. Dimitri...</p>
+                <p><strong>Par. 4:</strong> "My family lived in Queensland," began Gemma. "It is one of Australia's six states... twice as big as Texas."</p>
+                <p><strong>Par. 6:</strong> "Because Australia is in the Southern Hemisphere, the seasons are the reverse..."</p>
+                <p><strong>Par. 8:</strong> "The Great Barrier Reef is the largest coral reef in the world..."</p>
+                <p><strong>Par. 10:</strong> "Mate = friend, Bonza = very good, Brolly = umbrella, Fair dinkum = honest."</p>
+                <p><strong>Par. 12:</strong> "Ta = thank you."</p>
+              </div>
+            </aside>
+          ` : '';
+
+          refs.host.innerHTML = `
+            <div class="question-layout ${config.showStory ? '' : 'single'}">
+              ${storySide}
+              <section class="question-card">
+                <div class="question-meta">${escapeHtml(question.topic || question.skill)}</div>
+                <div class="question-text">${escapeHtml(question.q)}</div>
+                <div data-answer-area></div>
+                <div class="feedback" data-feedback hidden aria-live="polite"></div>
+                <div class="button-row">
+                  ${isTyped ? '<button class="btn btn-primary" type="button" data-submit>Check answer</button>' : ''}
+                  <button class="btn btn-positive" type="button" data-next hidden>Next question</button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea = $('[data-answer-area]', refs.host);
+          const nextButton = $('[data-next]', refs.host);
+
+          if (isTyped) {
+            answerArea.innerHTML = `
+              <div class="typed-wrap">
+                <input class="typed-input" type="text" autocomplete="off" placeholder="Type your answer here...">
+              </div>
+            `;
+            const input = $('.typed-input', answerArea);
+            $('[data-submit]', refs.host).addEventListener('click', () => gradeTyped(question));
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') gradeTyped(question); });
+            input.focus();
+          } else {
+            const list = document.createElement('div');
+            list.className = 'option-list';
+            question.shuffledOptions.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = option;
+              button.addEventListener('click', () => gradeMC(question, option, button));
+              list.appendChild(button);
+            });
+            answerArea.appendChild(list);
+          }
+
+          nextButton.addEventListener('click', advance);
+          updateProgress();
+        }
+
+        function gradeMC(question, selected, btn) {
+          if (state.answered || !state.active) return;
+          state.answered = true;
+
+          const correct = selected === question.answerText;
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            question: question.q,
+            userAnswer: selected,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$('.option-btn', refs.host).forEach((b) => {
+            b.disabled = true;
+            if (b.textContent === question.answerText) b.classList.add('correct-choice');
+          });
+          if (!correct) btn.classList.add('wrong-choice');
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          fb.innerHTML = correct ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}` : `✕ <strong>Incorrect.</strong><br><strong>Correct Answer:</strong> ${escapeHtml(question.answerText)}<br>${escapeHtml(question.explanation)}`;
+
+          $('[data-next]', refs.host).hidden = false;
+          updateProgress();
+        }
+
+        function gradeTyped(question) {
+          if (state.answered || !state.active) return;
+          const input = $('.typed-input', refs.host);
+          const val = input.value.trim();
+          if (!val) return;
+
+          state.answered = true;
+          input.disabled = true;
+
+          const isWildcard = question.answers.includes('*');
+          const normalized = normalizeTyped(val);
+          const correct = isWildcard || question.answers.some(a => normalizeTyped(a) === normalized);
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            question: question.q,
+            userAnswer: val,
+            correctAnswer: question.display,
+            explanation: question.explanation,
+            correct
+          });
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          fb.innerHTML = correct ? `✓ <strong>Great response!</strong><br>${escapeHtml(question.explanation)}` : `✕ <strong>Incorrect.</strong><br><strong>Expected:</strong> ${escapeHtml(question.display)}<br>${escapeHtml(question.explanation)}`;
+
+          $('[data-next]', refs.host).hidden = false;
+          updateProgress();
+        }
+
+        function advance() {
+          if (state.index >= state.questions.length - 1) {
+            finish('Completed all questions');
+            return;
+          }
+          state.index += 1;
+          renderQuestion();
+        }
+
+        function finish(reason) {
+          state.active = false;
+          stopTimer();
+          refs.live.hidden = true;
+          refs.finish.hidden = false;
+
+          const total = state.questions.length;
+          const answered = state.responses.length;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+
+          refs.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>Exercise Complete!</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${total - answered}</strong><span>Unanswered</span></div>
+              </div>
+
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Try Again</button>
+                <button class="btn btn-secondary" type="button" data-menu-back>Back to Menu</button>
+              </div>
+            </div>
+          `;
+
+          $('[data-retry]', refs.finish).addEventListener('click', start);
+          $('[data-menu-back]', refs.finish).addEventListener('click', () => {
+            refs.finish.hidden = true;
+            refs.menu.hidden = false;
+            refs.score.textContent = 'Ready';
+            refs.progress.style.width = '0%';
+          });
+        }
+
+        refs.start.addEventListener('click', start);
+        refs.end.addEventListener('click', () => finish('Exercise ended early'));
+      }
+
+      setupTheme();
+      setupSectionCollapse();
+
+      // Initialize all 4 exercise cards!
+      createExercise({
+        cardId: 'vocabDefExercise',
+        showStory: false,
+        buildQuestions: () => prepareMultipleChoice(VOCAB_DEF_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'vocabFillExercise',
+        showStory: false,
+        buildQuestions: () => shuffle(VOCAB_FILL_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'elementsExercise',
+        showStory: true,
+        buildQuestions: () => prepareMultipleChoice(STORY_ELEMENTS_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'pdfWorksheetExercise',
+        showStory: true,
+        buildQuestions: () => prepareMultipleChoice(PDF_WORKSHEET_QUESTIONS)
+      });
+
+    })();
+  </script>
+</body>
+</html>
