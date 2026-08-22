@@ -1,0 +1,2835 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Reading comprehension classwork on story elements and open-ended responses"
+  >
+
+  <title>August 22 - Classwork</title>
+
+  <script>
+    (() => {
+      try {
+        const savedTheme =
+          localStorage.getItem("august22-reading-theme");
+
+        const preferredTheme =
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+
+        document.documentElement.dataset.theme =
+          savedTheme || preferredTheme;
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+    /* ======================================================================
+       1. Mitch design-system tokens
+       ====================================================================== */
+
+    :root {
+      color-scheme: light;
+
+      --background: #FFFFFF;
+      --foreground: #111827;
+
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --primary-soft: #DBEAFE;
+
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #D1D5DB;
+      --surface: #FFFFFF;
+      --text-muted: #4B5563;
+
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --hero-text: #EFF6FF;
+
+      --radius-md: 6px;
+      --radius-lg: 8px;
+
+      --font: "Outfit", sans-serif;
+      --transition: all 180ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+
+      --background: #0B1220;
+      --foreground: #F9FAFB;
+
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --primary-soft: #172554;
+
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #4B5563;
+      --surface: #111827;
+      --text-muted: #CBD5E1;
+
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --hero-text: #DBEAFE;
+    }
+
+    /* ======================================================================
+       2. Base
+       ====================================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* ======================================================================
+       3. Header, shell, hero, and navigation
+       ====================================================================== */
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .toc-link,
+    .collapse-button,
+    .button,
+    .question-jump,
+    .option-button {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: #FFFFFF;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy p {
+      max-width: 64ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .hero-tag {
+      padding: 8px 11px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    /* ======================================================================
+       4. Section shell
+       ====================================================================== */
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #111827;
+      background: var(--secondary);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .story-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: 0.78;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-button {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: 0.75rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-button:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    /* ======================================================================
+       5. Story card
+       ====================================================================== */
+
+    .story-card,
+    .question-card,
+    .metric,
+    .review-card,
+    .topic-row {
+      border-radius: var(--radius-lg);
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-paragraph {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      margin-bottom: 1em;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .story-paragraph:last-child {
+      margin-bottom: 0;
+    }
+
+    .paragraph-number {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* ======================================================================
+       6. Exercise shell and menu
+       ====================================================================== */
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(150px, 0.65fr);
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field input {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-field input:focus {
+      border-color: var(--primary);
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .menu-error {
+      margin-top: 14px;
+      padding: 14px;
+      color: var(--foreground);
+      background: var(--danger-soft);
+      border-left: 6px solid var(--danger);
+      border-radius: var(--radius-md);
+    }
+
+    /* ======================================================================
+       7. Buttons and live toolbar
+       ====================================================================== */
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .button:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .button-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .button-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .button-positive {
+      color: #052E16;
+      background: var(--secondary);
+    }
+
+    .button-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .button-secondary {
+      color: var(--foreground);
+      background: var(--muted-strong);
+    }
+
+    .button-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--secondary);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: 0.8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    /* ======================================================================
+       8. Question interfaces
+       ====================================================================== */
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .question-navigation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .question-jump {
+      min-width: 40px;
+      min-height: 40px;
+      padding: 0 10px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+    }
+
+    .question-jump:hover {
+      border-color: var(--primary);
+    }
+
+    .question-jump.current {
+      color: #FFFFFF;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .question-jump.answered:not(.current) {
+      color: #FFFFFF;
+      background: #047857;
+      border-color: var(--secondary);
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.24;
+    }
+
+    .long-answer {
+      width: 100%;
+      min-height: 170px;
+      padding: 14px 16px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      resize: vertical;
+      outline: none;
+    }
+
+    .long-answer:focus {
+      background: var(--surface);
+      border-color: var(--primary);
+    }
+
+    .answer-note {
+      margin-top: 12px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .unanswered-note {
+      margin-top: 16px;
+      padding: 14px;
+      color: var(--foreground);
+      background: var(--accent-soft);
+      border-left: 6px solid var(--accent);
+      border-radius: var(--radius-md);
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-button {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--foreground);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-button:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-button.correct-choice {
+      color: #FFFFFF;
+      background: #047857;
+      border-color: var(--secondary);
+    }
+
+    .option-button.wrong-choice {
+      color: var(--foreground);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .option-button:disabled {
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--danger-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--primary-soft);
+      border-left: 8px solid var(--primary);
+    }
+
+    /* ======================================================================
+       9. Results and email status
+       ====================================================================== */
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--foreground);
+      background: var(--primary-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .finish-panel h4 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--surface);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .metric span {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .topic-breakdown {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .topic-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface);
+    }
+
+    .topic-row span:last-child {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .review-card {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--surface);
+    }
+
+    .review-card h5 {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+
+    .review-card p {
+      margin: 4px 0;
+      color: var(--text-muted);
+    }
+
+    .email-status {
+      margin-top: 20px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .email-status.sending {
+      border-left: 8px solid var(--accent);
+    }
+
+    .email-status.sent {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .email-status.failed {
+      background: var(--danger-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .email-status strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ======================================================================
+       10. Accessibility and responsive behavior
+       ====================================================================== */
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+
+    .float-button {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border: 0;
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    .float-button:hover {
+      background: var(--primary);
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .menu-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .menu-field {
+        grid-column: 1 / -1;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: calc(100% - 28px);
+      }
+
+      .brand {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .hero-copy {
+        padding: 48px 22px;
+      }
+
+      .toc-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+
+      .toc-link {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-inline: 22px;
+      }
+
+      .collapse-button {
+        width: 100%;
+      }
+
+      .section-body {
+        padding-inline: 16px;
+      }
+
+      .exercise-head {
+        grid-template-columns: 1fr;
+      }
+
+      .score-block {
+        min-width: 0;
+        min-height: 54px;
+      }
+
+      .menu-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-field {
+        grid-column: auto;
+      }
+
+      .live-toolbar {
+        position: static;
+        grid-template-columns: 1fr;
+      }
+
+      .mini-timer {
+        width: 100%;
+      }
+
+      .button-row {
+        display: grid;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .floating-controls {
+        right: 8px;
+        bottom: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">
+        Mitch - English Tutoring Resources
+      </a>
+
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          type="button"
+          aria-pressed="false"
+        >
+          <span id="themeIcon" aria-hidden="true">&#9790;</span>
+          <span id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 22 - Classwork</h1>
+
+        <p>
+          Read &ldquo;One Tent, Lots of Stuff,&rdquo; then complete two
+          exercises: multiple-choice questions about the story elements,
+          followed by open-ended questions from the worksheet.
+        </p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Reading comprehension</span>
+          <span class="hero-tag">Story elements</span>
+          <span class="hero-tag">Open-ended answers</span>
+          <span class="hero-tag">Email results</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a section</h2>
+
+      <div class="toc-grid">
+        <a class="toc-link" href="#reading">The Story</a>
+        <a class="toc-link" href="#elementsExercise">Exercise 1 &middot; Story Elements</a>
+        <a class="toc-link" href="#openExercise">Exercise 2 &middot; Open-ended</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ================================================================
+           Section 1: Reading comprehension
+           ================================================================ -->
+
+      <section
+        class="section-card reading-section"
+        id="reading"
+      >
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 1 &middot; Reading</div>
+            <h2>Reading Comprehension</h2>
+          </div>
+
+          <button
+            class="collapse-button"
+            type="button"
+            data-collapse="readingBody"
+            aria-expanded="true"
+          >
+            Collapse
+          </button>
+        </div>
+
+        <div class="section-body" id="readingBody">
+          <article class="story-card">
+            <div class="story-label">Spectrum Reading Grade 3</div>
+            <h3>One Tent, Lots of Stuff</h3>
+
+            <p style="color: var(--text-muted);">
+              What do the boys need for their night in the tent?
+            </p>
+
+            <div id="readingStory"></div>
+          </article>
+
+          <!-- ============================================================
+               Exercise 1: Story elements (multiple choice)
+               ============================================================ -->
+
+          <article class="exercise-card" id="elementsExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Exercise 1 &middot; Story Elements</h3>
+                <p>
+                  Multiple-choice questions about the characters, setting,
+                  plot, and other story elements. Feedback appears after
+                  every answer.
+                </p>
+              </div>
+
+              <div class="score-block" data-score>Ready</div>
+            </div>
+
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="Story elements exercise progress"
+              aria-valuemin="0"
+              aria-valuemax="10"
+              aria-valuenow="0"
+            >
+              <div class="progress-fill" data-progress></div>
+            </div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">
+                Scroll up to the story whenever you need to check a detail.
+                Enter your name, then choose Start.
+              </p>
+
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="elementsStudentName">Student name</label>
+                  <input
+                    id="elementsStudentName"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Enter the student&rsquo;s name"
+                    data-student-name
+                  >
+                </div>
+
+                <div class="menu-summary">
+                  <strong>10</strong>
+                  <span>Multiple-choice questions</span>
+                </div>
+              </div>
+
+              <div
+                class="menu-error"
+                data-name-error
+                hidden
+              >
+                Enter the student&rsquo;s name before starting.
+              </div>
+
+              <div class="button-row">
+                <button
+                  class="button button-primary"
+                  type="button"
+                  data-start
+                >
+                  Start Exercise 1
+                </button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Score: 0 / 0</strong>
+                  <span data-live-progress>Question 1 of 10</span>
+                </div>
+
+                <div class="mini-timer">&#8734; Untimed</div>
+
+                <button
+                  class="button button-danger"
+                  type="button"
+                  data-end
+                >
+                  End Exercise
+                </button>
+              </div>
+
+              <div data-question-host></div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+
+          <!-- ============================================================
+               Exercise 2: Open-ended questions
+               ============================================================ -->
+
+          <article class="exercise-card" id="openExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Exercise 2 &middot; Open-ended Questions</h3>
+                <p>
+                  Type a complete answer for each question. This exercise is
+                  untimed and will be reviewed by the teacher.
+                </p>
+              </div>
+
+              <div class="score-block" data-score>Ready</div>
+            </div>
+
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="Open-ended exercise progress"
+              aria-valuemin="0"
+              aria-valuemax="7"
+              aria-valuenow="0"
+            >
+              <div class="progress-fill" data-progress></div>
+            </div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">
+                Enter your name, then begin. You may move backward and
+                forward and change any answer before submitting.
+              </p>
+
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="openStudentName">Student name</label>
+                  <input
+                    id="openStudentName"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Enter the student&rsquo;s name"
+                    data-student-name
+                  >
+                </div>
+
+                <div class="menu-summary">
+                  <strong>7</strong>
+                  <span>Typed open-ended questions</span>
+                </div>
+              </div>
+
+              <div
+                class="menu-error"
+                data-name-error
+                hidden
+              >
+                Enter the student&rsquo;s name before starting.
+              </div>
+
+              <div class="button-row">
+                <button
+                  class="button button-primary"
+                  type="button"
+                  data-start
+                >
+                  Start Exercise 2
+                </button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-status>Answered: 0 / 7</strong>
+                  <span data-live-progress>Question 1 of 7</span>
+                </div>
+
+                <div class="mini-timer">&#8734; Untimed</div>
+
+                <div
+                  style="
+                    min-width: 130px;
+                    font-weight: 800;
+                    text-align: right;
+                  "
+                  data-student-display
+                ></div>
+              </div>
+
+              <div
+                class="question-navigation"
+                data-question-navigation
+                aria-label="Open-ended question navigation"
+              ></div>
+
+              <div class="question-layout">
+                <section class="question-card">
+                  <div class="question-meta" data-question-meta></div>
+                  <div class="question-text" data-question-text></div>
+
+                  <label
+                    class="sr-only"
+                    for="openAnswer"
+                  >
+                    Type your answer
+                  </label>
+
+                  <textarea
+                    class="long-answer"
+                    id="openAnswer"
+                    data-answer-input
+                    placeholder="Type a complete answer..."
+                  ></textarea>
+
+                  <div class="answer-note">
+                    Your answer is saved automatically when you type.
+                  </div>
+
+                  <div
+                    class="unanswered-note"
+                    data-unanswered-note
+                    hidden
+                  ></div>
+
+                  <div class="button-row">
+                    <button
+                      class="button button-secondary"
+                      type="button"
+                      data-previous
+                    >
+                      Previous
+                    </button>
+
+                    <button
+                      class="button button-positive"
+                      type="button"
+                      data-next
+                    >
+                      Next
+                    </button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-button" href="#top" aria-label="Back to top">&uarr;</a>
+  </div>
+
+  <!-- Keep this helper file beside the HTML file. -->
+  <script src="../email-results.js"></script>
+
+  <script>
+    /* ======================================================================
+       1. Shared worksheet settings
+       ====================================================================== */
+
+    const WEB3FORMS_ACCESS_KEY =
+      "17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
+
+    const WORKSHEET_TITLE =
+      "August 22 · Reading Comprehension";
+
+    const STORY_TITLE = "One Tent, Lots of Stuff";
+
+    const READING_STORY = [
+      { number: 1, html: "&ldquo;Lantern?&rdquo;" },
+      { number: 2, html: "&ldquo;Got it.&rdquo;" },
+      { number: 3, html: "&ldquo;Sleeping bags?&rdquo;" },
+      { number: 4, html: "&ldquo;Got it&mdash;both of them.&rdquo;" },
+      { number: 5, html: "&ldquo;Pillows?&rdquo;" },
+      { number: 6, html: "&ldquo;Two fat ones.&rdquo;" },
+      { number: 7, html: "&ldquo;Crackers?&rdquo;" },
+      { number: 8, html: "&ldquo;Three kinds.&rdquo;" },
+      { number: 9, html: "&ldquo;Three kinds? Great!&rdquo;" },
+      {
+        number: 10,
+        html: "Sam and Kent had made a list of all the things they needed for sleeping out in the tent. Now, they were sitting cross-legged in the tent, checking things off the list."
+      },
+      {
+        number: 11,
+        html: "&ldquo;Are you going to bring a bathrobe and slippers?&rdquo; Kent asked Sam."
+      },
+      {
+        number: 12,
+        html: "&ldquo;Oh, no! We&rsquo;re camping. Those are just for in the house,&rdquo; answered Sam, looking as if he knew all about camping."
+      },
+      {
+        number: 13,
+        html: "&ldquo;Oh, right,&rdquo; said Kent, who had never been camping before. He didn&rsquo;t think Sam had been camping before either. Still, it was Sam&rsquo;s dad&rsquo;s tent, so he must know."
+      },
+      {
+        number: 14,
+        html: "&ldquo;Oh, I almost forgot. Can you bring your baseball glove?&rdquo; Sam looked very serious."
+      },
+      {
+        number: 15,
+        html: "Kent couldn&rsquo;t figure this one out. &ldquo;My baseball glove? What do we need that for?&rdquo;"
+      },
+      {
+        number: 16,
+        html: "&ldquo;Well, we just might. You never know,&rdquo; said Sam with mystery and authority."
+      },
+      {
+        number: 17,
+        html: "&ldquo;Okay,&rdquo; shrugged Kent, &ldquo;I&rsquo;ll bring it when I come after supper. What time do you think you&rsquo;ll be able to come out?&rdquo;"
+      },
+      {
+        number: 18,
+        html: "Sam thought for a moment. &ldquo;We usually eat at 5:45. Then, I have to clear the table. I should be done by 6:30. What about you?&rdquo;"
+      },
+      {
+        number: 19,
+        html: "&ldquo;My dad doesn&rsquo;t get home until six o&rsquo;clock,&rdquo; said Kent, regretfully. &ldquo;Maybe if I offer to help Mom with supper, things will go quickly.&rdquo;"
+      },
+      {
+        number: 20,
+        html: "Sam shrugged. &ldquo;It&rsquo;s worth a try. Come out as soon as you can.&rdquo; Sam looked around the tent. &ldquo;Okay, I think everything&rsquo;s ready. I&rsquo;ll see you later.&rdquo;"
+      },
+      {
+        number: 21,
+        html: "&ldquo;See you later,&rdquo; said Kent, and the boys both ran home."
+      }
+    ];
+
+    /* Exercise 1 · Story elements (multiple choice) */
+    const ELEMENTS_MC = [
+      {
+        topic: "Characters",
+        q: "Who are the two main characters in the story?",
+        options: [
+          "Sam and Kent",
+          "Sam and his dad",
+          "Kent and his mom",
+          "Sam, Kent, and Sam's dad"
+        ],
+        answer: 0,
+        explanation: "The whole story follows Sam and Kent as they get ready to camp out."
+      },
+      {
+        topic: "Setting",
+        q: "Where does most of the story take place?",
+        options: [
+          "Inside the tent",
+          "In Sam's kitchen",
+          "At a campground in the mountains",
+          "On a baseball field"
+        ],
+        answer: 0,
+        explanation: "Paragraph 10 says the boys were sitting cross-legged in the tent, checking their list."
+      },
+      {
+        topic: "Setting",
+        q: "When does the story take place?",
+        options: [
+          "Before supper, earlier in the day",
+          "In the middle of the night",
+          "Very early in the morning",
+          "Right after breakfast"
+        ],
+        answer: 0,
+        explanation: "Kent says he will bring the glove \"when I come after supper,\" so the boys are planning ahead of supper."
+      },
+      {
+        topic: "Plot",
+        q: "What are the boys doing at the beginning of the story?",
+        options: [
+          "Checking supplies off a list they made",
+          "Playing a baseball game",
+          "Putting up the tent for the first time",
+          "Eating supper together"
+        ],
+        answer: 0,
+        explanation: "Paragraphs 1-10 are the boys reading their list out loud and checking things off."
+      },
+      {
+        topic: "Character traits",
+        q: "Which word best describes Sam in this story?",
+        options: [
+          "Confident",
+          "Shy",
+          "Angry",
+          "Careless"
+        ],
+        answer: 0,
+        explanation: "Sam answers \"looking as if he knew all about camping\" and speaks \"with mystery and authority.\""
+      },
+      {
+        topic: "Character traits",
+        q: "What does Kent do that shows he is helpful?",
+        options: [
+          "He offers to help his mom with supper",
+          "He puts up the tent by himself",
+          "He brings three kinds of crackers",
+          "He makes the list of supplies"
+        ],
+        answer: 0,
+        explanation: "In paragraph 19 Kent hopes supper will go faster if he offers to help his mom."
+      },
+      {
+        topic: "Problem",
+        q: "What problem does Kent have near the end of the story?",
+        options: [
+          "His dad does not get home until six o'clock, so he may be late",
+          "He cannot find his sleeping bag",
+          "His mom will not let him camp out",
+          "He forgot to bring the crackers"
+        ],
+        answer: 0,
+        explanation: "Kent says his dad gets home at six, which could delay supper and make him late to the tent."
+      },
+      {
+        topic: "Plot details",
+        q: "Why does Sam say the boys should NOT bring a bathrobe and slippers?",
+        options: [
+          "Those things are only for inside the house",
+          "There is no room left in the tent",
+          "The boys will not sleep at all that night",
+          "Kent's mom needs them for supper"
+        ],
+        answer: 0,
+        explanation: "Sam answers, \"Oh, no! We're camping. Those are just for in the house.\""
+      },
+      {
+        topic: "Story structure",
+        q: "How does the author mostly tell this story?",
+        options: [
+          "Through dialogue, the words the characters say",
+          "Through long descriptions of the tent",
+          "Through a letter Sam writes to Kent",
+          "Through a list of camping rules"
+        ],
+        answer: 0,
+        explanation: "Almost every paragraph is something Sam or Kent says out loud."
+      },
+      {
+        topic: "Ending",
+        q: "What happens at the end of the story?",
+        options: [
+          "The boys say \"See you later\" and run home",
+          "The boys fall asleep in the tent",
+          "It starts to rain and camping is canceled",
+          "Sam's dad takes down the tent"
+        ],
+        answer: 0,
+        explanation: "In paragraph 21 both boys say goodbye and run home before supper."
+      }
+    ];
+
+    /* Exercise 2 · Open-ended questions from the worksheet */
+    const OPEN_QUESTIONS = [
+      "One of the boys usually has the ideas. The other one seems to go along with those ideas. Which boy is the “leader”?",
+      "What details from the story helped you answer question 1?",
+      "Kent says he might help his mom with supper. What does that tell you about Kent?",
+      "Based on what you know about camping, how do you feel about all the stuff the boys have in their tent? List what you think they need and what they don’t need.",
+      "In some stories, the author tells you what is happening. In this story, the author uses mostly dialogue, what the characters say, to let you know what is going on. Choose one line of dialogue and write what it helps you know about the character.",
+      "Why does Kent think that Sam knows more about camping?",
+      "How do you think the boys feel about camping out together? Explain your answer."
+    ];
+
+    (() => {
+      "use strict";
+
+      /* ====================================================================
+         2. Utilities
+         ==================================================================== */
+
+      const $ = (selector, scope = document) =>
+        scope.querySelector(selector);
+
+      const $$ = (selector, scope = document) =>
+        [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const swapIndex =
+            Math.floor(Math.random() * (index + 1));
+
+          [copy[index], copy[swapIndex]] =
+            [copy[swapIndex], copy[index]];
+        }
+
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const safeSeconds = Math.max(0, totalSeconds);
+        const minutes = Math.floor(safeSeconds / 60);
+        const seconds = safeSeconds % 60;
+
+        return `${minutes}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      function elapsedSeconds(startedAt) {
+        if (!startedAt) {
+          return 0;
+        }
+
+        return Math.max(
+          0,
+          Math.round((Date.now() - startedAt) / 1000)
+        );
+      }
+
+      function buildStoryMarkup() {
+        return READING_STORY
+          .map((paragraph) => `
+            <div class="story-paragraph">
+              <div class="paragraph-number">
+                ${paragraph.number}
+              </div>
+              <div>${paragraph.html}</div>
+            </div>
+          `)
+          .join("");
+      }
+
+      function setupTheme() {
+        const button = $("#themeToggle");
+        const icon = $("#themeIcon");
+        const label = $("#themeLabel");
+
+        function syncThemeButton() {
+          const dark =
+            document.documentElement.dataset.theme === "dark";
+
+          button.setAttribute("aria-pressed", String(dark));
+          button.setAttribute(
+            "aria-label",
+            dark
+              ? "Switch to light mode"
+              : "Switch to dark mode"
+          );
+
+          icon.textContent = dark ? "☀" : "☾";
+          label.textContent = dark ? "Light" : "Dark";
+        }
+
+        syncThemeButton();
+
+        button.addEventListener("click", () => {
+          const nextTheme =
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark";
+
+          document.documentElement.dataset.theme = nextTheme;
+
+          try {
+            localStorage.setItem(
+              "august22-reading-theme",
+              nextTheme
+            );
+          } catch (error) {
+            // The worksheet remains functional without localStorage.
+          }
+
+          syncThemeButton();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$("[data-collapse]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const target =
+              document.getElementById(button.dataset.collapse);
+
+            const collapse = !target.hidden;
+
+            target.hidden = collapse;
+            button.textContent =
+              collapse ? "Expand" : "Collapse";
+
+            button.setAttribute(
+              "aria-expanded",
+              String(!collapse)
+            );
+          });
+        });
+      }
+
+      async function sendResultEmail({
+        subject,
+        studentName,
+        resultsText,
+        metadata,
+        statusElement,
+        retry
+      }) {
+        statusElement.hidden = false;
+        statusElement.className = "email-status sending";
+        statusElement.innerHTML =
+          "<strong>Sending results…</strong>" +
+          "The exercise report is being submitted automatically.";
+
+        try {
+          if (
+            !window.EmailResults ||
+            typeof window.EmailResults.send !== "function"
+          ) {
+            throw new Error(
+              "email-results.js could not be loaded."
+            );
+          }
+
+          await window.EmailResults.send({
+            accessKey: WEB3FORMS_ACCESS_KEY,
+            subject,
+            studentLabel: studentName,
+            worksheetTitle: WORKSHEET_TITLE,
+            resultsText,
+            metadata
+          });
+
+          statusElement.className = "email-status sent";
+          statusElement.innerHTML =
+            "<strong>✓ Results sent</strong>" +
+            "The exercise report was submitted successfully.";
+        } catch (error) {
+          statusElement.className = "email-status failed";
+          statusElement.innerHTML = `
+            <strong>
+              Results could not be sent automatically.
+            </strong>
+            ${escapeHtml(
+              error.message || "Unknown submission error."
+            )}
+            <div class="button-row">
+              <button
+                class="button button-primary"
+                type="button"
+                data-retry-email
+              >
+                Retry Sending Results
+              </button>
+            </div>
+          `;
+
+          $("[data-retry-email]", statusElement)
+            .addEventListener("click", retry);
+        }
+      }
+
+      /* ====================================================================
+         3. Exercise 1 · Story elements (multiple choice)
+         ==================================================================== */
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          const answerText =
+            question.options[question.answer];
+
+          return {
+            ...question,
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function buildTopicBreakdown(responses) {
+        const topics = new Map();
+
+        responses.forEach((response) => {
+          if (!topics.has(response.topic)) {
+            topics.set(response.topic, {
+              correct: 0,
+              total: 0
+            });
+          }
+
+          const result = topics.get(response.topic);
+          result.total += 1;
+
+          if (response.correct) {
+            result.correct += 1;
+          }
+        });
+
+        return [...topics.entries()]
+          .map(([topic, result]) => `
+            <div class="topic-row">
+              <span>${escapeHtml(topic)}</span>
+              <span>
+                ${result.correct}/${result.total}
+              </span>
+            </div>
+          `)
+          .join("");
+      }
+
+      function buildIncorrectReview(responses) {
+        const missed =
+          responses.filter((response) => !response.correct);
+
+        if (missed.length === 0) {
+          return `
+            <article class="review-card">
+              <strong>No incorrect answers to review.</strong>
+              <p>
+                Every attempted question was answered correctly.
+              </p>
+            </article>
+          `;
+        }
+
+        return missed
+          .map((response, index) => `
+            <article class="review-card">
+              <h5>
+                ${index + 1}.
+                ${escapeHtml(response.question)}
+              </h5>
+
+              <p>
+                <strong>Your answer:</strong>
+                ${escapeHtml(
+                  response.userAnswer || "No answer"
+                )}
+              </p>
+
+              <p>
+                <strong>Correct answer:</strong>
+                ${escapeHtml(response.correctAnswer)}
+              </p>
+
+              <p>
+                <strong>Why:</strong>
+                ${escapeHtml(response.explanation)}
+              </p>
+            </article>
+          `)
+          .join("");
+      }
+
+      function setupElementsExercise() {
+        const card = $("#elementsExercise");
+
+        const elements = {
+          menu: $("[data-menu]", card),
+          studentName: $("[data-student-name]", card),
+          nameError: $("[data-name-error]", card),
+          start: $("[data-start]", card),
+          live: $("[data-live]", card),
+          finish: $("[data-finish]", card),
+          score: $("[data-score]", card),
+          progress: $("[data-progress]", card),
+          progressTrack: $(".progress-track", card),
+          liveScore: $("[data-live-score]", card),
+          liveProgress: $("[data-live-progress]", card),
+          end: $("[data-end]", card),
+          host: $("[data-question-host]", card)
+        };
+
+        const state = {
+          studentName: "",
+          questions: [],
+          currentIndex: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false,
+          startedAt: 0
+        };
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total =
+            state.questions.length || ELEMENTS_MC.length;
+
+          if (state.active) {
+            elements.score.textContent =
+              `Score: ${state.score} / ${answered}`;
+          }
+
+          elements.liveScore.textContent =
+            `Score: ${state.score} / ${answered}`;
+
+          elements.liveProgress.textContent =
+            `Question ` +
+            `${Math.min(state.currentIndex + 1, total)} ` +
+            `of ${total}`;
+
+          elements.progress.style.width =
+            `${(answered / total) * 100}%`;
+
+          elements.progressTrack.setAttribute(
+            "aria-valuenow",
+            String(answered)
+          );
+        }
+
+        function startExercise() {
+          const studentName =
+            elements.studentName.value.trim();
+
+          if (!studentName) {
+            elements.nameError.hidden = false;
+            elements.studentName.focus();
+            return;
+          }
+
+          state.studentName = studentName;
+          state.questions =
+            prepareMultipleChoice(ELEMENTS_MC);
+          state.currentIndex = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+          state.startedAt = Date.now();
+
+          elements.nameError.hidden = true;
+          elements.menu.hidden = true;
+          elements.finish.hidden = true;
+          elements.live.hidden = false;
+          elements.score.textContent = "In progress";
+
+          updateProgress();
+          renderQuestion();
+
+          elements.live.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+
+          const question =
+            state.questions[state.currentIndex];
+
+          elements.host.innerHTML = `
+            <div class="question-layout">
+              <section class="question-card">
+                <div class="question-meta">
+                  Story elements
+                  &middot; ${escapeHtml(question.topic)}
+                </div>
+
+                <div class="question-text">
+                  ${escapeHtml(question.q)}
+                </div>
+
+                <div data-answer-area></div>
+
+                <div
+                  class="feedback"
+                  data-feedback
+                  hidden
+                  aria-live="polite"
+                ></div>
+
+                <div class="button-row">
+                  <button
+                    class="button button-positive"
+                    type="button"
+                    data-next
+                    hidden
+                  >
+                    Next Question
+                  </button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea =
+            $("[data-answer-area]", elements.host);
+
+          $("[data-next]", elements.host)
+            .addEventListener("click", advance);
+
+          const optionList =
+            document.createElement("div");
+
+          optionList.className = "option-list";
+
+          question.shuffledOptions.forEach((option) => {
+            const button =
+              document.createElement("button");
+
+            button.type = "button";
+            button.className = "option-button";
+            button.textContent = option;
+
+            button.addEventListener("click", () => {
+              gradeQuestion(question, option, button);
+            });
+
+            optionList.appendChild(button);
+          });
+
+          answerArea.appendChild(optionList);
+
+          updateProgress();
+        }
+
+        function showFeedback({
+          correct,
+          correctAnswer,
+          explanation
+        }) {
+          const feedback =
+            $("[data-feedback]", elements.host);
+
+          feedback.hidden = false;
+          feedback.className =
+            `feedback ${correct ? "correct" : "incorrect"}`;
+
+          feedback.innerHTML = correct
+            ? `
+              ✓ <strong>Correct.</strong><br>
+              ${escapeHtml(explanation)}
+            `
+            : `
+              ✕ <strong>Incorrect.</strong><br>
+              <strong>Correct answer:</strong>
+              ${escapeHtml(correctAnswer)}<br>
+              <strong>Why:</strong>
+              ${escapeHtml(explanation)}
+            `;
+        }
+
+        function revealNextButton() {
+          const nextButton =
+            $("[data-next]", elements.host);
+
+          nextButton.hidden = false;
+
+          nextButton.textContent =
+            state.currentIndex === state.questions.length - 1
+              ? "Finish Exercise"
+              : "Next Question";
+
+          nextButton.focus();
+        }
+
+        function gradeQuestion(
+          question,
+          selectedOption,
+          selectedButton
+        ) {
+          if (state.answered || !state.active) {
+            return;
+          }
+
+          state.answered = true;
+
+          const correct =
+            selectedOption === question.answerText;
+
+          if (correct) {
+            state.score += 1;
+          }
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: selectedOption,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$(".option-button", elements.host)
+            .forEach((button) => {
+              button.disabled = true;
+
+              if (
+                button.textContent === question.answerText
+              ) {
+                button.classList.add("correct-choice");
+              }
+            });
+
+          if (!correct) {
+            selectedButton.classList.add("wrong-choice");
+          }
+
+          showFeedback({
+            correct,
+            correctAnswer: question.answerText,
+            explanation: question.explanation
+          });
+
+          revealNextButton();
+          updateProgress();
+        }
+
+        function advance() {
+          if (!state.answered) {
+            return;
+          }
+
+          if (
+            state.currentIndex >=
+            state.questions.length - 1
+          ) {
+            finishExercise("Completed all questions");
+            return;
+          }
+
+          state.currentIndex += 1;
+          renderQuestion();
+
+          $(".question-card", elements.host)
+            .scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+        }
+
+        function buildEmailText({ reason, duration }) {
+          const lines = [
+            "Exercise: Story Elements (multiple choice)",
+            `Story: ${STORY_TITLE}`,
+            `Completion reason: ${reason}`,
+            `Score: ${state.score}/${state.responses.length}`,
+            `Questions attempted: ` +
+              `${state.responses.length}/${state.questions.length}`,
+            `Time used: ${formatTime(duration)}`,
+            "",
+            "QUESTION RESULTS"
+          ];
+
+          state.responses.forEach((response, index) => {
+            lines.push(
+              `Q${index + 1} · ${response.topic}`
+            );
+
+            lines.push(response.question);
+            lines.push(
+              `Student answer: ${response.userAnswer}`
+            );
+            lines.push(
+              `Correct answer: ${response.correctAnswer}`
+            );
+            lines.push(
+              `Result: ` +
+              `${response.correct
+                ? "Correct"
+                : "Incorrect"}`
+            );
+            lines.push("");
+          });
+
+          return lines.join("\n");
+        }
+
+        function finishExercise(reason) {
+          if (!state.active) {
+            return;
+          }
+
+          state.active = false;
+
+          elements.live.hidden = true;
+          elements.finish.hidden = false;
+
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          const duration =
+            elapsedSeconds(state.startedAt);
+
+          const accuracy =
+            answered > 0
+              ? Math.round(
+                  (state.score / answered) * 100
+                )
+              : 0;
+
+          const unattempted = total - answered;
+
+          const topicRows =
+            buildTopicBreakdown(state.responses);
+
+          elements.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>Story Elements Summary</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric">
+                  <strong>
+                    ${state.score}/${answered}
+                  </strong>
+                  <span>Answered score</span>
+                </div>
+
+                <div class="metric">
+                  <strong>${accuracy}%</strong>
+                  <span>Accuracy</span>
+                </div>
+
+                <div class="metric">
+                  <strong>${unattempted}</strong>
+                  <span>Not attempted</span>
+                </div>
+
+                <div class="metric">
+                  <strong>${formatTime(duration)}</strong>
+                  <span>Time used</span>
+                </div>
+              </div>
+
+              ${
+                topicRows
+                  ? `
+                    <h5
+                      style="
+                        font-size: 1.25rem;
+                        line-height: 1.2;
+                        margin: 24px 0 10px;
+                      "
+                    >
+                      Story-element Breakdown
+                    </h5>
+
+                    <div class="topic-breakdown">
+                      ${topicRows}
+                    </div>
+                  `
+                  : ""
+              }
+
+              <h5
+                style="
+                  font-size: 1.25rem;
+                  line-height: 1.2;
+                  margin: 28px 0 10px;
+                "
+              >
+                Incorrect-answer Review
+              </h5>
+
+              ${buildIncorrectReview(state.responses)}
+
+              <div
+                class="email-status sending"
+                data-email-status
+                aria-live="polite"
+              >
+                <strong>Sending results…</strong>
+                The exercise report is being submitted automatically.
+              </div>
+
+              <div class="button-row">
+                <button
+                  class="button button-warning"
+                  type="button"
+                  data-retry
+                >
+                  Try Again
+                </button>
+
+                <button
+                  class="button button-secondary"
+                  type="button"
+                  data-back-menu
+                >
+                  Back to Menu
+                </button>
+              </div>
+            </div>
+          `;
+
+          elements.score.textContent =
+            answered
+              ? `Final: ${state.score} / ${answered}`
+              : "No answers";
+
+          elements.progress.style.width =
+            total
+              ? `${(answered / total) * 100}%`
+              : "0%";
+
+          elements.progressTrack.setAttribute(
+            "aria-valuenow",
+            String(answered)
+          );
+
+          const statusElement =
+            $("[data-email-status]", elements.finish);
+
+          const send = () => {
+            sendResultEmail({
+              subject:
+                `${state.studentName} · Story Elements Results · ` +
+                `${state.score}/${answered}`,
+              studentName: state.studentName,
+              resultsText: buildEmailText({
+                reason,
+                duration
+              }),
+              metadata: {
+                "Exercise": "Story Elements (multiple choice)",
+                "Story": STORY_TITLE,
+                "Score": `${state.score}/${answered}`,
+                "Accuracy": `${accuracy}%`,
+                "Questions attempted":
+                  `${answered}/${total}`,
+                "Time used": formatTime(duration),
+                "Completion reason": reason,
+                "Completed at":
+                  new Date().toLocaleString()
+              },
+              statusElement,
+              retry: send
+            });
+          };
+
+          send();
+
+          $("[data-retry]", elements.finish)
+            .addEventListener("click", startExercise);
+
+          $("[data-back-menu]", elements.finish)
+            .addEventListener("click", () => {
+              elements.finish.hidden = true;
+              elements.menu.hidden = false;
+              elements.score.textContent = "Ready";
+              elements.progress.style.width = "0%";
+
+              elements.progressTrack.setAttribute(
+                "aria-valuenow",
+                "0"
+              );
+
+              elements.menu.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+              });
+            });
+
+          elements.finish.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        elements.start.addEventListener(
+          "click",
+          startExercise
+        );
+
+        elements.end.addEventListener("click", () => {
+          finishExercise("Exercise ended early");
+        });
+      }
+
+      /* ====================================================================
+         4. Exercise 2 · Open-ended questions
+         ==================================================================== */
+
+      function setupOpenExercise() {
+        const card = $("#openExercise");
+
+        const elements = {
+          menu: $("[data-menu]", card),
+          studentName: $("[data-student-name]", card),
+          nameError: $("[data-name-error]", card),
+          start: $("[data-start]", card),
+          live: $("[data-live]", card),
+          finish: $("[data-finish]", card),
+          score: $("[data-score]", card),
+          progress: $("[data-progress]", card),
+          progressTrack: $(".progress-track", card),
+          liveStatus: $("[data-live-status]", card),
+          liveProgress: $("[data-live-progress]", card),
+          studentDisplay: $("[data-student-display]", card),
+          navigation: $("[data-question-navigation]", card),
+          questionMeta: $("[data-question-meta]", card),
+          questionText: $("[data-question-text]", card),
+          answerInput: $("[data-answer-input]", card),
+          unansweredNote: $("[data-unanswered-note]", card),
+          previous: $("[data-previous]", card),
+          next: $("[data-next]", card)
+        };
+
+        const state = {
+          studentName: "",
+          currentIndex: 0,
+          answers: new Map(),
+          active: false,
+          startedAt: 0
+        };
+
+        function updateProgress() {
+          const answered =
+            [...state.answers.values()]
+              .filter((answer) => answer.trim()).length;
+
+          elements.liveStatus.textContent =
+            `Answered: ${answered} / ${OPEN_QUESTIONS.length}`;
+
+          elements.liveProgress.textContent =
+            `Question ${state.currentIndex + 1} ` +
+            `of ${OPEN_QUESTIONS.length}`;
+
+          elements.progress.style.width =
+            `${(answered / OPEN_QUESTIONS.length) * 100}%`;
+
+          elements.progressTrack.setAttribute(
+            "aria-valuenow",
+            String(answered)
+          );
+
+          updateQuestionNavigation();
+        }
+
+        function buildQuestionNavigation() {
+          elements.navigation.innerHTML = "";
+
+          OPEN_QUESTIONS.forEach((question, index) => {
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.className = "question-jump";
+            button.textContent = String(index + 1);
+            button.dataset.questionIndex = String(index);
+
+            button.setAttribute(
+              "aria-label",
+              `Go to question ${index + 1}`
+            );
+
+            button.addEventListener("click", () => {
+              saveCurrentAnswer();
+              state.currentIndex = index;
+              renderQuestion();
+            });
+
+            elements.navigation.appendChild(button);
+          });
+        }
+
+        function updateQuestionNavigation() {
+          $$("[data-question-index]", elements.navigation)
+            .forEach((button) => {
+              const index =
+                Number(button.dataset.questionIndex);
+
+              const answer =
+                state.answers.get(index) || "";
+
+              button.classList.toggle(
+                "current",
+                index === state.currentIndex
+              );
+
+              button.classList.toggle(
+                "answered",
+                Boolean(answer.trim())
+              );
+            });
+        }
+
+        function saveCurrentAnswer() {
+          state.answers.set(
+            state.currentIndex,
+            elements.answerInput.value
+          );
+
+          updateProgress();
+        }
+
+        function renderQuestion() {
+          const savedAnswer =
+            state.answers.get(state.currentIndex) || "";
+
+          elements.questionMeta.textContent =
+            `Open-ended response · Question ` +
+            `${state.currentIndex + 1} of ` +
+            `${OPEN_QUESTIONS.length}`;
+
+          elements.questionText.textContent =
+            OPEN_QUESTIONS[state.currentIndex];
+
+          elements.answerInput.value = savedAnswer;
+          elements.unansweredNote.hidden = true;
+
+          elements.previous.disabled =
+            state.currentIndex === 0;
+
+          elements.next.textContent =
+            state.currentIndex ===
+            OPEN_QUESTIONS.length - 1
+              ? "Submit Exercise"
+              : "Next";
+
+          updateProgress();
+          elements.answerInput.focus();
+        }
+
+        function startExercise() {
+          const studentName =
+            elements.studentName.value.trim();
+
+          if (!studentName) {
+            elements.nameError.hidden = false;
+            elements.studentName.focus();
+            return;
+          }
+
+          state.studentName = studentName;
+          state.currentIndex = 0;
+          state.answers = new Map();
+          state.active = true;
+          state.startedAt = Date.now();
+
+          elements.nameError.hidden = true;
+          elements.menu.hidden = true;
+          elements.finish.hidden = true;
+          elements.live.hidden = false;
+          elements.score.textContent = "In progress";
+          elements.studentDisplay.textContent = studentName;
+
+          buildQuestionNavigation();
+          renderQuestion();
+
+          elements.live.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        function goPrevious() {
+          saveCurrentAnswer();
+
+          if (state.currentIndex === 0) {
+            return;
+          }
+
+          state.currentIndex -= 1;
+          renderQuestion();
+        }
+
+        function goNextOrSubmit() {
+          saveCurrentAnswer();
+
+          if (
+            state.currentIndex <
+            OPEN_QUESTIONS.length - 1
+          ) {
+            state.currentIndex += 1;
+            renderQuestion();
+            return;
+          }
+
+          const unanswered = OPEN_QUESTIONS
+            .map((question, index) => ({
+              index,
+              answer:
+                (state.answers.get(index) || "").trim()
+            }))
+            .filter((item) => !item.answer);
+
+          if (unanswered.length > 0) {
+            elements.unansweredNote.hidden = false;
+            elements.unansweredNote.textContent =
+              `Complete the remaining ` +
+              `${unanswered.length} ` +
+              `${unanswered.length === 1
+                ? "question"
+                : "questions"} before submitting.`;
+
+            return;
+          }
+
+          finishExercise();
+        }
+
+        function buildEmailText() {
+          const lines = [
+            "Exercise: Open-ended Reading Questions",
+            `Story: ${STORY_TITLE}`,
+            "Automatic score: Not graded — teacher review required",
+            `Time used: ${formatTime(
+              elapsedSeconds(state.startedAt)
+            )}`,
+            "",
+            "STUDENT RESPONSES"
+          ];
+
+          OPEN_QUESTIONS.forEach((question, index) => {
+            lines.push(`Q${index + 1}. ${question}`);
+            lines.push(
+              `Student answer: ` +
+              `${state.answers.get(index) || "[Not answered]"}`
+            );
+            lines.push("");
+          });
+
+          return lines.join("\n");
+        }
+
+        function finishExercise() {
+          if (!state.active) {
+            return;
+          }
+
+          saveCurrentAnswer();
+          state.active = false;
+
+          const duration =
+            elapsedSeconds(state.startedAt);
+
+          elements.live.hidden = true;
+          elements.finish.hidden = false;
+          elements.score.textContent = "Submitted";
+          elements.progress.style.width = "100%";
+          elements.progressTrack.setAttribute(
+            "aria-valuenow",
+            String(OPEN_QUESTIONS.length)
+          );
+
+          const reviewMarkup = OPEN_QUESTIONS
+            .map((question, index) => `
+              <article class="review-card">
+                <h5>
+                  ${index + 1}.
+                  ${escapeHtml(question)}
+                </h5>
+                <p>
+                  ${escapeHtml(
+                    state.answers.get(index) || ""
+                  )}
+                </p>
+              </article>
+            `)
+            .join("");
+
+          elements.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>Open-ended Exercise Complete</h4>
+
+              <p>
+                The responses are ready for teacher review.
+              </p>
+
+              <div class="metric-grid">
+                <div class="metric">
+                  <strong>${OPEN_QUESTIONS.length}</strong>
+                  <span>Questions completed</span>
+                </div>
+
+                <div class="metric">
+                  <strong>Open-ended</strong>
+                  <span>Response type</span>
+                </div>
+
+                <div class="metric">
+                  <strong>Teacher</strong>
+                  <span>Review required</span>
+                </div>
+
+                <div class="metric">
+                  <strong>${formatTime(duration)}</strong>
+                  <span>Time used</span>
+                </div>
+              </div>
+
+              <h5
+                style="
+                  font-size: 1.25rem;
+                  line-height: 1.2;
+                  margin: 28px 0 10px;
+                "
+              >
+                Submitted Answers
+              </h5>
+
+              ${reviewMarkup}
+
+              <div
+                class="email-status sending"
+                data-email-status
+                aria-live="polite"
+              >
+                <strong>Sending results…</strong>
+                The exercise report is being submitted automatically.
+              </div>
+            </div>
+          `;
+
+          const statusElement =
+            $("[data-email-status]", elements.finish);
+
+          const send = () => {
+            sendResultEmail({
+              subject:
+                `${state.studentName} · Open-ended Reading Results`,
+              studentName: state.studentName,
+              resultsText: buildEmailText(),
+              metadata: {
+                "Exercise": "Open-ended Reading Questions",
+                "Story": STORY_TITLE,
+                "Questions completed":
+                  `${OPEN_QUESTIONS.length}/` +
+                  `${OPEN_QUESTIONS.length}`,
+                "Time used": formatTime(duration),
+                "Completed at":
+                  new Date().toLocaleString()
+              },
+              statusElement,
+              retry: send
+            });
+          };
+
+          send();
+
+          elements.finish.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        elements.answerInput.addEventListener(
+          "input",
+          saveCurrentAnswer
+        );
+
+        elements.start.addEventListener(
+          "click",
+          startExercise
+        );
+
+        elements.previous.addEventListener(
+          "click",
+          goPrevious
+        );
+
+        elements.next.addEventListener(
+          "click",
+          goNextOrSubmit
+        );
+      }
+
+      /* ====================================================================
+         5. Initialize
+         ==================================================================== */
+
+      setupTheme();
+      setupSectionCollapse();
+
+      $("#readingStory").innerHTML = buildStoryMarkup();
+
+      setupElementsExercise();
+      setupOpenExercise();
+    })();
+  </script>
+</body>
+</html>
