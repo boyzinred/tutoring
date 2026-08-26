@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Three timed reading comprehension exercises based on Rosa to the Rescue, a snowy morning, and Dr. Seuss"
+  >
+  <title>August 26 - Homework</title>
+
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("august26-reading-theme");
+        const preferredTheme =
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+
+        document.documentElement.dataset.theme =
+          savedTheme || preferredTheme;
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+    /* ======================================================================
+       1. Theme tokens
+       ====================================================================== */
+
+    :root {
+      color-scheme: light;
+
+      --foreground: #111827;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --secondary: #10B981;
+      --secondary-soft: #D1FAE5;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --muted: #F3F4F6;
+      --muted-strong: #E5E7EB;
+      --border: #D1D5DB;
+      --surface: #FFFFFF;
+      --blue-soft: #DBEAFE;
+      --text-muted: #4B5563;
+      --hero-text: #EFF6FF;
+
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: "Outfit", sans-serif;
+      --transition: all 180ms ease;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #052E2B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --muted: #111827;
+      --muted-strong: #1F2937;
+      --border: #4B5563;
+      --surface: #111827;
+      --blue-soft: #172554;
+      --text-muted: #CBD5E1;
+      --hero-text: #DBEAFE;
+    }
+
+    /* ======================================================================
+       2. Base
+       ====================================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--foreground);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* ======================================================================
+       3. Header, shell, and hero
+       ====================================================================== */
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--foreground);
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .question-jump {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+
+    .hero-copy p {
+      max-width: 65ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .hero-tag {
+      padding: 8px 11px;
+      color: #111827;
+      background: #FFFFFF;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ======================================================================
+       4. Reading section and quiz shell
+       ====================================================================== */
+
+    .reading-section {
+      padding: clamp(30px, 5vw, 56px);
+      background: var(--muted);
+    }
+
+    .section-kicker,
+    .story-label,
+    .question-meta {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .reading-section > h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      font-weight: 800;
+    }
+
+    .section-lead {
+      max-width: 76ch;
+      margin-bottom: 24px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .quiz-list {
+      display: grid;
+      gap: 26px;
+    }
+
+    .quiz-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 18px;
+    }
+
+    .quiz-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    html[data-theme="dark"] .quiz-head {
+      background: #030712;
+    }
+
+    .quiz-head-copy {
+      padding: 28px;
+    }
+
+    .quiz-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .quiz-head p {
+      max-width: 74ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 180px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #111827;
+      background: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--border);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 180ms ease;
+    }
+
+    /* ======================================================================
+       5. Start menu
+       ====================================================================== */
+
+    .quiz-menu {
+      padding: clamp(28px, 5vw, 46px);
+      text-align: center;
+    }
+
+    .quiz-info {
+      max-width: 620px;
+      margin: 0 auto 22px;
+      padding: 22px;
+      color: var(--foreground);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .quiz-info strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--primary);
+      font-size: 1.35rem;
+    }
+
+    .name-field {
+      max-width: 620px;
+      margin: 0 auto 18px;
+      text-align: left;
+    }
+
+    .name-field label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .name-field input {
+      width: 100%;
+      min-height: 54px;
+      padding: 0 16px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .name-field input:focus {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .name-warning {
+      max-width: 620px;
+      margin: 0 auto 18px;
+      padding: 12px 14px;
+      color: var(--foreground);
+      background: var(--accent-soft);
+      border-left: 6px solid var(--accent);
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+    }
+
+    /* ======================================================================
+       6. Buttons
+       ====================================================================== */
+
+    .btn {
+      min-height: 54px;
+      padding: 0 20px;
+      border: 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.03);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .btn-success {
+      color: #052E16;
+      background: var(--secondary);
+    }
+
+    .btn-secondary {
+      color: var(--foreground);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* ======================================================================
+       7. Live quiz
+       ====================================================================== */
+
+    .quiz-stage {
+      padding: clamp(24px, 4vw, 40px);
+    }
+
+    .live-toolbar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: var(--radius-lg);
+    }
+
+    html[data-theme="dark"] .live-toolbar {
+      background: #030712;
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--secondary);
+      font-size: 1.05rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: 0.78rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 8px 12px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .question-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .question-jump {
+      min-width: 40px;
+      min-height: 40px;
+      padding: 0 10px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+    }
+
+    .question-jump:hover {
+      border-color: var(--primary);
+    }
+
+    .question-jump.current {
+      color: #FFFFFF;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .question-jump.answered:not(.current) {
+      color: #052E16;
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .story-card {
+      position: sticky;
+      top: 94px;
+      padding: 25px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 7px;
+      color: var(--primary);
+    }
+
+    .story-card h4 {
+      margin-bottom: 6px;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 800;
+    }
+
+    .story-subtitle {
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .story-text {
+      font-size: 1.02rem;
+      line-height: 1.78;
+    }
+
+    .story-text p {
+      margin: 0 0 1em;
+    }
+
+    .story-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-image {
+      width: 100%;
+      display: block;
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-card {
+      padding: 25px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 22px;
+      font-size: clamp(1.35rem, 2.7vw, 2rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 62px;
+      padding: 15px 17px;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 700;
+      line-height: 1.45;
+      transition: var(--transition);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .option-btn.selected-choice {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .answer-note {
+      margin-top: 16px;
+      padding: 14px;
+      color: var(--text-muted);
+      background: var(--blue-soft);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius-md);
+    }
+
+    .unanswered-note {
+      margin-top: 16px;
+      padding: 14px;
+      color: var(--foreground);
+      background: var(--accent-soft);
+      border-left: 6px solid var(--accent);
+      border-radius: var(--radius-md);
+    }
+
+    /* ======================================================================
+       8. Results
+       ====================================================================== */
+
+    .finish-panel {
+      padding: 28px;
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .finish-panel h4 {
+      margin-bottom: 12px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .metric span {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .review-box {
+      margin-top: 14px;
+      padding: 18px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-box h5 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      line-height: 1.35;
+    }
+
+    .review-box p {
+      margin: 4px 0;
+      color: var(--text-muted);
+    }
+
+    .email-status {
+      margin: 18px 0 0;
+      padding: 18px;
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .email-status.sending {
+      border-left: 8px solid var(--accent);
+    }
+
+    .email-status.sent {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .email-status.failed {
+      background: var(--danger-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .email-status strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ======================================================================
+       9. Accessibility and responsive layout
+       ====================================================================== */
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      width: 46px;
+      min-height: 46px;
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      background: #111827;
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary);
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .quiz-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card {
+        position: static;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .header-inner {
+        width: calc(100% - 28px);
+      }
+
+      .quiz-head {
+        grid-template-columns: 1fr;
+      }
+
+      .score-block {
+        min-width: 0;
+        min-height: 54px;
+      }
+
+      .live-toolbar {
+        position: static;
+        grid-template-columns: 1fr;
+      }
+
+      .mini-timer {
+        width: 100%;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">
+        Mitch - English Tutoring Resources
+      </a>
+
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button">
+          Theme
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 26 - Homework</h1>
+
+        <p>
+          Complete three reading comprehension exercises. Each exercise uses
+          one passage from the worksheet, has 4 questions, and has its own
+          10-minute timer.
+        </p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Reading comprehension</span>
+          <span class="hero-tag">3 exercises</span>
+          <span class="hero-tag">4 questions each</span>
+          <span class="hero-tag">10 minutes each</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="reading-section">
+        <div class="section-kicker">Three exercises</div>
+        <h2>Reading Comprehension</h2>
+
+        <p class="section-lead">
+          Start each exercise separately. You may move backward and forward,
+          change saved answers, and reread the passage while working.
+          Results are emailed automatically when each exercise ends.
+        </p>
+
+        <div class="quiz-list" id="quizList"></div>
+      </section>
+    </main>
+  </div>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+  <!-- Keep this helper beside the HTML file. -->
+  <script src="../email-results.js"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      /* ====================================================================
+         1. Worksheet settings and source data
+         ==================================================================== */
+
+      const WEB3FORMS_ACCESS_KEY =
+        "17d39e49-04e5-42bf-bfa0-5b7f9eba1090";
+
+      const WORKSHEET_TITLE =
+        "August 26 · Reading Comprehension Homework";
+
+      const QUIZZES = [
+  {
+    "id": "rosa-to-the-rescue",
+    "title": "Exercise 1 · Rosa to the Rescue",
+    "subtitle": "Think about what you would do if you were Rosa.",
+    "timeLimitSeconds": 600,
+    "passage": [
+      "One Saturday morning, Rosa opened the door. On the ground in front of her was a tiny baby bird.",
+      "Rosa bent down to look at it. The bird did not move. Then its beak opened.",
+      "“Mom! Dad!” Rosa called.",
+      "Her parents came to the door. The baby bird was standing now.",
+      "“It must have fallen from its nest,” Rosa’s father said. “I’ll call the wildlife center. They will tell us what to do. You and Mom should just watch the little guy.”",
+      "“We did the right thing,” said Dad when he returned. “It’s good that we didn’t take the bird into the house. We would have kept its parents from caring for it. Most likely, the parent birds are nearby. They are waiting for us to leave.”",
+      "Rosa, Mom, and Dad went into the house and peeked out the window. “Look! I bet that’s the mother bird,” whispered Rosa. A large bird was poking gently at the baby. A moment later, both birds flew up to a low tree branch.",
+      "“Yippee!” cried Rosa."
+    ],
+    "questions": [
+      {
+        "question": "Who is the passage about?",
+        "options": [
+          "a family with a pet bird",
+          "a family who cares about animals",
+          "a father who makes a phone call",
+          "a mother who looks out the window"
+        ],
+        "correct": "a family who cares about animals",
+        "explanation": "The whole family stops to help the baby bird and does what is best for it."
+      },
+      {
+        "question": "How does Rosa know the bird is alive?",
+        "options": [
+          "It opens its eyes.",
+          "It moves its head.",
+          "It moves its wing.",
+          "It opens its mouth."
+        ],
+        "correct": "It opens its mouth.",
+        "explanation": "The passage says the bird did not move, and then its beak opened."
+      },
+      {
+        "question": "At the end of the passage, Rosa is ______.",
+        "options": [
+          "sad",
+          "quiet",
+          "worried",
+          "happy"
+        ],
+        "correct": "happy",
+        "explanation": "Rosa cries “Yippee!” when the mother bird comes back for the baby."
+      },
+      {
+        "question": "Where does the passage take place?",
+        "options": [
+          "in a park",
+          "in an office",
+          "at Rosa’s home",
+          "at Rosa’s school"
+        ],
+        "correct": "at Rosa’s home",
+        "explanation": "Rosa opens the door of her house, and the family watches the bird from the window."
+      }
+    ]
+  },
+  {
+    "id": "snow-passage",
+    "title": "Exercise 2 · Day 2 Passage",
+    "subtitle": "Think about how you would feel if it snowed.",
+    "timeLimitSeconds": 600,
+    "passage": [
+      "“Wake up, everyone! It snowed last night,” Niko called. A smile spread across his face. Niko opened the front door. Icy air rushed into the warm room. The world outside was white and soft. The car in the driveway looked like a great big pillow. The pine trees were wearing big white snow hats. Everything sparkled.",
+      "Niko was putting on his jacket and boots when his brother ran in.",
+      "“Hooray for snow!” he yelled. “Where are my gloves?”",
+      "“Come back soon for breakfast,” the boys’ mother said.",
+      "There were pancakes on the table when the boys came back into the house. They dropped their jackets by the door and sat down at the table.",
+      "“Thanks, Mom!” Niko said. “We found a new place to sled.”",
+      "“We are going to make a snowman!” Niko’s brother said. The boys’ mother laughed and said, “There’s nothing like snow.”"
+    ],
+    "questions": [
+      {
+        "question": "What is the best title for the passage?",
+        "options": [
+          "“Trees with Hats”",
+          "“The Big Breakfast”",
+          "“The Lost Gloves”",
+          "“Hooray for Snow!”"
+        ],
+        "correct": "“Hooray for Snow!”",
+        "explanation": "The whole passage is about how excited the boys are about the snow."
+      },
+      {
+        "question": "Which one is true about Niko?",
+        "options": [
+          "He is older than his brother.",
+          "He wants a new sled.",
+          "He likes snow.",
+          "He fights with his brother."
+        ],
+        "correct": "He likes snow.",
+        "explanation": "Niko smiles about the snow and hurries outside to sled and play."
+      },
+      {
+        "question": "Where does the passage take place?",
+        "options": [
+          "at Niko’s school",
+          "where Niko lives",
+          "at Niko’s friend’s house",
+          "where Niko plays soccer"
+        ],
+        "correct": "where Niko lives",
+        "explanation": "Niko wakes up at home, opens his own front door, and comes back inside for breakfast."
+      },
+      {
+        "question": "Which of these is make-believe?",
+        "options": [
+          "trees wearing hats",
+          "boys wearing boots",
+          "mothers making pancakes",
+          "children making snowmen"
+        ],
+        "correct": "trees wearing hats",
+        "explanation": "Trees cannot really wear hats. The writer only makes the snow on the pine trees sound like hats."
+      }
+    ]
+  },
+  {
+    "id": "dr-seuss",
+    "title": "Exercise 3 · Dr. Seuss",
+    "subtitle": "Ask yourself if you know any of the Dr. Seuss books named.",
+    "timeLimitSeconds": 600,
+    "passage": [
+      "“Big A, little a, what begins with A? Aunt Annie’s alligator. A…a…A” Have you ever seen these lines? They are from a book called Dr. Seuss’s ABC.",
+      "Who was Dr. Seuss? His real name was Theodor Seuss Geisel (GUY-zul). When Theodor went to college, he wrote for a magazine. He wrote funny things. His friends thought he was funny.",
+      "A few years later, he began to write books for children. He was very good at art. He drew funny pictures for his books. One book is The Cat in the Hat. Another one is Hop on Pop. Dr. Seuss’s books are different from other books.",
+      "Books by Dr. Seuss are silly. They are fun to read. Some of them show make-believe animals like the zizzer zazzer zuzz. Young children laugh when their parents and teachers read these books to them. Older children enjoy reading them alone.",
+      "What is your favorite Dr. Seuss book?"
+    ],
+    "questions": [
+      {
+        "question": "The passage tells about Dr. Seuss’s ______.",
+        "options": [
+          "children",
+          "house",
+          "parents",
+          "writing"
+        ],
+        "correct": "writing",
+        "explanation": "The passage is about the books Dr. Seuss wrote and how they are different from other books."
+      },
+      {
+        "question": "Which of these is not real?",
+        "options": [
+          "Dr. Seuss’s other name",
+          "teachers who read books",
+          "some of Dr. Seuss’s animals",
+          "a man who drew funny pictures"
+        ],
+        "correct": "some of Dr. Seuss’s animals",
+        "explanation": "Animals such as the zizzer zazzer zuzz are make-believe."
+      },
+      {
+        "question": "Dr. Seuss was a writer and ______.",
+        "options": [
+          "teacher",
+          "artist",
+          "reader",
+          "parent"
+        ],
+        "correct": "artist",
+        "explanation": "The passage says he was very good at art and drew the funny pictures for his books."
+      },
+      {
+        "question": "Which one is most like a Dr. Seuss title?",
+        "options": [
+          "“All About the Sun”",
+          "“The Roly-Poly Bazoly”",
+          "“How to Build a Treehouse”",
+          "“My Trip to Texas”"
+        ],
+        "correct": "“The Roly-Poly Bazoly”",
+        "explanation": "Dr. Seuss titles are silly and use made-up, rhyming words."
+      }
+    ]
+  }
+];
+
+      /* ====================================================================
+         2. General utilities
+         ==================================================================== */
+
+      const studentNameInputs = [];
+      let studentName = "";
+
+      function setStudentName(value) {
+        studentName = value;
+
+        studentNameInputs.forEach((input) => {
+          if (input.value !== value) {
+            input.value = value;
+          }
+        });
+      }
+
+      const $ = (selector, scope = document) =>
+        scope.querySelector(selector);
+
+      const $$ = (selector, scope = document) =>
+        [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+
+          [copy[index], copy[swapIndex]] =
+            [copy[swapIndex], copy[index]];
+        }
+
+        return copy;
+      }
+
+      function formatTime(totalSeconds) {
+        const safeSeconds = Math.max(0, totalSeconds);
+        const minutes = Math.floor(safeSeconds / 60);
+        const seconds = safeSeconds % 60;
+
+        return `${minutes}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      function passageToHtml(paragraphs) {
+        return paragraphs
+          .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+          .join("");
+      }
+
+      /* ====================================================================
+         3. Theme
+         ==================================================================== */
+
+      function setupTheme() {
+        const button = $("#themeToggle");
+
+        function updateLabel() {
+          const dark =
+            document.documentElement.dataset.theme === "dark";
+
+          button.textContent = dark ? "☀ Light" : "☾ Dark";
+        }
+
+        updateLabel();
+
+        button.addEventListener("click", () => {
+          const nextTheme =
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark";
+
+          document.documentElement.dataset.theme = nextTheme;
+
+          try {
+            localStorage.setItem(
+              "august26-reading-theme",
+              nextTheme
+            );
+          } catch (error) {
+            // The worksheet still works without localStorage.
+          }
+
+          updateLabel();
+        });
+      }
+
+      /* ====================================================================
+         4. Quiz card creation
+         ==================================================================== */
+
+      function createQuizCard(quiz) {
+        const article = document.createElement("article");
+        article.className = "quiz-card";
+        article.id = quiz.id;
+
+        article.innerHTML = `
+          <div class="quiz-head">
+            <div class="quiz-head-copy">
+              <h3>${escapeHtml(quiz.title)}</h3>
+              <p>${escapeHtml(quiz.subtitle)}</p>
+            </div>
+
+            <div class="score-block" data-score>Ready</div>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" data-progress></div>
+          </div>
+
+          <div class="quiz-menu" data-menu>
+            <div class="quiz-info">
+              <strong>
+                ${quiz.questions.length} questions ·
+                ${Math.round(quiz.timeLimitSeconds / 60)} minutes
+              </strong>
+              You have ${Math.round(quiz.timeLimitSeconds / 60)} minutes to
+              answer ${quiz.questions.length} questions.
+              The timer begins when you press Start Exercise.
+            </div>
+
+            <div class="name-field">
+              <label for="student-name-${quiz.id}">Your name</label>
+              <input
+                id="student-name-${quiz.id}"
+                type="text"
+                autocomplete="name"
+                placeholder="Type your name"
+                data-name
+              >
+            </div>
+
+            <div class="name-warning" data-name-warning hidden>
+              Please enter your name before starting.
+            </div>
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-start
+            >
+              Start Exercise
+            </button>
+          </div>
+
+          <div class="quiz-stage" data-live hidden>
+            <div class="live-toolbar">
+              <div class="live-status">
+                <strong data-live-status>
+                  Answered: 0 / ${quiz.questions.length}
+                </strong>
+                <span data-live-progress>
+                  Question 1 of ${quiz.questions.length}
+                </span>
+              </div>
+
+              <div class="mini-timer" data-timer>
+                ${formatTime(quiz.timeLimitSeconds)}
+              </div>
+
+              <button
+                class="btn btn-danger"
+                type="button"
+                data-end
+              >
+                Submit Early
+              </button>
+            </div>
+
+            <div
+              class="question-nav"
+              data-question-nav
+              aria-label="Question navigation"
+            ></div>
+
+            <div class="quiz-layout">
+              <aside class="story-card">
+                <div class="story-label">Reading selection</div>
+                <h4>${escapeHtml(quiz.title)}</h4>
+                <div class="story-subtitle">
+                  ${escapeHtml(quiz.subtitle)}
+                </div>
+
+                <div class="story-text">
+                  ${passageToHtml(quiz.passage)}
+                </div>
+
+                ${
+                  quiz.image
+                    ? `
+                      <img
+                        class="story-image"
+                        src="./${escapeHtml(quiz.image)}"
+                        alt="${escapeHtml(quiz.imageAlt || "")}"
+                      >
+                    `
+                    : ""
+                }
+              </aside>
+
+              <section class="question-card">
+                <div class="question-meta" data-question-meta></div>
+                <div class="question-text" data-question-text></div>
+                <div class="option-list" data-option-list></div>
+
+                <div
+                  class="answer-note"
+                  data-answer-note
+                  hidden
+                >
+                  Answer saved. You may change it before submitting.
+                </div>
+
+                <div
+                  class="unanswered-note"
+                  data-unanswered-note
+                  hidden
+                ></div>
+
+                <div class="button-row">
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    data-previous
+                  >
+                    Previous
+                  </button>
+
+                  <button
+                    class="btn btn-success"
+                    type="button"
+                    data-next
+                  >
+                    Next
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="quiz-stage" data-finish hidden></div>
+        `;
+
+        $("#quizList").appendChild(article);
+        initializeQuiz(quiz, article);
+      }
+
+      /* ====================================================================
+         5. Quiz engine
+         ==================================================================== */
+
+      function initializeQuiz(quiz, card) {
+        const elements = {
+          score: $("[data-score]", card),
+          progress: $("[data-progress]", card),
+          menu: $("[data-menu]", card),
+          start: $("[data-start]", card),
+          name: $("[data-name]", card),
+          nameWarning: $("[data-name-warning]", card),
+          live: $("[data-live]", card),
+          liveStatus: $("[data-live-status]", card),
+          liveProgress: $("[data-live-progress]", card),
+          timer: $("[data-timer]", card),
+          end: $("[data-end]", card),
+          questionNav: $("[data-question-nav]", card),
+          questionMeta: $("[data-question-meta]", card),
+          questionText: $("[data-question-text]", card),
+          optionList: $("[data-option-list]", card),
+          answerNote: $("[data-answer-note]", card),
+          unansweredNote: $("[data-unanswered-note]", card),
+          previous: $("[data-previous]", card),
+          next: $("[data-next]", card),
+          finish: $("[data-finish]", card)
+        };
+
+        const state = {
+          questions: [],
+          currentIndex: 0,
+          answers: new Map(),
+          active: false,
+          secondsRemaining: quiz.timeLimitSeconds,
+          startedAt: 0,
+          timerId: null
+        };
+
+        studentNameInputs.push(elements.name);
+        elements.name.value = studentName;
+
+        elements.name.addEventListener("input", () => {
+          setStudentName(elements.name.value);
+
+          if (elements.name.value.trim()) {
+            elements.nameWarning.hidden = true;
+          }
+        });
+
+        function stopTimer() {
+          if (state.timerId) {
+            window.clearInterval(state.timerId);
+          }
+
+          state.timerId = null;
+        }
+
+        function getElapsedSeconds() {
+          if (!state.startedAt) {
+            return 0;
+          }
+
+          const elapsed = Math.round(
+            (Date.now() - state.startedAt) / 1000
+          );
+
+          return Math.min(
+            quiz.timeLimitSeconds,
+            Math.max(0, elapsed)
+          );
+        }
+
+        function updateTimer() {
+          elements.timer.textContent =
+            formatTime(state.secondsRemaining);
+
+          elements.timer.classList.toggle(
+            "warning",
+            state.secondsRemaining <= 60
+          );
+        }
+
+        function updateProgress() {
+          const answeredCount = state.answers.size;
+          const total = state.questions.length;
+
+          elements.liveStatus.textContent =
+            `Answered: ${answeredCount} / ${total}`;
+
+          elements.liveProgress.textContent =
+            `Question ${state.currentIndex + 1} of ${total}`;
+
+          elements.progress.style.width =
+            `${(answeredCount / total) * 100}%`;
+
+          updateQuestionNavigator();
+        }
+
+        function updateQuestionNavigator() {
+          const buttons =
+            $$("[data-question-number]", elements.questionNav);
+
+          buttons.forEach((button) => {
+            const questionIndex =
+              Number(button.dataset.questionNumber);
+
+            button.classList.toggle(
+              "current",
+              questionIndex === state.currentIndex
+            );
+
+            button.classList.toggle(
+              "answered",
+              state.answers.has(questionIndex)
+            );
+          });
+        }
+
+        function buildQuestionNavigator() {
+          elements.questionNav.innerHTML = "";
+
+          state.questions.forEach((question, index) => {
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.className = "question-jump";
+            button.textContent = String(index + 1);
+            button.dataset.questionNumber = String(index);
+            button.setAttribute(
+              "aria-label",
+              `Go to question ${index + 1}`
+            );
+
+            button.addEventListener("click", () => {
+              state.currentIndex = index;
+              renderQuestion();
+            });
+
+            elements.questionNav.appendChild(button);
+          });
+        }
+
+        function startQuiz() {
+          setStudentName(elements.name.value);
+
+          if (!studentName.trim()) {
+            elements.nameWarning.hidden = false;
+            elements.name.focus();
+            return;
+          }
+
+          elements.nameWarning.hidden = true;
+          stopTimer();
+
+          state.questions = quiz.questions.map((question) => ({
+            ...question,
+            options: shuffle(question.options)
+          }));
+
+          state.currentIndex = 0;
+          state.answers = new Map();
+          state.active = true;
+          state.secondsRemaining = quiz.timeLimitSeconds;
+          state.startedAt = Date.now();
+
+          elements.menu.hidden = true;
+          elements.finish.hidden = true;
+          elements.live.hidden = false;
+          elements.score.textContent = "In progress";
+          elements.progress.style.width = "0%";
+
+          buildQuestionNavigator();
+          updateTimer();
+          renderQuestion();
+
+          state.timerId = window.setInterval(() => {
+            state.secondsRemaining -= 1;
+            updateTimer();
+
+            if (state.secondsRemaining <= 0) {
+              finishQuiz("Time expired");
+            }
+          }, 1000);
+
+          elements.live.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        function renderQuestion() {
+          const question =
+            state.questions[state.currentIndex];
+
+          const savedAnswer =
+            state.answers.get(state.currentIndex);
+
+          elements.questionMeta.textContent =
+            `Question ${state.currentIndex + 1} ` +
+            `of ${state.questions.length}`;
+
+          elements.questionText.textContent =
+            question.question;
+
+          elements.optionList.innerHTML = "";
+          elements.answerNote.hidden = !savedAnswer;
+          elements.unansweredNote.hidden = true;
+
+          question.options.forEach((option) => {
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.className = "option-btn";
+            button.textContent = option;
+
+            if (savedAnswer === option) {
+              button.classList.add("selected-choice");
+            }
+
+            button.addEventListener("click", () => {
+              saveAnswer(option);
+            });
+
+            elements.optionList.appendChild(button);
+          });
+
+          elements.previous.disabled =
+            state.currentIndex === 0;
+
+          const isLastQuestion =
+            state.currentIndex === state.questions.length - 1;
+
+          elements.next.textContent =
+            isLastQuestion ? "Submit Exercise" : "Next";
+
+          updateProgress();
+        }
+
+        function saveAnswer(option) {
+          if (!state.active) {
+            return;
+          }
+
+          state.answers.set(state.currentIndex, option);
+
+          $$(".option-btn", elements.optionList).forEach(
+            (button) => {
+              button.classList.toggle(
+                "selected-choice",
+                button.textContent === option
+              );
+            }
+          );
+
+          elements.answerNote.hidden = false;
+          elements.unansweredNote.hidden = true;
+
+          updateProgress();
+        }
+
+        function goPrevious() {
+          if (state.currentIndex === 0) {
+            return;
+          }
+
+          state.currentIndex -= 1;
+          renderQuestion();
+        }
+
+        function goNextOrSubmit() {
+          const isLastQuestion =
+            state.currentIndex === state.questions.length - 1;
+
+          if (!isLastQuestion) {
+            state.currentIndex += 1;
+            renderQuestion();
+            return;
+          }
+
+          const unanswered =
+            state.questions.length - state.answers.size;
+
+          if (unanswered > 0) {
+            elements.unansweredNote.hidden = false;
+            elements.unansweredNote.textContent =
+              `You still have ${unanswered} unanswered ` +
+              `${unanswered === 1 ? "question" : "questions"}. ` +
+              "Use the numbered buttons or Previous to review them.";
+            return;
+          }
+
+          finishQuiz("Completed all questions");
+        }
+
+        function gradeQuiz() {
+          return state.questions.map((question, index) => {
+            const studentAnswer =
+              state.answers.get(index) || "";
+
+            return {
+              ...question,
+              studentAnswer,
+              attempted: Boolean(studentAnswer),
+              correctResult:
+                studentAnswer === question.correct
+            };
+          });
+        }
+
+        function buildEmailText({
+          results,
+          reason,
+          elapsedSeconds
+        }) {
+          const score =
+            results.filter((result) => result.correctResult).length;
+
+          const attempted =
+            results.filter((result) => result.attempted).length;
+
+          const lines = [
+            `Student: ${studentName.trim() || "[No name given]"}`,
+            `Exercise: ${quiz.title}`,
+            `Completion reason: ${reason}`,
+            `Score: ${score}/${results.length}`,
+            `Attempted: ${attempted}/${results.length}`,
+            `Time used: ${formatTime(elapsedSeconds)}`,
+            "",
+            "QUESTION RESULTS"
+          ];
+
+          results.forEach((result, index) => {
+            lines.push(`Q${index + 1}. ${result.question}`);
+            lines.push(
+              `Student answer: ` +
+              `${result.studentAnswer || "[Not answered]"}`
+            );
+            lines.push(`Correct answer: ${result.correct}`);
+            lines.push(
+              `Result: ` +
+              `${result.correctResult ? "Correct" : "Incorrect"}`
+            );
+            lines.push("");
+          });
+
+          lines.push("READING PASSAGE");
+          lines.push(quiz.title);
+          lines.push(quiz.subtitle);
+          lines.push("");
+
+          quiz.passage.forEach((paragraph) => {
+            lines.push(paragraph);
+            lines.push("");
+          });
+
+          return lines.join("\n");
+        }
+
+        async function sendQuizResults({
+          results,
+          reason,
+          elapsedSeconds,
+          statusElement
+        }) {
+          const score =
+            results.filter((result) => result.correctResult).length;
+
+          const attempted =
+            results.filter((result) => result.attempted).length;
+
+          statusElement.hidden = false;
+          statusElement.className = "email-status sending";
+          statusElement.innerHTML =
+            `<strong>Sending ${escapeHtml(quiz.title)} results…</strong>` +
+            "The report is being submitted automatically.";
+
+          try {
+            if (
+              !window.EmailResults ||
+              typeof window.EmailResults.send !== "function"
+            ) {
+              throw new Error(
+                "email-results.js could not be loaded."
+              );
+            }
+
+            await window.EmailResults.send({
+              accessKey: WEB3FORMS_ACCESS_KEY,
+              subject:
+                `${quiz.title} results · ` +
+                `${studentName.trim() || "Unnamed student"} · ` +
+                `${score}/${results.length}`,
+              studentLabel: studentName.trim(),
+              worksheetTitle: WORKSHEET_TITLE,
+              resultsText: buildEmailText({
+                results,
+                reason,
+                elapsedSeconds
+              }),
+              metadata: {
+                "Student": studentName.trim() || "[No name given]",
+                "Exercise": quiz.title,
+                "Score": `${score}/${results.length}`,
+                "Attempted":
+                  `${attempted}/${results.length}`,
+                "Time used": formatTime(elapsedSeconds),
+                "Completion reason": reason,
+                "Completed at":
+                  new Date().toLocaleString()
+              }
+            });
+
+            statusElement.className = "email-status sent";
+            statusElement.innerHTML =
+              `<strong>✓ ${escapeHtml(quiz.title)} results sent</strong>` +
+              "This quiz report was submitted successfully.";
+          } catch (error) {
+            statusElement.className = "email-status failed";
+            statusElement.innerHTML = `
+              <strong>
+                ${escapeHtml(quiz.title)} results could not be sent.
+              </strong>
+              ${escapeHtml(
+                error.message || "Unknown submission error."
+              )}
+              <div class="button-row">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  data-retry-email
+                >
+                  Retry Sending Results
+                </button>
+              </div>
+            `;
+
+            $("[data-retry-email]", statusElement)
+              .addEventListener("click", () => {
+                sendQuizResults({
+                  results,
+                  reason,
+                  elapsedSeconds,
+                  statusElement
+                });
+              });
+          }
+        }
+
+        function finishQuiz(reason) {
+          if (!state.active) {
+            return;
+          }
+
+          stopTimer();
+          state.active = false;
+
+          const results = gradeQuiz();
+          const score =
+            results.filter((result) => result.correctResult).length;
+
+          const attempted =
+            results.filter((result) => result.attempted).length;
+
+          const elapsedSeconds = getElapsedSeconds();
+          const overallPercent =
+            Math.round((score / results.length) * 100);
+
+          elements.live.hidden = true;
+          elements.finish.hidden = false;
+          elements.score.textContent =
+            `Final: ${score} / ${results.length}`;
+          elements.progress.style.width = "100%";
+
+          const reviewMarkup = results
+            .map((result, index) => `
+              <div class="review-box">
+                <h5>
+                  ${index + 1}.
+                  ${escapeHtml(result.question)}
+                </h5>
+                <p>
+                  <strong>Your answer:</strong>
+                  ${escapeHtml(
+                    result.studentAnswer || "[Not answered]"
+                  )}
+                </p>
+                <p>
+                  <strong>Correct answer:</strong>
+                  ${escapeHtml(result.correct)}
+                </p>
+                <p>
+                  <strong>
+                    ${result.correctResult
+                      ? "✓ Correct"
+                      : "✕ Incorrect"}
+                  </strong>
+                  — ${escapeHtml(result.explanation)}
+                </p>
+              </div>
+            `)
+            .join("");
+
+          elements.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(quiz.title)} Complete</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric">
+                  <strong>${score}/${results.length}</strong>
+                  <span>Score</span>
+                </div>
+                <div class="metric">
+                  <strong>${overallPercent}%</strong>
+                  <span>Overall</span>
+                </div>
+                <div class="metric">
+                  <strong>${attempted}/${results.length}</strong>
+                  <span>Attempted</span>
+                </div>
+                <div class="metric">
+                  <strong>${formatTime(elapsedSeconds)}</strong>
+                  <span>Time used</span>
+                </div>
+              </div>
+
+              <h4
+                style="
+                  font-size: 1.25rem;
+                  line-height: 1.2;
+                  margin: 28px 0 10px;
+                "
+              >
+                Answer Review
+              </h4>
+
+              ${reviewMarkup}
+
+              <div
+                class="email-status sending"
+                data-email-status
+                aria-live="polite"
+              >
+                <strong>
+                  Sending ${escapeHtml(quiz.title)} results…
+                </strong>
+                The report is being submitted automatically.
+              </div>
+
+              <div class="button-row">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  data-retry-quiz
+                >
+                  Retry Exercise
+                </button>
+              </div>
+            </div>
+          `;
+
+          const emailStatus =
+            $("[data-email-status]", elements.finish);
+
+          sendQuizResults({
+            results,
+            reason,
+            elapsedSeconds,
+            statusElement: emailStatus
+          });
+
+          $("[data-retry-quiz]", elements.finish)
+            .addEventListener("click", startQuiz);
+
+          elements.finish.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+
+        elements.start.addEventListener("click", startQuiz);
+        elements.end.addEventListener("click", () => {
+          finishQuiz("Exercise submitted early");
+        });
+        elements.previous.addEventListener("click", goPrevious);
+        elements.next.addEventListener(
+          "click",
+          goNextOrSubmit
+        );
+      }
+
+      /* ====================================================================
+         6. Initialize page
+         ==================================================================== */
+
+      setupTheme();
+      QUIZZES.forEach(createQuizCard);
+    })();
+  </script>
+</body>
+</html>
