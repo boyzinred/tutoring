@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Four timed exercises for Tasya and Efla: three visualization reading passages and one past-grammar review.">
+  <title>August 20 - Homework</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('tasya-efla-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --background: #D35D4A;
+      --foreground: #68B9DE;
+      --primary: #11328D;
+      --primary-hover: #FFEB09;
+      --secondary: #1648D2;
+      --secondary-soft: #FFEB09;
+      --accent: #F0D7A8;
+      --accent-soft: #F0D7A8;
+      --muted: #B6EBA2;
+      --muted-strong: #99C588;
+      --blue-soft: #A4483B;
+      --border: #EACF86;
+      --subtle: #B3DA58;
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #B42318;
+      --danger-soft: #FADBD6;
+      --success: #1648D2;
+      --success-soft: #FFEB09;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success: #7E9DF1;
+      --success-soft: #423D0B;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+
+    .home-link, .theme-toggle, .btn, .collapse-btn, .toc-link, .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link, .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover, .theme-toggle:hover { background: var(--muted-strong); }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero { color: var(--hero-heading); background: var(--primary); }
+    .hero-copy { padding: clamp(48px, 7vw, 82px); }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover { background: var(--blue-soft); border-color: var(--primary); }
+
+    .section-card { scroll-margin-top: 20px; }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .section-kicker, .question-meta, .menu-field label, .story-label, .quiz-number {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker { margin-bottom: 12px; opacity: .85; }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover { color: #FFFFFF; background: #111827; }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .section-intro {
+      margin-bottom: 28px;
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .section-intro strong { color: var(--primary); }
+    .quiz-list { display: grid; gap: 28px; }
+
+    .exercise-card {
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      scroll-margin-top: 20px;
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy { padding: 26px; }
+    .quiz-number { margin-bottom: 9px; color: var(--accent); }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p { max-width: 72ch; margin: 0; color: #D1D5DB; }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track { height: 12px; background: var(--muted-strong); }
+    .progress-fill { width: 0; height: 100%; background: var(--secondary); transition: width 200ms ease; }
+
+    .exercise-menu, .live-stage, .finish-stage { padding: clamp(24px, 4vw, 38px); }
+    .menu-intro { max-width: 72ch; margin-bottom: 20px; color: var(--surface-text); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .6fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .menu-field, .fixed-info {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field { display: grid; gap: 7px; }
+    .menu-field label { color: var(--primary); }
+
+    .menu-field input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 14px;
+      color: var(--surface-text);
+      background: #FFFFFF;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    html[data-theme='dark'] .menu-field input { background: var(--muted-strong); }
+    .menu-field input:focus { border-color: var(--primary); }
+
+    .fixed-info { display: grid; place-content: center; }
+    .fixed-info strong { display: block; color: var(--primary); font-size: 1.45rem; }
+    .fixed-info span { font-size: .82rem; font-weight: 700; }
+    .name-error { margin-top: 10px; color: var(--danger); font-weight: 800; }
+
+    .menu-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: var(--accent-soft);
+      border-left: 8px solid var(--accent);
+      border-radius: var(--radius-md);
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) { transform: scale(1.04); }
+    .btn:disabled { cursor: not-allowed; opacity: .55; }
+    .btn-primary { color: #FFFFFF; background: var(--primary); }
+    .btn-primary:hover:not(:disabled) { color: #111827; background: var(--primary-hover); }
+    .btn-positive { color: #FFFFFF; background: var(--secondary); }
+    .btn-secondary { color: var(--surface-text); background: var(--muted-strong); }
+    .btn-warning { color: #111827; background: var(--accent); }
+    .btn-danger { color: #FFFFFF; background: var(--danger); }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong { display: block; color: var(--accent); font-size: 1.06rem; }
+    .live-status span { color: #D1D5DB; font-size: .8rem; }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning { color: #111827; background: var(--accent); }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single { grid-template-columns: 1fr; }
+
+    .story-card, .question-card, .metric, .review-box { border-radius: var(--radius-lg); }
+
+    .story-card {
+      position: sticky;
+      top: 16px;
+      padding: clamp(22px, 4vw, 30px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .story-label { margin-bottom: 8px; color: var(--primary); }
+    .story-card h4 { margin-bottom: 18px; font-size: clamp(1.65rem, 3vw, 2.45rem); font-weight: 800; }
+    .reading-prompt { margin-bottom: 16px; padding: 12px; background: var(--accent-soft); border-radius: var(--radius-md); font-weight: 700; }
+    .story-text { font-size: 1.02rem; line-height: 1.78; }
+    .story-text p { margin-bottom: 1em; }
+    .story-text p:last-child { margin-bottom: 0; }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+    }
+
+    .question-meta { margin-bottom: 12px; color: var(--primary); }
+    .question-text { margin: 0 0 24px; font-size: clamp(1.25rem, 2.5vw, 2rem); font-weight: 700; line-height: 1.2; }
+    .option-list { display: grid; gap: 10px; }
+
+    .option-btn {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) { color: #FFFFFF; background: var(--primary); }
+    .option-btn.correct-choice { color: #111827; background: var(--success-soft); border-color: var(--success); }
+    .option-btn.wrong-choice { color: var(--surface-text); background: var(--danger-soft); border-color: var(--danger); }
+    .option-btn:disabled { cursor: not-allowed; opacity: 1; }
+
+    .option-btn.selected-choice {
+      color: #FFFFFF;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .hint-row { margin-top: 18px; }
+
+    .hint-btn {
+      min-height: 48px;
+      padding: 0 16px;
+      color: #111827;
+      background: var(--accent);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+
+    .hint-btn:hover:not(:disabled) { transform: scale(1.04); }
+    .hint-btn:disabled { cursor: not-allowed; opacity: .6; }
+
+    .hint-box {
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--accent-soft);
+      border-left: 8px solid var(--accent);
+      border-radius: var(--radius-lg);
+      font-weight: 700;
+    }
+
+    .hint-box strong { display: block; margin-bottom: 4px; color: var(--primary); }
+
+    .hint-flag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      margin-left: 8px;
+      padding: 0 9px;
+      color: #111827;
+      background: var(--accent);
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .strategy-block { display: grid; gap: 16px; }
+
+    .strategy-sentence,
+    .strategy-prompt {
+      padding: 18px;
+      color: var(--surface-text);
+      background: var(--accent-soft);
+      border-left: 8px solid var(--accent);
+      border-radius: var(--radius-lg);
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .strategy-choice-label,
+    .open-response-label {
+      color: var(--primary);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .open-response {
+      width: 100%;
+      min-height: 130px;
+      padding: 14px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+      resize: vertical;
+    }
+
+    .open-response:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .ungraded-note,
+    .answer-warning {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .ungraded-note { background: var(--blue-soft); }
+
+    .answer-warning {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-left: 6px solid var(--danger);
+    }
+
+    .finish-panel { padding: 28px; color: var(--surface-text); background: var(--blue-soft); border-radius: var(--radius-lg); }
+    .finish-panel h4 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; }
+
+    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
+    .metric { padding: 16px; background: var(--background); }
+    .metric strong { display: block; color: var(--primary); font-size: 1.6rem; }
+    .metric span { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .email-status { margin-top: 18px; padding: 16px; border-radius: var(--radius-lg); }
+    .email-status strong { display: block; margin-bottom: 4px; }
+    .email-status.sending { background: var(--accent-soft); border-left: 8px solid var(--accent); }
+    .email-status.sent { background: var(--secondary-soft); border-left: 8px solid var(--secondary); }
+    .email-status.failed { background: var(--danger-soft); border-left: 8px solid var(--danger); }
+
+    .review-box { margin-top: 12px; padding: 18px; background: var(--background); }
+    .review-box h5 { margin-bottom: 8px; font-size: 1.05rem; line-height: 1.3; }
+    .review-box p { margin: 4px 0; }
+
+    .source-note { margin-top: 28px; padding: 20px; color: var(--surface-text); background: var(--background); border-radius: var(--radius-lg); font-size: .86rem; }
+
+    .floating-controls { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: flex; gap: 8px; }
+    .float-btn { width: 46px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; color: #FFFFFF; background: var(--inverse); border: 0; border-radius: 50%; text-decoration: none; font-size: 1rem; }
+    .float-btn:hover { background: var(--primary); }
+
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .story-card { position: static; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .menu-field { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner { width: calc(100% - 28px); min-height: 60px; }
+      .brand { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .theme-label { display: none; }
+      .page-shell { width: 100%; margin: 0; border-radius: 0; }
+      .hero-copy { padding: 48px 22px; }
+      h1 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+      .toc-panel { overflow: hidden; }
+      .toc-grid { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+      .toc-link { flex: 0 0 auto; white-space: nowrap; }
+      .section-header { align-items: flex-start; flex-direction: column; padding-inline: 22px; }
+      .collapse-btn { width: 100%; }
+      .section-body { padding-inline: 16px; }
+      .exercise-head { grid-template-columns: 1fr; }
+      .score-block { min-width: 0; min-height: 54px; }
+      .menu-grid, .metric-grid { grid-template-columns: 1fr; }
+      .menu-field { grid-column: auto; }
+      .live-toolbar { grid-template-columns: 1fr; }
+      .mini-timer { width: 100%; }
+      .button-row { display: grid; }
+      .btn { width: 100%; }
+      .floating-controls { right: 8px; bottom: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Tasya and Efla — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 20 - Homework</h1>
+        <p>Four separate ten-minute exercises: three visualization reading passages and one past-grammar review with hints.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to an exercise</h2>
+      <div class="toc-grid" id="tocGrid"></div>
+    </nav>
+
+    <main>
+      <section class="section-card" id="exercises">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Reading &amp; Grammar</div>
+            <h2>Four Timed Exercises</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="exerciseBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="exerciseBody">
+          <div class="section-intro">
+            <strong>How it works:</strong> Every exercise has its own menu that shows the time limit and the number of questions. Enter the student name, then start. No answers or scores appear until the exercise is finished, and the results are emailed automatically. The past-grammar exercise offers a hint for every question, and any hint that is opened is recorded in the report.
+          </div>
+          <div class="quiz-list" id="quizList"></div>
+
+          <p class="source-note">Reading passages and skill-practice questions: Evan-Moor Daily Reading Comprehension, EMC 3453, Week 2, Days 1–3. Past-grammar questions were written for this worksheet.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <button class="float-btn" id="floatingTheme" type="button" aria-label="Switch color theme">☾</button>
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+
+  <script src="../email-results.js"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const EXERCISES = [
+        {
+          id: 'dogs',
+          quiz: 'Exercise 1',
+          title: 'Ways Dogs Talk',
+          prompt: 'Visualize a dog doing each action described in the passage.',
+          text: [
+            'Dogs use their voices and bodies to talk to people. Watch a dog’s actions. You can learn to tell what it is trying to say.',
+            'A dog shows when it is happy to see you. It looks at you and wags its tail, or it runs around quickly in circles. Some happy dogs will jump up on you. A scared dog acts differently than a happy dog. A frightened dog puts its tail down between its legs. Some scared dogs growl. Others try to hide.',
+            'Dogs like being with people, so they try to get your attention. They tap you with a paw or place their head in your lap. They also might look at you and bark or howl.',
+            'Dogs show when they want to be left alone, too. A dog that is upset will bare its teeth, or it will growl. Both are signs to stay away!'
+          ],
+          strategy: {
+            instruction: 'Strategy practice — visualization',
+            prompt: 'Think back to the dog’s actions you pictured while you read. Describe a dog doing two of those actions.',
+            placeholder: 'Describe two actions you pictured.'
+          },
+          questions: [
+            {
+              q: 'What is the passage mainly about?',
+              options: ['the ways dogs use their voices to talk', 'the ways dogs tell people what they want', 'how dogs show they are scared', 'why dogs run in circles'],
+              answer: 1,
+              explanation: 'The whole passage explains how dogs use voices and bodies to tell people what they want.'
+            },
+            {
+              q: 'Based on the passage, which sentence is true?',
+              options: ['Happy dogs may jump up on you.', 'Sad dogs cry tears.', 'Scared dogs run in circles.', 'Upset dogs want a lot to eat.'],
+              answer: 0,
+              explanation: 'The passage says, “Some happy dogs will jump up on you.”'
+            },
+            {
+              q: 'What might cause a dog to put its head in your lap?',
+              options: ['It is scared of some noise.', 'It is happy that you are home.', 'It wants you to pay attention to it.', 'Its stomach is upset.'],
+              answer: 2,
+              explanation: 'Placing a head in your lap is listed as a way dogs try to get your attention.'
+            },
+            {
+              q: 'A happy dog wags its tail, but a scared dog ______.',
+              options: ['taps you with a paw', 'puts its tail down', 'lifts its tail', 'looks at you and howls'],
+              answer: 1,
+              explanation: 'The passage says a frightened dog puts its tail down between its legs.'
+            }
+          ]
+        },
+        {
+          id: 'camp',
+          quiz: 'Exercise 2',
+          title: 'No Camp for Me!',
+          prompt: 'Visualize Fabio’s first two days at camp.',
+          text: [
+            'Fabio was new at summer camp, and he did not like it at all. In fact, he hated every minute of it.',
+            'On his first day, he and the other campers swam in a lake. The bottom of the lake felt like muddy slime creeping between Fabio’s toes. He dashed out of the water when a fish nibbled at his knee.',
+            'Fabio’s second day started badly. The campers hiked through some woods. Dry twigs scratched Fabio’s legs, and black bugs bit his arms. The stinky smell of a skunk made his eyes water. Fabio walked behind the others. He wished he were at home. Then a boy named Cody started talking to Fabio. It turned out that they liked playing the same games. They made a deal to try out for the camp softball team. Fabio thought the next day at camp would be fun.'
+          ],
+          strategy: {
+            instruction: 'Strategy practice — visualization',
+            prompt: 'Look back at the story. Write four describing words that helped you picture Fabio at camp.',
+            placeholder: 'List four describing words from the story.'
+          },
+          questions: [
+            {
+              q: 'What is the main idea of the second paragraph?',
+              options: ['Fabio does not enjoy his first day at camp.', 'Fabio goes to camp.', 'Fabio is bitten by a fish.', 'Fabio’s second day at camp is good.'],
+              answer: 0,
+              explanation: 'The muddy lake bottom and the nibbling fish all show that the first day was unpleasant.'
+            },
+            {
+              q: 'What is the main idea of the third paragraph?',
+              options: ['Bugs bite Fabio.', 'Fabio makes a friend.', 'Fabio hates camp.', 'Fabio tries out for softball.'],
+              answer: 1,
+              explanation: 'The paragraph builds to Cody talking with Fabio and the two boys becoming friends.'
+            },
+            {
+              q: 'Which detail shows that camp was not fun for Fabio?',
+              options: ['Cody talks to Fabio.', 'Cody and Fabio like the same games.', 'Twigs scratch Fabio’s legs.', 'Fabio will try out for softball.'],
+              answer: 2,
+              explanation: 'The scratching twigs are an unpleasant detail; the other choices are good things.'
+            },
+            {
+              q: 'What happens because Cody talks to Fabio?',
+              options: ['Fabio wants to go home.', 'Fabio will be on Cody’s softball team.', 'Fabio no longer hates camp.', 'Fabio will not have to swim in the lake.'],
+              answer: 2,
+              explanation: 'After meeting Cody, Fabio thinks the next day at camp would be fun, so he no longer hates camp.'
+            }
+          ]
+        },
+        {
+          id: 'seabirds',
+          quiz: 'Exercise 3',
+          title: 'Puffins and Penguins',
+          prompt: 'Visualize what is the same and what is different about the two seabirds.',
+          text: [
+            'Penguins and puffins are two kinds of seabirds. They both are black and white. And they both have webbed feet. However, puffins are much smaller than penguins. Puffins are more colorful, too. Puffins have bright orange beaks, legs, and feet. Penguins have black beaks, and their feet are often black, too.',
+            'You won’t find puffins and penguins living together. Penguins live far south and puffins live far north. But they both depend on the sea for their food. Both birds have sharp spikes in their mouths. The spikes hold on to the fish they catch.',
+            'Although penguins and puffins are birds, penguins cannot fly. Their wings are too stiff. Penguins’ wings, however, work as flippers. They allow penguins to dive deep into the sea. Puffins use their wings for flying and for diving. But they cannot dive as deep as penguins.'
+          ],
+          strategy: {
+            instruction: 'Strategy practice — visualization',
+            prompt: 'Picture a puffin’s feet and a penguin’s feet. Describe the color and the look of each one.',
+            placeholder: 'Describe both pairs of feet.'
+          },
+          questions: [
+            {
+              q: 'What is the passage mainly about?',
+              options: ['the ways two seabirds are different', 'how two seabirds are the same', 'how two seabirds are the same and different', 'the ways two seabirds get their food'],
+              answer: 2,
+              explanation: 'The passage lists likenesses (color, webbed feet, sea food) and differences (size, color, flying).'
+            },
+            {
+              q: 'How are puffins and penguins alike?',
+              options: ['They both have wings for flying.', 'They both have bright orange beaks.', 'They both live in the same area.', 'They both eat ocean fish.'],
+              answer: 3,
+              explanation: 'Both birds depend on the sea for food and have spikes that hold on to fish.'
+            },
+            {
+              q: 'How are puffins different from penguins?',
+              options: ['Puffins have orange feet, but penguins often have black feet.', 'Puffins are black and white, but penguins are not.', 'Puffins are birds, but penguins are not.', 'Puffins have black beaks, but penguins do not.'],
+              answer: 0,
+              explanation: 'Puffins have bright orange legs and feet, while penguins’ feet are often black.'
+            },
+            {
+              q: 'Because penguins have stiff wings, they ______.',
+              options: ['can soar through the sky', 'cannot fly', 'can wave', 'cannot dive deep'],
+              answer: 1,
+              explanation: 'The passage says penguins cannot fly because their wings are too stiff.'
+            }
+          ]
+        },
+        {
+          id: 'past-grammar',
+          quiz: 'Exercise 4',
+          title: 'Past Grammar Review',
+          prompt: 'Choose the correct past form. A hint is available for every question.',
+          hints: true,
+          questions: [
+            {
+              topic: 'Past simple',
+              q: 'Last July, Fabio ______ to summer camp for the first time.',
+              options: ['went', 'was going', 'had gone', 'would go'],
+              answer: 0,
+              hint: 'The time expression “last July” is a finished time, so the action is simply complete.',
+              explanation: 'Use the past simple for a completed action at a finished past time.'
+            },
+            {
+              topic: 'Past simple',
+              q: 'Fabio ______ enjoy the muddy lake at all.',
+              options: ['did not', 'was not', 'has not', 'had not been'],
+              answer: 0,
+              hint: 'A past simple negative uses the helper “did” plus the base verb.',
+              explanation: '“Did not enjoy” is the past simple negative.'
+            },
+            {
+              topic: 'Past continuous',
+              q: 'While the campers ______ through the woods, black bugs bit Fabio’s arms.',
+              options: ['were hiking', 'hiked', 'had hiked', 'have hiked'],
+              answer: 0,
+              hint: '“While” usually introduces the longer action that was already in progress.',
+              explanation: 'Use the past continuous for the longer action interrupted by a shorter one.'
+            },
+            {
+              topic: 'Past continuous',
+              q: 'At nine o’clock yesterday morning, the puffins ______ over the cold water.',
+              options: ['were flying', 'flew', 'had flown', 'would fly'],
+              answer: 0,
+              hint: 'A clock time in the past points to an action in progress at that exact moment.',
+              explanation: 'The past continuous shows an action in progress at a specific past time.'
+            },
+            {
+              topic: 'Past perfect',
+              q: 'By the time Cody spoke to him, Fabio ______ already ______ to go home.',
+              options: ['had; decided', 'has; decided', 'was; deciding', 'did; decide'],
+              answer: 0,
+              hint: 'One past action happened before another past action.',
+              explanation: 'Use the past perfect (had + past participle) for the earlier of two past events.'
+            },
+            {
+              topic: 'Past perfect',
+              q: 'The dog wagged its tail because it ______ its owner’s car outside.',
+              options: ['had heard', 'was hearing', 'hears', 'would hear'],
+              answer: 0,
+              hint: 'The hearing happened first; the wagging came afterwards.',
+              explanation: 'The past perfect shows that hearing the car happened before the tail wagging.'
+            },
+            {
+              topic: 'Past perfect continuous',
+              q: 'The campers ______ for two hours before the coach ended softball practice.',
+              options: ['had been practicing', 'were practicing', 'practiced', 'have been practicing'],
+              answer: 0,
+              hint: '“For two hours before…” marks a length of time leading up to a past moment.',
+              explanation: 'The past perfect continuous shows duration before another past event.'
+            },
+            {
+              topic: 'Past perfect continuous',
+              q: 'Fabio’s eyes watered because he ______ near the skunk’s smell for several minutes.',
+              options: ['had been standing', 'stood', 'was stood', 'has been standing'],
+              answer: 0,
+              hint: 'The sentence explains how long something continued before the watering started.',
+              explanation: '“Had been standing” gives the ongoing cause that lasted up to the past result.'
+            },
+            {
+              topic: 'Sequence of events',
+              q: 'Choose the sentence that shows the events in the correct order.',
+              options: [
+                'After the campers had eaten lunch, they hiked into the woods.',
+                'After the campers hiked into the woods, they had eaten lunch first.',
+                'The campers had hiked into the woods before they had eaten lunch after it.',
+                'The campers were hiking into the woods after they eat lunch.'
+              ],
+              answer: 0,
+              hint: 'The clause after “after” must contain the event that happened first.',
+              explanation: 'Lunch came first, then the hike, and the past perfect marks the earlier event.'
+            },
+            {
+              topic: 'Sequence of events',
+              q: '______ Fabio met Cody, he wanted to go home.',
+              options: ['Before', 'After', 'By the time that finally', 'Until then when'],
+              answer: 0,
+              hint: 'Wanting to go home belongs to the unhappy part of the story, which came earlier.',
+              explanation: '“Before” correctly places the unhappy feeling ahead of the meeting.'
+            },
+            {
+              topic: 'Sequence of events',
+              q: 'By the time the dinner bell rang, the campers ______ the lake.',
+              options: ['had left', 'left', 'were leaving', 'have left'],
+              answer: 0,
+              hint: '“By the time” signals that something was already finished at that past moment.',
+              explanation: 'The past perfect shows the leaving was complete before the bell rang.'
+            },
+            {
+              topic: 'Used to',
+              q: 'There ______ be a small boathouse by the lake, but it closed years ago.',
+              options: ['used to', 'was used to', 'would to', 'got used to'],
+              answer: 0,
+              hint: 'The sentence describes a past state that is no longer true.',
+              explanation: '“Used to” describes a past state or habit that has ended.'
+            },
+            {
+              topic: 'Used to',
+              q: 'Fabio ______ like swimming, but now he enjoys it.',
+              options: ['did not use to', 'did not used to', 'was not used to', 'would not be used to'],
+              answer: 0,
+              hint: 'After the helper “did”, the verb returns to its base form.',
+              explanation: 'The negative of “used to” is “did not use to”, without the final -d.'
+            },
+            {
+              topic: 'Would for repeated actions',
+              q: 'Every summer, my grandfather ______ take us fishing before sunrise.',
+              options: ['would', 'was used to', 'got used to', 'has'],
+              answer: 0,
+              hint: '“Every summer” signals an action that was repeated many times.',
+              explanation: '“Would” describes a repeated past action when the time frame is clear.'
+            },
+            {
+              topic: 'Would vs. used to',
+              q: 'Which sentence is correct?',
+              options: [
+                'My uncle used to own a small boat.',
+                'My uncle would own a small boat.',
+                'My uncle would be owning a small boat.',
+                'My uncle was used to own a small boat.'
+              ],
+              answer: 0,
+              hint: '“Would” works for repeated actions, but not for past states such as owning something.',
+              explanation: 'Owning is a state, so only “used to” is possible here.'
+            },
+            {
+              topic: 'Be used to',
+              q: 'Penguins ______ swimming in icy water long before the researchers arrived.',
+              options: ['were used to', 'used to', 'would', 'got use to'],
+              answer: 0,
+              hint: 'The sentence says the birds were already familiar with the cold water.',
+              explanation: '“Be used to” means to be familiar or comfortable with something.'
+            },
+            {
+              topic: 'Be used to',
+              q: 'After a week, Cody ______ the noisy cabin and slept well every night.',
+              options: ['was used to', 'used to', 'would', 'was used'],
+              answer: 0,
+              hint: 'A noun phrase follows the missing words, so you need the form ending in “to”.',
+              explanation: '“Was used to” + noun shows that the cabin no longer bothered him.'
+            },
+            {
+              topic: 'Get used to',
+              q: 'It took Fabio three days to ______ the camp food.',
+              options: ['get used to', 'be used to', 'used to', 'would get used'],
+              answer: 0,
+              hint: 'The sentence describes a change from unfamiliar to familiar.',
+              explanation: '“Get used to” describes the process of becoming familiar with something.'
+            },
+            {
+              topic: 'Get used to',
+              q: 'By the end of the week, the campers ______ waking up early.',
+              options: ['got used to', 'get used to', 'used to wake', 'would used to'],
+              answer: 0,
+              hint: 'The sentence is in the past, and an -ing form follows the blank.',
+              explanation: '“Got used to” + -ing shows they became comfortable with the early mornings.'
+            },
+            {
+              topic: 'Mixed past forms',
+              q: 'While the dog ______ in circles, a visitor ______ through the front door.',
+              options: ['was running; came', 'ran; was coming', 'had run; had come', 'was running; was come'],
+              answer: 0,
+              hint: 'The longer background action takes the continuous form; the sudden action takes the past simple.',
+              explanation: 'The running was in progress when the shorter completed action happened.'
+            }
+          ]
+        }
+      ];
+
+      const WEB3FORMS_ACCESS_KEY = '17d39e49-04e5-42bf-bfa0-5b7f9eba1090';
+      const WORKSHEET_TITLE = 'August 20 · Homework — Three Reading Quizzes and Past Grammar';
+      const TIME_LIMIT_SECONDS = 10 * 60;
+      let sharedStudentName = '';
+      let activeQuizId = null;
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function formatTime(totalSeconds) {
+        const safe = Math.max(0, totalSeconds);
+        return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+      }
+
+      function paragraphs(items) {
+        return items.map(item => `<p>${escapeHtml(item)}</p>`).join('');
+      }
+
+      function hasStrategy(exercise) {
+        return Boolean(exercise.strategy);
+      }
+
+      function totalTasks(exercise) {
+        return exercise.questions.length + (hasStrategy(exercise) ? 1 : 0);
+      }
+
+      function setupTheme() {
+        const apply = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          $('#themeIcon').textContent = dark ? '☀' : '☾';
+          $('#themeLabel').textContent = dark ? 'Light' : 'Dark';
+          $('#themeToggle').setAttribute('aria-pressed', String(dark));
+          $('#floatingTheme').textContent = dark ? '☀' : '☾';
+        };
+
+        const toggle = () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('tasya-efla-quiz-theme', next); } catch (error) {}
+          apply();
+        };
+
+        $('#themeToggle').addEventListener('click', toggle);
+        $('#floatingTheme').addEventListener('click', toggle);
+        apply();
+      }
+
+      function setSharedName(value, sourceInput) {
+        sharedStudentName = value.trimStart().slice(0, 80);
+        $$('[data-student-name]').forEach(input => {
+          if (input !== sourceInput) input.value = sharedStudentName;
+        });
+      }
+
+      function exerciseMarkup(exercise) {
+        const tasks = totalTasks(exercise);
+        const questionSummary = hasStrategy(exercise)
+          ? `1 strategy response + ${exercise.questions.length} scored questions`
+          : `${exercise.questions.length} scored questions`;
+        const hintNote = exercise.hints
+          ? '<div class="menu-note">A hint is available for every question. Hints do not lower your score, but each hint you open is recorded in the emailed report.</div>'
+          : '';
+
+        return `
+          <article class="exercise-card" id="quiz-${escapeHtml(exercise.id)}">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <div class="quiz-number">${escapeHtml(exercise.quiz)}</div>
+                <h3>${escapeHtml(exercise.title)}</h3>
+                <p>${escapeHtml(exercise.prompt)}</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">Before you begin: this exercise gives you <strong>10 minutes</strong> and <strong>${tasks} ${tasks === 1 ? 'task' : 'tasks'}</strong> (${escapeHtml(questionSummary)}). Enter the student name to start. Your score and the correct answers stay hidden until the exercise is finished.</p>
+              <div class="menu-grid">
+                <div class="menu-field">
+                  <label for="name-${escapeHtml(exercise.id)}">Student name</label>
+                  <input id="name-${escapeHtml(exercise.id)}" data-student-name type="text" maxlength="80" autocomplete="name" placeholder="Enter name" required>
+                </div>
+                <div class="fixed-info">
+                  <strong>10:00</strong>
+                  <span>Time limit for this exercise</span>
+                </div>
+                <div class="fixed-info">
+                  <strong>${tasks}</strong>
+                  <span>${escapeHtml(questionSummary)}</span>
+                </div>
+              </div>
+              ${hintNote}
+              <div class="name-error" data-name-error hidden>Please enter the student’s name before starting.</div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start Exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status">
+                  <strong data-live-score>Progress: 0 / ${tasks}</strong>
+                  <span data-live-progress>Task 1 of ${tasks}</span>
+                </div>
+                <div class="mini-timer" data-timer aria-live="polite">10:00</div>
+                <button class="btn btn-danger" type="button" data-end>Submit Early</button>
+              </div>
+
+              <div class="question-layout${exercise.text ? '' : ' single'}">
+                ${exercise.text ? `
+                <aside class="story-card">
+                  <div class="story-label">Reading passage</div>
+                  <h4>${escapeHtml(exercise.title)}</h4>
+                  <div class="reading-prompt">${escapeHtml(exercise.prompt)}</div>
+                  <div class="story-text">${paragraphs(exercise.text)}</div>
+                </aside>` : ''}
+
+                <section class="question-card">
+                  <div class="question-meta" data-meta></div>
+                  <div class="question-text" data-question></div>
+                  <div data-answer-area></div>
+                  <div data-hint-area></div>
+                  <div class="answer-warning" data-answer-warning hidden>Please complete this task before continuing.</div>
+                  <div class="button-row">
+                    <button class="btn btn-secondary" type="button" data-previous hidden>Previous Question</button>
+                    <button class="btn btn-positive" type="button" data-next disabled>Next Question</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        `;
+      }
+
+      function renderPage() {
+        $('#tocGrid').innerHTML = EXERCISES.map(exercise =>
+          `<a class="toc-link" href="#quiz-${escapeHtml(exercise.id)}">${escapeHtml(exercise.quiz)} · ${escapeHtml(exercise.title)}</a>`
+        ).join('');
+
+        const list = $('#quizList');
+        EXERCISES.forEach(exercise => {
+          list.insertAdjacentHTML('beforeend', exerciseMarkup(exercise));
+          createExercise(exercise);
+        });
+      }
+
+      function createExercise(exercise) {
+        const card = $(`#quiz-${exercise.id}`);
+        const strategyOffset = hasStrategy(exercise) ? 1 : 0;
+        const els = {
+          menu: $('[data-menu]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          name: $('[data-student-name]', card),
+          nameError: $('[data-name-error]', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          timer: $('[data-timer]', card),
+          meta: $('[data-meta]', card),
+          question: $('[data-question]', card),
+          answerArea: $('[data-answer-area]', card),
+          hintArea: $('[data-hint-area]', card),
+          answerWarning: $('[data-answer-warning]', card),
+          previous: $('[data-previous]', card),
+          next: $('[data-next]', card),
+          start: $('[data-start]', card),
+          end: $('[data-end]', card)
+        };
+
+        const state = {
+          index: 0,
+          score: 0,
+          responses: [],
+          hintsUsed: [],
+          strategyResponse: null,
+          pendingOptionIndex: null,
+          pendingStrategyText: '',
+          active: false,
+          seconds: TIME_LIMIT_SECONDS,
+          timerId: null,
+          startedAt: 0,
+          studentName: ''
+        };
+
+        els.name.value = sharedStudentName;
+        els.name.addEventListener('input', () => {
+          setSharedName(els.name.value, els.name);
+          els.nameError.hidden = Boolean(els.name.value.trim());
+        });
+
+        function stopTimer() {
+          if (state.timerId) clearInterval(state.timerId);
+          state.timerId = null;
+        }
+
+        function elapsedSeconds() {
+          return state.startedAt
+            ? Math.min(TIME_LIMIT_SECONDS, Math.max(0, Math.round((Date.now() - state.startedAt) / 1000)))
+            : 0;
+        }
+
+        function updateTimer() {
+          els.timer.textContent = formatTime(state.seconds);
+          els.timer.classList.toggle('warning', state.seconds <= 60);
+        }
+
+        function completedTaskCount() {
+          return (state.strategyResponse ? 1 : 0) + state.responses.filter(Boolean).length;
+        }
+
+        function updateStatus() {
+          const completed = completedTaskCount();
+          const tasks = totalTasks(exercise);
+          els.liveScore.textContent = `Progress: ${completed} / ${tasks}`;
+          els.liveProgress.textContent = `Task ${Math.min(state.index + 1, tasks)} of ${tasks}`;
+          els.progress.style.width = `${(completed / tasks) * 100}%`;
+          if (state.active) els.score.textContent = 'In progress';
+        }
+
+        function startExercise() {
+          const name = els.name.value.trim();
+          if (!name) {
+            els.nameError.hidden = false;
+            els.name.focus();
+            return;
+          }
+
+          if (activeQuizId && activeQuizId !== exercise.id) {
+            $(`#quiz-${activeQuizId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.alert('Please finish or submit the current exercise before starting another one.');
+            return;
+          }
+
+          setSharedName(name, els.name);
+          activeQuizId = exercise.id;
+          stopTimer();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.hintsUsed = [];
+          state.strategyResponse = null;
+          state.pendingOptionIndex = null;
+          state.pendingStrategyText = '';
+          state.active = true;
+          state.seconds = TIME_LIMIT_SECONDS;
+          state.startedAt = Date.now();
+          state.studentName = name;
+
+          els.menu.hidden = true;
+          els.finish.hidden = true;
+          els.live.hidden = false;
+          els.score.textContent = 'In progress';
+          els.progress.style.width = '0%';
+          updateTimer();
+          renderTask();
+
+          state.timerId = setInterval(() => {
+            state.seconds -= 1;
+            updateTimer();
+            if (state.seconds <= 0) finishExercise('Time expired');
+          }, 1000);
+
+          els.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function strategyIsComplete() {
+          return Boolean(state.pendingStrategyText.trim());
+        }
+
+        function renderStrategyTask() {
+          const strategy = exercise.strategy;
+          state.pendingStrategyText = state.strategyResponse?.writtenResponse === '[No written response]'
+            ? ''
+            : (state.strategyResponse?.writtenResponse || '');
+          els.meta.textContent = `${exercise.quiz} · Strategy Practice · Task 1 of ${totalTasks(exercise)}`;
+          els.question.textContent = strategy.instruction;
+          els.next.textContent = 'Save Response & Continue';
+          els.answerWarning.hidden = true;
+          els.hintArea.innerHTML = '';
+
+          const block = document.createElement('div');
+          block.className = 'strategy-block';
+
+          const prompt = document.createElement('div');
+          prompt.className = 'strategy-prompt';
+          prompt.textContent = strategy.prompt;
+          block.appendChild(prompt);
+
+          const label = document.createElement('label');
+          label.className = 'open-response-label';
+          label.textContent = 'Your response';
+          block.appendChild(label);
+
+          const textarea = document.createElement('textarea');
+          textarea.className = 'open-response';
+          textarea.rows = 5;
+          textarea.maxLength = 600;
+          textarea.placeholder = strategy.placeholder;
+          textarea.value = state.pendingStrategyText;
+          textarea.addEventListener('input', () => {
+            state.pendingStrategyText = textarea.value;
+            els.next.disabled = !strategyIsComplete();
+            els.answerWarning.hidden = true;
+          });
+          block.appendChild(textarea);
+
+          const note = document.createElement('div');
+          note.className = 'ungraded-note';
+          note.textContent = 'This written response is included in the emailed report but is not graded.';
+          block.appendChild(note);
+
+          els.answerArea.innerHTML = '';
+          els.answerArea.appendChild(block);
+          els.next.disabled = !strategyIsComplete();
+        }
+
+        function renderHint(questionIndex, question) {
+          els.hintArea.innerHTML = '';
+          if (!exercise.hints || !question.hint) return;
+
+          const row = document.createElement('div');
+          row.className = 'hint-row';
+
+          const box = document.createElement('div');
+          box.className = 'hint-box';
+          box.innerHTML = `<strong>Hint</strong>${escapeHtml(question.hint)}`;
+
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'hint-btn';
+          button.textContent = 'Show hint';
+
+          const reveal = () => {
+            state.hintsUsed[questionIndex] = true;
+            button.disabled = true;
+            button.textContent = 'Hint used';
+            box.hidden = false;
+          };
+
+          if (state.hintsUsed[questionIndex]) {
+            button.disabled = true;
+            button.textContent = 'Hint used';
+            box.hidden = false;
+          } else {
+            box.hidden = true;
+            button.addEventListener('click', reveal);
+          }
+
+          row.appendChild(button);
+          row.appendChild(box);
+          els.hintArea.appendChild(row);
+        }
+
+        function renderScoredQuestion() {
+          const questionIndex = state.index - strategyOffset;
+          const question = exercise.questions[questionIndex];
+          const savedResponse = state.responses[questionIndex];
+          state.pendingOptionIndex = savedResponse
+            ? question.options.indexOf(savedResponse.studentAnswer)
+            : null;
+
+          const parts = [exercise.quiz];
+          if (question.topic) parts.push(question.topic);
+          parts.push(`Question ${questionIndex + 1} of ${exercise.questions.length}`);
+          if (strategyOffset) parts.push(`Task ${state.index + 1} of ${totalTasks(exercise)}`);
+          els.meta.textContent = parts.join(' · ');
+
+          els.question.textContent = question.q;
+          els.next.textContent = questionIndex === exercise.questions.length - 1 ? 'Finish Exercise' : 'Next Question';
+          els.answerWarning.hidden = true;
+
+          const options = document.createElement('div');
+          options.className = 'option-list';
+          question.options.forEach((option, optionIndex) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'option-btn';
+            button.textContent = option;
+            if (optionIndex === state.pendingOptionIndex) button.classList.add('selected-choice');
+            button.addEventListener('click', () => {
+              state.pendingOptionIndex = optionIndex;
+              $$('.option-btn', options).forEach(item => item.classList.remove('selected-choice'));
+              button.classList.add('selected-choice');
+              els.next.disabled = false;
+              els.answerWarning.hidden = true;
+            });
+            options.appendChild(button);
+          });
+
+          els.answerArea.innerHTML = '';
+          els.answerArea.appendChild(options);
+          renderHint(questionIndex, question);
+          els.next.disabled = state.pendingOptionIndex === null;
+        }
+
+        function renderTask() {
+          if (strategyOffset && state.index === 0) renderStrategyTask();
+          else renderScoredQuestion();
+          els.previous.hidden = state.index === 0;
+          els.previous.disabled = state.index === 0;
+          updateStatus();
+        }
+
+        function commitCurrentTask({ allowPartial = false } = {}) {
+          if (strategyOffset && state.index === 0) {
+            if (!allowPartial && !strategyIsComplete()) return false;
+            if (state.pendingStrategyText.trim()) {
+              state.strategyResponse = {
+                instruction: exercise.strategy.instruction,
+                prompt: exercise.strategy.prompt,
+                writtenResponse: state.pendingStrategyText.trim(),
+                graded: false
+              };
+            }
+            return allowPartial || Boolean(state.strategyResponse);
+          }
+
+          const questionIndex = state.index - strategyOffset;
+          const question = exercise.questions[questionIndex];
+          if (!question) return allowPartial;
+          if (state.pendingOptionIndex === null) return allowPartial;
+
+          const previousResponse = state.responses[questionIndex];
+          if (previousResponse?.correct) state.score -= 1;
+          const correct = state.pendingOptionIndex === question.answer;
+          if (correct) state.score += 1;
+          state.responses[questionIndex] = {
+            question: question.q,
+            topic: question.topic || '',
+            studentAnswer: question.options[state.pendingOptionIndex],
+            correctAnswer: question.options[question.answer],
+            correct,
+            hintUsed: Boolean(state.hintsUsed[questionIndex]),
+            explanation: question.explanation
+          };
+          return true;
+        }
+
+        function completeResults(reason) {
+          const byQuestion = exercise.questions.map((question, index) => {
+            const response = state.responses[index];
+            if (response) {
+              return { ...response, hintUsed: Boolean(state.hintsUsed[index]) };
+            }
+            return {
+              question: question.q,
+              topic: question.topic || '',
+              studentAnswer: '[Not answered]',
+              correctAnswer: question.options[question.answer],
+              correct: false,
+              hintUsed: Boolean(state.hintsUsed[index]),
+              explanation: question.explanation
+            };
+          });
+
+          return {
+            exerciseId: exercise.id,
+            title: exercise.title,
+            quiz: exercise.quiz,
+            prompt: exercise.prompt,
+            storyText: exercise.text || null,
+            hintsAvailable: Boolean(exercise.hints),
+            hintCount: byQuestion.filter(item => item.hintUsed).length,
+            studentName: state.studentName,
+            reason,
+            score: state.score,
+            attempted: state.responses.filter(Boolean).length,
+            total: exercise.questions.length,
+            elapsed: elapsedSeconds(),
+            strategy: hasStrategy(exercise)
+              ? (state.strategyResponse || {
+                  instruction: exercise.strategy.instruction,
+                  prompt: exercise.strategy.prompt,
+                  writtenResponse: '[No written response]',
+                  graded: false
+                })
+              : null,
+            responses: byQuestion
+          };
+        }
+
+        function emailText(result) {
+          const lines = [
+            `Exercise: ${result.quiz} · ${result.title}`,
+            `Student: ${result.studentName}`,
+            `Completion reason: ${result.reason}`,
+            `Score: ${result.score}/${result.total}`,
+            `Attempted questions: ${result.attempted}/${result.total}`,
+            `Time used: ${formatTime(result.elapsed)} of 10:00`
+          ];
+
+          if (result.hintsAvailable) {
+            lines.push(`Hints used: ${result.hintCount}/${result.total}`);
+          }
+
+          if (result.storyText) {
+            lines.push('', 'READING PASSAGE', result.title, `Reading focus: ${result.prompt}`, '', ...result.storyText);
+          }
+
+          if (result.strategy) {
+            lines.push(
+              '',
+              'STRATEGY PRACTICE — NOT GRADED',
+              `Prompt: ${result.strategy.prompt}`,
+              `Written response: ${result.strategy.writtenResponse}`
+            );
+          }
+
+          lines.push('', 'SCORED QUESTION RESULTS');
+
+          result.responses.forEach((response, index) => {
+            lines.push(`Q${index + 1}. ${response.question}`);
+            if (response.topic) lines.push(`Topic: ${response.topic}`);
+            lines.push(`Student answer: ${response.studentAnswer}`);
+            lines.push(`Correct answer: ${response.correctAnswer}`);
+            lines.push(`Result: ${response.correct ? 'Correct' : 'Incorrect'}`);
+            if (result.hintsAvailable) lines.push(`Hint used: ${response.hintUsed ? 'Yes' : 'No'}`);
+            lines.push('');
+          });
+
+          return lines.join('\n');
+        }
+
+        async function sendResult(result, statusElement) {
+          statusElement.hidden = false;
+          statusElement.className = 'email-status sending';
+          statusElement.innerHTML = `<strong>Sending ${escapeHtml(result.title)} results…</strong>The report is being submitted automatically.`;
+
+          try {
+            if (!window.EmailResults || typeof window.EmailResults.send !== 'function') {
+              throw new Error('email-results.js could not be loaded.');
+            }
+
+            const metadata = {
+              'Exercise': `${result.quiz} · ${result.title}`,
+              'Score': `${result.score}/${result.total}`,
+              'Attempted': `${result.attempted}/${result.total}`,
+              'Accuracy': `${Math.round((result.score / result.total) * 100)}%`,
+              'Time used': `${formatTime(result.elapsed)} of 10:00`,
+              'Completion reason': result.reason,
+              'Completed at': new Date().toLocaleString()
+            };
+
+            if (result.hintsAvailable) {
+              metadata['Hints used'] = `${result.hintCount}/${result.total}`;
+            }
+
+            await window.EmailResults.send({
+              accessKey: WEB3FORMS_ACCESS_KEY,
+              subject: `${result.studentName} · ${result.quiz} · ${result.title} · ${result.score}/${result.total}`,
+              studentLabel: result.studentName,
+              worksheetTitle: WORKSHEET_TITLE,
+              resultsText: emailText(result),
+              metadata
+            });
+
+            statusElement.className = 'email-status sent';
+            statusElement.innerHTML = `<strong>✓ Results sent</strong>The ${escapeHtml(result.title)} report was submitted successfully.`;
+          } catch (error) {
+            statusElement.className = 'email-status failed';
+            statusElement.innerHTML = `
+              <strong>Results could not be sent automatically.</strong>
+              ${escapeHtml(error.message || 'Unknown submission error.')}
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-retry-email>Retry Sending Results</button>
+              </div>
+            `;
+            $('[data-retry-email]', statusElement).addEventListener('click', () => sendResult(result, statusElement));
+          }
+        }
+
+        function finishExercise(reason) {
+          if (!state.active) return;
+
+          if (state.index < totalTasks(exercise)) {
+            commitCurrentTask({ allowPartial: true });
+          }
+
+          stopTimer();
+          state.active = false;
+          activeQuizId = null;
+          const result = completeResults(reason);
+          const accuracy = Math.round((result.score / result.total) * 100);
+
+          els.live.hidden = true;
+          els.finish.hidden = false;
+          els.score.textContent = `Final: ${result.score} / ${result.total}`;
+          els.progress.style.width = '100%';
+
+          const review = result.responses.map((response, index) => `
+            <div class="review-box">
+              <h5>${index + 1}. ${escapeHtml(response.question)}${response.hintUsed ? '<span class="hint-flag">Hint used</span>' : ''}</h5>
+              <p><strong>Your answer:</strong> ${escapeHtml(response.studentAnswer)}</p>
+              <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+              <p><strong>${response.correct ? '✓ Correct' : '✕ Incorrect'}</strong> — ${escapeHtml(response.explanation)}</p>
+            </div>
+          `).join('');
+
+          const strategyPanel = result.strategy ? `
+            <h4 style="font-size:1.35rem;line-height:1.2;margin-top:26px;">Strategy Practice</h4>
+            <div class="review-box">
+              <h5>${escapeHtml(result.strategy.prompt)}</h5>
+              <p><strong>Written response:</strong> ${escapeHtml(result.strategy.writtenResponse)}</p>
+              <p><strong>Not graded.</strong> This open-ended response is included in the emailed report.</p>
+            </div>
+          ` : '';
+
+          const fourthMetric = result.hintsAvailable
+            ? `<div class="metric"><strong>${result.hintCount}</strong><span>Hints used</span></div>`
+            : `<div class="metric"><strong>${result.total - result.attempted}</strong><span>Not attempted</span></div>`;
+
+          els.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(result.quiz)} · ${escapeHtml(result.title)} Complete</h4>
+              <p>${escapeHtml(reason)}. Feedback is now available, and results for <strong>${escapeHtml(result.studentName)}</strong> are being emailed.</p>
+              <div class="metric-grid">
+                <div class="metric"><strong>${result.score}/${result.total}</strong><span>Scored questions</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${formatTime(result.elapsed)}</strong><span>Time used</span></div>
+                ${fourthMetric}
+              </div>
+              <div class="email-status sending" data-email-status><strong>Sending results…</strong>The report is being submitted automatically.</div>
+              ${strategyPanel}
+              <h4 style="font-size:1.35rem;line-height:1.2;margin-top:26px;">Answer Feedback</h4>
+              ${review}
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Retry This Exercise</button>
+                <button class="btn btn-secondary" type="button" data-menu-return>Back to Exercise Menu</button>
+              </div>
+            </div>
+          `;
+
+          sendResult(result, $('[data-email-status]', els.finish));
+
+          $('[data-retry]', els.finish).addEventListener('click', startExercise);
+          $('[data-menu-return]', els.finish).addEventListener('click', () => {
+            els.finish.hidden = true;
+            els.menu.hidden = false;
+            els.score.textContent = 'Ready';
+            els.progress.style.width = '0%';
+            els.name.value = sharedStudentName;
+            els.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          els.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        els.start.addEventListener('click', startExercise);
+        els.end.addEventListener('click', () => finishExercise('Exercise submitted early'));
+        els.previous.addEventListener('click', () => {
+          if (state.index === 0 || !state.active) return;
+          commitCurrentTask({ allowPartial: true });
+          state.index -= 1;
+          renderTask();
+          $('.question-card', card).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        els.next.addEventListener('click', () => {
+          if (!commitCurrentTask()) {
+            els.answerWarning.hidden = false;
+            return;
+          }
+
+          const tasks = totalTasks(exercise);
+          if (state.index >= tasks - 1) {
+            state.index = tasks;
+            finishExercise('All tasks completed');
+          } else {
+            state.index += 1;
+            renderTask();
+            $('.question-card', card).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      function setupCollapse() {
+        $('[data-collapse]').addEventListener('click', event => {
+          const button = event.currentTarget;
+          const target = document.getElementById(button.dataset.collapse);
+          const willHide = !target.hidden;
+          if (willHide && activeQuizId) {
+            window.alert('Please finish or submit the active exercise before collapsing this section.');
+            return;
+          }
+          target.hidden = willHide;
+          button.textContent = willHide ? 'Expand' : 'Collapse';
+          button.setAttribute('aria-expanded', String(!willHide));
+        });
+      }
+
+      setupTheme();
+      renderPage();
+      setupCollapse();
+    })();
+  </script>
+</body>
+</html>
