@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading comprehension, numbers in English, and past-tense grammar practice - Australia's Giant Toads.">
+  <title>August 28 - Classwork</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('tasya-elfa-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      --light-background: #D35D4A;
+      --light-foreground: #68B9DE;
+      --light-primary: #11328D;
+      --light-primary-hover: #FFEB09;
+      --light-secondary: #1648D2;
+      --light-secondary-soft: #FFEB09;
+      --light-accent: #F0D7A8;
+      --light-accent-soft: #F0D7A8;
+      --light-muted: #B6EBA2;
+      --light-muted-strong: #99C588;
+      --light-blue-soft: #A4483B;
+      --light-border: #EACF86;
+      --light-subtle: #B3DA58;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #B42318;
+      --danger-soft: #FADBD6;
+      --success-text: #071E12;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #809DF0;
+      --primary-hover: #F9EE6D;
+      --secondary: #7E9DF1;
+      --secondary-soft: #423D0B;
+      --accent: #E3B35A;
+      --accent-soft: #412F0B;
+      --muted: #1F2937;
+      --muted-strong: #374151;
+      --blue-soft: #381914;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success-text: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .rule-label,
+    .story-label {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .sub-section {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .sub-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .sub-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    /* Vocab Cards Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .vocab-card {
+      padding: 20px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .vocab-word {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vocab-pos {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #111827;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-left: 8px;
+      text-transform: lowercase;
+      font-style: italic;
+    }
+
+    .vocab-def {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: var(--surface-text);
+    }
+
+    .vocab-ex {
+      font-size: 0.88rem;
+      color: var(--surface-text);
+      opacity: 0.9;
+      font-style: italic;
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+
+    }
+
+    /* Hover Tooltip Styling */
+    .vocab-hover {
+      position: relative;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline dotted var(--primary);
+      cursor: help;
+    }
+
+    .vocab-hover::after {
+      content: attr(data-def);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      padding: 8px 12px;
+      background: var(--inverse);
+      color: var(--inverse-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 50;
+      pointer-events: none;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .vocab-hover:hover::after,
+    .vocab-hover:focus::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .paragraph-num {
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+      font-size: 1.1rem;
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-text p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--surface-text);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .65fr));
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      color: #111827;
+      background: var(--primary-hover);
+    }
+
+    .btn-positive {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .btn-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: .8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single {
+      grid-template-columns: 1fr;
+    }
+
+    .question-layout .story-card {
+      position: sticky;
+      top: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color: var(--success-text);
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .typed-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .typed-input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .typed-input:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--accent-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--muted);
+      border-left: 8px solid var(--primary);
+    }
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+
+    .float-btn {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* --- August 28 additions --- */
+    .numbers-section .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .grammar-section .section-header {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .live-toolbar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rule-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .rule-card.full { grid-column: 1 / -1; }
+
+    .rule-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .rule-card h3 {
+      margin-bottom: 12px;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .rule-card li { margin: 7px 0; }
+    .rule-card p:last-child,
+    .rule-card ul:last-child,
+    .rule-card ol:last-child { margin-bottom: 0; }
+
+    .example-table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+
+    .example-table th,
+    .example-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .example-table th {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    .source-note {
+      margin-top: 28px;
+      padding: 20px;
+      color: var(--surface-text);
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-box h5 { margin-bottom: 8px; font-size: 1.05rem; line-height: 1.3; }
+    .review-box p { margin: 4px 0; }
+
+    @media (max-width: 900px) {
+      .lesson-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Tasya and Elfa — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>August 28, 2026 - Classwork</h1>
+        <p>Three lessons today: reading comprehension with <em>Australia's Giant Toads</em>, how numbers are used in English, and a review of past-time grammar.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#vocab-section">1a. Vocabulary</a>
+        <a class="toc-link" href="#reading-section">1b. Reading Passage</a>
+        <a class="toc-link" href="#elements-section">1c. Reading Exercises</a>
+        <a class="toc-link" href="#numbers">2. Numbers in English</a>
+        <a class="toc-link" href="#grammar">3. Past-time Grammar</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ================= SECTION 1: READING ================= -->
+      <section class="section-card reading-section" id="main-reading">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 1 · Reading</div>
+            <h2>Australia's Giant Toads</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="mainReadingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="mainReadingBody">
+
+          <!-- SUB-SECTION 1: VOCABULARY -->
+          <div class="sub-section" id="vocab-section">
+            <h3 class="sub-title">Sub-Section 1: Vocabulary List &amp; Practice</h3>
+            <p>Study these words before you read <em>"Australia's Giant Toads."</em> They are the words most likely to be new to you. When you read the passage below, hover or tap the dotted underlined words to see the definition again!</p>
+
+            <div class="vocab-grid">
+              <div class="vocab-card">
+                <div><span class="vocab-word">pest</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An animal or insect that causes damage or trouble for people.</div>
+                <div class="vocab-ex">"Why do people see them as such a pest?"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">native</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Naturally living or growing in a certain place; originally from there.</div>
+                <div class="vocab-ex">"This toad, native to South America and the Caribbean..."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">crops</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Plants that farmers grow for food or to sell, such as sugar cane.</div>
+                <div class="vocab-ex">"...two types of beetles that were destroying their crops."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">shipped</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Sent from one place to another, usually by boat, plane, or truck.</div>
+                <div class="vocab-ex">"About one hundred cane toads were shipped to Australia from Hawaii."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">solution</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A way of fixing a problem.</div>
+                <div class="vocab-ex">"People hoped the toads would be a solution to the problem."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">anticipated</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Expected something to happen before it happened.</div>
+                <div class="vocab-ex">"Things turned out very differently than they had anticipated."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">unfortunately</span> <span class="vocab-pos">adverb</span></div>
+                <div class="vocab-def">Sadly; used when something bad or unlucky happens.</div>
+                <div class="vocab-ex">"Unfortunately, things turned out very differently."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">annoying</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Causing bother or irritation; making people upset in a small way.</div>
+                <div class="vocab-ex">"The cane toads quickly became a more annoying pest than the beetles."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">unusual</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Not common; strange or different from what you normally see.</div>
+                <div class="vocab-ex">"There are several things that make the cane toad so unusual."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">predator</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An animal that hunts and eats other animals.</div>
+                <div class="vocab-ex">"The cane toad has almost no natural predators."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">threatened</span> <span class="vocab-pos">adjective / verb</span></div>
+                <div class="vocab-def">Feeling that something dangerous is about to happen; feeling in danger.</div>
+                <div class="vocab-ex">"If the cane toad feels threatened, it will secrete a poisonous liquid."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">secrete</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To produce a liquid and let it out of the body.</div>
+                <div class="vocab-ex">"...it will secrete a poisonous liquid."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">poisonous</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Containing something that can make a person or animal very sick, or even kill them.</div>
+                <div class="vocab-ex">"The cane toad is also poisonous in all stages of its life."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">blind</span> <span class="vocab-pos">verb / adjective</span></div>
+                <div class="vocab-def">To make someone unable to see.</div>
+                <div class="vocab-ex">"It can even blind an adult for several hours."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">tadpole</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A baby frog or toad that lives in water and has a tail but no legs yet.</div>
+                <div class="vocab-ex">"Many of the eggs and tadpoles are able to mature."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">mature</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To grow up and become an adult.</div>
+                <div class="vocab-ex">"...many of the eggs and tadpoles are able to mature."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">rapidly</span> <span class="vocab-pos">adverb</span></div>
+                <div class="vocab-def">Very quickly; in a short amount of time.</div>
+                <div class="vocab-ex">"The cane toad population can grow very rapidly."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">tolerant</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Willing to accept something you do not really like.</div>
+                <div class="vocab-ex">"People might have been more tolerant if the animals had been successful."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">continent</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">One of Earth's seven very large areas of land, such as Australia or Asia.</div>
+                <div class="vocab-ex">"They continue to spread across the continent."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">wildlife</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Wild animals and plants that live in nature.</div>
+                <div class="vocab-ex">"Cane toads eat many types of Australian wildlife."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">adopt</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To take an animal into your home and take care of it as a pet.</div>
+                <div class="vocab-ex">"Some people even adopt the giant toads as pets!"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">harm's way</span> <span class="vocab-pos">phrase</span></div>
+                <div class="vocab-def">A place or situation where something dangerous could hurt you.</div>
+                <div class="vocab-ex">"The beetles could easily fly out of harm's way."</div>
+              </div>
+            </div>
+
+            <!-- Vocab Exercise 1: Definitions -->
+            <article class="exercise-card" id="vocabDefExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 1: Word Definitions</h3>
+                  <p>Choose the correct definition for each vocabulary word from the passage.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> You will see 12 vocabulary words from the passage, one at a time. For each word, choose the answer that gives the correct meaning. As soon as you answer, you will be told whether you were right and why. There is no time limit — take as long as you need. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>12</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Multiple choice</strong><span>Format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 1</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 12</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <!-- Vocab Exercise 2: Fill in the Blanks -->
+            <article class="exercise-card" id="vocabFillExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 2: Sentence Fill-in-the-Blanks</h3>
+                  <p>Type the vocabulary word that completes each sentence.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> Each question shows a sentence with a missing word. Type the vocabulary word that fits the blank, then press Enter or click <em>Check answer</em>. Spelling counts, so look back at the word list if you need help. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>10</strong><span>Fill-in sentences</span></div>
+                  <div class="menu-summary"><strong>Typed answers</strong><span>Format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 2</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 2: READING PASSAGE -->
+          <div class="sub-section" id="reading-section">
+            <h3 class="sub-title">Sub-Section 2: Reading Passage ("Australia's Giant Toads")</h3>
+            <p>Read the text below carefully. Paragraph numbers are shown at the beginning of each paragraph. Hover over the dotted underlined words to see their definitions!</p>
+
+            <article class="story-card">
+              <div class="story-label">Spectrum Reading Grade 5 · Passage</div>
+              <h3>Australia's Giant Toads</h3>
+              <p style="font-style:italic;font-weight:600;">How did cane toads get to Australia, and why do people see them as such a <span class="vocab-hover" data-def="An animal or insect that causes damage or trouble.">pest</span>?</p>
+              <div class="story-text" id="storyText">
+                <p><span class="paragraph-num">1</span> Think about toads that you may have seen in the woods, on a hike, or at a zoo. How large do you think they were? Even the largest toads probably were not as big as the cane toad. This toad, <span class="vocab-hover" data-def="Naturally living or growing in a certain place.">native</span> to South America and the Caribbean, can weigh as much as four pounds!</p>
+                <p><span class="paragraph-num">2</span> In 1935, sugar cane farmers in Australia were having a problem with two types of beetles that were destroying their <span class="vocab-hover" data-def="Plants that farmers grow for food or to sell.">crops</span>. About one hundred cane toads were <span class="vocab-hover" data-def="Sent from one place to another.">shipped</span> to Australia from Hawaii. People hoped the toads would be a <span class="vocab-hover" data-def="A way of fixing a problem.">solution</span> to the problem. <span class="vocab-hover" data-def="Sadly; in an unlucky way.">Unfortunately</span>, things turned out very differently than they had <span class="vocab-hover" data-def="Expected something to happen.">anticipated</span>. The cane toads quickly became a more <span class="vocab-hover" data-def="Causing bother or irritation.">annoying</span> pest than the beetles had ever been.</p>
+                <p><span class="paragraph-num">3</span> There are several things that make the cane toad so <span class="vocab-hover" data-def="Not common; strange or different.">unusual</span>. First of all, the cane toad has almost no natural <span class="vocab-hover" data-def="An animal that hunts and eats other animals.">predators</span>. If the cane toad feels <span class="vocab-hover" data-def="Feeling in danger of being harmed.">threatened</span>, it will <span class="vocab-hover" data-def="To produce a liquid and let it out of the body.">secrete</span> a <span class="vocab-hover" data-def="Containing something that can hurt or kill.">poisonous</span> liquid. This liquid can kill children and small animals. It can even <span class="vocab-hover" data-def="To make someone unable to see.">blind</span> an adult for several hours.</p>
+                <p><span class="paragraph-num">4</span> The cane toad is also poisonous in all stages of its life. Fish normally feed on the eggs of frogs and toads, but even the eggs of the cane toad are poisonous. Each pair of cane toads can produce more than 30,000 eggs each season. Because many of the eggs and <span class="vocab-hover" data-def="A baby frog or toad that lives in water.">tadpoles</span> are able to <span class="vocab-hover" data-def="To grow up and become an adult.">mature</span>, the cane toad population can grow very <span class="vocab-hover" data-def="Very quickly.">rapidly</span>.</p>
+                <p><span class="paragraph-num">5</span> This is exactly what happened in Australia. Without any predators, there were suddenly thousands of cane toads in the Queensland area. People might have been more <span class="vocab-hover" data-def="Willing to accept something you do not like.">tolerant</span> if the animals had been successful in getting rid of the sugar cane beetles. It turned out, however, that the cane toads did not have any effect on the beetles, which could easily fly out of <span class="vocab-hover" data-def="A place or situation where something could hurt you.">harm's way</span>.</p>
+                <p><span class="paragraph-num">6</span> The Australians are not quite sure how to get rid of cane toads. In fact, they continue to spread across the <span class="vocab-hover" data-def="One of Earth's seven large areas of land.">continent</span>. Cane toads eat many types of Australian <span class="vocab-hover" data-def="Wild animals living in nature.">wildlife</span>. They can also be dangerous to pets and children. Even so, not everyone in Australia hopes that the plans to rid the country of these animals will be successful. Some people even leave food in their backyards or <span class="vocab-hover" data-def="To take an animal into your home and care for it.">adopt</span> the giant toads as pets!</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 3: READING EXERCISES -->
+          <div class="sub-section" id="elements-section">
+            <h3 class="sub-title">Sub-Section 3: Reading Comprehension Exercises</h3>
+            <p>Two exercises follow. The first asks about the <strong>general elements</strong> of the text (topic, main idea, purpose, structure, and tone). The second uses the <strong>questions from the worksheet PDF</strong>.</p>
+
+            <article class="exercise-card" id="elementsExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 1: General Story Elements</h3>
+                  <p>10 multiple-choice questions on topic, main idea, author's purpose, text structure, cause and effect, supporting details, and tone.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> This passage is <em>nonfiction</em> — a true article, not a story with invented characters. So instead of asking about a hero or a plot, these 10 questions ask about the elements every nonfiction text has: what it is about, its main idea, why the author wrote it, how it is organised, and what causes what. A short passage reference stays on screen beside each question so you can look back. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>10</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Nonfiction elements</strong><span>Focus</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Reading Exercise 1</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <article class="exercise-card" id="pdfWorksheetExercise" style="margin-top: 36px;">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 2: Worksheet Questions (PDF Page 2)</h3>
+                  <p>The seven questions printed on page 2 of the Spectrum Reading worksheet.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> These are the exact questions from your worksheet. Some are multiple choice, and some ask you to <em>type</em> your own answer in full sentences. The typed questions marked <em>"your opinion"</em> have no single right answer — any thoughtful answer counts as correct, and a model answer is shown afterwards so you can compare it with yours. A passage reference stays on screen. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>7</strong><span>Worksheet questions</span></div>
+                  <div class="menu-summary"><strong>MC + Typed</strong><span>Mixed format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Reading Exercise 2</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 7</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <p class="source-note">Passage and worksheet questions: <em>Spectrum Reading, Grade 5</em>, pages 4–5 ("Australia's Giant Toads").</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 2: NUMBERS ================= -->
+      <section class="section-card numbers-section" id="numbers">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 2 · Language</div>
+            <h2>Numbers in English</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="numbersBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="numbersBody">
+          <p style="max-width:72ch;">The passage you just read is full of numbers: <em>four pounds</em>, <em>1935</em>, <em>one hundred cane toads</em>, <em>30,000 eggs</em>, <em>several hours</em>. English uses numbers in many different ways, and each way is <strong>said</strong> and <strong>written</strong> a little differently. Study the cards below, then try the exercise.</p>
+
+          <div class="lesson-grid">
+            <article class="rule-card">
+              <span class="rule-label">Use 1 · Counting</span>
+              <h3>Cardinal numbers</h3>
+              <p>Cardinal numbers answer the question <em>"How many?"</em>: one, two, three, twenty, one hundred.</p>
+              <ul>
+                <li><em>About <strong>one hundred</strong> cane toads were shipped to Australia.</em></li>
+                <li><em>There are <strong>seven</strong> continents.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 2 · Order</span>
+              <h3>Ordinal numbers</h3>
+              <p>Ordinal numbers answer the question <em>"Which one in the line?"</em>: first, second, third, fourth, fifth… They usually come after <em>the</em>.</p>
+              <ul>
+                <li><em><strong>First</strong> of all, the cane toad has almost no predators.</em></li>
+                <li><em>Queensland is <strong>the second</strong> largest state in Australia.</em></li>
+                <li>Short forms: 1st, 2nd, 3rd, 4th, 21st, 22nd, 23rd.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 3 · Years</span>
+              <h3>Saying years and dates</h3>
+              <p>Years are usually said in <strong>two pairs</strong> of digits.</p>
+              <div class="table-scroll">
+                <table class="example-table">
+                  <tr><th>Written</th><th>Said</th></tr>
+                  <tr><td>1935</td><td>"nineteen thirty-five"</td></tr>
+                  <tr><td>1900</td><td>"nineteen hundred"</td></tr>
+                  <tr><td>2005</td><td>"two thousand five"</td></tr>
+                  <tr><td>2026</td><td>"twenty twenty-six"</td></tr>
+                  <tr><td>August 28</td><td>"August twenty-eighth"</td></tr>
+                </table>
+              </div>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 4 · Clock time</span>
+              <h3>Telling the time</h3>
+              <ul>
+                <li>9:00 → "nine o'clock" (<em>o'clock</em> is used only for exact hours)</li>
+                <li>9:15 → "nine fifteen" or "a quarter past nine"</li>
+                <li>9:30 → "nine thirty" or "half past nine"</li>
+                <li>9:45 → "nine forty-five" or "a quarter to ten"</li>
+                <li>Use <strong>at</strong> with times: <em>at 9:00</em>, <em>at noon</em>.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 5 · Big numbers</span>
+              <h3>Thousands, millions, and commas</h3>
+              <p>English puts a <strong>comma</strong> every three digits from the right: <strong>30,000</strong> and <strong>1,200</strong>. (Careful — Indonesian uses a dot here!)</p>
+              <ul>
+                <li>30,000 → "thirty thousand"</li>
+                <li>1,200 → "one thousand two hundred" or "twelve hundred"</li>
+                <li>Keep <strong>hundred</strong>, <strong>thousand</strong>, <strong>million</strong> singular after a number: <em>two thousand</em>, never "two thousands".</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 6 · Measurement</span>
+              <h3>Weights, lengths, and amounts</h3>
+              <p>The unit becomes <strong>plural</strong> after any number bigger than one.</p>
+              <ul>
+                <li><em>It can weigh as much as four <strong>pounds</strong>.</em></li>
+                <li><em>The reef is more than 1,200 <strong>miles</strong> long.</em></li>
+                <li><em>It can blind an adult for several <strong>hours</strong>.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 7 · Number + noun</span>
+              <h3>The hyphen rule</h3>
+              <p>When a number and a noun work together <strong>in front of</strong> another noun, join them with a hyphen and keep the noun <strong>singular</strong>.</p>
+              <ul>
+                <li><em>a <strong>four-pound</strong> toad</em> (not "four-pounds toad")</li>
+                <li><em>a <strong>ten-year-old</strong> student</em></li>
+                <li>But: <em>The toad weighs four <strong>pounds</strong>.</em> — plural, because it comes after the verb.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 8 · Age</span>
+              <h3>Talking about age</h3>
+              <ul>
+                <li><em>She <strong>is</strong> ten years old.</em> (English uses <em>be</em>, not <em>have</em>.)</li>
+                <li><em>She is ten.</em> — you may drop "years old".</li>
+                <li><em>a ten-year-old girl</em> — hyphens, and singular <em>year</em>.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 9 · Money</span>
+              <h3>Prices</h3>
+              <ul>
+                <li>The symbol goes <strong>before</strong> the number: <em>$5</em>, <em>Rp10.000</em>.</li>
+                <li>$5.50 → "five dollars fifty" or "five fifty"</li>
+                <li><em>It costs five <strong>dollars</strong>.</em> — plural after a number.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 10 · Parts</span>
+              <h3>Fractions, decimals, and percent</h3>
+              <ul>
+                <li>1/2 → "one half" · 1/3 → "one third" · 3/4 → "three quarters"</li>
+                <li>0.5 → "zero point five". Each digit after the point is said separately: 3.14 → "three point one four".</li>
+                <li>50% → "fifty percent"</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 11 · Not exact</span>
+              <h3>Approximate numbers</h3>
+              <p>These words tell the reader the number is not exact:</p>
+              <ul>
+                <li><strong>about / around / roughly</strong> → <em>about one hundred toads</em></li>
+                <li><strong>more than / over</strong> → <em>more than 30,000 eggs</em></li>
+                <li><strong>nearly / almost / as much as</strong> → <em>as much as four pounds</em></li>
+                <li><strong>several / a few / dozens of / thousands of</strong> → <em>several hours</em>, <em>thousands of cane toads</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 12 · Digit by digit</span>
+              <h3>Codes and phone numbers</h3>
+              <p>Phone numbers, room numbers, and codes are read one digit at a time.</p>
+              <ul>
+                <li>0812 3456 → "oh eight one two, three four five six"</li>
+                <li>0 is often said as "oh"; 22 may be said "double two".</li>
+              </ul>
+            </article>
+
+            <article class="rule-card full">
+              <span class="rule-label">Words or digits?</span>
+              <h3>When to spell a number out</h3>
+              <ol>
+                <li>In ordinary writing, spell out small numbers (<strong>one</strong> to <strong>ten</strong>) and use digits for larger ones: <em>four pounds</em>, but <em>30,000 eggs</em>.</li>
+                <li>Never begin a sentence with a digit — write <em>"Thirty thousand eggs were laid,"</em> not <em>"30,000 eggs were laid."</em></li>
+                <li>Use digits for dates, times, prices, measurements in charts, and page numbers.</li>
+                <li>Be consistent inside one sentence: <em>"We saw 4 toads and 12 beetles,"</em> not <em>"four toads and 12 beetles."</em></li>
+              </ol>
+            </article>
+          </div>
+
+          <article class="exercise-card" id="numbersExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Numbers Exercise</h3>
+                <p>15 questions on cardinals, ordinals, years, times, big numbers, hyphens, and approximate words.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro"><strong>How this exercise works:</strong> 15 questions come one at a time — some multiple choice, some typed. The typed ones ask you to write a number <em>in words</em> (for example, type <em>nineteen thirty-five</em> for 1935), so read each question carefully to see which form it wants. Feedback appears right after each answer. There is no time limit. Press <em>Start</em> when you are ready.</p>
+              <div class="menu-grid">
+                <div class="menu-summary"><strong>15</strong><span>Questions</span></div>
+                <div class="menu-summary"><strong>MC + Typed</strong><span>Mixed format</span></div>
+                <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start Numbers Exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 15</span></div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 3: GRAMMAR ================= -->
+      <section class="section-card grammar-section" id="grammar">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 3 · Grammar</div>
+            <h2>Past-time grammar</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="grammarBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="grammarBody">
+          <div class="lesson-grid">
+            <article class="rule-card">
+              <span class="rule-label">Past simple</span>
+              <h3>A completed past action</h3>
+              <p><em>Lena found a damaged book yesterday.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past continuous</span>
+              <h3>An action in progress</h3>
+              <p><em>They were painting when the table moved.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past perfect</span>
+              <h3>An earlier past event</h3>
+              <p><em>They had finished before the rain started.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past perfect continuous</span>
+              <h3>Duration before a past point</h3>
+              <p><em>They had been working for three hours.</em></p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Past sequence</span>
+              <h3>Place events on a timeline</h3>
+              <p>Use <em>before</em>, <em>after</em>, <em>when</em>, and <em>by the time</em> to show which event happened first.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Used to / would</span>
+              <h3>Past habits and states</h3>
+              <p><em>Used to</em> can describe old habits or states. <em>Would</em> normally describes repeated actions, not past states.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Be used to</span>
+              <h3>Already familiar</h3>
+              <p><em>Mrs. Bell was used to busy events.</em> The form after <em>to</em> is a noun or an <em>-ing</em> form.</p>
+            </article>
+            <article class="rule-card">
+              <span class="rule-label">Get used to</span>
+              <h3>Become familiar</h3>
+              <p><em>Marcus got used to sorting books.</em> This describes a change from unfamiliar to familiar.</p>
+            </article>
+            <article class="rule-card full">
+              <span class="rule-label">Choosing the form</span>
+              <h3>Use the time clue and the event order</h3>
+              <ol>
+                <li>Find markers such as <em>yesterday</em>, <em>while</em>, <em>before</em>, and <em>for three hours</em>.</li>
+                <li>Decide whether the event was completed, in progress, or earlier than another past event.</li>
+                <li>Check whether the sentence describes a repeated action, an old state, existing familiarity, or the process of becoming familiar.</li>
+              </ol>
+            </article>
+          </div>
+
+          <article class="exercise-card" id="grammarExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Grammar Exercise</h3>
+                <p>10 multiple-choice questions followed by 10 typed-answer questions, all about the cane toads.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro"><strong>How this exercise works:</strong> The first 10 questions are multiple choice: pick the past form that fits the time clue in the sentence. The last 10 are typed: write the missing word or words yourself, using the verb given in brackets. Every sentence is about the cane toad passage you read in Section 1. Feedback and the correct answer appear after each response. There is no time limit. Press <em>Start</em> when you are ready.</p>
+              <div class="menu-grid">
+                <div class="menu-summary"><strong>10</strong><span>Multiple choice</span></div>
+                <div class="menu-summary"><strong>10</strong><span>Typed answers</span></div>
+                <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start Grammar Exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 20</span></div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+
+  <script>
+    // ---------- SECTION 1 DATA ----------
+
+    const VOCAB_DEF_QUESTIONS = [
+      { topic: 'Vocab Definition', q: 'What does "native" mean?', options: ['Naturally living or growing in a certain place', 'Kept safely inside a zoo', 'Very large and heavy', 'Newly discovered by scientists'], answer: 0, explanation: 'Paragraph 1 says the toad is native to South America and the Caribbean — that is where it naturally comes from.' },
+      { topic: 'Vocab Definition', q: 'What is a "pest"?', options: ['An animal or insect that causes damage or trouble', 'A helpful farm animal', 'A rare and protected species', 'A scientist who studies frogs'], answer: 0, explanation: 'The title question asks why people see cane toads as such a pest — an animal that causes trouble.' },
+      { topic: 'Vocab Definition', q: 'What are "crops"?', options: ['Plants that farmers grow for food or to sell', 'Tools used to catch insects', 'Small ponds on a farm', 'Storms that damage farmland'], answer: 0, explanation: 'The beetles were destroying the farmers’ sugar cane crops.' },
+      { topic: 'Vocab Definition', q: 'If something was "shipped" to Australia, what happened to it?', options: ['It was sent there from another place', 'It was built there', 'It was hidden there', 'It was destroyed there'], answer: 0, explanation: 'One hundred cane toads were shipped — sent — to Australia from Hawaii.' },
+      { topic: 'Vocab Definition', q: 'What does "anticipated" mean?', options: ['Expected something to happen', 'Refused to believe something', 'Forgot something completely', 'Wrote something down'], answer: 0, explanation: 'Things turned out differently than people had anticipated, meaning differently than they expected.' },
+      { topic: 'Vocab Definition', q: 'What is a "predator"?', options: ['An animal that hunts and eats other animals', 'An animal that only eats plants', 'A baby animal that lives in water', 'An animal kept as a pet'], answer: 0, explanation: 'The cane toad has almost no natural predators, so almost nothing hunts it.' },
+      { topic: 'Vocab Definition', q: 'In paragraph 3, what does "secrete" mean?', options: ['To produce a liquid and let it out of the body', 'To hide something in a secret place', 'To run away very quickly', 'To make a loud warning sound'], answer: 0, explanation: 'The toad secretes a poisonous liquid — its body produces and releases it.' },
+      { topic: 'Vocab Definition', q: 'What does "threatened" mean in "if the cane toad feels threatened"?', options: ['Feeling that something dangerous is about to happen', 'Feeling hungry and tired', 'Feeling happy and safe', 'Feeling cold and wet'], answer: 0, explanation: 'The toad releases poison when it feels it is in danger.' },
+      { topic: 'Vocab Definition', q: 'What is a "tadpole"?', options: ['A baby frog or toad that lives in water', 'A kind of beetle that eats sugar cane', 'A small pond in Queensland', 'An egg that never hatches'], answer: 0, explanation: 'Eggs hatch into tadpoles, which later mature into adult toads.' },
+      { topic: 'Vocab Definition', q: 'What does it mean for an animal to "mature"?', options: ['To grow up and become an adult', 'To move to a new country', 'To lay a large number of eggs', 'To become poisonous for the first time'], answer: 0, explanation: 'Paragraph 4 says many eggs and tadpoles are able to mature, so they reach adulthood.' },
+      { topic: 'Vocab Definition', q: 'If a population grows "rapidly", how does it grow?', options: ['Very quickly', 'Very slowly', 'Not at all', 'Only in winter'], answer: 0, explanation: 'Rapidly means fast — the toad population increased fast because so many babies survived.' },
+      { topic: 'Vocab Definition', q: 'What does "tolerant" mean?', options: ['Willing to accept something you do not really like', 'Angry and shouting loudly', 'Frightened of small animals', 'Very good at solving problems'], answer: 0, explanation: 'People would have been more tolerant — more willing to put up with the toads — if the toads had worked.' }
+    ];
+
+    const VOCAB_FILL_QUESTIONS = [
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The cane toad is _______ to South America and the Caribbean. (word meaning: naturally from that place)', answers: ['native'], display: 'native', explanation: '"Native" means the animal naturally comes from that place.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Farmers were angry because beetles were destroying their sugar cane _______ . (word meaning: plants grown to sell)', answers: ['crops'], display: 'crops', explanation: 'Farmers grow crops such as sugar cane.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'People hoped the toads would be a _______ to the beetle problem. (word meaning: a way to fix a problem)', answers: ['solution'], display: 'solution', explanation: 'A solution is a way of fixing a problem.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: '_______ , the plan did not work at all. (word meaning: sadly, unluckily)', answers: ['unfortunately'], display: 'unfortunately', explanation: '"Unfortunately" introduces bad or unlucky news.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'When the toad feels threatened, it will _______ a poisonous liquid. (word meaning: produce and release from the body)', answers: ['secrete'], display: 'secrete', explanation: 'To secrete is to produce a liquid and let it out of the body.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The cane toad has almost no natural _______ , so nothing hunts it. (plural word)', answers: ['predators'], display: 'predators', explanation: 'Predators are animals that hunt and eat other animals.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Because so many young toads survive, the population grows very _______ . (word meaning: quickly)', answers: ['rapidly'], display: 'rapidly', explanation: '"Rapidly" is an adverb meaning very quickly.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Cane toads eat many types of Australian _______ . (word meaning: wild animals in nature)', answers: ['wildlife'], display: 'wildlife', explanation: 'Wildlife means the wild animals and plants of a place.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The toads keep spreading across the _______ . (word meaning: one of Earth’s seven big land areas)', answers: ['continent'], display: 'continent', explanation: 'Australia is both a country and a continent.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Surprisingly, some Australians even _______ the giant toads as pets. (word meaning: take an animal home to care for it)', answers: ['adopt'], display: 'adopt', explanation: 'To adopt an animal is to take it in and care for it.' }
+    ];
+
+    const STORY_ELEMENTS_QUESTIONS = [
+      { topic: 'Text Type', q: 'What type of text is "Australia’s Giant Toads"?', options: ['Nonfiction — an informational article about a real problem', 'Fiction — a made-up story about talking animals', 'A poem about the Australian countryside', 'A personal letter written to a farmer'], answer: 0, explanation: 'The text gives real facts, dates, and numbers about a real event, so it is a nonfiction informational article.' },
+      { topic: 'Topic', q: 'What is the topic of the passage?', options: ['Cane toads in Australia', 'Sugar cane farming in Hawaii', 'Frogs and toads around the world', 'Poisonous animals of the Caribbean'], answer: 0, explanation: 'The topic is the subject in a few words: cane toads in Australia.' },
+      { topic: 'Main Idea', q: 'Which sentence best states the main idea of the whole passage?', options: ['Cane toads were brought to Australia to solve a beetle problem, but they became a much bigger problem themselves.', 'Cane toads can weigh as much as four pounds.', 'Sugar cane beetles can fly away from danger.', 'Some Australians keep cane toads as pets.'], answer: 0, explanation: 'The main idea covers the whole text. The other choices are single details from one paragraph.' },
+      { topic: 'Setting', q: 'Where and when do the main events of the passage take place?', options: ['In Australia, beginning in 1935', 'In Hawaii, beginning in 1935', 'In South America, beginning in 1900', 'In the Caribbean, beginning in 2005'], answer: 0, explanation: 'Paragraph 2 says the toads were shipped to Australia in 1935; everything after that happens in Australia.' },
+      { topic: 'Author’s Purpose', q: 'Why did the author most likely write this passage?', options: ['To inform readers about how cane toads became a problem in Australia', 'To entertain readers with a funny animal adventure', 'To persuade readers to buy a cane toad as a pet', 'To teach readers how to raise tadpoles at home'], answer: 0, explanation: 'The author gives facts and explanations rather than telling a story or selling something, so the purpose is to inform.' },
+      { topic: 'Text Structure', q: 'How is the information in this passage organised?', options: ['Problem and solution, plus cause and effect — a problem, an attempted fix, and its results', 'Compare and contrast between two kinds of toads', 'A list of instructions given in numbered steps', 'A description of one single day in order from morning to night'], answer: 0, explanation: 'The beetles were the first problem, the toads were the attempted solution, and the rest of the text explains the effects.' },
+      { topic: 'Cause and Effect', q: 'According to the passage, why did the cane toad population grow so fast in Australia?', options: ['The toads had almost no predators and each pair lays more than 30,000 eggs a season', 'Australian farmers kept shipping in more toads every year', 'The Queensland weather made the toads grow much larger', 'The toads ate the sugar cane beetles and became stronger'], answer: 0, explanation: 'Paragraphs 3 and 4 give both causes: no natural predators, and a very large number of eggs that survive.' },
+      { topic: 'Supporting Detail', q: 'Which detail best supports the idea that the cane toad is dangerous?', options: ['Its poison can kill small animals and blind an adult for several hours', 'It was shipped to Australia from Hawaii', 'It is native to South America and the Caribbean', 'Some people leave food for it in their backyards'], answer: 0, explanation: 'Only the first choice describes actual harm the toad can do.' },
+      { topic: 'Conclusion', q: 'Why did the cane toads fail to fix the farmers’ beetle problem?', options: ['The beetles could easily fly out of harm’s way, so the toads had no effect on them', 'The toads refused to eat any insects at all', 'The farmers released the toads in the wrong season', 'The beetles were poisonous to the toads'], answer: 0, explanation: 'Paragraph 5 explains that the beetles simply flew away from the toads.' },
+      { topic: 'Tone', q: 'What is the tone of the last paragraph?', options: ['Factual, but a little surprised that some people actually like the toads', 'Angry and full of blame towards Australian farmers', 'Frightened and full of warnings about danger', 'Joyful and celebrating a happy ending'], answer: 0, explanation: 'The exclamation mark after "adopt the giant toads as pets!" shows mild surprise, while the rest stays factual.' }
+    ];
+
+    const PDF_WORKSHEET_QUESTIONS = [
+      { topic: 'Worksheet Q1 · your opinion', type: 'typed', q: 'Q1: Do you think cane toads will continue to be a problem in Australia? Explain your answer in one or two sentences.', answers: ['*'], display: 'Model answer: Yes. The toads have no natural predators and lay more than 30,000 eggs each season, so their numbers keep growing and they are still spreading across the continent.', explanation: 'Any answer is accepted, but a strong answer gives a reason taken from the passage (no predators, many eggs, still spreading).' },
+      { topic: 'Worksheet Q2', q: 'Q2: Why were cane toads first brought to Australia?', options: ['To eat the beetles that were destroying the sugar cane crops', 'To be sold as pets in Queensland pet shops', 'To replace frogs that had disappeared from Australia', 'To be studied by scientists at an Australian university'], answer: 0, explanation: 'Paragraph 2: farmers had a beetle problem, and people hoped the toads would be the solution.' },
+      { topic: 'Worksheet Q3', q: 'Q3: Why are there so many cane toads in Australia if only one hundred or so were originally released?', options: ['They have no natural predators, and each pair lays more than 30,000 eggs a season, so most young survive', 'Australians kept importing new toads from Hawaii every year', 'The toads live for more than one hundred years each', 'The toads were released in six different states at the same time'], answer: 0, explanation: 'Paragraphs 3 and 4: no predators plus a huge number of surviving eggs and tadpoles.' },
+      { topic: 'Worksheet Q4 · Main Idea', q: 'Q4: Check the sentence that best states the main idea of the selection.', options: ['Cane toads were brought to Australia to eat sugar cane beetles, but they ended up becoming a dangerous pest.', 'Cane toads can weigh as much as four pounds.', 'Cane toads do not have any natural predators in Australia.'], answer: 0, explanation: 'The other two sentences are true, but they are only small details. The main idea covers the whole passage.' },
+      { topic: 'Worksheet Q5 · Vocabulary', type: 'typed', q: 'Q5: In paragraph 3, what does the word "secrete" mean? (Write a short definition.)', answers: ['to produce a liquid and let it out of the body', 'produce a liquid and release it', 'to release a liquid from the body', 'release liquid from the body', 'to give off a liquid'], display: 'To produce a liquid and let it out of the body (to give off or release a liquid).', explanation: 'The toad "will secrete a poisonous liquid" when threatened — its body makes the liquid and lets it out.' },
+      { topic: 'Worksheet Q6', q: 'Q6: Which has been a bigger problem — cane toads or sugar cane beetles? Why?', options: ['Cane toads, because they are poisonous, eat native wildlife, endanger pets and children, and keep spreading', 'Sugar cane beetles, because they destroyed every sugar cane crop in Australia', 'Sugar cane beetles, because they can fly and the toads cannot', 'Neither — both problems were solved in 1935'], answer: 0, explanation: 'Paragraph 2 says the toads "quickly became a more annoying pest than the beetles had ever been," and paragraph 6 lists the harm they cause.' },
+      { topic: 'Worksheet Q7 · your opinion', type: 'typed', q: 'Q7: What do you think is a good solution to the cane toad problem? (Write one or two sentences.)', answers: ['*'], display: 'Model answer: Scientists could build fences or traps around the areas where the toads are spreading and collect the eggs from ponds before they hatch, so the population stops growing without harming native animals.', explanation: 'Any sensible idea is accepted. A strong answer explains how the idea would work and why it would not hurt native wildlife.' }
+    ];
+
+    const PASSAGE_REFERENCE = `
+      <p><strong>Par. 1:</strong> The cane toad is native to South America and the Caribbean and can weigh as much as four pounds.</p>
+      <p><strong>Par. 2:</strong> In 1935, about one hundred toads were shipped from Hawaii to eat beetles destroying sugar cane crops. Unfortunately, the toads became a worse pest.</p>
+      <p><strong>Par. 3:</strong> The toad has almost no natural predators. When threatened it secretes a poisonous liquid that can kill small animals and blind an adult for hours.</p>
+      <p><strong>Par. 4:</strong> It is poisonous at every life stage, even as an egg. Each pair lays more than 30,000 eggs a season, so the population grows rapidly.</p>
+      <p><strong>Par. 5:</strong> Thousands appeared in Queensland. The toads had no effect on the beetles, which could fly out of harm's way.</p>
+      <p><strong>Par. 6:</strong> The toads keep spreading across the continent, eating wildlife and endangering pets and children — yet some people adopt them as pets.</p>
+    `;
+
+    // ---------- SECTION 2 DATA ----------
+
+    const NUMBERS_QUESTIONS = [
+      { topic: 'Years', type: 'typed', q: 'Write the year 1935 in words, the way you would say it aloud.', answers: ['nineteen thirty-five', 'nineteen thirty five'], display: 'nineteen thirty-five', explanation: 'Years are usually said in two pairs of digits: 19 / 35 = "nineteen thirty-five."' },
+      { topic: 'Years', q: 'How do you say the year 2026 aloud?', options: ['twenty twenty-six', 'two zero two six', 'two hundred and twenty-six', 'twenty-six hundred'], answer: 0, explanation: 'From 2010 onward, the two-pair pattern is normal again: 20 / 26 = "twenty twenty-six."' },
+      { topic: 'Ordinal numbers', q: 'Which sentence uses the ordinal number correctly?', options: ['Queensland is the second largest state in Australia.', 'Queensland is the two largest state in Australia.', 'Queensland is a second largest state in Australia.', 'Queensland is the secondth largest state in Australia.'], answer: 0, explanation: 'Ordinals show position in an order and usually follow "the": the first, the second, the third.' },
+      { topic: 'Ordinal numbers', type: 'typed', q: 'Write the ordinal number for 3 in words (as in "the ___ paragraph").', answers: ['third'], display: 'third', explanation: '1 → first, 2 → second, 3 → third. These three are irregular, so they must be memorised.' },
+      { topic: 'Big numbers', q: 'How do you say the number 30,000?', options: ['thirty thousand', 'thirty thousands', 'three thousand', 'thirty hundred'], answer: 0, explanation: '"Thousand" stays singular after a number: thirty thousand, never "thirty thousands."' },
+      { topic: 'Big numbers', q: 'Which number is written correctly in English?', options: ['1,200', '1.200', '1 200,00', '12,00'], answer: 0, explanation: 'English uses a comma every three digits and a dot for decimals — the opposite of Indonesian.' },
+      { topic: 'Measurement', q: 'Choose the correct sentence.', options: ['The cane toad can weigh as much as four pounds.', 'The cane toad can weigh as much as four pound.', 'The cane toad can weigh as much as four-pounds.', 'The cane toad can weigh as much as fourth pounds.'], answer: 0, explanation: 'After a number greater than one, the unit is plural: four pounds.' },
+      { topic: 'Hyphen rule', q: 'Choose the correct sentence.', options: ['It is a four-pound toad.', 'It is a four pounds toad.', 'It is a four-pounds toad.', 'It is a fourth pound toad.'], answer: 0, explanation: 'When a number and a unit come before a noun, join them with a hyphen and keep the unit singular: a four-pound toad.' },
+      { topic: 'Age', q: 'Which sentence talks about age correctly in English?', options: ['My sister is nine years old.', 'My sister has nine years.', 'My sister is nine years olds.', 'My sister has nine years old.'], answer: 0, explanation: 'English uses the verb "be" for age, not "have": She IS nine years old.' },
+      { topic: 'Clock time', q: 'How do you say 9:45?', options: ['a quarter to ten', 'a quarter past ten', 'a quarter to nine', 'nine and forty-five o’clock'], answer: 0, explanation: '9:45 is fifteen minutes before ten, so it is "a quarter to ten" (or simply "nine forty-five").' },
+      { topic: 'Clock time', q: 'Which sentence uses "o’clock" correctly?', options: ['We start the lesson at three o’clock.', 'We start the lesson at three thirty o’clock.', 'We start the lesson at 3:15 o’clock.', 'We start the lesson at o’clock three.'], answer: 0, explanation: '"O’clock" is used only with an exact hour — never with minutes.' },
+      { topic: 'Approximate numbers', q: 'The passage says "more than 30,000 eggs." What does "more than" tell you?', options: ['The real number is above 30,000; 30,000 is the smallest it could be', 'The real number is exactly 30,000', 'The real number is below 30,000', 'Nobody has ever counted the eggs'], answer: 0, explanation: '"More than" and "over" show the true amount is above the number given.' },
+      { topic: 'Approximate numbers', type: 'typed', q: 'Fill in the blank with ONE word that shows the number is not exact: "_______ one hundred cane toads were shipped to Australia."', answers: ['about', 'around', 'roughly', 'approximately', 'nearly'], display: 'about (also: around, roughly, approximately, nearly)', explanation: 'The passage uses "About one hundred cane toads..." — these words all signal an estimate.' },
+      { topic: 'Decimals and percent', q: 'How do you say 3.14 aloud in English?', options: ['three point one four', 'three point fourteen', 'three comma fourteen', 'three and fourteen'], answer: 0, explanation: 'After a decimal point, each digit is said separately: "three point one four."' },
+      { topic: 'Words or digits', q: 'Which sentence follows the rule about starting a sentence with a number?', options: ['Thirty thousand eggs can be laid in one season.', '30,000 eggs can be laid in one season.', '30 thousand eggs can be laid in one season.', '30,000’s eggs can be laid in one season.'], answer: 0, explanation: 'Never begin a sentence with a digit — write the number out in words instead.' }
+    ];
+
+    // ---------- SECTION 3 DATA ----------
+
+    const GRAMMAR_MC = [
+      { topic: 'Past simple', q: 'In 1935, farmers ___ about one hundred cane toads from Hawaii.', options: ['brought', 'were bringing', 'had brought', 'had been bringing'], answer: 0, explanation: 'Use the past simple for a completed action at a finished time ("in 1935").' },
+      { topic: 'Past continuous', q: 'While the beetles ___ the sugar cane, the farmers looked for a solution.', options: ['were destroying', 'destroyed', 'had destroyed', 'had been destroy'], answer: 0, explanation: 'Use the past continuous for a longer action in progress when another event happened.' },
+      { topic: 'Past perfect', q: 'By the time the scientists arrived in Queensland, the toads ___ across the whole area.', options: ['had spread', 'spread', 'were spreading', 'had been spread'], answer: 0, explanation: 'Use the past perfect for an action completed before another past moment.' },
+      { topic: 'Past perfect continuous', q: 'The farmers ___ with the beetles for several years before the toads arrived.', options: ['had been struggling', 'were struggling', 'struggled', 'had struggle'], answer: 0, explanation: 'Use the past perfect continuous to show how long something had been happening before another past event.' },
+      { topic: 'Sequence of events', q: 'Choose the sentence that shows the events in the correct order.', options: [
+        'After the toads had eaten the native wildlife, the population of small animals fell.',
+        'After the toads ate the native wildlife, the population had fallen before they arrived.',
+        'The population of small animals had fallen before the toads had been shipped after that.',
+        'The toads were eating the wildlife after they already arrive in Australia.'
+      ], answer: 0, explanation: 'Eating came first; the fall in small animals came afterwards, so the earlier event takes the past perfect.' },
+      { topic: 'Used to', q: 'Before 1935, Queensland ___ have any cane toads at all.', options: ['did not use to', 'was not used to', 'would not to', 'did not got used to'], answer: 0, explanation: 'Use "used to" for a past state that is no longer true; in the negative it becomes "did not use to."' },
+      { topic: 'Would for repeated actions', q: 'Every summer, the farmers ___ walk through the fields to check for beetles.', options: ['would', 'used', 'was used to', 'had been'], answer: 0, explanation: '"Would" describes a repeated past action when the time frame is clear ("every summer").' },
+      { topic: 'Be used to', q: 'Australian scientists ___ studying unusual animals, so the toad did not surprise them.', options: ['were used to', 'used to', 'would', 'get use to'], answer: 0, explanation: '"Be used to" means to be already familiar or comfortable with something, and is followed by a noun or -ing form.' },
+      { topic: 'Get used to', q: 'At first the villagers were frightened of the toads, but they slowly ___ seeing them in the garden.', options: ['got used to', 'were used to', 'used to see', 'would be used'], answer: 0, explanation: '"Get used to" describes the process of becoming familiar with something new.' },
+      { topic: 'Mixed past forms', q: 'When the farmers finally checked the fields, the beetles ___ away and the toads ___ nothing at all.', options: [
+        'had flown; had eaten',
+        'flew; had been eating',
+        'were flying; had ate',
+        'had been flown; were eat'
+      ], answer: 0, explanation: 'Both events happened before the farmers checked, so both take the past perfect.' }
+    ];
+
+    const GRAMMAR_TYPED = [
+      { topic: 'Past simple', type: 'typed', q: 'Complete the sentence with the past simple form of "bring": People ___ the cane toads to Australia in 1935.', answers: ['brought'], display: 'brought', explanation: '"Brought" is the irregular past simple form of "bring."' },
+      { topic: 'Past continuous', type: 'typed', q: 'Complete the sentence: The beetles ___ the crops when the toads arrived. (destroy)', answers: ['were destroying'], display: 'were destroying', explanation: 'The destroying was already in progress when the shorter action happened.' },
+      { topic: 'Past perfect', type: 'typed', q: 'Complete the sentence: By 1940, the toad population ___ enormously. (grow)', answers: ['had grown'], display: 'had grown', explanation: 'The growth was complete before the past point "by 1940."' },
+      { topic: 'Past perfect continuous', type: 'typed', q: 'Complete the sentence: The toads ___ across the continent for decades before anyone made a plan. (spread)', answers: ['had been spreading'], display: 'had been spreading', explanation: 'This form emphasises how long the spreading continued before another past event.' },
+      { topic: 'Sequence of events', type: 'typed', q: 'Complete the sentence with the best form: After the toads ___ their poison, the small animals died. (release)', answers: ['had released', 'released'], display: 'had released / released', explanation: 'Both are possible because "after" already makes the order clear; the past perfect simply adds emphasis.' },
+      { topic: 'Used to', type: 'typed', q: 'Complete the sentence with two words: Fish ___ ___ eat the eggs of frogs and toads safely, but they cannot eat cane toad eggs.', answers: ['used to'], display: 'used to', explanation: '"Used to" describes a past state or habit that is no longer true.' },
+      { topic: 'Would for repeated actions', type: 'typed', q: 'Complete the sentence with ONE word: Every evening, the children ___ count the toads in their backyard.', answers: ['would'], display: 'would', explanation: '"Would" describes a repeated past action.' },
+      { topic: 'Be used to', type: 'typed', q: 'Complete the sentence with three words: Queensland farmers ___ ___ ___ losing part of their crop every year.', answers: ['were used to', 'was used to'], display: 'were used to', explanation: '"Be used to" + -ing means they were already familiar with the situation.' },
+      { topic: 'Get used to', type: 'typed', q: 'Complete the sentence with three words: After a few months, the pets ___ ___ ___ avoiding the poisonous toads.', answers: ['got used to'], display: 'got used to', explanation: '"Get used to" shows the change from unfamiliar to familiar.' },
+      { topic: 'Mixed past forms', type: 'typed', q: 'Complete both blanks: While the toads ___ , the beetles simply ___ away. (multiply / fly)', answers: ['were multiplying, flew', 'were multiplying flew', 'were multiplying; flew'], display: 'were multiplying; flew', explanation: 'The longer action was in progress (past continuous) when the shorter completed action happened (past simple).' }
+    ];
+
+    (() => {
+      'use strict';
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function normalizeTyped(value) {
+        return String(value ?? '')
+          .trim()
+          .toLowerCase()
+          .replace(/[.,;:!?]+/g, ' ')
+          .replace(/\s+/g, ' ');
+      }
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return {
+            ...question,
+            type: 'mc',
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function setupTheme() {
+        const button = $('#themeToggle');
+        const icon = $('#themeIcon');
+        const label = $('#themeLabel');
+
+        const sync = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          button.setAttribute('aria-pressed', String(dark));
+          button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          icon.textContent = dark ? '☀' : '☾';
+          label.textContent = dark ? 'Light' : 'Dark';
+        };
+
+        sync();
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('tasya-elfa-quiz-theme', next); } catch (e) {}
+          sync();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$('[data-collapse]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.collapse);
+            const willCollapse = !target.hidden;
+            target.hidden = willCollapse;
+            button.textContent = willCollapse ? 'Expand' : 'Collapse';
+            button.setAttribute('aria-expanded', String(!willCollapse));
+          });
+        });
+      }
+
+      function buildReview(responses) {
+        const missed = responses.filter((response) => !response.correct);
+        if (!missed.length) {
+          return '<div class="review-box"><strong>No incorrect answers to review.</strong><p>You answered every attempted question correctly.</p></div>';
+        }
+
+        return missed.map((response, index) => `
+          <article class="review-box">
+            <h5>${index + 1}. ${escapeHtml(response.question)}</h5>
+            <p><strong>Your answer:</strong> ${escapeHtml(response.userAnswer || 'No answer')}</p>
+            <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+            <p><strong>Why:</strong> ${escapeHtml(response.explanation)}</p>
+          </article>
+        `).join('');
+      }
+
+      function buildTopicBreakdown(responses) {
+        const topics = new Map();
+        responses.forEach((response) => {
+          if (!topics.has(response.topic)) topics.set(response.topic, { correct: 0, total: 0 });
+          const item = topics.get(response.topic);
+          item.total += 1;
+          if (response.correct) item.correct += 1;
+        });
+
+        return [...topics.entries()]
+          .map(([topic, result]) => `
+            <div class="topic-row">
+              <span>${escapeHtml(topic)}</span>
+              <span>${result.correct}/${result.total}</span>
+            </div>
+          `)
+          .join('');
+      }
+
+      function createExercise(config) {
+        const card = document.getElementById(config.cardId);
+        if (!card) return;
+
+        const refs = {
+          menu: $('[data-menu]', card),
+          start: $('[data-start]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          end: $('[data-end]', card),
+          host: $('[data-question-host]', card)
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false
+        };
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          if (state.active) refs.score.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveProgress.textContent = answered >= total
+            ? `Completed ${total} questions`
+            : `Question ${state.index + 1} of ${total}`;
+          refs.progress.style.width = `${total ? (answered / total) * 100 : 0}%`;
+        }
+
+        function start() {
+          state.questions = config.buildQuestions();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+
+          refs.menu.hidden = true;
+          refs.finish.hidden = true;
+          refs.live.hidden = false;
+          refs.score.textContent = 'In progress';
+          updateProgress();
+          renderQuestion();
+          refs.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+          const question = state.questions[state.index];
+          if (!question) return;
+
+          const isTyped = question.type === 'typed';
+          const storySide = config.showStory ? `
+            <aside class="story-card">
+              <div class="story-label">Passage Reference</div>
+              <h3>Australia's Giant Toads</h3>
+              <div class="story-text">${PASSAGE_REFERENCE}</div>
+            </aside>
+          ` : '';
+
+          refs.host.innerHTML = `
+            <div class="question-layout ${config.showStory ? '' : 'single'}">
+              ${storySide}
+              <section class="question-card">
+                <div class="question-meta">${escapeHtml(question.topic)}</div>
+                <div class="question-text">${escapeHtml(question.q)}</div>
+                <div data-answer-area></div>
+                <div class="feedback" data-feedback hidden aria-live="polite"></div>
+                <div class="button-row">
+                  ${isTyped ? '<button class="btn btn-primary" type="button" data-submit>Check answer</button>' : ''}
+                  <button class="btn btn-positive" type="button" data-next hidden>Next question</button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea = $('[data-answer-area]', refs.host);
+          const nextButton = $('[data-next]', refs.host);
+
+          if (isTyped) {
+            const openEnded = question.answers.includes('*');
+            answerArea.innerHTML = `
+              <div class="typed-wrap">
+                <input class="typed-input" type="text" autocomplete="off" spellcheck="false" placeholder="${openEnded ? 'Write your own answer in a full sentence...' : 'Type your answer here...'}">
+                <div class="typed-hint">Press Enter or choose "Check answer."</div>
+              </div>
+            `;
+            const input = $('.typed-input', answerArea);
+            $('[data-submit]', refs.host).addEventListener('click', () => gradeTyped(question));
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') gradeTyped(question); });
+            input.focus();
+          } else {
+            const list = document.createElement('div');
+            list.className = 'option-list';
+            question.shuffledOptions.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = option;
+              button.addEventListener('click', () => gradeMC(question, option, button));
+              list.appendChild(button);
+            });
+            answerArea.appendChild(list);
+          }
+
+          nextButton.addEventListener('click', advance);
+          updateProgress();
+        }
+
+        function revealNext() {
+          const nextButton = $('[data-next]', refs.host);
+          nextButton.hidden = false;
+          nextButton.textContent = state.index === state.questions.length - 1 ? 'Finish exercise' : 'Next question';
+        }
+
+        function gradeMC(question, selected, btn) {
+          if (state.answered || !state.active) return;
+          state.answered = true;
+
+          const correct = selected === question.answerText;
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: selected,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$('.option-btn', refs.host).forEach((b) => {
+            b.disabled = true;
+            if (b.textContent === question.answerText) b.classList.add('correct-choice');
+          });
+          if (!correct) btn.classList.add('wrong-choice');
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          fb.innerHTML = correct
+            ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+            : `✕ <strong>Incorrect.</strong><br><strong>Correct answer:</strong> ${escapeHtml(question.answerText)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+
+          revealNext();
+          updateProgress();
+        }
+
+        function gradeTyped(question) {
+          if (state.answered || !state.active) return;
+          const input = $('.typed-input', refs.host);
+          const val = input.value.trim();
+          if (!val) {
+            const fb = $('[data-feedback]', refs.host);
+            fb.hidden = false;
+            fb.className = 'feedback neutral';
+            fb.innerHTML = '<strong>Type an answer before checking.</strong>';
+            input.focus();
+            return;
+          }
+
+          state.answered = true;
+          input.disabled = true;
+          $('[data-submit]', refs.host).disabled = true;
+
+          const isOpenEnded = question.answers.includes('*');
+          const normalized = normalizeTyped(val);
+          const correct = isOpenEnded || question.answers.some((a) => normalizeTyped(a) === normalized);
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: val,
+            correctAnswer: question.display,
+            explanation: question.explanation,
+            correct
+          });
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          if (isOpenEnded) {
+            fb.innerHTML = `✓ <strong>Thank you for your answer!</strong><br>${escapeHtml(question.display)}<br><em>${escapeHtml(question.explanation)}</em>`;
+          } else {
+            fb.innerHTML = correct
+              ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+              : `✕ <strong>Incorrect.</strong><br><strong>Expected:</strong> ${escapeHtml(question.display)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+          }
+
+          revealNext();
+          updateProgress();
+        }
+
+        function advance() {
+          if (!state.answered) return;
+          if (state.index >= state.questions.length - 1) {
+            finish('Completed all questions');
+            return;
+          }
+          state.index += 1;
+          renderQuestion();
+          $('.question-card', refs.host).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function finish(reason) {
+          if (!state.active) return;
+          state.active = false;
+          refs.live.hidden = true;
+          refs.finish.hidden = false;
+
+          const total = state.questions.length;
+          const answered = state.responses.length;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+          const topicRows = buildTopicBreakdown(state.responses);
+
+          refs.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(config.finishTitle)}</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${total - answered}</strong><span>Unanswered</span></div>
+              </div>
+
+              ${topicRows ? `<h5 style="font-size:1.25rem;line-height:1.2;margin:24px 0 10px;">Topic breakdown</h5><div class="topic-breakdown">${topicRows}</div>` : ''}
+
+              <h5 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px;">Incorrect-answer review</h5>
+              ${buildReview(state.responses)}
+
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Try Again</button>
+                <button class="btn btn-secondary" type="button" data-menu-back>Back to Menu</button>
+              </div>
+            </div>
+          `;
+
+          refs.score.textContent = answered ? `Final: ${state.score} / ${answered}` : 'No answers';
+          refs.progress.style.width = total ? `${(answered / total) * 100}%` : '0%';
+
+          $('[data-retry]', refs.finish).addEventListener('click', start);
+          $('[data-menu-back]', refs.finish).addEventListener('click', () => {
+            refs.finish.hidden = true;
+            refs.menu.hidden = false;
+            refs.score.textContent = 'Ready';
+            refs.progress.style.width = '0%';
+            refs.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          refs.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        refs.start.addEventListener('click', start);
+        refs.end.addEventListener('click', () => finish('Exercise ended early'));
+      }
+
+      setupTheme();
+      setupSectionCollapse();
+
+      createExercise({
+        cardId: 'vocabDefExercise',
+        showStory: false,
+        finishTitle: 'Vocabulary Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(VOCAB_DEF_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'vocabFillExercise',
+        showStory: false,
+        finishTitle: 'Vocabulary Exercise 2 Summary',
+        buildQuestions: () => shuffle(VOCAB_FILL_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'elementsExercise',
+        showStory: true,
+        finishTitle: 'Reading Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(STORY_ELEMENTS_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'pdfWorksheetExercise',
+        showStory: true,
+        finishTitle: 'Reading Exercise 2 Summary',
+        buildQuestions: () => PDF_WORKSHEET_QUESTIONS.map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return { ...question, type: 'mc', answerText, shuffledOptions: shuffle(question.options) };
+        })
+      });
+
+      createExercise({
+        cardId: 'numbersExercise',
+        showStory: false,
+        finishTitle: 'Numbers Exercise Summary',
+        buildQuestions: () => prepareMultipleChoice(NUMBERS_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'grammarExercise',
+        showStory: false,
+        finishTitle: 'Grammar Exercise Summary',
+        buildQuestions: () => [
+          ...prepareMultipleChoice(GRAMMAR_MC),
+          ...shuffle(GRAMMAR_TYPED)
+        ]
+      });
+    })();
+  </script>
+</body>
+</html>
