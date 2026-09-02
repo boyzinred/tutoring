@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading comprehension and numbers in English - Aussie Animals.">
+  <title>September 2 - Classwork</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('mitch-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      --light-background: #FFFFFF;
+      --light-foreground: #111827;
+      --light-primary: #3B82F6;
+      --light-primary-hover: #2563EB;
+      --light-secondary: #10B981;
+      --light-secondary-soft: #D1FAE5;
+      --light-accent: #F59E0B;
+      --light-accent-soft: #FEF3C7;
+      --light-muted: #F3F4F6;
+      --light-muted-strong: #E5E7EB;
+      --light-blue-soft: #DBEAFE;
+      --light-border: #D1D5DB;
+      --light-subtle: #4B5563;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --success-text: #052E16;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #064E3B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --muted: #0B1220;
+      --muted-strong: #1F2937;
+      --blue-soft: #172554;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success-text: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #111827;
+      background: var(--secondary);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .rule-label,
+    .story-label {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .sub-section {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .sub-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .sub-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    /* Vocab Cards Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .vocab-card {
+      padding: 20px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .vocab-word {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vocab-pos {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #111827;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-left: 8px;
+      text-transform: lowercase;
+      font-style: italic;
+    }
+
+    .vocab-def {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: var(--surface-text);
+    }
+
+    .vocab-ex {
+      font-size: 0.88rem;
+      color: var(--surface-text);
+      opacity: 0.9;
+      font-style: italic;
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+
+    }
+
+    /* Hover Tooltip Styling */
+    .vocab-hover {
+      position: relative;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline dotted var(--primary);
+      cursor: help;
+    }
+
+    .vocab-hover::after {
+      content: attr(data-def);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      padding: 8px 12px;
+      background: var(--inverse);
+      color: var(--inverse-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 50;
+      pointer-events: none;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .vocab-hover:hover::after,
+    .vocab-hover:focus::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .paragraph-num {
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+      font-size: 1.1rem;
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-text p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--surface-text);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .65fr));
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary-hover);
+    }
+
+    .btn-positive {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .btn-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: .8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single {
+      grid-template-columns: 1fr;
+    }
+
+    .question-layout .story-card {
+      position: sticky;
+      top: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color: var(--success-text);
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .typed-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .typed-input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .typed-input:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--accent-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--muted);
+      border-left: 8px solid var(--primary);
+    }
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+
+    .float-btn {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* --- August 28 additions --- */
+    .numbers-section .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .live-toolbar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rule-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .rule-card.full { grid-column: 1 / -1; }
+
+    .rule-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .rule-card h3 {
+      margin-bottom: 12px;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .rule-card li { margin: 7px 0; }
+    .rule-card p:last-child,
+    .rule-card ul:last-child,
+    .rule-card ol:last-child { margin-bottom: 0; }
+
+    .example-table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+
+    .example-table th,
+    .example-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .example-table th {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    .source-note {
+      margin-top: 28px;
+      padding: 20px;
+      color: var(--surface-text);
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-box h5 { margin-bottom: 8px; font-size: 1.05rem; line-height: 1.3; }
+    .review-box p { margin: 4px 0; }
+
+    .typed-hint {
+      font-size: .84rem;
+      color: var(--subtle);
+    }
+
+    .topic-breakdown { display: grid; gap: 8px; margin-top: 14px; }
+
+    .topic-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .topic-row span:last-child { color: var(--primary); font-weight: 800; }
+
+    .metric span {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme='dark'] .rule-label { color: #0B1220; }
+
+    @media (max-width: 900px) {
+      .lesson-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>September 2, 2026 - Classwork</h1>
+        <p>Two lessons today: reading comprehension with <em>Aussie Animals</em>, and how numbers are used in English.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#vocab-section">1a. Vocabulary</a>
+        <a class="toc-link" href="#reading-section">1b. Reading Passage</a>
+        <a class="toc-link" href="#elements-section">1c. Reading Exercises</a>
+        <a class="toc-link" href="#numbers">2. Numbers in English</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ================= SECTION 1: READING ================= -->
+      <section class="section-card reading-section" id="main-reading">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 1 · Reading</div>
+            <h2>Aussie Animals</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="mainReadingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="mainReadingBody">
+
+          <!-- SUB-SECTION 1: VOCABULARY -->
+          <div class="sub-section" id="vocab-section">
+            <h3 class="sub-title">Sub-Section 1: Vocabulary List &amp; Practice</h3>
+            <p>Study these words before you read <em>"Aussie Animals."</em> They are the words most likely to be new to you. When you read the passage below, hover or tap the dotted underlined words to see the definition again!</p>
+
+            <div class="vocab-grid">
+              <div class="vocab-card">
+                <div><span class="vocab-word">patio</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A flat, hard area outside a building where people can sit or eat.</div>
+                <div class="vocab-ex">"...eating lunch on the small patio behind the school's cafeteria."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">cafeteria</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A place in a school or office where you get your food and carry it to a table yourself.</div>
+                <div class="vocab-ex">"...the patio behind the school's cafeteria."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">grazing</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Eating grass slowly in a field, the way cows and kangaroos do.</div>
+                <div class="vocab-ex">"...hopping along the side of a road or grazing in a field."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">hardly</span> <span class="vocab-pos">adverb</span></div>
+                <div class="vocab-def">Almost not at all.</div>
+                <div class="vocab-ex">"You hardly even notice it."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">squirrel</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A small grey or brown animal with a big bushy tail that climbs trees.</div>
+                <div class="vocab-ex">"...how many times you've seen a squirrel, or a deer, or a raccoon."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">raccoon</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A North American animal with grey fur, a striped tail, and black fur around its eyes like a mask.</div>
+                <div class="vocab-ex">"I never saw a real raccoon or a deer before I moved here."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">pouch</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A pocket of skin on the front of some animals where they carry their babies.</div>
+                <div class="vocab-ex">"Is it true that a mother kangaroo carries her baby in her pouch?"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">joey</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A baby kangaroo.</div>
+                <div class="vocab-ex">"Aussies call baby kangaroos joeys."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">Aussie</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A friendly, short way of saying "an Australian person."</div>
+                <div class="vocab-ex">"Aussies call baby kangaroos joeys."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">marsupial</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An animal that carries its baby in a pouch, such as a kangaroo, a koala, or a wombat.</div>
+                <div class="vocab-ex">"They are marsupials like the kangaroo."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">koala</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A grey Australian animal that looks like a small teddy bear and lives in trees.</div>
+                <div class="vocab-ex">"I know what a koala bear is," said Vijay.</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">wombat</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A short, heavy Australian animal that digs and lives underground.</div>
+                <div class="vocab-ex">"...but what is a wombat?"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">resemble</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To look like something else.</div>
+                <div class="vocab-ex">"People just call them that because they resemble a teddy bear."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">eucalyptus</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A tall Australian tree with strong-smelling leaves. It is said <em>yoo kah LIP tuss</em>.</div>
+                <div class="vocab-ex">"There is a type of tree called a eucalyptus that grows in Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">energy</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The power your body gets from food so you can move and stay awake.</div>
+                <div class="vocab-ex">"They don't get much energy from the leaves."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">diet</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The kinds of food an animal or person usually eats.</div>
+                <div class="vocab-ex">"It sounds like they need a change in their diet."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">similarity</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A way in which two things are the same.</div>
+                <div class="vocab-ex">"The only real similarity is that it is a marsupial, too."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">burrow</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To dig a hole or tunnel in the ground to live in.</div>
+                <div class="vocab-ex">"It burrows underground and makes tunnels."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">tunnel</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A long passage dug under the ground.</div>
+                <div class="vocab-ex">"...makes tunnels that are 10 to 15 feet long."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">beaver</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A brown animal with big front teeth and a flat tail that builds dams in rivers.</div>
+                <div class="vocab-ex">"...the wombat looks like a beaver or a groundhog."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">groundhog</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A short, furry American animal that digs holes and lives in the ground.</div>
+                <div class="vocab-ex">"...looks like a beaver or a groundhog."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">exclaimed</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Said something suddenly and loudly because of surprise or excitement.</div>
+                <div class="vocab-ex">"That's pretty fast!" exclaimed Vijay.</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">cardinal</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A bright red American songbird.</div>
+                <div class="vocab-ex">"I also never saw a cardinal or a chickadee."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">chickadee</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A small American bird with a black cap on its head.</div>
+                <div class="vocab-ex">"I also never saw a cardinal or a chickadee."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">be used to</span> <span class="vocab-pos">phrase</span></div>
+                <div class="vocab-def">Familiar with something because you have seen or done it many times.</div>
+                <div class="vocab-ex">"It all depends on what you are used to."</div>
+              </div>
+            </div>
+
+            <!-- Vocab Exercise 1: Definitions -->
+            <article class="exercise-card" id="vocabDefExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 1: Word Definitions</h3>
+                  <p>Choose the correct definition for each vocabulary word from the passage.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> You will see 12 vocabulary words from the passage, one at a time. For each word, choose the answer that gives the correct meaning. As soon as you answer, you will be told whether you were right and why. There is no time limit — take as long as you need. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>12</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Multiple choice</strong><span>Format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 1</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 12</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <!-- Vocab Exercise 2: Fill in the Blanks -->
+            <article class="exercise-card" id="vocabFillExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 2: Sentence Fill-in-the-Blanks</h3>
+                  <p>Type the vocabulary word that completes each sentence.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> Each question shows a sentence with a missing word. Type the vocabulary word that fits the blank, then press Enter or click <em>Check answer</em>. Spelling counts, so look back at the word list if you need help. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>10</strong><span>Fill-in sentences</span></div>
+                  <div class="menu-summary"><strong>Typed answers</strong><span>Format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Vocab Exercise 2</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 2: READING PASSAGE -->
+          <div class="sub-section" id="reading-section">
+            <h3 class="sub-title">Sub-Section 2: Reading Passage ("Aussie Animals")</h3>
+            <p>Read the text below carefully. Paragraph numbers are shown at the beginning of each paragraph. Hover over the dotted underlined words to see their definitions!</p>
+
+            <article class="story-card">
+              <div class="story-label">Spectrum Reading Grade 5 · Passage</div>
+              <h3>Aussie Animals</h3>
+              <p style="font-style:italic;font-weight:600;">How are the animals in Australia different from those you might see where you live?</p>
+              <div class="story-text" id="storyText">
+                <p><span class="paragraph-num">1</span> Gemma, Kayla, and Vijay were eating lunch on the small <span class="vocab-hover" data-def="A flat, hard area outside a building where people sit or eat.">patio</span> behind the school's <span class="vocab-hover" data-def="A place in a school where you get food and carry it to a table yourself.">cafeteria</span>. Kayla and Vijay were asking Gemma questions about Australian animals. They couldn't believe that Gemma didn't think it was anything special to see a kangaroo hopping along the side of a road or <span class="vocab-hover" data-def="Eating grass slowly in a field.">grazing</span> in a field.</p>
+                <p><span class="paragraph-num">2</span> "When you see something all the time," Gemma explained, "you <span class="vocab-hover" data-def="Almost not at all.">hardly</span> even notice it. Do you know how many times you've seen a <span class="vocab-hover" data-def="A small animal with a big bushy tail that climbs trees.">squirrel</span>, or a deer, or a <span class="vocab-hover" data-def="An animal with a striped tail and black fur around its eyes.">raccoon</span> in your life?"</p>
+                <p><span class="paragraph-num">3</span> "Of course not," said Vijay. "But seeing a kangaroo would be completely different."</p>
+                <p><span class="paragraph-num">4</span> Gemma laughed. "Not if you lived in Australia," she said.</p>
+                <p><span class="paragraph-num">5</span> "Is it true that a mother kangaroo carries her baby in her <span class="vocab-hover" data-def="A pocket of skin where some animals carry their babies.">pouch</span>?" asked Kayla.</p>
+                <p><span class="paragraph-num">6</span> "Sure," replied Gemma, pausing to take a bite of her sandwich. "<span class="vocab-hover" data-def="A friendly short word for Australian people.">Aussies</span> call baby kangaroos <span class="vocab-hover" data-def="Baby kangaroos.">joeys</span>. They live in their mother's pouch until they grow a bit larger. Then, they can take care of themselves and keep up with the others in their group. Did you know that kangaroos can travel more than 30 miles per hour?"</p>
+                <p><span class="paragraph-num">7</span> "That's pretty fast!" <span class="vocab-hover" data-def="Said something suddenly and loudly because of surprise.">exclaimed</span> Vijay.</p>
+                <p><span class="paragraph-num">8</span> "Do any other animals carry their babies in a pouch?" wondered Kayla aloud.</p>
+                <p><span class="paragraph-num">9</span> "The <span class="vocab-hover" data-def="A grey Australian animal that looks like a small teddy bear.">koala</span> and the <span class="vocab-hover" data-def="A short, heavy Australian animal that lives underground.">wombat</span> do," said Gemma. "They are <span class="vocab-hover" data-def="Animals that carry their babies in a pouch.">marsupials</span> like the kangaroo."</p>
+                <p><span class="paragraph-num">10</span> "I know what a koala bear is," said Vijay, "but what is a wombat?"</p>
+                <p><span class="paragraph-num">11</span> "Well, a koala isn't really a bear," Gemma explained. "People just call them that because they <span class="vocab-hover" data-def="To look like something else.">resemble</span> a teddy bear. Koalas spend most of their lives sleeping. There is a type of tree called a <span class="vocab-hover" data-def="A tall Australian tree with strong-smelling leaves (yoo kah LIP tuss).">eucalyptus</span> that grows in Australia. It's pretty much the only thing that koalas eat. They don't get much <span class="vocab-hover" data-def="The power your body gets from food.">energy</span> from the leaves, though, which is why they spend so much time sleeping."</p>
+                <p><span class="paragraph-num">12</span> "It sounds like they need a change in their <span class="vocab-hover" data-def="The kinds of food an animal usually eats.">diet</span>," laughed Vijay. "Is the wombat similar to the koala and kangaroo?"</p>
+                <p><span class="paragraph-num">13</span> "The only real <span class="vocab-hover" data-def="A way in which two things are the same.">similarity</span> is that it is a marsupial, too. Otherwise, the wombat looks like a <span class="vocab-hover" data-def="A brown animal with big front teeth that builds dams in rivers.">beaver</span> or a <span class="vocab-hover" data-def="A short, furry animal that digs holes and lives in the ground.">groundhog</span>. It <span class="vocab-hover" data-def="Digs a hole or tunnel in the ground to live in.">burrows</span> underground and makes <span class="vocab-hover" data-def="Long passages dug under the ground.">tunnels</span> that are 10 to 15 feet long. Some people get wombats as babies and train them. I had a friend who had a very nice pet wombat named Gillian."</p>
+                <p><span class="paragraph-num">14</span> "Won't you miss the animals in Australia?" asked Kayla. "No one in Massachusetts has a wombat for a pet."</p>
+                <p><span class="paragraph-num">15</span> Gemma smiled. "I might miss them a little," she said, "but I've never seen snow. I never saw a real raccoon or a deer before I moved here. I also never saw a <span class="vocab-hover" data-def="A bright red American songbird.">cardinal</span> or a <span class="vocab-hover" data-def="A small American bird with a black cap on its head.">chickadee</span>. I think Massachusetts is going to be a very interesting place to live."</p>
+                <p><span class="paragraph-num">16</span> "I guess it all depends on what you are <span class="vocab-hover" data-def="Familiar with something because you have seen it many times.">used to</span>," said Vijay. "But I'd take the animals of Australia over a deer any day of the week!"</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 3: READING EXERCISES -->
+          <div class="sub-section" id="elements-section">
+            <h3 class="sub-title">Sub-Section 3: Reading Comprehension Exercises</h3>
+            <p>Two exercises follow. The first asks about the <strong>story elements</strong> of the text (characters, setting, plot, dialogue, theme, and tone). The second uses the <strong>questions from the worksheet PDF</strong>.</p>
+
+            <article class="exercise-card" id="elementsExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 1: Story Elements</h3>
+                  <p>15 multiple-choice questions on characters, setting, plot, dialogue, character traits, theme, and tone.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> These 15 questions ask about the elements that every story has: who is in it, where and when it happens, what happens, what the characters are like, and what the writer wants you to understand. A short passage reference stays on screen beside each question so you can look back. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>15</strong><span>Questions</span></div>
+                  <div class="menu-summary"><strong>Story elements</strong><span>Focus</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Reading Exercise 1</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 15</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <article class="exercise-card" id="pdfWorksheetExercise" style="margin-top: 36px;">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 2: Worksheet Questions (PDF Page 2)</h3>
+                  <p>The eight questions printed on page 2 of the Spectrum Reading worksheet.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro"><strong>How this exercise works:</strong> These are the exact questions from your worksheet. Some are multiple choice, and some ask you to <em>type</em> your own answer in full sentences. The typed questions marked <em>"your opinion"</em> have no single right answer — any thoughtful answer counts as correct, and a model answer is shown afterwards so you can compare it with yours. A passage reference stays on screen. There is no time limit. Press <em>Start</em> when you are ready.</p>
+                <div class="menu-grid">
+                  <div class="menu-summary"><strong>8</strong><span>Worksheet questions</span></div>
+                  <div class="menu-summary"><strong>MC + Typed</strong><span>Mixed format</span></div>
+                  <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+                </div>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start Reading Exercise 2</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 8</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <p class="source-note">Passage and worksheet questions: <em>Spectrum Reading, Grade 5</em>, pages 6–7 ("Aussie Animals").</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 2: NUMBERS ================= -->
+      <section class="section-card numbers-section" id="numbers">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 2 · Language</div>
+            <h2>Numbers in English</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="numbersBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="numbersBody">
+          <p style="max-width:72ch;">The passage you just read is full of numbers: <em>30 miles per hour</em>, <em>10 to 15 feet</em>, <em>a bit larger</em>, <em>most of their lives</em>. English uses numbers in many different ways, and each way is <strong>said</strong> and <strong>written</strong> a little differently. Study the cards below, then try the exercise.</p>
+
+          <div class="lesson-grid">
+            <article class="rule-card">
+              <span class="rule-label">Use 1 · Counting</span>
+              <h3>Cardinal numbers</h3>
+              <p>Cardinal numbers answer the question <em>"How many?"</em>: one, two, three, twenty, one hundred.</p>
+              <ul>
+                <li><em><strong>Three</strong> friends were eating lunch on the patio.</em></li>
+                <li><em>There are <strong>seven</strong> continents.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 2 · Order</span>
+              <h3>Ordinal numbers</h3>
+              <p>Ordinal numbers answer the question <em>"Which one in the line?"</em>: first, second, third, fourth, fifth… They usually come after <em>the</em>.</p>
+              <ul>
+                <li><em>Kayla asks <strong>the first</strong> question about the pouch.</em></li>
+                <li><em>Gemma explains the wombat in <strong>the thirteenth</strong> paragraph.</em></li>
+                <li>Short forms: 1st, 2nd, 3rd, 4th, 21st, 22nd, 23rd.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 3 · Years</span>
+              <h3>Saying years and dates</h3>
+              <p>Years are usually said in <strong>two pairs</strong> of digits.</p>
+              <div class="table-scroll">
+                <table class="example-table">
+                  <tr><th>Written</th><th>Said</th></tr>
+                  <tr><td>1935</td><td>"nineteen thirty-five"</td></tr>
+                  <tr><td>1900</td><td>"nineteen hundred"</td></tr>
+                  <tr><td>2005</td><td>"two thousand five"</td></tr>
+                  <tr><td>2026</td><td>"twenty twenty-six"</td></tr>
+                  <tr><td>September 2</td><td>"September second"</td></tr>
+                </table>
+              </div>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 4 · Clock time</span>
+              <h3>Telling the time</h3>
+              <ul>
+                <li>9:00 → "nine o'clock" (<em>o'clock</em> is used only for exact hours)</li>
+                <li>9:15 → "nine fifteen" or "a quarter past nine"</li>
+                <li>9:30 → "nine thirty" or "half past nine"</li>
+                <li>9:45 → "nine forty-five" or "a quarter to ten"</li>
+                <li>Use <strong>at</strong> with times: <em>at 9:00</em>, <em>at noon</em>.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 5 · Big numbers</span>
+              <h3>Thousands, millions, and commas</h3>
+              <p>English puts a <strong>comma</strong> every three digits from the right: <strong>30,000</strong> and <strong>1,200</strong>. (Careful — Indonesian uses a dot here!)</p>
+              <ul>
+                <li>30,000 → "thirty thousand"</li>
+                <li>1,200 → "one thousand two hundred" or "twelve hundred"</li>
+                <li>Keep <strong>hundred</strong>, <strong>thousand</strong>, <strong>million</strong> singular after a number: <em>two thousand</em>, never "two thousands".</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 6 · Measurement</span>
+              <h3>Speeds, lengths, and amounts</h3>
+              <p>The unit becomes <strong>plural</strong> after any number bigger than one.</p>
+              <ul>
+                <li><em>Kangaroos can travel more than 30 <strong>miles</strong> per hour.</em></li>
+                <li><em>A wombat digs tunnels 10 to 15 <strong>feet</strong> long.</em></li>
+                <li><em>A koala may sleep for eighteen <strong>hours</strong> a day.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 7 · Number + noun</span>
+              <h3>The hyphen rule</h3>
+              <p>When a number and a noun work together <strong>in front of</strong> another noun, join them with a hyphen and keep the noun <strong>singular</strong>.</p>
+              <ul>
+                <li><em>a <strong>fifteen-foot</strong> tunnel</em> (not "fifteen-feet tunnel")</li>
+                <li><em>a <strong>ten-year-old</strong> student</em></li>
+                <li>But: <em>The tunnel is fifteen <strong>feet</strong> long.</em> — plural, because it comes after the verb.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 8 · Age</span>
+              <h3>Talking about age</h3>
+              <ul>
+                <li><em>She <strong>is</strong> ten years old.</em> (English uses <em>be</em>, not <em>have</em>.)</li>
+                <li><em>She is ten.</em> — you may drop "years old".</li>
+                <li><em>a ten-year-old girl</em> — hyphens, and singular <em>year</em>.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 9 · Money</span>
+              <h3>Prices</h3>
+              <ul>
+                <li>The symbol goes <strong>before</strong> the number: <em>$5</em>, <em>Rp10.000</em>.</li>
+                <li>$5.50 → "five dollars fifty" or "five fifty"</li>
+                <li><em>It costs five <strong>dollars</strong>.</em> — plural after a number.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 10 · Parts</span>
+              <h3>Fractions, decimals, and percent</h3>
+              <ul>
+                <li>1/2 → "one half" · 1/3 → "one third" · 3/4 → "three quarters"</li>
+                <li>0.5 → "zero point five". Each digit after the point is said separately: 3.14 → "three point one four".</li>
+                <li>50% → "fifty percent"</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 11 · Not exact</span>
+              <h3>Approximate numbers</h3>
+              <p>These words tell the reader the number is not exact:</p>
+              <ul>
+                <li><strong>about / around / roughly</strong> → <em>about thirty miles per hour</em></li>
+                <li><strong>more than / over</strong> → <em>more than 30 miles per hour</em></li>
+                <li><strong>nearly / almost / as much as</strong> → <em>almost fifteen feet long</em></li>
+                <li><strong>several / a few / dozens of / thousands of</strong> → <em>several hours</em>, <em>thousands of kangaroos</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Use 12 · Digit by digit</span>
+              <h3>Codes and phone numbers</h3>
+              <p>Phone numbers, room numbers, and codes are read one digit at a time.</p>
+              <ul>
+                <li>0812 3456 → "oh eight one two, three four five six"</li>
+                <li>0 is often said as "oh"; 22 may be said "double two".</li>
+              </ul>
+            </article>
+
+            <article class="rule-card full">
+              <span class="rule-label">Words or digits?</span>
+              <h3>When to spell a number out</h3>
+              <ol>
+                <li>In ordinary writing, spell out small numbers (<strong>one</strong> to <strong>ten</strong>) and use digits for larger ones: <em>three friends</em>, but <em>30 miles per hour</em>.</li>
+                <li>Never begin a sentence with a digit — write <em>"Thirty miles per hour is very fast,"</em> not <em>"30 miles per hour is very fast."</em></li>
+                <li>Use digits for dates, times, prices, measurements in charts, and page numbers.</li>
+                <li>Be consistent inside one sentence: <em>"We saw 4 koalas and 12 kangaroos,"</em> not <em>"four koalas and 12 kangaroos."</em></li>
+              </ol>
+            </article>
+          </div>
+
+          <article class="exercise-card" id="numbersExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Numbers Exercise</h3>
+                <p>15 questions on cardinals, ordinals, years, times, big numbers, hyphens, and approximate words.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro"><strong>How this exercise works:</strong> 15 questions come one at a time — some multiple choice, some typed. The typed ones ask you to write a number <em>in words</em> (for example, type <em>nineteen thirty-five</em> for 1935), so read each question carefully to see which form it wants. Feedback appears right after each answer. There is no time limit. Press <em>Start</em> when you are ready.</p>
+              <div class="menu-grid">
+                <div class="menu-summary"><strong>15</strong><span>Questions</span></div>
+                <div class="menu-summary"><strong>MC + Typed</strong><span>Mixed format</span></div>
+                <div class="menu-summary"><strong>Untimed</strong><span>No time limit</span></div>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start Numbers Exercise</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 15</span></div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+  <script>
+    // ---------- SECTION 1 DATA ----------
+
+    const VOCAB_DEF_QUESTIONS = [
+      { topic: 'Vocab Definition', q: 'What is a "patio"?', options: ['A flat, hard area outside a building where people can sit or eat', 'A long hallway inside a school', 'A field where cows eat grass', 'A small kitchen at the back of a house'], answer: 0, explanation: 'Paragraph 1: the three friends eat lunch on the small patio behind the cafeteria — an outdoor area with a hard floor.' },
+      { topic: 'Vocab Definition', q: 'What does "grazing" mean?', options: ['Eating grass slowly in a field', 'Running away from danger', 'Sleeping in the shade of a tree', 'Digging a hole in the ground'], answer: 0, explanation: 'A kangaroo grazing in a field is eating the grass there.' },
+      { topic: 'Vocab Definition', q: 'What does "hardly" mean in "you hardly even notice it"?', options: ['Almost not at all', 'Very carefully', 'Again and again', 'With a lot of effort'], answer: 0, explanation: 'Gemma means that you almost do not notice something you see every day.' },
+      { topic: 'Vocab Definition', q: 'What is a "pouch"?', options: ['A pocket of skin where some animals carry their babies', 'A soft nest built high in a tree', 'A deep hole dug under the ground', 'A bag that farmers use to carry food'], answer: 0, explanation: 'A mother kangaroo carries her baby in her pouch — a pocket of skin on her body.' },
+      { topic: 'Vocab Definition', q: 'What is a "joey"?', options: ['A baby kangaroo', 'A kind of Australian tree', 'A young Australian boy', 'A small bird from Massachusetts'], answer: 0, explanation: 'Paragraph 6: "Aussies call baby kangaroos joeys."' },
+      { topic: 'Vocab Definition', q: 'What is a "marsupial"?', options: ['An animal that carries its baby in a pouch', 'An animal that only eats leaves', 'An animal that lives underground', 'An animal that can travel 30 miles per hour'], answer: 0, explanation: 'Paragraph 9: koalas and wombats are marsupials like the kangaroo, because they all carry their babies in a pouch.' },
+      { topic: 'Vocab Definition', q: 'What does "resemble" mean?', options: ['To look like something else', 'To be much bigger than something else', 'To be afraid of something', 'To take care of something'], answer: 0, explanation: 'People call koalas "bears" because they resemble — look like — a teddy bear.' },
+      { topic: 'Vocab Definition', q: 'What is a "eucalyptus"?', options: ['A type of tree that grows in Australia', 'A small grey animal with a pouch', 'A kind of grass that kangaroos eat', 'A river in Queensland'], answer: 0, explanation: 'Paragraph 11: "There is a type of tree called a eucalyptus that grows in Australia."' },
+      { topic: 'Vocab Definition', q: 'What does "energy" mean in "they don’t get much energy from the leaves"?', options: ['The power your body gets from food so you can move and stay awake', 'The number of leaves an animal eats each day', 'A feeling of being happy and excited', 'The weight of an animal'], answer: 0, explanation: 'Eucalyptus leaves give koalas very little power, so the koalas sleep most of the time.' },
+      { topic: 'Vocab Definition', q: 'What does "burrows" mean in "It burrows underground"?', options: ['Digs a hole or tunnel in the ground to live in', 'Climbs high into a tree', 'Swims across a river', 'Hides behind a rock'], answer: 0, explanation: 'The wombat burrows underground and makes tunnels 10 to 15 feet long.' },
+      { topic: 'Vocab Definition', q: 'What does "similarity" mean?', options: ['A way in which two things are the same', 'A way in which two things are different', 'A problem that cannot be solved', 'A rule that all animals follow'], answer: 0, explanation: 'Paragraph 13: the only real similarity between a wombat and a kangaroo is that both are marsupials.' },
+      { topic: 'Vocab Definition', q: 'What does "exclaimed" mean?', options: ['Said something suddenly and loudly because of surprise', 'Whispered something quietly', 'Asked a polite question', 'Wrote something in a notebook'], answer: 0, explanation: 'Vijay is surprised by how fast kangaroos are, so he exclaims, "That’s pretty fast!"' }
+    ];
+
+    const VOCAB_FILL_QUESTIONS = [
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The three friends ate lunch on the _______ behind the cafeteria. (word meaning: a hard, flat area outside a building)', answers: ['patio'], display: 'patio', explanation: 'A patio is an outdoor area with a hard floor where people sit or eat.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'A mother kangaroo carries her baby in her _______ . (word meaning: a pocket of skin on the body)', answers: ['pouch'], display: 'pouch', explanation: 'The pouch is the pocket of skin where a joey stays until it is bigger.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Baby kangaroos are called _______ in Australia. (plural word)', answers: ['joeys'], display: 'joeys', explanation: 'Paragraph 6: "Aussies call baby kangaroos joeys."' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Kangaroos, koalas, and wombats are all _______ because they carry their babies in a pouch. (plural word)', answers: ['marsupials'], display: 'marsupials', explanation: 'A marsupial is an animal with a pouch for its baby.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'People call koalas "bears" because they _______ a teddy bear. (word meaning: look like)', answers: ['resemble'], display: 'resemble', explanation: 'To resemble something is to look like it.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Koalas eat the leaves of the _______ tree. (a special Australian tree)', answers: ['eucalyptus'], display: 'eucalyptus', explanation: 'The eucalyptus (yoo kah LIP tuss) is pretty much the only thing koalas eat.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Koalas sleep a lot because the leaves do not give them much _______ . (word meaning: the power your body gets from food)', answers: ['energy'], display: 'energy', explanation: 'Little energy from their food means a lot of sleeping.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The wombat _______ underground and makes long tunnels. (verb meaning: digs a hole to live in)', answers: ['burrows'], display: 'burrows', explanation: 'To burrow is to dig a hole or tunnel in the ground.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'When you see an animal all the time, you _______ even notice it. (word meaning: almost not at all)', answers: ['hardly'], display: 'hardly', explanation: '"Hardly" means almost not at all.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: '"That’s pretty fast!" _______ Vijay. (verb meaning: said something suddenly and loudly)', answers: ['exclaimed'], display: 'exclaimed', explanation: 'People exclaim when they are surprised or excited.' }
+    ];
+
+    const STORY_ELEMENTS_QUESTIONS = [
+      { topic: 'Genre', q: 'What kind of text is "Aussie Animals"?', options: ['Realistic fiction — a made-up conversation between three students that could really happen', 'A science report with charts and headings', 'A poem about Australian animals', 'A true diary written by a real girl named Gemma'], answer: 0, explanation: 'The text has invented characters talking to each other, but nothing magical happens, so it is realistic fiction.' },
+      { topic: 'Characters', q: 'Who are the three characters in this story?', options: ['Gemma, Kayla, and Vijay', 'Gemma, Kayla, and Gillian', 'Vijay, Kayla, and the teacher', 'Gemma, Vijay, and a wombat named Gillian'], answer: 0, explanation: 'Paragraph 1 names all three friends: Gemma, Kayla, and Vijay. Gillian is a pet wombat that is only mentioned.' },
+      { topic: 'Setting · Place', q: 'Where does the story take place?', options: ['On a small patio behind the school cafeteria', 'In a classroom in Australia', 'On a farm in Queensland', 'At a zoo in Massachusetts'], answer: 0, explanation: 'Paragraph 1: they are eating lunch on the small patio behind the school’s cafeteria.' },
+      { topic: 'Setting · Time', q: 'When does the story take place?', options: ['During lunchtime at school', 'Late at night', 'Early in the morning before school', 'During the summer holidays'], answer: 0, explanation: 'The friends are eating lunch and Gemma pauses to take a bite of her sandwich.' },
+      { topic: 'Setting · Country', q: 'Which country is the story set in, and which country is Gemma talking about?', options: ['It is set in the United States (Massachusetts); Gemma is talking about Australia', 'It is set in Australia; Gemma is talking about the United States', 'Both the setting and the animals are in Australia', 'Both the setting and the animals are in the Caribbean'], answer: 0, explanation: 'Kayla says, "No one in Massachusetts has a wombat for a pet," and Gemma says she never saw a raccoon "before I moved here."' },
+      { topic: 'Main Character', q: 'Which character knows the most about Australian animals, and why?', options: ['Gemma, because she used to live in Australia', 'Kayla, because she reads books about marsupials', 'Vijay, because he has a pet wombat', 'The teacher, because she taught the lesson'], answer: 0, explanation: 'Gemma answers every question and says she moved to Massachusetts from Australia, so she grew up with these animals.' },
+      { topic: 'Plot · Beginning', q: 'What are the friends doing at the beginning of the story?', options: ['Eating lunch while Kayla and Vijay ask Gemma about Australian animals', 'Visiting a zoo to look at kangaroos', 'Writing a report about marsupials for class', 'Feeding a pet wombat named Gillian'], answer: 0, explanation: 'Paragraph 1 sets up the whole story: lunch on the patio, and questions about Australian animals.' },
+      { topic: 'Story Structure', q: 'How is the story mostly told?', options: ['Through dialogue — the words the characters say to each other', 'Through a list of facts about Australia', 'Through a letter Gemma writes to her friend', 'Through Gemma’s thoughts and dreams'], answer: 0, explanation: 'Almost every paragraph is something Gemma, Kayla, or Vijay says out loud in quotation marks.' },
+      { topic: 'Character Trait', q: 'Which pair of words best describes Gemma?', options: ['Knowledgeable and friendly', 'Competitive and stubborn', 'Irritable and rude', 'Shy and frightened'], answer: 0, explanation: 'She patiently answers every question and explains things clearly, which shows she is knowledgeable and friendly.' },
+      { topic: 'Character Trait', q: 'What does Vijay’s last line ("I’d take the animals of Australia over a deer any day of the week!") show about him?', options: ['He still finds Australian animals much more exciting than the animals near his home', 'He is angry with Gemma for leaving Australia', 'He has decided to move to Australia himself', 'He does not believe anything Gemma said'], answer: 0, explanation: 'Even after Gemma explains that ordinary animals stop feeling special, Vijay still prefers the Australian ones.' },
+      { topic: 'Supporting Detail', q: 'According to Gemma, why do koalas sleep so much?', options: ['Eucalyptus leaves are almost all they eat, and the leaves give them very little energy', 'They stay awake all night hunting for food', 'They only wake up when it rains in Australia', 'They are marsupials, and all marsupials sleep a lot'], answer: 0, explanation: 'Paragraph 11 gives the cause: little energy from eucalyptus leaves, so a lot of sleeping.' },
+      { topic: 'Supporting Detail', q: 'Which detail shows that a wombat is NOT much like a koala or a kangaroo?', options: ['It looks like a beaver or a groundhog and burrows underground', 'It carries its baby in a pouch', 'It lives in Australia', 'It can be trained by people'], answer: 0, explanation: 'Paragraph 13: the only real similarity is that it is a marsupial; otherwise, it looks and lives very differently.' },
+      { topic: 'Inference', q: 'Why is Gemma surprised that her friends think kangaroos are so special?', options: ['She saw kangaroos all the time in Australia, so they feel ordinary to her', 'She has never actually seen a kangaroo herself', 'She thinks kangaroos are dangerous animals', 'She would rather talk about raccoons and deer'], answer: 0, explanation: 'Paragraph 2: "When you see something all the time, you hardly even notice it."' },
+      { topic: 'Theme', q: 'What is the main message, or theme, of this story?', options: ['What feels ordinary to one person can feel amazing to another — it depends on what you are used to', 'Australian animals are the most dangerous animals on Earth', 'Moving to a new country is always sad', 'Wombats make better pets than dogs or cats'], answer: 0, explanation: 'Vijay says it directly in the last paragraph: "I guess it all depends on what you are used to."' },
+      { topic: 'Ending', q: 'How does Gemma feel about living in Massachusetts at the end of the story?', options: ['Curious and positive — she thinks it will be a very interesting place to live', 'Miserable, because she misses Australia too much', 'Bored, because there are no interesting animals there', 'Frightened of the snow she has never seen'], answer: 0, explanation: 'Paragraph 15: she might miss Australia a little, but she is excited about snow, raccoons, cardinals, and chickadees.' }
+    ];
+
+    const PDF_WORKSHEET_QUESTIONS = [
+      { topic: 'Worksheet Q1', type: 'typed', q: 'Q1: What are baby kangaroos called in Australia?', answers: ['joeys', 'joey', 'they are called joeys', 'baby kangaroos are called joeys'], display: 'joeys', explanation: 'Paragraph 6: "Aussies call baby kangaroos joeys."' },
+      { topic: 'Worksheet Q2', q: 'Q2: Why do koalas spend so much of their time sleeping?', options: ['They eat almost nothing but eucalyptus leaves, which give them very little energy', 'They stay awake all night hunting other animals', 'They sleep to keep warm in the Australian winter', 'They are marsupials, and all marsupials sleep all day'], answer: 0, explanation: 'Paragraph 11: koalas do not get much energy from eucalyptus leaves, which is why they sleep so much.' },
+      { topic: 'Worksheet Q3', type: 'typed', q: 'Q3: What kind of pet is Gillian?', answers: ['a wombat', 'wombat', 'a pet wombat', 'gillian is a wombat', 'a wombat.'], display: 'a wombat', explanation: 'Paragraph 13: Gemma had a friend who had "a very nice pet wombat named Gillian."' },
+      { topic: 'Worksheet Q4 · your opinion', type: 'typed', q: 'Q4: Why do you think a baby kangaroo lives in its mother’s pouch for a while after it is born? (Write one or two sentences.)', answers: ['*'], display: 'Model answer: A joey is very small and weak when it is born, so it needs the pouch to stay warm, safe, and close to its mother’s milk until it is big enough to keep up with the group.', explanation: 'Any thoughtful answer counts. A strong answer connects the pouch to safety, warmth, food, and growing bigger, as paragraph 6 suggests.' },
+      { topic: 'Worksheet Q5 · Character', q: 'Q5: Which of these words describe Gemma?', options: ['knowledgeable and friendly', 'competitive and stubborn', 'stubborn and irritable', 'irritable and competitive'], answer: 0, explanation: 'Gemma patiently answers every question and explains things clearly. Nothing in the story shows her competing, refusing to listen, or getting annoyed.' },
+      { topic: 'Worksheet Q6 · Marsupials', q: 'Q6: Name one characteristic of marsupials.', options: ['They carry their babies in a pouch', 'They sleep for most of the day', 'They dig tunnels underground', 'They can travel more than 30 miles per hour'], answer: 0, explanation: 'Kangaroos, koalas, and wombats are all very different animals, but each one carries its baby in a pouch. The other choices are true of only one of them.' },
+      { topic: 'Worksheet Q7 · Setting', q: 'Q7: What is the setting for this story?', options: ['A small patio behind the school cafeteria, at lunchtime', 'A field in Australia, early in the morning', 'A classroom in Massachusetts, after school', 'A zoo, on a school field trip'], answer: 0, explanation: 'The setting is where and when the story happens: paragraph 1 places the three friends on the patio behind the cafeteria during lunch.' },
+      { topic: 'Worksheet Q8 · your opinion', type: 'typed', q: 'Q8: In the story, Vijay thinks that Australian animals are more interesting than American animals. Do you agree or disagree? Explain.', answers: ['*'], display: 'Model answer: I disagree. Every animal is interesting to someone who has never seen it before. Gemma has seen kangaroos all her life, but she is excited about raccoons, cardinals, and chickadees, so it depends on what you are used to.', explanation: 'Either answer is fine. A strong answer gives a reason and uses an example from the story, such as Gemma being excited about American animals.' }
+    ];
+
+    const PASSAGE_REFERENCE = `
+      <p><strong>Par. 1–4:</strong> Gemma, Kayla, and Vijay eat lunch on the patio behind the school cafeteria. Gemma, who is from Australia, does not think a kangaroo is anything special — when you see something all the time, you hardly notice it.</p>
+      <p><strong>Par. 5–7:</strong> A mother kangaroo carries her baby, called a joey, in her pouch until it is big enough to keep up with the group. Kangaroos can travel more than 30 miles per hour.</p>
+      <p><strong>Par. 8–9:</strong> Koalas and wombats also carry babies in a pouch. They are marsupials like the kangaroo.</p>
+      <p><strong>Par. 10–11:</strong> A koala is not really a bear; it just resembles a teddy bear. It eats almost only eucalyptus leaves, which give little energy, so it sleeps most of its life.</p>
+      <p><strong>Par. 12–13:</strong> A wombat looks like a beaver or a groundhog. It burrows underground and makes tunnels 10 to 15 feet long. Gemma’s friend had a pet wombat named Gillian.</p>
+      <p><strong>Par. 14–16:</strong> Gemma might miss Australia a little, but she has never seen snow, a raccoon, a deer, a cardinal, or a chickadee, so she thinks Massachusetts will be interesting. Vijay says it all depends on what you are used to.</p>
+    `;
+
+    // ---------- SECTION 2 DATA ----------
+
+    const NUMBERS_QUESTIONS = [
+      { topic: 'Years', type: 'typed', q: 'Write the year 1935 in words, the way you would say it aloud.', answers: ['nineteen thirty-five', 'nineteen thirty five'], display: 'nineteen thirty-five', explanation: 'Years are usually said in two pairs of digits: 19 / 35 = "nineteen thirty-five."' },
+      { topic: 'Years', q: 'How do you say the year 2026 aloud?', options: ['twenty twenty-six', 'two zero two six', 'two hundred and twenty-six', 'twenty-six hundred'], answer: 0, explanation: 'From 2010 onward, the two-pair pattern is normal again: 20 / 26 = "twenty twenty-six."' },
+      { topic: 'Ordinal numbers', q: 'Which sentence uses the ordinal number correctly?', options: ['Kayla asks the first question about the pouch.', 'Kayla asks the one question about the pouch.', 'Kayla asks a first question about the pouch.', 'Kayla asks the oneth question about the pouch.'], answer: 0, explanation: 'Ordinals show position in an order and usually follow "the": the first, the second, the third.' },
+      { topic: 'Ordinal numbers', type: 'typed', q: 'Write the ordinal number for 3 in words (as in "the ___ paragraph").', answers: ['third'], display: 'third', explanation: '1 → first, 2 → second, 3 → third. These three are irregular, so they must be memorised.' },
+      { topic: 'Big numbers', q: 'How do you say the number 30,000?', options: ['thirty thousand', 'thirty thousands', 'three thousand', 'thirty hundred'], answer: 0, explanation: '"Thousand" stays singular after a number: thirty thousand, never "thirty thousands."' },
+      { topic: 'Big numbers', q: 'Which number is written correctly in English?', options: ['1,200', '1.200', '1 200,00', '12,00'], answer: 0, explanation: 'English uses a comma every three digits and a dot for decimals — the opposite of Indonesian.' },
+      { topic: 'Measurement', q: 'Choose the correct sentence.', options: ['A kangaroo can travel more than 30 miles per hour.', 'A kangaroo can travel more than 30 mile per hour.', 'A kangaroo can travel more than 30-miles per hour.', 'A kangaroo can travel more than thirtieth miles per hour.'], answer: 0, explanation: 'After a number greater than one, the unit is plural: 30 miles.' },
+      { topic: 'Hyphen rule', q: 'Choose the correct sentence.', options: ['A wombat digs a fifteen-foot tunnel.', 'A wombat digs a fifteen feet tunnel.', 'A wombat digs a fifteen-feet tunnel.', 'A wombat digs a fifteenth foot tunnel.'], answer: 0, explanation: 'When a number and a unit come before a noun, join them with a hyphen and keep the unit singular: a fifteen-foot tunnel.' },
+      { topic: 'Age', q: 'Which sentence talks about age correctly in English?', options: ['My sister is nine years old.', 'My sister has nine years.', 'My sister is nine years olds.', 'My sister has nine years old.'], answer: 0, explanation: 'English uses the verb "be" for age, not "have": She IS nine years old.' },
+      { topic: 'Clock time', q: 'How do you say 9:45?', options: ['a quarter to ten', 'a quarter past ten', 'a quarter to nine', 'nine and forty-five o’clock'], answer: 0, explanation: '9:45 is fifteen minutes before ten, so it is "a quarter to ten" (or simply "nine forty-five").' },
+      { topic: 'Clock time', q: 'Which sentence uses "o’clock" correctly?', options: ['Lunch starts at twelve o’clock.', 'Lunch starts at twelve thirty o’clock.', 'Lunch starts at 12:15 o’clock.', 'Lunch starts at o’clock twelve.'], answer: 0, explanation: '"O’clock" is used only with an exact hour — never with minutes.' },
+      { topic: 'Approximate numbers', q: 'The passage says kangaroos can travel "more than 30 miles per hour." What does "more than" tell you?', options: ['The real speed is above 30 miles per hour; 30 is the smallest it could be', 'The real speed is exactly 30 miles per hour', 'The real speed is below 30 miles per hour', 'Nobody has ever measured the speed'], answer: 0, explanation: '"More than" and "over" show the true amount is above the number given.' },
+      { topic: 'Approximate numbers', type: 'typed', q: 'Fill in the blank with ONE word that shows the number is not exact: "A wombat tunnel is _______ fifteen feet long."', answers: ['about', 'around', 'roughly', 'approximately', 'nearly', 'almost'], display: 'about (also: around, roughly, approximately, nearly, almost)', explanation: 'The passage gives a range, "10 to 15 feet," so any of these estimate words fits.' },
+      { topic: 'Decimals and percent', q: 'How do you say 3.14 aloud in English?', options: ['three point one four', 'three point fourteen', 'three comma fourteen', 'three and fourteen'], answer: 0, explanation: 'After a decimal point, each digit is said separately: "three point one four."' },
+      { topic: 'Words or digits', q: 'Which sentence follows the rule about starting a sentence with a number?', options: ['Thirty miles per hour is very fast for an animal.', '30 miles per hour is very fast for an animal.', '30 miles-per-hour is very fast for an animal.', '30’s miles per hour is very fast for an animal.'], answer: 0, explanation: 'Never begin a sentence with a digit — write the number out in words instead.' }
+    ];
+
+    (() => {
+      'use strict';
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function normalizeTyped(value) {
+        return String(value ?? '')
+          .trim()
+          .toLowerCase()
+          .replace(/[.,;:!?]+/g, ' ')
+          .replace(/\s+/g, ' ');
+      }
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return {
+            ...question,
+            type: 'mc',
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function setupTheme() {
+        const button = $('#themeToggle');
+        const icon = $('#themeIcon');
+        const label = $('#themeLabel');
+
+        const sync = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          button.setAttribute('aria-pressed', String(dark));
+          button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          icon.textContent = dark ? '☀' : '☾';
+          label.textContent = dark ? 'Light' : 'Dark';
+        };
+
+        sync();
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('mitch-quiz-theme', next); } catch (e) {}
+          sync();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$('[data-collapse]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.collapse);
+            const willCollapse = !target.hidden;
+            target.hidden = willCollapse;
+            button.textContent = willCollapse ? 'Expand' : 'Collapse';
+            button.setAttribute('aria-expanded', String(!willCollapse));
+          });
+        });
+      }
+
+      function buildReview(responses) {
+        const missed = responses.filter((response) => !response.correct);
+        if (!missed.length) {
+          return '<div class="review-box"><strong>No incorrect answers to review.</strong><p>You answered every attempted question correctly.</p></div>';
+        }
+
+        return missed.map((response, index) => `
+          <article class="review-box">
+            <h5>${index + 1}. ${escapeHtml(response.question)}</h5>
+            <p><strong>Your answer:</strong> ${escapeHtml(response.userAnswer || 'No answer')}</p>
+            <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+            <p><strong>Why:</strong> ${escapeHtml(response.explanation)}</p>
+          </article>
+        `).join('');
+      }
+
+      function buildTopicBreakdown(responses) {
+        const topics = new Map();
+        responses.forEach((response) => {
+          if (!topics.has(response.topic)) topics.set(response.topic, { correct: 0, total: 0 });
+          const item = topics.get(response.topic);
+          item.total += 1;
+          if (response.correct) item.correct += 1;
+        });
+
+        return [...topics.entries()]
+          .map(([topic, result]) => `
+            <div class="topic-row">
+              <span>${escapeHtml(topic)}</span>
+              <span>${result.correct}/${result.total}</span>
+            </div>
+          `)
+          .join('');
+      }
+
+      function createExercise(config) {
+        const card = document.getElementById(config.cardId);
+        if (!card) return;
+
+        const refs = {
+          menu: $('[data-menu]', card),
+          start: $('[data-start]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          end: $('[data-end]', card),
+          host: $('[data-question-host]', card)
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false
+        };
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          if (state.active) refs.score.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveProgress.textContent = answered >= total
+            ? `Completed ${total} questions`
+            : `Question ${state.index + 1} of ${total}`;
+          refs.progress.style.width = `${total ? (answered / total) * 100 : 0}%`;
+        }
+
+        function start() {
+          state.questions = config.buildQuestions();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+
+          refs.menu.hidden = true;
+          refs.finish.hidden = true;
+          refs.live.hidden = false;
+          refs.score.textContent = 'In progress';
+          updateProgress();
+          renderQuestion();
+          refs.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+          const question = state.questions[state.index];
+          if (!question) return;
+
+          const isTyped = question.type === 'typed';
+          const storySide = config.showStory ? `
+            <aside class="story-card">
+              <div class="story-label">Passage Reference</div>
+              <h3>Aussie Animals</h3>
+              <div class="story-text">${PASSAGE_REFERENCE}</div>
+            </aside>
+          ` : '';
+
+          refs.host.innerHTML = `
+            <div class="question-layout ${config.showStory ? '' : 'single'}">
+              ${storySide}
+              <section class="question-card">
+                <div class="question-meta">${escapeHtml(question.topic)}</div>
+                <div class="question-text">${escapeHtml(question.q)}</div>
+                <div data-answer-area></div>
+                <div class="feedback" data-feedback hidden aria-live="polite"></div>
+                <div class="button-row">
+                  ${isTyped ? '<button class="btn btn-primary" type="button" data-submit>Check answer</button>' : ''}
+                  <button class="btn btn-positive" type="button" data-next hidden>Next question</button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea = $('[data-answer-area]', refs.host);
+          const nextButton = $('[data-next]', refs.host);
+
+          if (isTyped) {
+            const openEnded = question.answers.includes('*');
+            answerArea.innerHTML = `
+              <div class="typed-wrap">
+                <input class="typed-input" type="text" autocomplete="off" spellcheck="false" placeholder="${openEnded ? 'Write your own answer in a full sentence...' : 'Type your answer here...'}">
+                <div class="typed-hint">Press Enter or choose "Check answer."</div>
+              </div>
+            `;
+            const input = $('.typed-input', answerArea);
+            $('[data-submit]', refs.host).addEventListener('click', () => gradeTyped(question));
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') gradeTyped(question); });
+            input.focus();
+          } else {
+            const list = document.createElement('div');
+            list.className = 'option-list';
+            question.shuffledOptions.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = option;
+              button.addEventListener('click', () => gradeMC(question, option, button));
+              list.appendChild(button);
+            });
+            answerArea.appendChild(list);
+          }
+
+          nextButton.addEventListener('click', advance);
+          updateProgress();
+        }
+
+        function revealNext() {
+          const nextButton = $('[data-next]', refs.host);
+          nextButton.hidden = false;
+          nextButton.textContent = state.index === state.questions.length - 1 ? 'Finish exercise' : 'Next question';
+        }
+
+        function gradeMC(question, selected, btn) {
+          if (state.answered || !state.active) return;
+          state.answered = true;
+
+          const correct = selected === question.answerText;
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: selected,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$('.option-btn', refs.host).forEach((b) => {
+            b.disabled = true;
+            if (b.textContent === question.answerText) b.classList.add('correct-choice');
+          });
+          if (!correct) btn.classList.add('wrong-choice');
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          fb.innerHTML = correct
+            ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+            : `✕ <strong>Incorrect.</strong><br><strong>Correct answer:</strong> ${escapeHtml(question.answerText)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+
+          revealNext();
+          updateProgress();
+        }
+
+        function gradeTyped(question) {
+          if (state.answered || !state.active) return;
+          const input = $('.typed-input', refs.host);
+          const val = input.value.trim();
+          if (!val) {
+            const fb = $('[data-feedback]', refs.host);
+            fb.hidden = false;
+            fb.className = 'feedback neutral';
+            fb.innerHTML = '<strong>Type an answer before checking.</strong>';
+            input.focus();
+            return;
+          }
+
+          state.answered = true;
+          input.disabled = true;
+          $('[data-submit]', refs.host).disabled = true;
+
+          const isOpenEnded = question.answers.includes('*');
+          const normalized = normalizeTyped(val);
+          const correct = isOpenEnded || question.answers.some((a) => normalizeTyped(a) === normalized);
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: val,
+            correctAnswer: question.display,
+            explanation: question.explanation,
+            correct
+          });
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          if (isOpenEnded) {
+            fb.innerHTML = `✓ <strong>Thank you for your answer!</strong><br>${escapeHtml(question.display)}<br><em>${escapeHtml(question.explanation)}</em>`;
+          } else {
+            fb.innerHTML = correct
+              ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+              : `✕ <strong>Incorrect.</strong><br><strong>Expected:</strong> ${escapeHtml(question.display)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+          }
+
+          revealNext();
+          updateProgress();
+        }
+
+        function advance() {
+          if (!state.answered) return;
+          if (state.index >= state.questions.length - 1) {
+            finish('Completed all questions');
+            return;
+          }
+          state.index += 1;
+          renderQuestion();
+          $('.question-card', refs.host).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function finish(reason) {
+          if (!state.active) return;
+          state.active = false;
+          refs.live.hidden = true;
+          refs.finish.hidden = false;
+
+          const total = state.questions.length;
+          const answered = state.responses.length;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+          const topicRows = buildTopicBreakdown(state.responses);
+
+          refs.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(config.finishTitle)}</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${total - answered}</strong><span>Unanswered</span></div>
+              </div>
+
+              ${topicRows ? `<h5 style="font-size:1.25rem;line-height:1.2;margin:24px 0 10px;">Topic breakdown</h5><div class="topic-breakdown">${topicRows}</div>` : ''}
+
+              <h5 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px;">Incorrect-answer review</h5>
+              ${buildReview(state.responses)}
+
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Try Again</button>
+                <button class="btn btn-secondary" type="button" data-menu-back>Back to Menu</button>
+              </div>
+            </div>
+          `;
+
+          refs.score.textContent = answered ? `Final: ${state.score} / ${answered}` : 'No answers';
+          refs.progress.style.width = total ? `${(answered / total) * 100}%` : '0%';
+
+          $('[data-retry]', refs.finish).addEventListener('click', start);
+          $('[data-menu-back]', refs.finish).addEventListener('click', () => {
+            refs.finish.hidden = true;
+            refs.menu.hidden = false;
+            refs.score.textContent = 'Ready';
+            refs.progress.style.width = '0%';
+            refs.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          refs.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        refs.start.addEventListener('click', start);
+        refs.end.addEventListener('click', () => finish('Exercise ended early'));
+      }
+
+      setupTheme();
+      setupSectionCollapse();
+
+      createExercise({
+        cardId: 'vocabDefExercise',
+        showStory: false,
+        finishTitle: 'Vocabulary Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(VOCAB_DEF_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'vocabFillExercise',
+        showStory: false,
+        finishTitle: 'Vocabulary Exercise 2 Summary',
+        buildQuestions: () => shuffle(VOCAB_FILL_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'elementsExercise',
+        showStory: true,
+        finishTitle: 'Reading Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(STORY_ELEMENTS_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'pdfWorksheetExercise',
+        showStory: true,
+        finishTitle: 'Reading Exercise 2 Summary',
+        buildQuestions: () => PDF_WORKSHEET_QUESTIONS.map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return { ...question, type: 'mc', answerText, shuffledOptions: shuffle(question.options) };
+        })
+      });
+
+      createExercise({
+        cardId: 'numbersExercise',
+        showStory: false,
+        finishTitle: 'Numbers Exercise Summary',
+        buildQuestions: () => prepareMultipleChoice(NUMBERS_QUESTIONS)
+      });
+    })();
+  </script>
+</body>
+</html>
