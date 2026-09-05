@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading comprehension and adverbs in English - The First Australians.">
+  <title>September 5 - Classwork</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('mitch-quiz-theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+
+      --light-background: #FFFFFF;
+      --light-foreground: #111827;
+      --light-primary: #3B82F6;
+      --light-primary-hover: #2563EB;
+      --light-secondary: #10B981;
+      --light-secondary-soft: #D1FAE5;
+      --light-accent: #F59E0B;
+      --light-accent-soft: #FEF3C7;
+      --light-muted: #F3F4F6;
+      --light-muted-strong: #E5E7EB;
+      --light-blue-soft: #DBEAFE;
+      --light-border: #D1D5DB;
+      --light-subtle: #4B5563;
+
+      --background: var(--light-background);
+      --foreground: var(--light-foreground);
+      --primary: var(--light-primary);
+      --primary-hover: var(--light-primary-hover);
+      --secondary: var(--light-secondary);
+      --secondary-soft: var(--light-secondary-soft);
+      --accent: var(--light-accent);
+      --accent-soft: var(--light-accent-soft);
+      --muted: var(--light-muted);
+      --muted-strong: var(--light-muted-strong);
+      --blue-soft: var(--light-blue-soft);
+      --border: var(--light-border);
+      --subtle: var(--light-subtle);
+
+      --hero-heading: #FFFFFF;
+      --hero-text: #EFF6FF;
+      --surface-text: #111827;
+      --inverse: #111827;
+      --inverse-deep: #030712;
+      --inverse-text: #FFFFFF;
+      --danger: #DC2626;
+      --danger-soft: #FEE2E2;
+      --success-text: #052E16;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --font: 'Outfit', sans-serif;
+      --transition: all 200ms ease;
+    }
+
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #111827;
+      --foreground: #F9FAFB;
+      --primary: #60A5FA;
+      --primary-hover: #3B82F6;
+      --secondary: #34D399;
+      --secondary-soft: #064E3B;
+      --accent: #FBBF24;
+      --accent-soft: #451A03;
+      --muted: #0B1220;
+      --muted-strong: #1F2937;
+      --blue-soft: #172554;
+      --border: #374151;
+      --subtle: #CBD5E1;
+      --surface-text: #F9FAFB;
+      --inverse: #030712;
+      --inverse-deep: #020617;
+      --inverse-text: #F9FAFB;
+      --danger: #F87171;
+      --danger-soft: #450A0A;
+      --success-text: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--surface-text);
+      background: var(--muted);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    h1, h2, h3, h4, h5, p { margin-top: 0; }
+    h1, h2, h3, h4, h5 { line-height: 1; letter-spacing: -.02em; }
+
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 64px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: var(--surface-text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .btn,
+    .collapse-btn,
+    .toc-link,
+    .option-btn {
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .home-link,
+    .theme-toggle {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      font-size: .86rem;
+      text-decoration: none;
+    }
+
+    .home-link:hover,
+    .theme-toggle:hover {
+      background: var(--muted-strong);
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 24px auto 64px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .hero {
+      color: var(--hero-heading);
+      background: var(--primary);
+    }
+
+    .hero-copy {
+      padding: clamp(48px, 7vw, 82px);
+    }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0 0 22px;
+      color: var(--hero-heading);
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy p {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--hero-text);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+    }
+
+    .toc-panel {
+      padding: 18px 22px;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-panel h2 {
+      margin: 0 0 12px;
+      color: var(--surface-text);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 1px solid transparent;
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .toc-link:hover {
+      background: var(--blue-soft);
+      border-color: var(--primary);
+    }
+
+    .section-card {
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(30px, 5vw, 64px);
+    }
+
+    .reading-section .section-header {
+      color: #111827;
+      background: var(--secondary);
+    }
+
+    .section-kicker,
+    .question-meta,
+    .menu-field label,
+    .rule-label,
+    .story-label {
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .section-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      font-weight: 800;
+    }
+
+    .collapse-btn {
+      min-height: 56px;
+      flex: 0 0 auto;
+      padding: 0 18px;
+      color: #111827;
+      background: #FFFFFF;
+      border: 4px solid currentColor;
+      font-size: .75rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .collapse-btn:hover {
+      color: #FFFFFF;
+      background: #111827;
+    }
+
+    .section-body {
+      padding: clamp(26px, 5vw, 64px);
+      background: var(--muted);
+    }
+
+    .sub-section {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .sub-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .sub-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    /* Vocab Cards Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .vocab-card {
+      padding: 20px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .vocab-word {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vocab-pos {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #111827;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-left: 8px;
+      text-transform: lowercase;
+      font-style: italic;
+    }
+
+    .vocab-def {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: var(--surface-text);
+    }
+
+    .vocab-ex {
+      font-size: 0.88rem;
+      color: var(--surface-text);
+      opacity: 0.9;
+      font-style: italic;
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+
+    }
+
+    /* Hover Tooltip Styling */
+    .vocab-hover {
+      position: relative;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline dotted var(--primary);
+      cursor: help;
+    }
+
+    .vocab-hover::after {
+      content: attr(data-def);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 250px;
+      padding: 8px 12px;
+      background: var(--inverse);
+      color: var(--inverse-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 50;
+      pointer-events: none;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .vocab-hover:hover::after,
+    .vocab-hover:focus::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .paragraph-num {
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+      font-size: 1.1rem;
+    }
+
+    .story-card {
+      padding: clamp(22px, 4vw, 32px);
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .story-label {
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .story-card h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      font-weight: 800;
+    }
+
+    .story-text p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .exercise-card {
+      margin-top: 28px;
+      overflow: hidden;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .exercise-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      color: var(--inverse-text);
+      background: var(--inverse);
+    }
+
+    .exercise-head-copy {
+      padding: 26px;
+    }
+
+    .exercise-head h3 {
+      margin-bottom: 8px;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 800;
+    }
+
+    .exercise-head p {
+      max-width: 72ch;
+      margin: 0;
+      color: #D1D5DB;
+    }
+
+    .score-block {
+      min-width: 164px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: #111827;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: var(--muted-strong);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--secondary);
+      transition: width 200ms ease;
+    }
+
+    .exercise-menu,
+    .live-stage,
+    .finish-stage {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .menu-intro {
+      max-width: 72ch;
+      margin-bottom: 20px;
+      color: var(--surface-text);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(150px, .65fr));
+      gap: 12px;
+    }
+
+    .menu-field,
+    .menu-summary {
+      padding: 14px;
+      background: var(--muted);
+      border-radius: var(--radius-md);
+    }
+
+    .menu-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-field label {
+      color: var(--primary);
+    }
+
+    .menu-field select {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .menu-summary strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+    }
+
+    .menu-summary span {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .btn-primary {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary-hover);
+    }
+
+    .btn-positive {
+      color: #FFFFFF;
+      background: var(--secondary);
+    }
+
+    .btn-warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      color: var(--surface-text);
+      background: var(--muted-strong);
+    }
+
+    .btn-danger {
+      color: #FFFFFF;
+      background: var(--danger);
+    }
+
+    .live-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: var(--radius-lg);
+    }
+
+    .live-status strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.06rem;
+    }
+
+    .live-status span {
+      color: #D1D5DB;
+      font-size: .8rem;
+    }
+
+    .mini-timer {
+      min-width: 110px;
+      padding: 9px 13px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .mini-timer.warning {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-layout.single {
+      grid-template-columns: 1fr;
+    }
+
+    .question-layout .story-card {
+      position: sticky;
+      top: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .question-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .question-meta {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .question-text {
+      margin: 0 0 24px;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      color: #FFFFFF;
+      background: var(--primary);
+    }
+
+    .option-btn.correct-choice {
+      color: var(--success-text);
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+    }
+
+    .option-btn.wrong-choice {
+      color: var(--surface-text);
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .typed-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .typed-input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 16px;
+      color: var(--surface-text);
+      background: var(--muted);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      outline: none;
+    }
+
+    .typed-input:focus {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+    }
+
+    .feedback.correct {
+      background: var(--secondary-soft);
+      border-left: 8px solid var(--secondary);
+    }
+
+    .feedback.incorrect {
+      background: var(--accent-soft);
+      border-left: 8px solid var(--danger);
+    }
+
+    .feedback.neutral {
+      background: var(--muted);
+      border-left: 8px solid var(--primary);
+    }
+
+    .finish-panel {
+      padding: 28px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 16px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-md);
+    }
+
+    .floating-controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+    }
+
+    .float-btn {
+      width: 46px;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--inverse);
+      border-radius: 50%;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .question-layout { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* --- August 28 additions --- */
+    .numbers-section .section-header {
+      color: #111827;
+      background: var(--accent);
+    }
+
+    .live-toolbar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rule-card {
+      padding: 24px;
+      color: var(--surface-text);
+      background: var(--blue-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .rule-card.full { grid-column: 1 / -1; }
+
+    .rule-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .rule-card h3 {
+      margin-bottom: 12px;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .rule-card li { margin: 7px 0; }
+    .rule-card p:last-child,
+    .rule-card ul:last-child,
+    .rule-card ol:last-child { margin-bottom: 0; }
+
+    .example-table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+
+    .example-table th,
+    .example-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .example-table th {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    .source-note {
+      margin-top: 28px;
+      padding: 20px;
+      color: var(--surface-text);
+      background: var(--background);
+      border-radius: var(--radius-lg);
+      font-size: .86rem;
+    }
+
+    .review-box {
+      margin-top: 12px;
+      padding: 18px;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .review-box h5 { margin-bottom: 8px; font-size: 1.05rem; line-height: 1.3; }
+    .review-box p { margin: 4px 0; }
+
+    .typed-hint {
+      font-size: .84rem;
+      color: var(--subtle);
+    }
+
+    .topic-breakdown { display: grid; gap: 8px; margin-top: 14px; }
+
+    .topic-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--background);
+      border-radius: var(--radius-lg);
+    }
+
+    .topic-row span:last-child { color: var(--primary); font-weight: 800; }
+
+    .metric span {
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme='dark'] .rule-label { color: #0B1220; }
+
+    @media (max-width: 900px) {
+      .lesson-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">Mitch — English Tutoring Resources</a>
+      <div class="header-actions">
+        <a class="home-link" href="./index.html">Home</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true" id="themeIcon">☾</span>
+          <span class="theme-label" id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell" id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>September 5, 2026 - Classwork</h1>
+        <p>Two lessons today: reading comprehension with <em>The First Australians</em>, and how adverbs work in English.</p>
+      </div>
+    </section>
+
+    <nav class="toc-panel" aria-labelledby="tocTitle">
+      <h2 id="tocTitle">Jump to a section</h2>
+      <div class="toc-grid">
+        <a class="toc-link" href="#vocab-section">1a. Vocabulary</a>
+        <a class="toc-link" href="#reading-section">1b. Reading Passage</a>
+        <a class="toc-link" href="#elements-section">1c. Reading Exercises</a>
+        <a class="toc-link" href="#adverbs">2. Adverbs</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ================= SECTION 1: READING ================= -->
+      <section class="section-card reading-section" id="main-reading">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 1 · Reading</div>
+            <h2>The First Australians</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="mainReadingBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="mainReadingBody">
+
+          <!-- SUB-SECTION 1: VOCABULARY -->
+          <div class="sub-section" id="vocab-section">
+            <h3 class="sub-title">Sub-Section 1: Vocabulary List &amp; Practice</h3>
+            <p>Study these words before you read <em>"The First Australians."</em> They are the words most likely to be new to you. When you read the passage below, hover or tap the dotted underlined words to see the definition again!</p>
+
+            <div class="vocab-grid">
+              <div class="vocab-card">
+                <div><span class="vocab-word">Aboriginal</span> <span class="vocab-pos">adjective / noun</span></div>
+                <div class="vocab-def">Belonging to the people who lived in a country first, before anyone else came. In Australia it names the first people of the land.</div>
+                <div class="vocab-ex">"The Aboriginal people are the original inhabitants of Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">original</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">First; existing at the very beginning, before any others.</div>
+                <div class="vocab-ex">"...the original inhabitants of Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">inhabitants</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The people (or animals) who live in a particular place.</div>
+                <div class="vocab-ex">"The Aboriginal people are the original inhabitants of Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">archaeologists</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Scientists who study past cultures by digging up and examining old objects. Said <em>ar kee OL uh jists</em>.</div>
+                <div class="vocab-ex">"Archaeologists believe that they have lived in Australia for about 50,000 to 60,000 years!"</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">population</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">All of the people who live in a country or area.</div>
+                <div class="vocab-ex">"...a little more than two percent of the population of Australia."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">percent</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A part of every hundred. Two percent means two out of every hundred people.</div>
+                <div class="vocab-ex">"...a little more than two percent of the population."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">hunters and gatherers</span> <span class="vocab-pos">phrase</span></div>
+                <div class="vocab-def">People who get their food by hunting animals and collecting wild plants instead of farming.</div>
+                <div class="vocab-ex">"In the past, Aboriginal people were hunters and gatherers."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">gathering</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Collecting things and bringing them together, such as picking wild plants or fruit.</div>
+                <div class="vocab-ex">"...survived by hunting, fishing, and gathering plants."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">survived</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Stayed alive, especially when life was hard or dangerous.</div>
+                <div class="vocab-ex">"...they survived by hunting, fishing, and gathering plants."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">settle</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To make a home in a place and stay there.</div>
+                <div class="vocab-ex">"They did not settle permanently in one place."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">permanently</span> <span class="vocab-pos">adverb</span></div>
+                <div class="vocab-def">For a long time; forever, without changing or moving again.</div>
+                <div class="vocab-ex">"They did not settle permanently in one place."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">continent</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">One of the seven very large areas of land on Earth, such as Australia, Asia, or Africa.</div>
+                <div class="vocab-ex">"...they moved around the continent."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">refresh</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">To make something new or full again after it has been used up.</div>
+                <div class="vocab-ex">"...when they needed to refresh their supply of food."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">supply</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An amount of something that is stored and ready to be used.</div>
+                <div class="vocab-ex">"...to refresh their supply of food."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">connection</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A close relationship or strong feeling that joins one thing to another.</div>
+                <div class="vocab-ex">"...a strong respect for and connection to the land and nature."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">influences</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Has an effect on something; changes the way something is or happens.</div>
+                <div class="vocab-ex">"It influences almost every part of their culture."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">culture</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The way of life of a group of people: their food, art, beliefs, and customs.</div>
+                <div class="vocab-ex">"...almost every part of their culture, from food and shelter, to art and religion."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">shelter</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A place that covers and protects you from weather or danger.</div>
+                <div class="vocab-ex">"...from food and shelter, to art and religion."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">diseases</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Illnesses that make people sick, especially ones that spread from person to person.</div>
+                <div class="vocab-ex">"They brought diseases that the Aboriginal people had never been exposed to before."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">exposed</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Left open to something harmful without any protection from it.</div>
+                <div class="vocab-ex">"...had never been exposed to before."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">society</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A large group of people who live together and share the same laws and way of living.</div>
+                <div class="vocab-ex">"...learn to live in a society that was very different."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">ancestors</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Members of your family who lived a long time before you, such as your great-great-grandparents.</div>
+                <div class="vocab-ex">"...very different from their ancestors'."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">the right to vote</span> <span class="vocab-pos">phrase</span></div>
+                <div class="vocab-def">Being allowed by law to choose the leaders of your country in an election.</div>
+                <div class="vocab-ex">"They were finally given the right to vote."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">make up for</span> <span class="vocab-pos">phrase</span></div>
+                <div class="vocab-def">To do something good to repair a wrong that was done before.</div>
+                <div class="vocab-ex">"...began trying to make up for some of the unfair treatment."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">treatment</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The way that someone behaves toward another person.</div>
+                <div class="vocab-ex">"...some of the unfair treatment the people had suffered."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">suffered</span> <span class="vocab-pos">verb</span></div>
+                <div class="vocab-def">Experienced something painful, difficult, or unfair.</div>
+                <div class="vocab-ex">"...the unfair treatment the people had suffered."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">century</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A period of one hundred years.</div>
+                <div class="vocab-ex">"...taken from them more than a century before."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">contributions</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">Things that a person or group gives or adds that help make something better.</div>
+                <div class="vocab-ex">"The contributions of Aboriginal people to Australia can be seen in many areas."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">boomerang</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A flat, curved piece of wood that you throw; it can come back to you.</div>
+                <div class="vocab-ex">"...they created the boomerang."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">curved</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Bent in a smooth, round shape instead of being straight.</div>
+                <div class="vocab-ex">"...a curved piece of wood."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">weapon</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">An object used to fight or to hunt, such as a spear or a knife.</div>
+                <div class="vocab-ex">"...used both as a weapon and for sport."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">didgeridoo</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A long Australian wind instrument made from a hollow piece of wood. Said <em>didge er ee DOO</em>.</div>
+                <div class="vocab-ex">"The didgeridoo is a well-known Australian wind instrument."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">wind instrument</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A musical instrument that you play by blowing air into it, like a flute or a trumpet.</div>
+                <div class="vocab-ex">"...a well-known Australian wind instrument."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">hollow</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Having an empty space inside instead of being solid.</div>
+                <div class="vocab-ex">"...made from a hollow piece of wood or bamboo."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">bamboo</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A tall, hard plant with hollow stems that grows in hot countries.</div>
+                <div class="vocab-ex">"...a hollow piece of wood or bamboo."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">valuable</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Very useful and important; worth a lot.</div>
+                <div class="vocab-ex">"...an important and valuable part of Australian society."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">traditional</span> <span class="vocab-pos">adjective</span></div>
+                <div class="vocab-def">Done in the same way that people have done it for a very long time.</div>
+                <div class="vocab-ex">"Today, many still live a traditional lifestyle in the bush."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">the bush</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The Australian word for wild country far away from towns and cities.</div>
+                <div class="vocab-ex">"...in the bush, or Australian wilderness."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">wilderness</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">A large wild area where no people live and nothing has been built.</div>
+                <div class="vocab-ex">"...the bush, or Australian wilderness."</div>
+              </div>
+              <div class="vocab-card">
+                <div><span class="vocab-word">aspects</span> <span class="vocab-pos">noun</span></div>
+                <div class="vocab-def">The different parts or sides of something.</div>
+                <div class="vocab-ex">"Their influences can be found in many aspects of Australian life."</div>
+              </div>
+            </div>
+
+            <!-- Vocab Exercise 1: Definitions -->
+            <article class="exercise-card" id="vocabDefExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 1: Word Definitions</h3>
+                  <p>Choose the correct definition for each vocabulary word from the passage.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">12 multiple-choice questions. Untimed.</p>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 12</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <!-- Vocab Exercise 2: Fill in the Blanks -->
+            <article class="exercise-card" id="vocabFillExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Vocabulary Exercise 2: Sentence Fill-in-the-Blanks</h3>
+                  <p>Type the vocabulary word that completes each sentence.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">10 typed answers. Spelling counts. Untimed.</p>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 2: READING PASSAGE -->
+          <div class="sub-section" id="reading-section">
+            <h3 class="sub-title">Sub-Section 2: Reading Passage ("The First Australians")</h3>
+            <p>Read the text below carefully. Paragraph numbers are shown at the beginning of each paragraph. Hover over the dotted underlined words to see their definitions!</p>
+
+            <article class="story-card">
+              <div class="story-label">Spectrum Reading Grade 5 · Passage</div>
+              <h3>The First Australians</h3>
+              <p style="font-style:italic;font-weight:600;">Who are the Aboriginal people of Australia?</p>
+              <div class="story-text" id="storyText">
+                <p><span class="paragraph-num">1</span> The <span class="vocab-hover" data-def="Belonging to the people who lived in a country first, before anyone else came.">Aboriginal</span> people are the <span class="vocab-hover" data-def="First; existing at the very beginning, before any others.">original</span> <span class="vocab-hover" data-def="The people who live in a particular place.">inhabitants</span> of Australia. <span class="vocab-hover" data-def="Scientists who study past cultures by digging up and examining old objects.">Archaeologists</span> believe that they have lived in Australia for about 50,000 to 60,000 years! Today, they make up a little more than two <span class="vocab-hover" data-def="A part of every hundred. Two percent means two out of every hundred.">percent</span> of the <span class="vocab-hover" data-def="All of the people who live in a country or area.">population</span> of Australia.</p>
+                <p><span class="paragraph-num">2</span> In the past, Aboriginal people were <span class="vocab-hover" data-def="People who get food by hunting animals and collecting wild plants instead of farming.">hunters and gatherers</span>. This means that they <span class="vocab-hover" data-def="Stayed alive, especially when life was hard.">survived</span> by hunting, fishing, and <span class="vocab-hover" data-def="Collecting things and bringing them together.">gathering</span> plants. They did not <span class="vocab-hover" data-def="Make a home in a place and stay there.">settle</span> <span class="vocab-hover" data-def="For a long time; forever, without moving again.">permanently</span> in one place. Instead, they moved around the <span class="vocab-hover" data-def="One of the seven very large areas of land on Earth.">continent</span> when they needed to <span class="vocab-hover" data-def="Make something full again after it has been used up.">refresh</span> their <span class="vocab-hover" data-def="An amount of something stored and ready to be used.">supply</span> of food. The Aboriginal people had, and still have, a strong respect for and <span class="vocab-hover" data-def="A close relationship that joins one thing to another.">connection</span> to the land and nature. It <span class="vocab-hover" data-def="Has an effect on; changes the way something is.">influences</span> almost every part of their <span class="vocab-hover" data-def="The way of life of a group of people: their food, art, beliefs, and customs.">culture</span>, from food and <span class="vocab-hover" data-def="A place that covers and protects you from weather or danger.">shelter</span>, to art and religion.</p>
+                <p><span class="paragraph-num">3</span> Things quickly changed for the Aboriginal people when Europeans began arriving in Australia in 1788. They brought <span class="vocab-hover" data-def="Illnesses that make people sick, especially ones that spread.">diseases</span> that the Aboriginal people had never been <span class="vocab-hover" data-def="Left open to something harmful without any protection.">exposed</span> to before. The Aboriginal people also had to fight for the land that was theirs. There were many years of difficult times. The Aboriginal people had to learn to live in a <span class="vocab-hover" data-def="A large group of people who live together and share the same laws and way of living.">society</span> that was very different from their <span class="vocab-hover" data-def="Members of your family who lived a long time before you.">ancestors'</span>. They had to fight to keep their culture alive.</p>
+                <p><span class="paragraph-num">4</span> The situation started to improve for the Aboriginal people in the 1960s. They were finally given the <span class="vocab-hover" data-def="Being allowed by law to choose the leaders of your country.">right to vote</span>. Later, the Australian government also began trying to <span class="vocab-hover" data-def="Do something good to repair a wrong that was done before.">make up for</span> some of the unfair <span class="vocab-hover" data-def="The way that someone behaves toward another person.">treatment</span> the people had <span class="vocab-hover" data-def="Experienced something painful, difficult, or unfair.">suffered</span>. They returned some of the land to the Aboriginal people that had been taken from them more than a <span class="vocab-hover" data-def="A period of one hundred years.">century</span> before.</p>
+                <p><span class="paragraph-num">5</span> The <span class="vocab-hover" data-def="Things a group gives or adds that help make something better.">contributions</span> of Aboriginal people to Australia can be seen in many areas. For example, they created the <span class="vocab-hover" data-def="A flat, curved piece of wood that you throw; it can come back to you.">boomerang</span>, a <span class="vocab-hover" data-def="Bent in a smooth, round shape instead of being straight.">curved</span> piece of wood that has been used both as a <span class="vocab-hover" data-def="An object used to fight or to hunt.">weapon</span> and for sport. Aboriginal rock paintings can be found in many areas of Australia. Some are believed to be 30,000 years old. The <span class="vocab-hover" data-def="A long Australian wind instrument made from a hollow piece of wood (didge er ee DOO).">didgeridoo</span> is a well-known Australian <span class="vocab-hover" data-def="An instrument you play by blowing air into it.">wind instrument</span>. It is a straight trumpet made from a <span class="vocab-hover" data-def="Having an empty space inside instead of being solid.">hollow</span> piece of wood or <span class="vocab-hover" data-def="A tall, hard plant with hollow stems that grows in hot countries.">bamboo</span>. Some people believe it may be one of the world's oldest wind instruments.</p>
+                <p><span class="paragraph-num">6</span> The Aboriginal people are an important and <span class="vocab-hover" data-def="Very useful and important; worth a lot.">valuable</span> part of Australian society. Today, many still live a <span class="vocab-hover" data-def="Done in the same way that people have done it for a very long time.">traditional</span> lifestyle in the <span class="vocab-hover" data-def="The Australian word for wild country far from towns and cities.">bush</span>, or Australian <span class="vocab-hover" data-def="A large wild area where no people live and nothing has been built.">wilderness</span>. Others have become a part of modern-day Australian culture and live in cities around the country. Their influences can be found in many <span class="vocab-hover" data-def="The different parts or sides of something.">aspects</span> of Australian life.</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- SUB-SECTION 3: READING EXERCISES -->
+          <div class="sub-section" id="elements-section">
+            <h3 class="sub-title">Sub-Section 3: Reading Comprehension Exercises</h3>
+            <p>Two exercises follow. The first asks about the <strong>elements of the text</strong> (topic, main idea, structure, supporting details, sequence, cause and effect, purpose, and tone). The second uses the <strong>questions from the worksheet PDF</strong>. The passage is not shown during the exercises — read it carefully first.</p>
+
+            <article class="exercise-card" id="elementsExercise">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 1: Story Elements</h3>
+                  <p>20 multiple-choice questions on topic, main idea, structure, details, sequence, cause and effect, purpose, and tone.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">20 multiple-choice questions. Passage not shown. Untimed.</p>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 20</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <article class="exercise-card" id="pdfWorksheetExercise" style="margin-top: 36px;">
+              <div class="exercise-head">
+                <div class="exercise-head-copy">
+                  <h3>Reading Exercise 2: Worksheet Questions (PDF Page 2)</h3>
+                  <p>The ten questions printed on page 2 of the Spectrum Reading worksheet.</p>
+                </div>
+                <div class="score-block" data-score>Ready</div>
+              </div>
+              <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+              <div class="exercise-menu" data-menu>
+                <p class="menu-intro">10 worksheet questions, typed and multiple choice. Passage not shown. Untimed.</p>
+                <div class="button-row">
+                  <button class="btn btn-primary" type="button" data-start>Start</button>
+                </div>
+              </div>
+
+              <div class="live-stage" data-live hidden>
+                <div class="live-toolbar">
+                  <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 10</span></div>
+                  <button class="btn btn-danger" type="button" data-end>End exercise</button>
+                </div>
+                <div data-question-host></div>
+              </div>
+              <div class="finish-stage" data-finish hidden></div>
+            </article>
+
+            <p class="source-note">Passage and worksheet questions: <em>Spectrum Reading, Grade 5</em>, pages 8–9 ("The First Australians").</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 2: ADVERBS ================= -->
+      <section class="section-card numbers-section" id="adverbs">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Section 2 · Grammar</div>
+            <h2>Adverbs</h2>
+          </div>
+          <button class="collapse-btn" type="button" data-collapse="adverbsBody" aria-expanded="true">Collapse</button>
+        </div>
+
+        <div class="section-body" id="adverbsBody">
+          <p style="max-width:72ch;">The passage you just read is full of adverbs: <em>quickly</em>, <em>permanently</em>, <em>finally</em>, <em>never</em>, <em>still</em>, <em>almost</em>, <em>today</em>, <em>instead</em>. Adverbs are the words that tell you <strong>how</strong>, <strong>when</strong>, <strong>where</strong>, <strong>how often</strong>, and <strong>how much</strong>. Work through the guide below from card 1 to card 14 — each card teaches one small idea — and then try the exercise at the end.</p>
+
+          <div class="lesson-grid">
+            <article class="rule-card">
+              <span class="rule-label">Card 1 · The basic idea</span>
+              <h3>What is an adverb?</h3>
+              <p>An <strong>adjective</strong> describes a <em>noun</em> (a person or thing). An <strong>adverb</strong> describes almost anything else — most often a <em>verb</em> (an action).</p>
+              <ul>
+                <li>Adjective: <em>a <strong>quick</strong> change</em> → <em>change</em> is a noun.</li>
+                <li>Adverb: <em>Things changed <strong>quickly</strong>.</em> → <em>changed</em> is a verb.</li>
+              </ul>
+              <p>An easy first test: if the word answers <em>how? when? where? how often?</em> or <em>how much?</em>, it is an adverb.</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 2 · How?</span>
+              <h3>Adverbs of manner</h3>
+              <p>These tell you <strong>how</strong> an action happens. Most of them end in <strong>-ly</strong>.</p>
+              <ul>
+                <li><em>Things changed <strong>quickly</strong> for the Aboriginal people.</em> (How did things change? Quickly.)</li>
+                <li><em>They did not settle <strong>permanently</strong>.</em></li>
+                <li><em>She explained the rule <strong>clearly</strong>.</em></li>
+              </ul>
+              <p>Adverbs of manner usually come <em>after</em> the verb, or after the verb and its object: <em>He read the passage <strong>carefully</strong>.</em></p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 3 · Building them</span>
+              <h3>Making an adverb from an adjective</h3>
+              <p>Start with the adjective and add <strong>-ly</strong>. There are four small spelling rules:</p>
+              <ul>
+                <li><strong>Normal:</strong> quick → quick<strong>ly</strong>, careful → careful<strong>ly</strong>, sudden → sudden<strong>ly</strong></li>
+                <li><strong>Ends in -y:</strong> change <em>y</em> to <em>i</em> — happy → happ<strong>ily</strong>, easy → eas<strong>ily</strong>, angry → angr<strong>ily</strong></li>
+                <li><strong>Ends in -le:</strong> drop the <em>e</em> — simple → simp<strong>ly</strong>, gentle → gent<strong>ly</strong>, terrible → terrib<strong>ly</strong></li>
+                <li><strong>Ends in -ic:</strong> add <em>-ally</em> — basic → basic<strong>ally</strong>, tragic → tragic<strong>ally</strong> (exception: public → publicly)</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 4 · The tricky ones</span>
+              <h3>Irregular adverbs</h3>
+              <p>A few common adverbs do <strong>not</strong> take -ly. Memorise these:</p>
+              <ul>
+                <li>good (adjective) → <strong>well</strong> (adverb): <em>She speaks English <strong>well</strong>.</em> ✗ <s>speaks good</s></li>
+                <li>fast → <strong>fast</strong>: <em>Kangaroos run <strong>fast</strong>.</em> ✗ <s>fastly</s></li>
+                <li>hard → <strong>hard</strong>: <em>They worked <strong>hard</strong>.</em> (<em>hardly</em> means something completely different — see Card 8.)</li>
+                <li>late → <strong>late</strong>: <em>He arrived <strong>late</strong>.</em> (<em>lately</em> means "recently".)</li>
+                <li>early, straight, and daily also keep their own form.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 5 · When?</span>
+              <h3>Adverbs of time</h3>
+              <p>These tell you <strong>when</strong> something happens: <em>today, yesterday, tomorrow, now, then, later, soon, already, finally, still, before, recently.</em></p>
+              <ul>
+                <li><em><strong>Today</strong>, they make up two percent of the population.</em></li>
+                <li><em>They were <strong>finally</strong> given the right to vote.</em></li>
+                <li><em><strong>Later</strong>, the government began trying to make up for it.</em></li>
+              </ul>
+              <p>Adverbs of time usually go at the <strong>end</strong> of the sentence, or at the very <strong>beginning</strong> followed by a comma.</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 6 · Where?</span>
+              <h3>Adverbs of place</h3>
+              <p>These tell you <strong>where</strong>: <em>here, there, everywhere, nowhere, outside, inside, upstairs, underground, around, away, back, abroad.</em></p>
+              <ul>
+                <li><em>They moved <strong>around</strong> the continent.</em></li>
+                <li><em>The wombat digs <strong>underground</strong>.</em></li>
+                <li><em>Rock paintings can be found <strong>everywhere</strong> in Australia.</em></li>
+              </ul>
+              <p>Adverbs of place normally come <strong>after</strong> the verb (and after its object, if there is one).</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 7 · How often?</span>
+              <h3>Adverbs of frequency</h3>
+              <p>These tell you <strong>how often</strong>. They sit on a scale from 100% to 0%:</p>
+              <ul>
+                <li><strong>always</strong> → usually → often → sometimes → occasionally → rarely → seldom → <strong>never</strong></li>
+              </ul>
+              <p>They have a special position rule: <strong>before the main verb</strong>, but <strong>after the verb "be"</strong>.</p>
+              <ul>
+                <li><em>They had <strong>never</strong> been exposed to those diseases.</em> (before the main verb)</li>
+                <li><em>She <strong>always</strong> arrives on time.</em></li>
+                <li><em>He <strong>is always</strong> on time.</em> ← after <em>is</em>, not before it.</li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 8 · How much?</span>
+              <h3>Adverbs of degree</h3>
+              <p>These tell you <strong>how much</strong> or <strong>to what level</strong>: <em>very, quite, really, extremely, almost, nearly, completely, too, enough, a little, hardly.</em></p>
+              <ul>
+                <li><em>It influences <strong>almost</strong> every part of their culture.</em></li>
+                <li><em>The passage was <strong>very</strong> interesting.</em></li>
+                <li><em>He <strong>hardly</strong> noticed it.</em> → careful! <em>Hardly</em> means <strong>almost not at all</strong>, not "in a hard way".</li>
+              </ul>
+              <p><strong>Enough</strong> is the odd one: it goes <em>after</em> the word it describes — <em>fast <strong>enough</strong></em>, <em>old <strong>enough</strong></em>.</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 9 · Not just verbs</span>
+              <h3>Adverbs can describe adjectives and other adverbs</h3>
+              <p>An adverb of degree can sit in front of an adjective or another adverb to make it stronger or weaker.</p>
+              <ul>
+                <li>Adverb + adjective: <em>The didgeridoo is a <strong>well</strong>-known instrument.</em> / <em>The land is <strong>extremely</strong> important.</em></li>
+                <li>Adverb + adverb: <em>They moved <strong>very</strong> quickly.</em> / <em>She answered <strong>quite</strong> carefully.</em></li>
+              </ul>
+              <p>This is why you cannot say <s>they changed quick</s> — after a verb, the word must be the adverb <em>quickly</em>.</p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 10 · Word order</span>
+              <h3>Manner, place, then time</h3>
+              <p>When several adverbs appear together after a verb, English puts them in this order:</p>
+              <ul>
+                <li><strong>How → Where → When</strong> (manner, place, time)</li>
+                <li><em>They lived <strong>peacefully</strong> (how) <strong>in the bush</strong> (where) <strong>for thousands of years</strong> (when).</em></li>
+              </ul>
+              <p>One more rule worth remembering: never put an adverb <strong>between a verb and its object</strong>. ✗ <s>She speaks well English.</s> ✓ <em>She speaks English well.</em></p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 11 · Adjective or adverb?</span>
+              <h3>The most common mistake</h3>
+              <p>Use an <strong>adjective</strong> after the verbs <em>be, seem, look, feel, sound, taste, smell, become</em>. Use an <strong>adverb</strong> after an action verb.</p>
+              <ul>
+                <li>✓ <em>The music sounds <strong>beautiful</strong>.</em> ✗ <s>sounds beautifully</s></li>
+                <li>✓ <em>She sings <strong>beautifully</strong>.</em> ✗ <s>sings beautiful</s></li>
+                <li>✓ <em>I feel <strong>bad</strong> about it.</em> ✓ <em>He plays <strong>badly</strong>.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 12 · Comparing</span>
+              <h3>Comparative and superlative adverbs</h3>
+              <p>Short adverbs (usually the irregular ones) add <strong>-er / -est</strong>. Long <em>-ly</em> adverbs use <strong>more / most</strong>.</p>
+              <ul>
+                <li><em>fast → <strong>faster</strong> → the <strong>fastest</strong></em></li>
+                <li><em>quickly → <strong>more quickly</strong> → the <strong>most quickly</strong></em></li>
+                <li>Irregular: <em>well → <strong>better</strong> → best</em>; <em>badly → <strong>worse</strong> → worst</em>; <em>little → less → least</em></li>
+              </ul>
+              <p>Use <strong>than</strong> to compare: <em>A kangaroo travels <strong>faster than</strong> a wombat.</em></p>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 13 · Linking ideas</span>
+              <h3>Sentence adverbs</h3>
+              <p>Some adverbs describe the <strong>whole sentence</strong> instead of one verb. They often start the sentence and are followed by a comma.</p>
+              <ul>
+                <li><em><strong>Instead</strong>, they moved around the continent.</em></li>
+                <li><em><strong>However</strong>, life became very difficult.</em></li>
+                <li><em><strong>Fortunately</strong>, some of the land was returned.</em></li>
+                <li>Others: <em>Finally, Then, Also, Therefore, Luckily, Suddenly, Of course.</em></li>
+              </ul>
+            </article>
+
+            <article class="rule-card">
+              <span class="rule-label">Card 14 · A warning</span>
+              <h3>Not every -ly word is an adverb</h3>
+              <p>Some words end in <strong>-ly</strong> but are <strong>adjectives</strong>: <em>friendly, lonely, lovely, silly, ugly, elderly, likely, daily, weekly.</em></p>
+              <ul>
+                <li>✓ <em>a <strong>friendly</strong> guide</em> ✗ <s>She smiled friendly.</s> → say <em>in a friendly way</em>.</li>
+              </ul>
+              <p>And some words change meaning completely when you add -ly: <em>hard / hardly</em>, <em>late / lately</em>, <em>near / nearly</em>. Always check the meaning, not just the ending.</p>
+            </article>
+          </div>
+
+          <article class="exercise-card" id="adverbsExercise">
+            <div class="exercise-head">
+              <div class="exercise-head-copy">
+                <h3>Adverbs Exercise</h3>
+                <p>20 questions on adverb types, spelling, position, adjective vs. adverb, and comparison.</p>
+              </div>
+              <div class="score-block" data-score>Ready</div>
+            </div>
+            <div class="progress-track" role="progressbar"><div class="progress-fill" data-progress></div></div>
+
+            <div class="exercise-menu" data-menu>
+              <p class="menu-intro">20 questions, multiple choice and typed. Untimed.</p>
+              <div class="button-row">
+                <button class="btn btn-primary" type="button" data-start>Start</button>
+              </div>
+            </div>
+
+            <div class="live-stage" data-live hidden>
+              <div class="live-toolbar">
+                <div class="live-status"><strong data-live-score>Score: 0 / 0</strong><span data-live-progress>Question 1 of 20</span></div>
+                <button class="btn btn-danger" type="button" data-end>End exercise</button>
+              </div>
+              <div data-question-host></div>
+            </div>
+            <div class="finish-stage" data-finish hidden></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="floating-controls">
+    <a class="float-btn" href="#top" aria-label="Back to top">↑</a>
+  </div>
+  <script>
+    // ---------- SECTION 1 DATA ----------
+
+    const VOCAB_DEF_QUESTIONS = [
+      { topic: 'Vocab Definition', q: 'What does "inhabitants" mean?', options: ['The people who live in a particular place', 'The rules that a country asks people to follow', 'The animals that are hunted for their meat', 'The buildings that are found in a large city'], answer: 0, explanation: 'Paragraph 1: the Aboriginal people are the original inhabitants of Australia — the first people who lived there.' },
+      { topic: 'Vocab Definition', q: 'Who are "archaeologists"?', options: ['Scientists who study past cultures by examining old objects', 'Teachers who explain the laws of a country to their students', 'Doctors who look after people living far away from a city', 'Artists who paint pictures of animals on the walls of caves'], answer: 0, explanation: 'Paragraph 1: archaeologists believe the Aboriginal people have lived in Australia for 50,000 to 60,000 years.' },
+      { topic: 'Vocab Definition', q: 'What does "permanently" mean?', options: ['For a long time, without moving or changing again', 'For a short time, only until the weather changes', 'In a careful and very quiet way, without noise', 'At the same time as somebody else is doing it'], answer: 0, explanation: 'Paragraph 2: they did not settle permanently in one place — they did not stay forever.' },
+      { topic: 'Vocab Definition', q: 'What does "influences" mean in "It influences almost every part of their culture"?', options: ['Has an effect on something and changes how it is', 'Takes something away from somebody by force', 'Keeps something exactly the same for many years', 'Explains something clearly to a group of people'], answer: 0, explanation: 'Paragraph 2: their connection to the land has an effect on food, shelter, art, and religion.' },
+      { topic: 'Vocab Definition', q: 'What does "exposed" mean in "had never been exposed to"?', options: ['Left open to something harmful without protection', 'Told about something important by another person', 'Kept safe inside a building during a long winter', 'Shown a picture of something they had not seen'], answer: 0, explanation: 'Paragraph 3: the Aboriginal people had never met these European diseases before, so their bodies had no protection.' },
+      { topic: 'Vocab Definition', q: 'What is a "boomerang"?', options: ['A curved piece of wood that is thrown and can return', 'A long trumpet that is played by blowing into it', 'A painting made on rock by the very first people', 'A tall plant with hollow stems used for building'], answer: 0, explanation: 'Paragraph 5: a curved piece of wood used both as a weapon and for sport.' },
+      { topic: 'Vocab Definition', q: 'What is a "didgeridoo"?', options: ['A wind instrument made from a hollow piece of wood', 'A wooden weapon that is thrown at a moving animal', 'A wide flat stone that is used for grinding plants', 'A small boat that is carved out of a single tree'], answer: 0, explanation: 'Paragraph 5: the didgeridoo is a straight trumpet made from hollow wood or bamboo.' },
+      { topic: 'Vocab Definition', q: 'What does "hollow" mean?', options: ['Having an empty space inside instead of being solid', 'Being very heavy and difficult for a person to lift', 'Being smooth and bent instead of straight and flat', 'Having a strong smell that most animals do not like'], answer: 0, explanation: 'Paragraph 5: the didgeridoo is made from a hollow piece of wood — the middle is empty, so air can pass through.' },
+      { topic: 'Vocab Definition', q: 'What are your "ancestors"?', options: ['Members of your family who lived long before you', 'The friends you spend the most time with each day', 'The people who share the same house as you now', 'The children who will be born after you have died'], answer: 0, explanation: 'Paragraph 3: the new society was very different from their ancestors — from the way their families had lived before.' },
+      { topic: 'Vocab Definition', q: 'What is "the bush" in Australia?', options: ['Wild country that is far away from towns and cities', 'A small green plant that grows beside a house wall', 'A large modern city built on the eastern coastline', 'A dry season when almost no rain falls for months'], answer: 0, explanation: 'Paragraph 6: many still live a traditional lifestyle in the bush, or Australian wilderness.' },
+      { topic: 'Vocab Definition', q: 'What does "a century" mean?', options: ['A period of one hundred years', 'A period of ten years', 'A period of one thousand years', 'A period of fifty years'], answer: 0, explanation: 'Paragraph 4: the land had been taken more than a century — more than a hundred years — earlier.' },
+      { topic: 'Vocab Definition', q: 'What does "contributions" mean?', options: ['Things a group gives that help make something better', 'Rules that a government asks everybody to obey', 'Places where a group of people used to live before', 'Problems that a group of people had to live with'], answer: 0, explanation: 'Paragraph 5: the boomerang, the rock paintings, and the didgeridoo are things the Aboriginal people gave to Australia.' }
+    ];
+
+    const VOCAB_FILL_QUESTIONS = [
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The Aboriginal people are the original _______ of Australia. (plural word meaning: the people who live in a place)', answers: ['inhabitants'], display: 'inhabitants', explanation: 'Inhabitants are the people who live in a particular place.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: '_______ believe the Aboriginal people have lived in Australia for 50,000 to 60,000 years. (plural word meaning: scientists who study past cultures)', answers: ['archaeologists'], display: 'Archaeologists', explanation: 'Archaeologists study the past by examining old objects and places.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'They did not settle _______ in one place. (adverb meaning: for a long time, forever)', answers: ['permanently'], display: 'permanently', explanation: 'Permanently means without moving or changing again.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Their connection to the land _______ almost every part of their culture. (verb meaning: has an effect on)', answers: ['influences'], display: 'influences', explanation: 'To influence something is to have an effect on it.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The Aboriginal people had never been _______ to European diseases before. (verb meaning: left open to harm without protection)', answers: ['exposed'], display: 'exposed', explanation: 'Being exposed to a disease means meeting it with no protection against it.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The _______ is a curved piece of wood used as a weapon and for sport.', answers: ['boomerang'], display: 'boomerang', explanation: 'Paragraph 5 names the boomerang as an Aboriginal invention.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The didgeridoo is made from a _______ piece of wood or bamboo. (adjective meaning: empty inside)', answers: ['hollow'], display: 'hollow', explanation: 'Air can travel through a hollow tube, which is how a wind instrument works.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'The government tried to make up for the unfair _______ the people had suffered. (noun meaning: the way somebody behaves toward another person)', answers: ['treatment'], display: 'treatment', explanation: 'Paragraph 4: the Australian government began trying to make up for unfair treatment.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Many Aboriginal people still live a _______ lifestyle in the bush. (adjective meaning: done the same way for a very long time)', answers: ['traditional'], display: 'traditional', explanation: 'Paragraph 6 contrasts a traditional lifestyle with modern-day Australian culture.' },
+      { topic: 'Fill in the Blank', type: 'typed', q: 'Their influences can be found in many _______ of Australian life. (plural noun meaning: parts or sides of something)', answers: ['aspects'], display: 'aspects', explanation: 'Aspects are the different parts of something.' }
+    ];
+
+    const STORY_ELEMENTS_QUESTIONS = [
+      { topic: 'Text Type', q: 'What kind of text is "The First Australians"?', options: ['Nonfiction — an informational article about a real group of people', 'Realistic fiction — a made-up conversation that could really happen', 'A folk tale — a very old story passed down by storytellers', 'A persuasive essay — an argument asking readers to take action'], answer: 0, explanation: 'The text gives real facts and dates about a real group of people, with no characters and no story, so it is a nonfiction informational article.' },
+      { topic: 'Topic', q: 'What is the topic of the passage?', options: ['The Aboriginal people of Australia, past and present', 'The wild animals that are only found in Australia', 'The European settlers who arrived in Australia', 'The musical instruments played around the world'], answer: 0, explanation: 'The question above the passage asks, "Who are the Aboriginal people of Australia?" and every paragraph answers part of that.' },
+      { topic: 'Main Idea', q: 'What is the main idea of the whole passage?', options: ['The Aboriginal people have a long history, faced hard times, and remain important today', 'The Aboriginal people invented several objects that are still used in Australia now', 'The Aboriginal people were treated unfairly and never recovered from what happened', 'The Aboriginal people are hunters and gatherers who move around the continent'], answer: 0, explanation: 'The other choices are each true of only one or two paragraphs. Only the first covers the whole passage: ancient history, hardship, improvement, and value today.' },
+      { topic: 'Text Structure', q: 'How is the information in the passage organised?', options: ['Mostly in time order, from ancient history to the present day', 'As a list of problems followed by one carefully argued solution', 'As a comparison between two very different groups of Australians', 'As a set of instructions telling the reader exactly what to do'], answer: 0, explanation: 'The passage moves from 50,000 years ago, to 1788, to the 1960s, to "Today" — that is chronological order.' },
+      { topic: 'Author’s Purpose', q: 'Why did the author most likely write this passage?', options: ['To inform readers about the history and culture of the Aboriginal people', 'To persuade readers to visit the Australian bush on their next holiday', 'To entertain readers with an exciting story about life in the wilderness', 'To teach readers exactly how to build and play a real didgeridoo'], answer: 0, explanation: 'The passage gives facts and explanations without telling a story or asking the reader to do anything.' },
+      { topic: 'Supporting Detail · Par. 1', q: 'How long do archaeologists believe the Aboriginal people have lived in Australia?', options: ['About 50,000 to 60,000 years', 'About 30,000 to 40,000 years', 'About 5,000 to 6,000 years', 'About 500 to 600 years'], answer: 0, explanation: 'Paragraph 1 gives the figure directly. The 30,000 years in paragraph 5 belongs to the rock paintings, not to the people.' },
+      { topic: 'Supporting Detail · Par. 1', q: 'How much of Australia’s population is Aboriginal today?', options: ['A little more than two percent', 'A little less than one percent', 'Almost twenty percent', 'Nearly half'], answer: 0, explanation: 'Paragraph 1: "Today, they make up a little more than two percent of the population of Australia."' },
+      { topic: 'Vocabulary in Context', q: 'The passage says Aboriginal people were "hunters and gatherers." What does this mean?', options: ['They got food by hunting animals and collecting wild plants', 'They kept farm animals and grew crops in large open fields', 'They traded goods with other groups in exchange for food', 'They stored food in one village and shared it every winter'], answer: 0, explanation: 'Paragraph 2 explains it in the next sentence: they survived by hunting, fishing, and gathering plants.' },
+      { topic: 'Cause and Effect · Par. 2', q: 'Why did the Aboriginal people move around the continent?', options: ['They needed to refresh their supply of food', 'They were trying to escape from dangerous animals', 'They wanted to find a warmer place for the winter', 'They were looking for wood to build new shelters'], answer: 0, explanation: 'Paragraph 2: they moved "when they needed to refresh their supply of food."' },
+      { topic: 'Supporting Detail · Par. 2', q: 'According to the passage, what influences almost every part of Aboriginal culture?', options: ['Their respect for and connection to the land and nature', 'The laws that were written by the Australian government', 'The languages that were spoken by the first settlers', 'The music that is played on their oldest instruments'], answer: 0, explanation: 'Paragraph 2 says this connection shapes everything "from food and shelter, to art and religion."' },
+      { topic: 'Sequence', q: 'Which event happened FIRST in the passage?', options: ['Europeans began arriving in Australia', 'Aboriginal people were given the right to vote', 'Some land was returned to the Aboriginal people', 'The government tried to make up for unfair treatment'], answer: 0, explanation: 'Europeans arrived in 1788 (paragraph 3). Everything in the other choices happened in the 1960s or later (paragraph 4).' },
+      { topic: 'Cause and Effect · Par. 3', q: 'Why were European diseases so dangerous to the Aboriginal people?', options: ['They had never been exposed to those diseases before', 'They had no doctors living anywhere on the continent', 'They refused to accept any medicine from the Europeans', 'They were already weakened by many years of hunger'], answer: 0, explanation: 'Paragraph 3: the Europeans "brought diseases that the Aboriginal people had never been exposed to before."' },
+      { topic: 'Supporting Detail · Par. 3', q: 'Besides disease, what other difficulty does paragraph 3 describe?', options: ['They had to fight for the land that was theirs', 'They had to learn a completely new way of hunting', 'They had to move to a different continent entirely', 'They had to give up their own musical instruments'], answer: 0, explanation: 'Paragraph 3 describes fighting for their land and fighting to keep their culture alive.' },
+      { topic: 'Supporting Detail · Par. 4', q: 'What important right were Aboriginal people finally given in the 1960s?', options: ['The right to vote', 'The right to travel', 'The right to go to school', 'The right to own a business'], answer: 0, explanation: 'Paragraph 4: "They were finally given the right to vote."' },
+      { topic: 'Inference · Par. 4', q: 'The passage says the government returned land taken "more than a century before." What does this tell you?', options: ['The land had been taken from them over a hundred years earlier', 'The government had bought the land from Europeans in the 1960s', 'The land was returned about a hundred years after the 1960s', 'The Aboriginal people had never lived on that land at all'], answer: 0, explanation: 'A century is a hundred years, so the land was taken more than a hundred years before it was given back.' },
+      { topic: 'Supporting Detail · Par. 5', q: 'How has the boomerang been used?', options: ['Both as a weapon and for sport', 'Both as a musical instrument and as a tool', 'Both as a weapon and as a piece of art', 'Both as a toy and as a cooking utensil'], answer: 0, explanation: 'Paragraph 5: "a curved piece of wood that has been used both as a weapon and for sport."' },
+      { topic: 'Supporting Detail · Par. 5', q: 'How old are some Aboriginal rock paintings believed to be?', options: ['About 30,000 years old', 'About 60,000 years old', 'About 3,000 years old', 'About 300 years old'], answer: 0, explanation: 'Paragraph 5: "Some are believed to be 30,000 years old."' },
+      { topic: 'Supporting Detail · Par. 5', q: 'What does the passage say about the didgeridoo?', options: ['It may be one of the oldest wind instruments in the world', 'It is the only instrument still made in Australia today', 'It was invented after the Europeans arrived in Australia', 'It is always carved from the wood of one special tree'], answer: 0, explanation: 'Paragraph 5: "Some people believe it may be one of the world’s oldest wind instruments."' },
+      { topic: 'Contrast · Par. 6', q: 'What two ways of living does paragraph 6 describe for Aboriginal people today?', options: ['A traditional life in the bush, or a modern life in the cities', 'A life spent hunting, or a life spent farming the same land', 'A life in Australia, or a life in another country far away', 'A life making art, or a life playing traditional music'], answer: 0, explanation: 'Paragraph 6: many still live traditionally in the bush, while others live in cities as part of modern Australian culture.' },
+      { topic: 'Tone', q: 'What is the author’s tone toward the Aboriginal people?', options: ['Respectful — the author calls them important and valuable', 'Amused — the author finds their customs strange and funny', 'Worried — the author believes their culture is about to end', 'Angry — the author blames modern Australians for the past'], answer: 0, explanation: 'Paragraph 6 opens with, "The Aboriginal people are an important and valuable part of Australian society," which is clear respect.' }
+    ];
+
+    const PDF_WORKSHEET_QUESTIONS = [
+      { topic: 'Worksheet Q1 · Par. 1', type: 'typed', q: 'Q1: Write the word from Paragraph 1 that means "people who live in a particular place."', answers: ['inhabitants', 'inhabitant'], display: 'inhabitants', explanation: 'Paragraph 1: "The Aboriginal people are the original inhabitants of Australia."' },
+      { topic: 'Worksheet Q2 · Par. 1', type: 'typed', q: 'Q2: Write the word from Paragraph 1 that means "scientists who study past cultures."', answers: ['archaeologists', 'archaeologist'], display: 'archaeologists', explanation: 'Paragraph 1: "Archaeologists believe that they have lived in Australia for about 50,000 to 60,000 years."' },
+      { topic: 'Worksheet Q3 · Par. 2', type: 'typed', q: 'Q3: Write the word from Paragraph 2 that means "for a long time."', answers: ['permanently'], display: 'permanently', explanation: 'Paragraph 2: "They did not settle permanently in one place."' },
+      { topic: 'Worksheet Q4 · Par. 2', type: 'typed', q: 'Q4: Write the word from Paragraph 2 that means "has an effect on."', answers: ['influences', 'influence'], display: 'influences', explanation: 'Paragraph 2: "It influences almost every part of their culture."' },
+      { topic: 'Worksheet Q5 · Par. 3', type: 'typed', q: 'Q5: Write the word from Paragraph 3 that means "left open to harm without protection."', answers: ['exposed', 'expose'], display: 'exposed', explanation: 'Paragraph 3: "...diseases that the Aboriginal people had never been exposed to before."' },
+      { topic: 'Worksheet Q6', type: 'typed', q: 'Q6: Why did Aboriginal people move around instead of staying in one place? (Write one or two sentences.)', answers: ['*'], display: 'Model answer: They were hunters and gatherers, so they had to move around the continent whenever they needed to refresh their supply of food.', explanation: 'Any answer that connects the moving to finding or refreshing food is correct. Paragraph 2 gives the reason.' },
+      { topic: 'Worksheet Q7', q: 'Q7: What influences almost every part of the Aboriginal culture?', options: ['Their respect for and connection to the land and nature', 'The laws made by the Australian government in the 1960s', 'The languages that European settlers brought with them', 'The music that is played on the traditional didgeridoo'], answer: 0, explanation: 'Paragraph 2: their connection to the land shapes their food, shelter, art, and religion.' },
+      { topic: 'Worksheet Q8', type: 'typed', q: 'Q8: Another name for Australian wilderness is _______ .', answers: ['the bush', 'bush'], display: 'the bush', explanation: 'Paragraph 6: "many still live a traditional lifestyle in the bush, or Australian wilderness."' },
+      { topic: 'Worksheet Q9', type: 'typed', q: 'Q9: How did life change for the better for Aboriginal people in the 1960s? (Write one or two sentences.)', answers: ['*'], display: 'Model answer: They were finally given the right to vote, and later the government began to make up for the unfair treatment by returning some of the land that had been taken from them.', explanation: 'A strong answer names the right to vote and, if possible, the return of the land. Both are in paragraph 4.' },
+      { topic: 'Worksheet Q10', type: 'typed', q: 'Q10: Explain what a didgeridoo is. (Write one or two sentences.)', answers: ['*'], display: 'Model answer: A didgeridoo is a well-known Australian wind instrument. It is a straight trumpet made from a hollow piece of wood or bamboo, and it may be one of the oldest wind instruments in the world.', explanation: 'A complete answer says it is a wind instrument and that it is made from hollow wood or bamboo. See paragraph 5.' }
+    ];
+
+    // ---------- SECTION 2 DATA ----------
+
+    const ADVERB_QUESTIONS = [
+      { topic: 'Identifying adverbs', q: 'Which word is the adverb in this sentence: "Things quickly changed for the Aboriginal people"?', options: ['quickly', 'changed', 'things', 'people'], answer: 0, explanation: '"Quickly" tells you HOW things changed, so it describes the verb "changed." That makes it an adverb.' },
+      { topic: 'Identifying adverbs', q: 'Which word in this sentence is NOT an adverb: "They finally moved there yesterday"?', options: ['moved', 'finally', 'there', 'yesterday'], answer: 0, explanation: '"Moved" is the verb. "Finally" (when), "there" (where), and "yesterday" (when) are all adverbs describing it.' },
+      { topic: 'Adverb types', q: 'What type of adverb is "permanently" in "They did not settle permanently in one place"?', options: ['An adverb of manner — it tells you HOW', 'An adverb of place — it tells you WHERE', 'An adverb of frequency — it tells you HOW OFTEN', 'An adverb of degree — it tells you HOW MUCH'], answer: 0, explanation: 'It answers the question "How did they settle?" Adverbs of manner answer HOW, and most of them end in -ly.' },
+      { topic: 'Adverb types', q: 'What type of adverb is "never" in "They had never been exposed to those diseases"?', options: ['An adverb of frequency — it tells you HOW OFTEN', 'An adverb of manner — it tells you HOW', 'An adverb of time — it tells you WHEN exactly', 'An adverb of place — it tells you WHERE'], answer: 0, explanation: '"Never" sits at the 0% end of the frequency scale: always, usually, often, sometimes, rarely, never.' },
+      { topic: 'Adverb types', q: 'What type of adverb is "almost" in "It influences almost every part of their culture"?', options: ['An adverb of degree — it tells you HOW MUCH', 'An adverb of manner — it tells you HOW', 'An adverb of time — it tells you WHEN', 'An adverb of place — it tells you WHERE'], answer: 0, explanation: 'Adverbs of degree (very, quite, almost, nearly, hardly) show the level or amount of something.' },
+      { topic: 'Making adverbs', type: 'typed', q: 'Write the adverb form of the adjective "careful."', answers: ['carefully'], display: 'carefully', explanation: 'Most adjectives simply add -ly: careful → carefully.' },
+      { topic: 'Making adverbs', type: 'typed', q: 'Write the adverb form of the adjective "happy."', answers: ['happily'], display: 'happily', explanation: 'When an adjective ends in -y, change the y to i and add -ly: happy → happily.' },
+      { topic: 'Making adverbs', type: 'typed', q: 'Write the adverb form of the adjective "simple."', answers: ['simply'], display: 'simply', explanation: 'When an adjective ends in -le, drop the e and add -y: simple → simply.' },
+      { topic: 'Making adverbs', type: 'typed', q: 'Write the adverb form of the adjective "good."', answers: ['well'], display: 'well', explanation: '"Good" is irregular. Its adverb is "well": She speaks English well — never "speaks good."' },
+      { topic: 'Irregular adverbs', q: 'Which sentence is correct?', options: ['A kangaroo can run very fast.', 'A kangaroo can run very fastly.', 'A kangaroo can run very fastily.', 'A kangaroo can run very fasting.'], answer: 0, explanation: '"Fast" is both the adjective and the adverb. There is no such word as "fastly."' },
+      { topic: 'Hard vs. hardly', q: 'Which sentence means "they worked with a lot of effort"?', options: ['They worked hard all day.', 'They hardly worked all day.', 'They worked hardly all day.', 'They worked hardness all day.'], answer: 0, explanation: '"Hard" means with a lot of effort. "Hardly" means almost not at all — the opposite meaning.' },
+      { topic: 'Adjective vs. adverb', q: 'Choose the correct sentence.', options: ['The didgeridoo sounds beautiful.', 'The didgeridoo sounds beautifully.', 'The didgeridoo sounds beautifuly.', 'The didgeridoo sounds beautify.'], answer: 0, explanation: 'After sense verbs like sound, look, feel, taste, and seem, English uses an adjective, not an adverb.' },
+      { topic: 'Adjective vs. adverb', type: 'typed', q: 'Fill the blank with the correct form of "quick": "The Aboriginal people had to adapt _______ to a new society."', answers: ['quickly'], display: 'quickly', explanation: '"Adapt" is an action verb, so it needs the adverb "quickly," not the adjective "quick."' },
+      { topic: 'Position · frequency', q: 'Choose the sentence with the frequency adverb in the correct place.', options: ['She always reads the passage twice.', 'She reads always the passage twice.', 'Always she reads the passage twice.', 'She reads the passage always twice.'], answer: 0, explanation: 'Adverbs of frequency go BEFORE the main verb: She always reads.' },
+      { topic: 'Position · frequency', q: 'Choose the correct sentence.', options: ['The bush is always very quiet.', 'The bush always is very quiet.', 'Always the bush is very quiet.', 'The bush is very always quiet.'], answer: 0, explanation: 'With the verb "be," the frequency adverb goes AFTER it: The bush IS always quiet.' },
+      { topic: 'Position · word order', q: 'Choose the correct sentence.', options: ['She speaks English well.', 'She speaks well English.', 'She well speaks English.', 'Well she speaks English.'], answer: 0, explanation: 'Never put an adverb between a verb and its object. The adverb goes after the object: speaks English well.' },
+      { topic: 'Position · manner, place, time', q: 'Which sentence puts the adverbs in the correct order?', options: ['They lived peacefully in the bush for many years.', 'They lived for many years peacefully in the bush.', 'They lived in the bush for many years peacefully.', 'They peacefully lived for many years in the bush.'], answer: 0, explanation: 'The order is manner → place → time: HOW (peacefully), WHERE (in the bush), WHEN (for many years).' },
+      { topic: 'Comparing adverbs', q: 'Which sentence compares two actions correctly?', options: ['A kangaroo travels more quickly than a wombat.', 'A kangaroo travels quicklier than a wombat.', 'A kangaroo travels most quickly than a wombat.', 'A kangaroo travels more quick than a wombat.'], answer: 0, explanation: 'Long adverbs ending in -ly use "more" to compare, and "than" to join the two things being compared.' },
+      { topic: 'Comparing adverbs', type: 'typed', q: 'Complete the comparison with ONE word: "He plays the didgeridoo _______ than his brother." (comparative of "well")', answers: ['better'], display: 'better', explanation: 'The adverb "well" is irregular: well → better → best.' },
+      { topic: 'Sentence adverbs', q: 'In "Instead, they moved around the continent," what does the adverb "instead" do?', options: ['It links the sentence to the idea before it, showing a different choice', 'It tells you exactly where on the continent the people finally moved to', 'It tells you how quickly the people moved around the continent', 'It tells you how often the people moved around the continent'], answer: 0, explanation: 'Sentence adverbs such as instead, however, and therefore connect a whole sentence to the one before it.' }
+    ];
+
+    (() => {
+      'use strict';
+
+      const $ = (selector, scope = document) => scope.querySelector(selector);
+      const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function normalizeTyped(value) {
+        return String(value ?? '')
+          .trim()
+          .toLowerCase()
+          .replace(/[.,;:!?]+/g, ' ')
+          .replace(/\s+/g, ' ');
+      }
+
+      function prepareMultipleChoice(questions) {
+        return shuffle(questions).map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return {
+            ...question,
+            type: 'mc',
+            answerText,
+            shuffledOptions: shuffle(question.options)
+          };
+        });
+      }
+
+      function setupTheme() {
+        const button = $('#themeToggle');
+        const icon = $('#themeIcon');
+        const label = $('#themeLabel');
+
+        const sync = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          button.setAttribute('aria-pressed', String(dark));
+          button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          icon.textContent = dark ? '☀' : '☾';
+          label.textContent = dark ? 'Light' : 'Dark';
+        };
+
+        sync();
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('mitch-quiz-theme', next); } catch (e) {}
+          sync();
+        });
+      }
+
+      function setupSectionCollapse() {
+        $$('[data-collapse]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.collapse);
+            const willCollapse = !target.hidden;
+            target.hidden = willCollapse;
+            button.textContent = willCollapse ? 'Expand' : 'Collapse';
+            button.setAttribute('aria-expanded', String(!willCollapse));
+          });
+        });
+      }
+
+      function buildReview(responses) {
+        const missed = responses.filter((response) => !response.correct);
+        if (!missed.length) {
+          return '<div class="review-box"><strong>No incorrect answers to review.</strong><p>You answered every attempted question correctly.</p></div>';
+        }
+
+        return missed.map((response, index) => `
+          <article class="review-box">
+            <h5>${index + 1}. ${escapeHtml(response.question)}</h5>
+            <p><strong>Your answer:</strong> ${escapeHtml(response.userAnswer || 'No answer')}</p>
+            <p><strong>Correct answer:</strong> ${escapeHtml(response.correctAnswer)}</p>
+            <p><strong>Why:</strong> ${escapeHtml(response.explanation)}</p>
+          </article>
+        `).join('');
+      }
+
+      function buildTopicBreakdown(responses) {
+        const topics = new Map();
+        responses.forEach((response) => {
+          if (!topics.has(response.topic)) topics.set(response.topic, { correct: 0, total: 0 });
+          const item = topics.get(response.topic);
+          item.total += 1;
+          if (response.correct) item.correct += 1;
+        });
+
+        return [...topics.entries()]
+          .map(([topic, result]) => `
+            <div class="topic-row">
+              <span>${escapeHtml(topic)}</span>
+              <span>${result.correct}/${result.total}</span>
+            </div>
+          `)
+          .join('');
+      }
+
+      function createExercise(config) {
+        const card = document.getElementById(config.cardId);
+        if (!card) return;
+
+        const refs = {
+          menu: $('[data-menu]', card),
+          start: $('[data-start]', card),
+          live: $('[data-live]', card),
+          finish: $('[data-finish]', card),
+          score: $('[data-score]', card),
+          progress: $('[data-progress]', card),
+          liveScore: $('[data-live-score]', card),
+          liveProgress: $('[data-live-progress]', card),
+          end: $('[data-end]', card),
+          host: $('[data-question-host]', card)
+        };
+
+        const state = {
+          questions: [],
+          index: 0,
+          score: 0,
+          responses: [],
+          answered: false,
+          active: false
+        };
+
+        function updateProgress() {
+          const answered = state.responses.length;
+          const total = state.questions.length;
+          if (state.active) refs.score.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveScore.textContent = `Score: ${state.score} / ${answered}`;
+          refs.liveProgress.textContent = answered >= total
+            ? `Completed ${total} questions`
+            : `Question ${state.index + 1} of ${total}`;
+          refs.progress.style.width = `${total ? (answered / total) * 100 : 0}%`;
+        }
+
+        function start() {
+          state.questions = config.buildQuestions();
+          state.index = 0;
+          state.score = 0;
+          state.responses = [];
+          state.answered = false;
+          state.active = true;
+
+          refs.menu.hidden = true;
+          refs.finish.hidden = true;
+          refs.live.hidden = false;
+          refs.score.textContent = 'In progress';
+          updateProgress();
+          renderQuestion();
+          refs.live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderQuestion() {
+          state.answered = false;
+          const question = state.questions[state.index];
+          if (!question) return;
+
+          const isTyped = question.type === 'typed';
+
+          refs.host.innerHTML = `
+            <div class="question-layout single">
+              <section class="question-card">
+                <div class="question-meta">${escapeHtml(question.topic)}</div>
+                <div class="question-text">${escapeHtml(question.q)}</div>
+                <div data-answer-area></div>
+                <div class="feedback" data-feedback hidden aria-live="polite"></div>
+                <div class="button-row">
+                  ${isTyped ? '<button class="btn btn-primary" type="button" data-submit>Check answer</button>' : ''}
+                  <button class="btn btn-positive" type="button" data-next hidden>Next question</button>
+                </div>
+              </section>
+            </div>
+          `;
+
+          const answerArea = $('[data-answer-area]', refs.host);
+          const nextButton = $('[data-next]', refs.host);
+
+          if (isTyped) {
+            const openEnded = question.answers.includes('*');
+            answerArea.innerHTML = `
+              <div class="typed-wrap">
+                <input class="typed-input" type="text" autocomplete="off" spellcheck="false" placeholder="${openEnded ? 'Write your own answer in a full sentence...' : 'Type your answer here...'}">
+                <div class="typed-hint">Press Enter or choose "Check answer."</div>
+              </div>
+            `;
+            const input = $('.typed-input', answerArea);
+            $('[data-submit]', refs.host).addEventListener('click', () => gradeTyped(question));
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') gradeTyped(question); });
+            input.focus();
+          } else {
+            const list = document.createElement('div');
+            list.className = 'option-list';
+            question.shuffledOptions.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'option-btn';
+              button.textContent = option;
+              button.addEventListener('click', () => gradeMC(question, option, button));
+              list.appendChild(button);
+            });
+            answerArea.appendChild(list);
+          }
+
+          nextButton.addEventListener('click', advance);
+          updateProgress();
+        }
+
+        function revealNext() {
+          const nextButton = $('[data-next]', refs.host);
+          nextButton.hidden = false;
+          nextButton.textContent = state.index === state.questions.length - 1 ? 'Finish exercise' : 'Next question';
+        }
+
+        function gradeMC(question, selected, btn) {
+          if (state.answered || !state.active) return;
+          state.answered = true;
+
+          const correct = selected === question.answerText;
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: selected,
+            correctAnswer: question.answerText,
+            explanation: question.explanation,
+            correct
+          });
+
+          $$('.option-btn', refs.host).forEach((b) => {
+            b.disabled = true;
+            if (b.textContent === question.answerText) b.classList.add('correct-choice');
+          });
+          if (!correct) btn.classList.add('wrong-choice');
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          fb.innerHTML = correct
+            ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+            : `✕ <strong>Incorrect.</strong><br><strong>Correct answer:</strong> ${escapeHtml(question.answerText)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+
+          revealNext();
+          updateProgress();
+        }
+
+        function gradeTyped(question) {
+          if (state.answered || !state.active) return;
+          const input = $('.typed-input', refs.host);
+          const val = input.value.trim();
+          if (!val) {
+            const fb = $('[data-feedback]', refs.host);
+            fb.hidden = false;
+            fb.className = 'feedback neutral';
+            fb.innerHTML = '<strong>Type an answer before checking.</strong>';
+            input.focus();
+            return;
+          }
+
+          state.answered = true;
+          input.disabled = true;
+          $('[data-submit]', refs.host).disabled = true;
+
+          const isOpenEnded = question.answers.includes('*');
+          const normalized = normalizeTyped(val);
+          const correct = isOpenEnded || question.answers.some((a) => normalizeTyped(a) === normalized);
+          if (correct) state.score += 1;
+
+          state.responses.push({
+            topic: question.topic,
+            question: question.q,
+            userAnswer: val,
+            correctAnswer: question.display,
+            explanation: question.explanation,
+            correct
+          });
+
+          const fb = $('[data-feedback]', refs.host);
+          fb.hidden = false;
+          fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
+          if (isOpenEnded) {
+            fb.innerHTML = `✓ <strong>Thank you for your answer!</strong><br>${escapeHtml(question.display)}<br><em>${escapeHtml(question.explanation)}</em>`;
+          } else {
+            fb.innerHTML = correct
+              ? `✓ <strong>Correct!</strong><br>${escapeHtml(question.explanation)}`
+              : `✕ <strong>Incorrect.</strong><br><strong>Expected:</strong> ${escapeHtml(question.display)}<br><strong>Why:</strong> ${escapeHtml(question.explanation)}`;
+          }
+
+          revealNext();
+          updateProgress();
+        }
+
+        function advance() {
+          if (!state.answered) return;
+          if (state.index >= state.questions.length - 1) {
+            finish('Completed all questions');
+            return;
+          }
+          state.index += 1;
+          renderQuestion();
+          $('.question-card', refs.host).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function finish(reason) {
+          if (!state.active) return;
+          state.active = false;
+          refs.live.hidden = true;
+          refs.finish.hidden = false;
+
+          const total = state.questions.length;
+          const answered = state.responses.length;
+          const accuracy = answered ? Math.round((state.score / answered) * 100) : 0;
+          const topicRows = buildTopicBreakdown(state.responses);
+
+          refs.finish.innerHTML = `
+            <div class="finish-panel">
+              <h4>${escapeHtml(config.finishTitle)}</h4>
+              <p>${escapeHtml(reason)}.</p>
+
+              <div class="metric-grid">
+                <div class="metric"><strong>${state.score}/${answered}</strong><span>Score</span></div>
+                <div class="metric"><strong>${accuracy}%</strong><span>Accuracy</span></div>
+                <div class="metric"><strong>${total - answered}</strong><span>Unanswered</span></div>
+              </div>
+
+              ${topicRows ? `<h5 style="font-size:1.25rem;line-height:1.2;margin:24px 0 10px;">Topic breakdown</h5><div class="topic-breakdown">${topicRows}</div>` : ''}
+
+              <h5 style="font-size:1.25rem;line-height:1.2;margin:28px 0 10px;">Incorrect-answer review</h5>
+              ${buildReview(state.responses)}
+
+              <div class="button-row">
+                <button class="btn btn-warning" type="button" data-retry>Try Again</button>
+                <button class="btn btn-secondary" type="button" data-menu-back>Back to Menu</button>
+              </div>
+            </div>
+          `;
+
+          refs.score.textContent = answered ? `Final: ${state.score} / ${answered}` : 'No answers';
+          refs.progress.style.width = total ? `${(answered / total) * 100}%` : '0%';
+
+          $('[data-retry]', refs.finish).addEventListener('click', start);
+          $('[data-menu-back]', refs.finish).addEventListener('click', () => {
+            refs.finish.hidden = true;
+            refs.menu.hidden = false;
+            refs.score.textContent = 'Ready';
+            refs.progress.style.width = '0%';
+            refs.menu.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          refs.finish.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        refs.start.addEventListener('click', start);
+        refs.end.addEventListener('click', () => finish('Exercise ended early'));
+      }
+
+      setupTheme();
+      setupSectionCollapse();
+
+      createExercise({
+        cardId: 'vocabDefExercise',
+        finishTitle: 'Vocabulary Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(VOCAB_DEF_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'vocabFillExercise',
+        finishTitle: 'Vocabulary Exercise 2 Summary',
+        buildQuestions: () => shuffle(VOCAB_FILL_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'elementsExercise',
+        finishTitle: 'Reading Exercise 1 Summary',
+        buildQuestions: () => prepareMultipleChoice(STORY_ELEMENTS_QUESTIONS)
+      });
+
+      createExercise({
+        cardId: 'pdfWorksheetExercise',
+        finishTitle: 'Reading Exercise 2 Summary',
+        buildQuestions: () => PDF_WORKSHEET_QUESTIONS.map((question) => {
+          if (question.type === 'typed') return { ...question };
+          const answerText = question.options[question.answer];
+          return { ...question, type: 'mc', answerText, shuffledOptions: shuffle(question.options) };
+        })
+      });
+
+      createExercise({
+        cardId: 'adverbsExercise',
+        finishTitle: 'Adverbs Exercise Summary',
+        buildQuestions: () => prepareMultipleChoice(ADVERB_QUESTIONS)
+      });
+    })();
+  </script>
+</body>
+</html>
